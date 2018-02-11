@@ -1,11 +1,12 @@
+from builtins import Exception
 from bs4 import BeautifulSoup
 import urllib.request
 import json
 
 url = 'http://www.imdb.com/title/'
 
-def find_trailer(input_file, output_file):
 
+def find_trailer(input_file, output_file):
     for line in file_reader:
         json_line = json.loads(line)
         movie_title = json_line['Title']
@@ -27,8 +28,9 @@ def find_trailer(input_file, output_file):
         print(video_detail)
         file_writer.writelines(video_detail)
 
-file_reader = open('test.json', 'r')
-file_writer = open('output.json', 'w')
+
+file_reader = open('movies_of_interest_data.json', 'r')
+file_writer = open('movies_of_interest_data_trailer.json', 'w')
 find_trailer(file_reader, file_writer)
 file_reader.close()
 file_writer.close()
