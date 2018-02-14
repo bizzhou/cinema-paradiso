@@ -8,7 +8,6 @@ writer = open('movie_info.txt', 'w')
 count = 0
 # Movies in 2012-2017
 for i in range(2012, 2018):
-
     for j in range(1, 13):
         print(i, j, count)
         # format is 2012-01
