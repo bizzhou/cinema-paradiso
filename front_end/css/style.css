@@ -394,3 +394,7 @@ footer {
   
   .movie_result {
 	margin-top: 8px; }
+
+ .image-wrap img {
+  width: 150px;
+ } 
