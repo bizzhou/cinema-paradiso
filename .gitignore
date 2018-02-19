@@ -3,9 +3,8 @@
 movie_data/venv/
 
 movie_data/new_data/test\.ipynb
-<<<<<<< HEAD
-../.DS_Store
-=======
 
 \.DS_Store
->>>>>>> 2ac8d5afd27604a4a065b0005727aa9b95e1f1b5
+mvnw
+mvnw.cmd
+rottentomatoes.iml
