@@ -387,3 +387,10 @@ footer {
 .fa-google-plus:hover {
   background-color: #e25714;
 }
+
+.search_separator {
+	margin-left: 10%;
+	color: white; }
+  
+  .movie_result {
+	margin-top: 8px; }
