@@ -8,3 +8,5 @@ movie_data/new_data/test\.ipynb
 mvnw
 mvnw.cmd
 rottentomatoes.iml
+src/
+pom.xml
