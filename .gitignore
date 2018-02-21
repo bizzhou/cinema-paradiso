@@ -12,3 +12,7 @@ src/
 pom.xml
 
 movie_data/new_data/tv\.txt
+
+front_end/\.sass-cache/16689303df665e3f65435a892e1005ccbbe52bab/style\.scssc
+
+front_end/css/style\.css\.map

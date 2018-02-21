@@ -2,14 +2,16 @@
 <html>
 
 <link rel='stylesheet prefetch'
-href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css'>
+      href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css'>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
-integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+      integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
-integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
-crossorigin="anonymous"></script>
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
 
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
 <link rel="stylesheet" href="css/style.css">
+<script src="js/index.js"></script>
 
 <head>
     <title>
@@ -19,15 +21,15 @@ crossorigin="anonymous"></script>
 
 <body>
 
-    <header class="l-header">
-        <div class="l-header__logo">
-            <a href="index.html"> <img width="1101" alt="logo2"
-             src="https://user-images.githubusercontent.com/20979257/36292556-87d50d58-12a0-11e8-9769-f26697c37274.png">
-         </a>
-     </div>
+<header class="l-header">
+    <div class="l-header__logo">
+        <a href="home.html"> <img width="1101" alt="logo2"
+                                  src="https://user-images.githubusercontent.com/20979257/36292556-87d50d58-12a0-11e8-9769-f26697c37274.png">
+        </a>
+    </div>
 
-     <ul class="l-header__nav">
-        <input class="l-header__search" type="text" placeholder="   Seach movies, TV, actors, more...">
+    <ul class="l-header__nav">
+        <input type="text" placeholder="Search Movies, TV, and Actors">
         <li>Movies</li>
         <li>TV Shows</li>
         <li>Log in</li>
@@ -35,21 +37,32 @@ crossorigin="anonymous"></script>
     </ul>
 </header>
 
-
 <br>
 
-<h1 class="search_separator">Movie</h1>
-<hr>
+<div class="container movie_results">
+    <h1 class="search_separator">Movie</h1>
+    <hr>
 
-<div class="container movie_result">
     <div class="row">
-        <div class="col-3 image-wrap">
+        <div class="col-4 image-wrap">
             <img src="https://images-na.ssl-images-amazon.com/images/M/MV5BNGNiNWQ5M2MtNGI0OC00MDA2LWI5NzEtMmZiYjVjMDEyOWYzXkEyXkFqcGdeQXVyMjM4NTM5NDY@._V1_UX182_CR0,0,182,268_AL_.jpg"
-            alt="">
+                 alt="">
         </div>
-        <div class="col-9">
+        <div class="col-8">
+            <p class="film_name">Shape of Water</p>
+
+            <div class="flex">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <h6>5.0/5.0</h6>
+                <h6>R</h6>
+            </div>
+
             <p class="c-plot">At a top secret research facility in the 1960s, a lonely janitor forms a unique
-            relationship with an amphibious creature that is being held in captivity.</p>
+                relationship with an amphibious creature that is being held in captivity.</p>
             <p>
                 Starring <span> Sally Hawkins, Octavia Spencer, Michael Shannon</span>
             </p>
@@ -61,18 +74,27 @@ crossorigin="anonymous"></script>
             </p>
         </div>
     </div>
-</div>
 
-
-<div class="container movie_result">
     <div class="row">
-        <div class="col-3 image-wrap">
+        <div class="col-4 image-wrap">
             <img src="https://images-na.ssl-images-amazon.com/images/M/MV5BNGNiNWQ5M2MtNGI0OC00MDA2LWI5NzEtMmZiYjVjMDEyOWYzXkEyXkFqcGdeQXVyMjM4NTM5NDY@._V1_UX182_CR0,0,182,268_AL_.jpg"
-            alt="">
+                 alt="">
         </div>
-        <div class="col-9">
+        <div class="col-8">
+            <p class="film_name">Shape of Water</p>
+
+            <div class="flex">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <h6>5.0/5.0</h6>
+                <h6>R</h6>
+            </div>
+
             <p class="c-plot">At a top secret research facility in the 1960s, a lonely janitor forms a unique
-            relationship with an amphibious creature that is being held in captivity.</p>
+                relationship with an amphibious creature that is being held in captivity.</p>
             <p>
                 Starring <span> Sally Hawkins, Octavia Spencer, Michael Shannon</span>
             </p>
@@ -84,21 +106,46 @@ crossorigin="anonymous"></script>
             </p>
         </div>
     </div>
+
+
+    <div class="show_more">
+        <a class="l-cards__more" id="load_more_movies" href="javascript:void(0)">more <i
+                class="fa fa-angle-double-right"></i></a>
+    </div>
+
+
 </div>
 
+
 <br>
-<h1 class="search_separator">TV - Series</h1>
-<hr>
+
 
 <div class="container tv_result">
+
+    <h1 class="search_separator">TV - Series</h1>
+    <hr>
+
+
     <div class="row">
-        <div class="col-3 image-wrap">
+        <div class="col-4 image-wrap">
             <img src="https://images-na.ssl-images-amazon.com/images/M/MV5BMjE3NTQ1NDg1Ml5BMl5BanBnXkFtZTgwNzY2NDA0MjI@._V1_UX182_CR0,0,182,268_AL_.jpg"
-            alt="">
+                 alt="">
         </div>
-        <div class="col-9">
+        <div class="col-8">
+            <p class="tv_name">Game of Throne</p>
+
+            <div class="flex">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <h6>5.0/5.0</h6>
+                <h6>RR</h6>
+            </div>
+
             <p class="c-plot">Nine noble families fight for control over the mythical lands of Westeros, while an
-            ancient enemy returns after being dormant for thousands of years. </p>
+                ancient enemy returns after being dormant for thousands of years. </p>
             <p>
                 Starring <span> Emilia Clarke, Peter Dinklage, Kit Harington </span>
             </p>
@@ -114,23 +161,26 @@ crossorigin="anonymous"></script>
 
 
 <br>
-<h1 class="search_separator">People</h1>
-<hr>
+
 
 <div class="container people_result">
+
+    <h1 class="search_separator">People</h1>
+    <hr>
     <div class="row">
-        <div class="col-3 image-wrap">
+        <div class="col-4 image-wrap">
             <img src="https://images-na.ssl-images-amazon.com/images/M/MV5BODE4MDE0MDEzMl5BMl5BanBnXkFtZTgwNjI1NTU5MDE@._V1_UY317_CR14,0,214,317_AL_.jpg"
-            alt="">
+                 alt="">
         </div>
-        <div class="col-9">
-            <p class="c-actor-name">Sally Hawkins</p>
-            <p class="c-bio">Sally Cecilia Hawkins was born in 1976 in Lewisham hospital, London, England, to Jacqui and
+        <div class="col-8">
+            <p class="actor_name">Sally Hawkins</p>
+            <p class="actor-bio">Sally Cecilia Hawkins was born in 1976 in Lewisham hospital, London, England, to Jacqui
+                and
                 Colin Hawkins, authors and illustrators of children's books. She is of English and Irish descent.
                 Hawkins was brought up in Greenwich, in southeast London. She attended James Allen's Girls' School in
-            Dulwich. She graduated from the Royal Academy of ...</p>
-            <p class="c-birth-information">
-                April 27, 1976 in Dulwich, London, England, UK
+                Dulwich. She graduated from the Royal Academy of ...</p>
+            <p class="actor_birth_information">
+                Born in: <span class="actor_birth_date">April 27, 1976 in Dulwich, London, England, UK</span>
             </p>
 
         </div>
@@ -139,5 +189,43 @@ crossorigin="anonymous"></script>
 
 
 </body>
+
+<br>
+<br>
+<br>
+
+<footer>
+    <div class="f-wrap">
+        <section class="f-column">
+            <a href="#">FAQs</a>
+            <a href="#">Contact Us</a> <a href="#">Feedback</a>
+            <a href="#">Privacy Policy</a>
+        </section>
+
+        <section class="f-column">
+            <a href="#">Critic Submission</a>
+            <a href="#">Licensing</a>
+            <a href="#">Advertise</a>
+            <a href="#">Careers</a>
+        </section>
+
+        <section class="f-column">
+            <a href="#">Follow us on</a>
+            <br>
+            <ul class="social-icons">
+                <li><a href="" class="social-icon"> <i class="fa fa-facebook"></i></a></li>
+                <li><a href="" class="social-icon"> <i class="fa fa-twitter"></i></a></li>
+                <li><a href="" class="social-icon"> <i class="fa fa-rss"></i></a></li>
+                <li><a href="" class="social-icon"> <i class="fa fa-youtube"></i></a></li>
+                <li><a href="" class="social-icon"> <i class="fa fa-linkedin"></i></a></li>
+                <li><a href="" class="social-icon"> <i class="fa fa-google-plus"></i></a></li>
+            </ul>
+        </section>
+    </div>
+    <div class="legality">
+        © Copyright 2018 Cinema Paradiso
+    </div>
+</footer>
+
 
 </html>
