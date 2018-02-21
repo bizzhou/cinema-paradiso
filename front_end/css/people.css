@@ -22,11 +22,6 @@ ul {
 li {
   list-style-type: none; }
 
-img {
-  width: 100%;
-  height: auto;
-  vertical-align: top; }
-
 .o-button {
   font-size: 0.75rem;
   line-height: 1;
@@ -349,13 +344,22 @@ input[type=text]:focus {
 .row {
   margin-top: 8px; }
 
-.section_filters {
-  margin-left: 18%;
+.people_section_filters {
+  margin-left: 10%;
   margin-top: 1.25rem; }
-  .section_filters ul li {
+  .people_section_filters ul li {
     display: inline-block;
     margin-left: 5px; }
-    .section_filters ul li a {
+    .people_section_filters ul li a {
       color: white; }
 
-/*# sourceMappingURL=style.css.map */
+#people_name, h3 {
+  color: white;
+  margin: 3% 0% 0% 10%; }
+
+.website_logo {
+  width: 100%;
+  height: auto;
+  vertical-align: top; }
+
+/*# sourceMappingURL=people.css.map */

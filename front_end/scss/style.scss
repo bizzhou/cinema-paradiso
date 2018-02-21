@@ -5,6 +5,7 @@ $primary-line-color: #ccc;
 $color-red: rgb(229, 9, 20);
 $color-gray: rgb(100, 100, 100);
 $padding-hrz: 2.5rem;
+$top-margin: 8px;
 
 html {
   font-size: 1.4vw;
@@ -450,6 +451,20 @@ input[type=text]:focus {
 }
 
 .row {
-  margin-top: 8px;
+  margin-top: $top-margin;
 }
+
+.section_filters {
+  margin-left: 18%;
+  margin-top: 1.25rem;
+  ul li{
+    display: inline-block;
+    margin-left: 5px;
+    a {
+      color: white;
+    }
+  }
+
+}
+
 
