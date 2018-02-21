@@ -10,3 +10,5 @@ mvnw.cmd
 rottentomatoes.iml
 src/
 pom.xml
+
+movie_data/new_data/tv\.txt
