@@ -350,8 +350,11 @@ input[type=text]:focus {
   .people_section_filters ul li {
     display: inline-block;
     margin-left: 5px; }
-    .people_section_filters ul li a {
-      color: white; }
+    .people_section_filters ul li a, .people_section_filters ul li u {
+      color: gray;
+      text-decoration: none; }
+      .people_section_filters ul li a:hover, .people_section_filters ul li u:hover {
+        color: white; }
 
 #people_name, h3 {
   color: white;

@@ -315,7 +315,7 @@ footer {
 .fa-google-plus:hover {
   background-color: #e25714; }
 
-.movie_result {
+.movie_results {
   margin-top: 8px; }
 
 .image-wrap img {
@@ -350,12 +350,15 @@ input[type=text]:focus {
   margin-top: 8px; }
 
 .section_filters {
-  margin-left: 18%;
+  margin-left: 10%;
   margin-top: 1.25rem; }
   .section_filters ul li {
     display: inline-block;
     margin-left: 5px; }
-    .section_filters ul li a {
-      color: white; }
+    .section_filters ul li a, .section_filters ul li u {
+      color: gray;
+      text-decoration: none; }
+      .section_filters ul li a:hover, .section_filters ul li u:hover {
+        color: white; }
 
 /*# sourceMappingURL=style.css.map */
