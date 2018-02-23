@@ -1,0 +1,125 @@
+.sidebar {
+  margin: 2em;
+  padding: 1em;
+  border: 1px solid gray;
+  width: 15em;
+  height: 25em;
+}
+.sidebar li {
+  color: #d9d9d9;
+}
+.sidebar h3 {
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: bold;
+  margin: 0;
+  padding: 5px 0 5px 0;
+}
+.sidebar a {
+  color: #cccccc !important;
+  font-size: 14px;
+  text-transform: capitalize;
+  padding: 0 0 3px 20px;
+}
+.sidebar a:hover {
+  text-decoration: underline !important;
+}
+
+.r_poster {
+  vertical-align:middle; 
+  text-align:center;
+  height: 17em;
+  background: url("https://images-na.ssl-images-amazon.com/images/M/MV5BZDdmMDU2OWUtMzY2NS00YmIyLWJhMGEtYzlhY2M3MTkyYTdmXkEyXkFqcGdeQXVyNDg2MjUxNjM@._V1_SX1500_CR0,100,1500,500_AL_.jpg");
+  margin-top: 1.2rem;
+  margin-bottom: 1rem;
+  position: relative;
+  overflow: hidden;
+  background-size: 95%;
+  background-repeat: no-repeat;
+}
+
+.l-cards {
+  padding-left: 0;
+}
+.round-button {
+  box-sizing: border-box;
+  position:relative;
+  display:inline-block;
+  top: 28%;
+  width:80px;
+  height:80px;
+  padding-top: 14px;
+  padding-left: 8px;
+  line-height: 20px;
+  border: 6px solid #fff;
+  border-radius: 50%;
+  color:#f5f5f5;
+  text-align:center;
+  text-decoration:none;
+  background-color: rgba(0,0,0,0.5);
+  font-size:20px;
+  font-weight:bold;
+  transition: all 0.3s ease;
+}
+.round-button:hover {
+  background-color: rgba(0,0,0,0.8);
+  box-shadow: 0px 0px 10px rgba(255,255,100,1);
+  text-shadow: 0px 0px 10px rgba(255,255,100,1);
+}
+.right_panel{
+  padding-top: 0.8em;
+}
+.l-hero__text {
+  padding: 0;
+}
+
+.flex h6:nth-of-type(1) {
+  background: grey;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  width: 3.5em;
+  padding: 2px;
+}
+
+.l-hero__text{
+  padding-top: 3em;
+  padding-bottom: 3em;
+}
+
+.l-cards__more{
+  margin-right: -2%;
+}
+
+.l-cards1 img{
+  width: 16em;
+  height: 16em;
+}
+
+.l-cards2 img{
+  width: 16em;
+  height: 16em;
+}
+
+.l-cards3 img{
+  width: 7em;
+  height: 10em;
+}
+.l-cards3 li.l-cards__item{
+  -ms-flex: 0 0 0rem;
+          flex: 0 0 0rem;
+  padding-right: 0.5em;
+}
+
+.l-cards3 h6{
+  font-size: 1em;
+  font-weight: 600;
+}
+
+.l-cards__item{
+  background-color: #080808;
+}
+
+.l-cards__item a{
+  display: inline-block;
+}
