@@ -10,7 +10,7 @@
         crossorigin="anonymous"></script>
 
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/critics_submission.css">
 <script src="js/index.js"></script>
 
 <head>
@@ -39,15 +39,43 @@
 </header>
 
 
-<div class="container">
+<div class="container critics_submission_container">
     <form>
         <div class="form-group row ">
-            <label class="col-sm-2 col-form-label pull-right">Email</label>
+            <label class="col-sm-2 col-form-label float-right">Name</label>
             <div class="col-sm-10">
-                <input type="email" class="form-control form-control-success" id="inputHorizontalSuccess"
+                <input type="email" class="form-control"
+                       placeholder="John Doe">
+            </div>
+        </div>
+
+        <div class="form-group row ">
+            <label class="col-sm-2 col-form-label float-right">Email</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control"
                        placeholder="name@example.com">
             </div>
         </div>
+
+
+        <div class="form-group row ">
+            <label class="col-sm-2 col-form-label float-right">Reason</label>
+            <div class="col-sm-10">
+                <textarea class="form-control" placeholder="     I work for the New York Times"></textarea>
+            </div>
+        </div>
+
+        <div class="form-group row ">
+            <label class="col-sm-2 col-form-label float-right">Proof</label>
+            <div class="col-sm-10">
+                <span class="btn btn-primary btn-file">
+                    Browse <input type="file">
+                </span>
+            </div>
+        </div>
+
+        <input id="submit_critic_request" type="submit" class="form-control btn btn-primary">
+
     </form>
 </div>
 

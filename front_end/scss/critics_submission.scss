@@ -413,25 +413,6 @@ footer {
   background-color: #e25714;
 }
 
-.movie_results {
-  margin-top: 8px;
-}
-
-.image-wrap img {
-  margin-left: 6rem;
-  width: 150px;
-}
-
-.film_name, .actor_name, .tv_name {
-  font-size: 30px;
-  color: white;
-}
-
-.search_separator {
-  margin-left: 5rem;
-  color: white;
-}
-
 input[type=text] {
   margin-top: 4px;
   background-color: black;
@@ -450,27 +431,32 @@ input[type=text]:focus {
   box-shadow: -9px 10px 0px -8px $primary-light-blue, 9px 10px 0px -8px $primary-light-blue;
 }
 
-.row {
-  margin-top: $top-margin;
+.critics_submission_container {
+  margin-top: 3%;
+  color: white;
+  margin-bottom: 3%;
 }
 
-.section_filters {
-  margin-left: 10%;
-  margin-top: 1.25rem;
-  ul li {
-    display: inline-block;
-    margin-left: 5px;
-    a, u {
-      color: gray;
-      text-decoration: none;
-      &:hover {
-        color: white;
-      }
-    }
-  }
-
+.btn-file {
+  position: relative;
+  overflow: hidden;
 }
 
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  //min-width: 100%;
+  //min-height: 100%;
+  font-size: 50px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  outline: none;
+  background: white;
+  cursor: inherit;
+  display: block;
+}
 
-
-
+#submit_critic_request {
+}
