@@ -11,7 +11,7 @@ $(document).ready(function () {
         }).appendTo(imageContainers[i]);
 
         // add film name and rating
-        // titles[i].innerHTML = filmNames[y];
+        titles[i].innerHTML = filmNames[y];
         var span = $('<span> 4.9/5.0</span>').appendTo(titles[i]);
 
         i++;
