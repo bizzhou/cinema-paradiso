@@ -105,6 +105,12 @@
   width: 7em;
   height: 10em;
 }
+
+.l__object{
+  width: 308px;
+  height: 220px;
+}
+
 .l-cards3 li.l-cards__item{
   -ms-flex: 0 0 0rem;
           flex: 0 0 0rem;
