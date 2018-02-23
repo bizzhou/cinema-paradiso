@@ -37,12 +37,6 @@ li {
   list-style-type: none;
 }
 
-img {
-  width: 100%;
-  height: auto;
-  vertical-align: top;
-}
-
 // Objects
 
 .o-button {
@@ -413,7 +407,7 @@ footer {
   background-color: #e25714;
 }
 
-.movie_results {
+.movie_result {
   margin-top: 8px;
 }
 
@@ -454,7 +448,7 @@ input[type=text]:focus {
   margin-top: $top-margin;
 }
 
-.section_filters {
+.people_section_filters {
   margin-left: 10%;
   margin-top: 1.25rem;
   ul li {
@@ -471,4 +465,13 @@ input[type=text]:focus {
 
 }
 
+#people_name, h3 {
+  color: white;
+  margin: 3% 0% 0% 10%;
+}
 
+.website_logo {
+  width: 100%;
+  height: auto;
+  vertical-align: top;
+}
