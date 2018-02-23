@@ -32,3 +32,14 @@ var images = ["https://images-na.ssl-images-amazon.com/images/M/MV5BNzA1Njg4NzYx
 							"https://images-na.ssl-images-amazon.com/images/M/MV5BMTYwNDI5Njg2M15BMl5BanBnXkFtZTgwMzIyNTYxNDM@.jpg",
 							"https://images-na.ssl-images-amazon.com/images/M/MV5BOTE5MzkwMjM0NV5BMl5BanBnXkFtZTgwMTQ0Mjk0NDM@.jpg",
 ];
+
+$('a').on('click', function(e){
+  $(e).preventDefault();
+});
+
+$('.pagination li').on('click', function(){
+
+  $(this).siblings().removeClass('active');
+  $(this).addClass('active');
+  
+})
