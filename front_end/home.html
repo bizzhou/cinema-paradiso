@@ -13,7 +13,7 @@
     <link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css'>
 
     <link rel="stylesheet" href="css/home.css">
-
+    <link rel="stylesheet" href="css/signon.css">
 
 </head>
 
@@ -29,11 +29,11 @@
 
 
     <ul class="l-header__nav">
-        <input class="l-header__search" type="text" placeholder="   Seach movies, TV, actors, more...">
+        <input class="l-header__search" style="border-bottom: 0.5px solid white !important;" type="text" placeholder="   Seach movies, TV, actors, more...">
         <li>Movies</li>
         <li>TV Shows</li>
-        <li>Log in</li>
-        <li>Sign up</li>
+        <li><button id="login" onclick="login_form()">Log in</button></li>
+        <li><button id="signup" onclick="login_form()">Sign up</button></li>
     </ul>
 </header>
 
@@ -278,9 +278,7 @@
 </footer>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
 
-
 <script src="js/index.js"></script>
-
 
 </body>
 
