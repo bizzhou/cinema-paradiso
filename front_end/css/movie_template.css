@@ -1,28 +1,61 @@
-.sidebar {
+.s-explore {
   margin: 2em;
+  width: 18em;
   padding: 1em;
   border: 1px solid gray;
-  width: 15em;
-  height: 25em;
 }
-.sidebar li {
+
+.s-explore__item {
   color: #d9d9d9;
 }
-.sidebar h3 {
+.s-explore__item a {
+  color: #cccccc !important;
+  font-size: 14px;
+  text-transform: capitalize;
+  padding: 0 0 3px 20px;
+}
+.s-explore__item a:hover {
+  text-decoration: underline !important;
+}
+.s-explore__item span {
+  float: right;
+  font-size: 14px;
+  color: #e50914;
+}
+
+.s-explore__title {
+  color: white;
+}
+.s-explore__title h3 {
   text-transform: uppercase;
   font-size: 14px;
   font-weight: bold;
   margin: 0;
   padding: 5px 0 5px 0;
 }
-.sidebar a {
-  color: #cccccc !important;
-  font-size: 14px;
-  text-transform: capitalize;
-  padding: 0 0 3px 20px;
+
+.s-users-avatars {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 0.7em;
 }
-.sidebar a:hover {
-  text-decoration: underline !important;
+.s-users-avatars a {
+  color: #cccccc;
+}
+
+.s-users__item {
+  display: flex;
+  flex: 0 0 10%;
+  text-align: center;
+}
+.s-users__item img {
+  width: 50px;
+}
+.s-users__item span {
+  margin: 0 auto;
+  font-size: 0.7em;
+  display: block;
 }
 
 .r_poster {
@@ -68,6 +101,7 @@
 }
 .right_panel{
   padding-top: 0.8em;
+  margin-left:4em;
 }
 .l-hero__text {
   padding: 0;
