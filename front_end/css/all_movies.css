@@ -163,12 +163,13 @@ a {
 .l-cards__more {
   float: right;
   color: #b3b3b3;
-  font-size: 1em;
-  margin-right: 3.5%;
+  font-size: 0.8em;
+  margin-left: 20px;
+  /*margin-right: %;*/
 }
 
 .l-cards__list {
-  margin-top: 0.5rem;
+  margin-top: 0.6rem;
   margin-bottom: 9rem;
   display: flex;
 }
