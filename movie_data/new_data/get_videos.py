@@ -3,8 +3,8 @@ from bs4 import BeautifulSoup
 import json
 import urllib.request
 
-reader = open('tv_json.txt', 'r')
-writer = open('tv_videos.txt', 'w')
+reader = open('academy_award_data.json', 'r')
+writer = open('academy_video.txt', 'w')
 i = 0
 
 for line in reader:
