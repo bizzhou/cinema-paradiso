@@ -111,6 +111,17 @@
   height: 220px;
 }
 
+.l-cards4{
+  margin-top: 2em;
+}
+
+/*.l-cards4 p{
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 10;
+  -webkit-box-orient: vertical;
+}*/
+
 .l-cards3 li.l-cards__item{
   -ms-flex: 0 0 0rem;
           flex: 0 0 0rem;
