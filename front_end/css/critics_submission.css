@@ -354,3 +354,6 @@ input[type=text]:focus {
   display: block; }
 
 /*# sourceMappingURL=critics_submission.css.map */
+a {
+  color: white;
+}

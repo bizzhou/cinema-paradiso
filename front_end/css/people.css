@@ -366,3 +366,6 @@ input[type=text]:focus {
   vertical-align: top; }
 
 /*# sourceMappingURL=people.css.map */
+a {
+  color: white;
+}
