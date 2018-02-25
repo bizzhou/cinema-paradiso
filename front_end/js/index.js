@@ -18,6 +18,106 @@ $(document).ready(function () {
         y++;
         if (y == 4) y = 0;
     }
+    
+    $('.show_Account').click(function (e) {
+
+        e.preventDefault();
+        $('.Account').show();
+        $('.Portfolio').hide();
+        $('.Summary_results').hide();
+        $('.Movie_Ratings_results').hide();
+        $('.TV_Ratings_results').hide();
+        $('.Wish_List_results').hide();
+        $('.Movie_List_results').hide();
+        $('.My_Critics_results').hide();
+
+    });
+    
+    $('.show_Portfolio').click(function (e) {
+
+        e.preventDefault();
+        $('.Account').hide();
+        $('.Portfolio').show();
+        $('.Summary_results').show();
+        $('.Movie_Ratings_results').hide();
+        $('.TV_Ratings_results').hide();
+        $('.Wish_List_results').hide();
+        $('.Movie_List_results').hide();
+        $('.My_Critics_results').hide();
+
+    });
+    
+    $('.show_Summary').click(function (e) {
+
+        e.preventDefault();
+        $('.Summary_results').show();
+        $('.Movie_Ratings_results').hide();
+        $('.TV_Ratings_results').hide();
+        $('.Wish_List_results').hide();
+        $('.Movie_List_results').hide();
+        $('.My_Critics_results').hide();
+
+    });
+    
+    $('.show_Movie_Ratings').click(function (e) {
+
+        e.preventDefault();
+        $('.Summary_results').hide();
+        $('.Movie_Ratings_results').show();
+        $('.TV_Ratings_results').hide();
+        $('.Wish_List_results').hide();
+        $('.Movie_List_results').hide();
+        $('.My_Critics_results').hide();
+
+    });
+    
+    $('.show_TV_Ratings').click(function (e) {
+
+        e.preventDefault();
+        $('.Summary_results').hide();
+        $('.Movie_Ratings_results').hide();
+        $('.TV_Ratings_results').show();
+        $('.Wish_List_results').hide();
+        $('.Movie_List_results').hide();
+        $('.My_Critics_results').hide();
+
+    });
+    
+    $('.show_Wish_List').click(function (e) {
+
+        e.preventDefault();
+        $('.Summary_results').hide();
+        $('.Movie_Ratings_results').hide();
+        $('.TV_Ratings_results').hide();
+        $('.Wish_List_results').show();
+        $('.Movie_List_results').hide();
+        $('.My_Critics_results').hide();
+
+    });
+    
+    $('.show_Movie_List').click(function (e) {
+
+        e.preventDefault();
+        $('.Summary_results').hide();
+        $('.Movie_Ratings_results').hide();
+        $('.TV_Ratings_results').hide();
+        $('.Wish_List_results').hide();
+        $('.Movie_List_results').show();
+        $('.My_Critics_results').hide();
+
+    });
+    
+    $('.show_My_Critics').click(function (e) {
+
+        e.preventDefault();
+        $('.Summary_results').hide();
+        $('.Movie_Ratings_results').hide();
+        $('.TV_Ratings_results').hide();
+        $('.Wish_List_results').hide();
+        $('.Movie_List_results').hide();
+        $('.My_Critics_results').show();
+
+    });
 
     $('.show_movies').click(function (e) {
 
