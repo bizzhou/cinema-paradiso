@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html>
+<link rel='stylesheet prefetch'
+      href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css'>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+      integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+        integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+        crossorigin="anonymous"></script>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<link rel="stylesheet" href="css/style.css">
+<script src="js/index.js"></script>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel='stylesheet prefetch'
+          href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css'>
+    <link rel='stylesheet prefetch'
+          href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+    <link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css'>
+
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css">
+
+    <link rel='stylesheet prefetch'
+          href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css'>
+    <link rel='stylesheet prefetch'
+          href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css'>
+    <link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css'>
+    <link rel='stylesheet prefetch'
+          href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css'>
+    <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/movie_template.css">
+    <link rel="stylesheet" href="css/signon.css">
+    <link rel="stylesheet" href="css/reviews.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        body, h1, h2, h3, h4, h5, h6 {
+            font-family: "Raleway", sans-serif
+        }
+    </style>
+    <title>User Personal Page</title>
+</head>
+<body>
+<!-- Head Bar -->
+<header class="l-header">
+    <div class="l-header__logo">
+        <a href="home.html">
+            <img width="1101" alt="logo2"
+                 src="https://user-images.githubusercontent.com/20979257/36292556-87d50d58-12a0-11e8-9769-f26697c37274.png">
+        </a>
+    </div>
+    <!-- 		<div class="l-header__browse">Cinema Paradiso</div> -->
+
+
+    <ul class="l-header__nav">
+        <input class="l-header__search input-search" type="text" placeholder="   Seach movies, TV, actors, more...">
+        <li><a href="all_movies.html">Movies</a></li>
+        <li><a href="all_movies.html">TV Shows</a></li>
+        <li><a href="signon.html">Log in</a></li>
+        <li><a href="signon.html">Sign up</a></li>
+    </ul>
+</header>
+
+
+<!-- Sidebar/menu -->
+
+<br>
+<nav class="w3-sidebar w3-collapse w3-black w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+    <div class="w3-container">
+        <a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey"
+           title="close menu">
+            <i class="fa fa-remove"></i>
+        </a>
+        <img src="http://img0.pconline.com.cn/pconline/1307/07/3373207_1345164140k150-561101.jpg" style="width:45%;"
+             class="w3-round">
+
+        <br><br>
+
+        <h4><p class="w3-text-blue">Critic User</p><b>BookOfFools</b></h4>
+        <p class="w3-text-gray">A critic user, happy everyday</p>
+    </div>
+    <div class="w3-bar-block">
+        <a href="#about" onclick="w3_close()" class="show_Account w3-bar-item w3-button w3-padding w3-text-teal"><i
+                class="fa fa-user fa-fw w3-margin-right"></i>Account</a>
+        <a href="#portfolio" onclick="w3_close()" class="show_Portfolio w3-bar-item w3-button w3-padding"><i
+                class="fa fa-th-large fa-fw w3-margin-right"></i>PORTFOLIO</a>
+        <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-padding"><i
+                class="fa fa-envelope fa-fw w3-margin-right"></i>CONTACT</a>
+    </div>
+
+</nav>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer"
+     title="close side menu" id="myOverlay"></div>
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px">
+
+    <!-- Header -->
+    <header id="portfolio">
+        <a href="#"><img src="http://img0.pconline.com.cn/pconline/1307/07/3373207_1345164140k150-561101.jpg"
+                         style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>
+        <span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i
+                class="fa fa-bars"></i></span>
+        <div class="w3-container Portfolio">
+            <h1><b>My Portfolio</b></h1>
+            <div class="w3-section w3-bottombar w3-border-dark-gray w3-padding-16">
+                <button class="show_Summary w3-button w3-black"><i class="fa fa-home w3-margin-right"></i>Summary
+                </button>
+                <button class="show_Movie_Ratings w3-button w3-white"><i class="fa fa-film w3-margin-right"></i>Movie
+                    Ratings
+                </button>
+                <button class="show_TV_Ratings w3-button w3-white w3-hide-small"><i
+                        class="fa fa-tv w3-margin-right"></i>TV Ratings
+                </button>
+                <button class="show_Wish_List w3-button w3-white w3-hide-small"><i
+                        class="fa fa-heart w3-margin-right"></i>Wish List
+                </button>
+                <button class="show_Movie_List w3-button w3-white w3-hide-small"><i
+                        class="fa fa-list-alt w3-margin-right"></i>Movie List
+                </button>
+                <button class="show_My_Critics w3-button w3-white w3-hide-small"><i
+                        class="fa fa-comment w3-margin-right"></i>My Critics
+                </button>
+            </div>
+        </div>
+        <div class="w3-container Account" style="display:none">
+            <h1><b>My Account</b></h1>
+            <div class="w3-section w3-bottombar w3-border-dark-gray w3-padding-16">
+            </div>
+        </div>
+    </header>
+
+    <br>
+
+    <div class="container Summary_results">
+        <div class="w3-container w3-padding-large w3-black">
+            <form action="/action_page.php" target="_blank">
+                <div class="w3-container w3-padding-large" style="margin-bottom:32px">
+                    <h4><b>About Me</b></h4>
+                    <p>Just me, myself and I, exploring the universe of unknownment. I have a heart of love and an
+                        interest of lorem ipsum and mauris neque quam blog. I want to share my world with you. Praesent
+                        tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies
+                        congue gravida diam non fringilla. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo
+                        condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+                    <hr>
+                </div>
+            </form>
+        </div>
+        <section class="l-cards">
+            <h2 class="l-cards__title">My Wish List </h2>
+            <a class="l-cards__more w3-margin-right" href="#">more <i class="fa fa-angle-double-right"></i></a>
+
+            <ul class="l-cards__list">
+                <li class="l-cards__item">
+                    <a href="detail_movie.html" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a>
+                </li>
+
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+            </ul>
+        </section>
+
+        <section class="l-cards">
+            <h2 class="l-cards__title">My Movie List</h2>
+            <a class="l-cards__more w3-margin-right" href="#">more <i class="fa fa-angle-double-right"></i></a>
+
+            <ul class="l-cards__list">
+                <li class="l-cards__item">
+                    <a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a>
+                </li>
+
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+            </ul>
+        </section>
+
+        <section class="l-cards">
+            <h2 class="l-cards__title">Rating History</h2>
+            <a class="l-cards__more w3-margin-right" href="#">more <i class="fa fa-angle-double-right"></i></a>
+            <ul class="l-cards__list">
+                <li class="l-cards__item">
+                    <a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a>
+                </li>
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+            </ul>
+        </section>
+    </div>
+
+
+    <div class="container Movie_Ratings_results" style="display:none">
+        <h2 class="l-cards__title w3-margin-left">Last Rated Movies</h2>
+        <div class="row">
+            <div class="col-4 image-wrap">
+                <img src="https://images-na.ssl-images-amazon.com/images/M/MV5BNGNiNWQ5M2MtNGI0OC00MDA2LWI5NzEtMmZiYjVjMDEyOWYzXkEyXkFqcGdeQXVyMjM4NTM5NDY@._V1_UX182_CR0,0,182,268_AL_.jpg"
+                     alt="">
+            </div>
+            <div class="col-8">
+                <p class="film_name">Shape of Water</p>
+
+                <div class="flex">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <h6>5.0/5.0</h6>
+                    <h6>R</h6>
+                </div>
+                <h2 class="l-cards__title">Your Rate</h2>
+                <div class="flex">
+
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+
+                </div>
+
+
+                <p class="c-plot">At a top secret research facility in the 1960s, a lonely janitor forms a unique
+                    relationship with an amphibious
+                    creature that is being held in captivity.</p>
+                <p>
+                    Starring
+                    <span> Sally Hawkins, Octavia Spencer, Michael Shannon</span>
+                </p>
+                <p>
+                    Director
+                    <span>Guillermo del Toro</span>
+                </p>
+                <p>
+                    Genres
+                    <span>Adventure, Drama, Fantasy, Horror, Romance</span>
+                </p>
+            </div>
+
+
+        </div>
+
+
+        <div class="show_more w3-margin-right">
+            <a class="l-cards__more" id="load_more_movies" href="javascript:void(0)">more
+                <i class="fa fa-angle-double-right"></i>
+            </a>
+        </div>
+        <br>
+        <div class="testimonial">
+            <div class="testimonial-content">
+                <div class="testimonial-icon">
+                    <i class="fa fa-quote-left"></i>
+                </div>
+                <div class="l_description">
+                    <p class="description">
+                        The Shape of Water is an ingenious fantasy romance that utilizes cold war era elements to the
+                        advantage of its premise while subtly challenging our preconceived notions of established
+                        archetypes. Del Toro has an innate understanding of portraying beauty of purity in all it's
+                        forms while simultaneously showing us the grotesque underbelly and brutality of what it is to be
+                        human. These skills help him build a boy meets girl (or girl meets creature xP) fairytale with a
+                        believable yet dynamic supporting cast. The story is equal parts gripping as it is touching,
+                        overcoming it's formulaic approach by using unlikely characterization and story elements that
+                        come seamlessly together. Adding the films success to his repertoire definitely showcases Del
+                        Toro's ability to adapt and excel in multiple genres.
+                    </p>
+                </div>
+            </div>
+            <h3 class="title">BookOfFools</h3>
+            <span class="post">Critics</span>
+        </div>
+        <section class="l-cards">
+            <h2 class="l-cards__title">Rated Movies</h2>
+            <a class="l-cards__more w3-margin-right" href="#">more <i class="fa fa-angle-double-right"></i></a>
+            <ul class="l-cards__list">
+                <li class="l-cards__item">
+                    <a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a>
+                </li>
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+            </ul>
+        </section>
+    </div>
+
+
+    <div class="container TV_Ratings_results" style="display:none">
+        <h2 class="l-cards__title w3-margin-left">Last Rated TV</h2>
+        <div class="row">
+            <div class="col-4 image-wrap">
+                <img src="https://images-na.ssl-images-amazon.com/images/M/MV5BMjE3NTQ1NDg1Ml5BMl5BanBnXkFtZTgwNzY2NDA0MjI@._V1_UX182_CR0,0,182,268_AL_.jpg"
+                     alt="">
+            </div>
+            <div class="col-8">
+                <p class="tv_name">Game of Throne</p>
+
+                <div class="flex">
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <h6>5.0/5.0</h6>
+                    <h6>RR</h6>
+                </div>
+                <h2 class="l-cards__title">Your Rate</h2>
+                <div class="flex">
+
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+                    <i class="fa fa-star"></i>
+
+                </div>
+
+                <p class="c-plot">Nine noble families fight for control over the mythical lands of Westeros, while an
+                    ancient enemy returns
+                    after being dormant for thousands of years. </p>
+                <p>
+                    Starring
+                    <span> Emilia Clarke, Peter Dinklage, Kit Harington </span>
+                </p>
+                <p>
+                    Director
+                    <span> David Benioff, D.B. Weiss </span>
+                </p>
+                <p>
+                    Genres
+                    <span> Action | Adventure | Drama | Fantasy | Romance </span>
+                </p>
+            </div>
+        </div>
+        <div class="show_more w3-margin-right">
+            <a class="l-cards__more" id="load_more_movies" href="javascript:void(0)">more
+                <i class="fa fa-angle-double-right"></i>
+            </a>
+        </div>
+        <br>
+        <div class="testimonial">
+            <div class="testimonial-content">
+                <div class="testimonial-icon">
+                    <i class="fa fa-quote-left"></i>
+                </div>
+                <div class="l_description">
+                    <p class="description">
+                        You don't have any review on this Show.
+                    </p>
+                </div>
+            </div>
+            <h3 class="title">BookOfFools</h3>
+            <span class="post">Critics</span>
+        </div>
+        <section class="l-cards">
+            <h2 class="l-cards__title">Rated TV</h2>
+            <a class="l-cards__more w3-margin-right" href="#">more <i class="fa fa-angle-double-right"></i></a>
+            <ul class="l-cards__list">
+                <li class="l-cards__item">
+                    <a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a>
+                </li>
+
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+            </ul>
+        </section>
+    </div>
+
+    <div class="container Wish_List_results" style="display:none">
+        <section class="l-cards">
+            <h2 class="l-cards__title">My Wish List </h2>
+            <a class="l-cards__more w3-margin-right" href="#">more <i class="fa fa-angle-double-right"></i></a>
+
+            <ul class="l-cards__list">
+                <li class="l-cards__item">
+                    <a href="detail_movie.html" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a>
+                </li>
+
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+            </ul>
+        </section>
+    </div>
+
+    <div class="container Movie_List_results " style="display:none">
+        <section class="l-cards">
+            <h2 class="l-cards__title">My Movie List</h2>
+            <a class="l-cards__more w3-margin-right" href="#">more <i class="fa fa-angle-double-right"></i></a>
+
+            <ul class="l-cards__list">
+                <li class="l-cards__item">
+                    <a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a>
+                </li>
+
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+                <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                    <a href="#" class="l-cards__text"></a></li>
+            </ul>
+        </section>
+    </div>
+
+    <div class="container My_Critics_results" style="display:none">
+        <div class="w3-container w3-padding-large w3-black">
+
+            <div class="testimonial">
+                <div class="testimonial-content">
+                    <div class="testimonial-icon">
+                        <i class="fa fa-quote-left"></i>
+                    </div>
+                    <div class="l_description">
+                        <p class="description">
+                            The Shape of Water is an ingenious fantasy romance that utilizes cold war era elements to
+                            the advantage of its premise while subtly challenging our preconceived notions of
+                            established archetypes. Del Toro has an innate understanding of portraying beauty of purity
+                            in all it's forms while simultaneously showing us the grotesque underbelly and brutality of
+                            what it is to be human. These skills help him build a boy meets girl (or girl meets creature
+                            xP) fairytale with a believable yet dynamic supporting cast. The story is equal parts
+                            gripping as it is touching, overcoming it's formulaic approach by using unlikely
+                            characterization and story elements that come seamlessly together. Adding the films success
+                            to his repertoire definitely showcases Del Toro's ability to adapt and excel in multiple
+                            genres.
+                        </p>
+                    </div>
+                </div>
+                <h3 class="title">BookOfFools</h3>
+                <span class="post">Critics</span>
+            </div>
+            <div class="testimonial">
+                <div class="testimonial-content">
+                    <div class="testimonial-icon">
+                        <i class="fa fa-quote-left"></i>
+                    </div>
+                    <div class="l_description">
+                        <p class="description">
+                            The Shape of Water is an ingenious fantasy romance that utilizes cold war era elements to
+                            the advantage of its premise while subtly challenging our preconceived notions of
+                            established archetypes. Del Toro has an innate understanding of portraying beauty of purity
+                            in all it's forms while simultaneously showing us the grotesque underbelly and brutality of
+                            what it is to be human. These skills help him build a boy meets girl (or girl meets creature
+                            xP) fairytale with a believable yet dynamic supporting cast. The story is equal parts
+                            gripping as it is touching, overcoming it's formulaic approach by using unlikely
+                            characterization and story elements that come seamlessly together. Adding the films success
+                            to his repertoire definitely showcases Del Toro's ability to adapt and excel in multiple
+                            genres.
+                        </p>
+                    </div>
+                </div>
+                <h3 class="title">BookOfFools</h3>
+                <span class="post">Critics</span>
+            </div>
+            <div class="testimonial">
+                <div class="testimonial-content">
+                    <div class="testimonial-icon">
+                        <i class="fa fa-quote-left"></i>
+                    </div>
+                    <div class="l_description">
+                        <p class="description">
+                            The Shape of Water is an ingenious fantasy romance that utilizes cold war era elements to
+                            the advantage of its premise while subtly challenging our preconceived notions of
+                            established archetypes. Del Toro has an innate understanding of portraying beauty of purity
+                            in all it's forms while simultaneously showing us the grotesque underbelly and brutality of
+                            what it is to be human. These skills help him build a boy meets girl (or girl meets creature
+                            xP) fairytale with a believable yet dynamic supporting cast. The story is equal parts
+                            gripping as it is touching, overcoming it's formulaic approach by using unlikely
+                            characterization and story elements that come seamlessly together. Adding the films success
+                            to his repertoire definitely showcases Del Toro's ability to adapt and excel in multiple
+                            genres.
+                        </p>
+                    </div>
+                </div>
+                <h3 class="title">BookOfFools</h3>
+                <span class="post">Critics</span>
+            </div>
+            <div class="show_more w3-margin-right">
+                <a class="l-cards__more " id="load_more_movies" href="javascript:void(0)">more
+                    <i class="fa fa-angle-double-right"></i>
+                </a>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="w3-container Account" style="display:none">
+        <div class="w3-container w3-padding-large w3-black">
+
+            <form action="/action_page.php" target="_blank">
+                <label>User Name: BookOfFools</label>
+                <br>
+                <label>Level： Critic</label>
+                <br>
+                <label>Registered Date：2017-03-08 </label>
+                <br>
+                <label>Email: nan.jiang.1@stonybrook.edu</label>
+
+                <hr class="w3-opacity">
+                <div class="w3-section">
+
+                    <label>User Name</label>
+                    <input class="w3-input " type="text" name="Name" placeholder="BookOfFools" required>
+                </div>
+                <div class="w3-section">
+                    <label>Password</label>
+                    <input class="w3-input" type="text" name="Password" placeholder="**********" required>
+                </div>
+                <div class="w3-section">
+                    <label>Email</label>
+                    <input class="w3-input" type="text" name="Email" placeholder="nan.jiang.1@stonybrook.edu" required>
+                </div>
+                <div class="w3-section">
+                    <label>Self-description</label>
+                    <input class="w3-input" type="text" name="description" placeholder="A critic user, happy everyday">
+                </div>
+                <button type="submit" class="w3-button w3-black w3-margin-bottom"><i
+                        class="fa fa-paper-plane w3-margin-right"></i>Update
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <hr class="w3-opacity">
+    <!-- 	Recommend section	 -->
+    <section class="l-cards">
+        <h2 class="l-cards__title">Recommended For You</h2>
+        <a class="l-cards__more w3-margin-right" href="#">more <i class="fa fa-angle-double-right"></i></a>
+        <ul class="l-cards__list">
+            <li class="l-cards__item">
+                <a href="#" class="l-cards__image fill"></a>
+                <a href="#" class="l-cards__text"></a>
+            </li>
+
+            <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                <a href="#" class="l-cards__text"></a></li>
+
+            <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                <a href="#" class="l-cards__text"></a></li>
+
+            <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                <a href="#" class="l-cards__text"></a></li>
+            <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                <a href="#" class="l-cards__text"></a></li>
+            <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                <a href="#" class="l-cards__text"></a></li>
+            <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
+                <a href="#" class="l-cards__text"></a></li>
+        </ul>
+    </section>
+    <!-- 	end Recommend section	 -->
+
+</div>
+</body>
+
+<footer>
+    <div class="f-wrap">
+        <section class="f-column">
+            <a href="faq.html">FAQs</a>
+            <a href="faq.html">Contact Us</a> <a href="faq.html">Feedback</a>
+            <a href="faq.html">Privacy Policy</a>
+        </section>
+
+        <section class="f-column">
+            <a href="critic_submission.html">Critic Submission</a>
+            <a href="faq.html">Licensing</a>
+            <a href="faq.html">Advertise</a>
+            <a href="faq.html">Careers</a>
+        </section>
+
+        <section class="f-column">
+            <a href="#">Follow us on</a>
+            <br>
+            <ul class="social-icons">
+                <li><a href="" class="social-icon"> <i class="fa fa-facebook"></i></a></li>
+                <li><a href="" class="social-icon"> <i class="fa fa-twitter"></i></a></li>
+                <li><a href="" class="social-icon"> <i class="fa fa-rss"></i></a></li>
+                <li><a href="" class="social-icon"> <i class="fa fa-youtube"></i></a></li>
+                <li><a href="" class="social-icon"> <i class="fa fa-linkedin"></i></a></li>
+                <li><a href="" class="social-icon"> <i class="fa fa-google-plus"></i></a></li>
+            </ul>
+        </section>
+    </div>
+    <div class="legality">
+        © Copyright 2018 Cinema Paradiso
+    </div>
+</footer>
+
+</html>
