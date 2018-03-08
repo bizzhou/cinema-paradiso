@@ -1,6 +1,7 @@
 package controller;
 
 import entity.JwtUser;
+import entity.RegisteredUser;
 import entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -8,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import service.UserService;
 
+import javax.xml.ws.Response;
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
@@ -30,9 +32,26 @@ public class RegUserController {
         return null;
     }
 
+    @RequestMapping(value = "/signup", method = POST)
+    public ResponseEntity<Boolean> userSignup(@RequestBody RegisteredUser user) {
+        return null;
+    }
+
+    @RequestMapping(value = "/check_username_taken/{username}", method = POST)
+    public ResponseEntity<Boolean> checkUsername(@PathVariable String username) {
+        return null;
+    }
+
+    @RequestMapping(value = "/check_email_taken/{email}", method = POST)
+    public ResponseEntity<Boolean> checkUserEmail(@PathVariable String email) {
+        return null;
+    }
+
+
     @RequestMapping(value = "change_password", method = POST)
     public ResponseEntity<Boolean> changePassword(@RequestParam(value = "old_password", required = true) String oldPass,
                                                   @RequestParam(value = "new_password", required = true) String newPass) {
+
         return null;
     }
 
