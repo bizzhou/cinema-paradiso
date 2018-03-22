@@ -6,6 +6,7 @@ movie_data/venv/
 
 movie_data/new_data/test\.ipynb
 
+
 \.DS_Store
 
 movie_data/new_data/tv\.txt
@@ -16,3 +17,7 @@ front_end/css/style\.css\.map
 
 .idea/
 target/
+
+
+cinema-paradiso-frontend/node_modules
+cinema_paradiso/target/
