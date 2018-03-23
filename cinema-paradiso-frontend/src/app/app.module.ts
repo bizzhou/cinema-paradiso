@@ -16,7 +16,7 @@ import {AppRoutingModule} from './app.routing';
     HomeComponent,
     FooterComponent,
     HeaderComponent,
-    UserComponent
+    UserComponent,
   ],
   imports: [
     BrowserModule,

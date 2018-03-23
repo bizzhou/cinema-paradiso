@@ -20,4 +20,6 @@ export class UserComponent implements OnInit {
     });
   }
 
+  // form slider
+
 }
