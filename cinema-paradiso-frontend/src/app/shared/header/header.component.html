@@ -1,15 +1,20 @@
 <header class="l-header">
-  <div class="l-header__logo">
-    <a routerLink="/home">
-      <img width="1101" alt="logo"
-           src="../../../assets/images/logo.png">
+  <nav class="l-header__logo">
+    <a routerLink="/home" routerLinkActive="active">
+      <img alt="logo" src="../../../assets/images/logo.png">
     </a>
-  </div>
-  <input class="l-header__search input-search" type="text" placeholder="   Seach movies, TV, actors, more...">
-  <ul class="l-header__nav">
-    <li><a href="all_movies.html">Movies</a></li>
-    <li><a href="all_movies.html">TV Shows</a></li>
-    <li><a href="signon.html">Log in</a></li>
-    <li><a href="signon.html">Sign up</a></li>
-  </ul>
+  </nav>
+
+  <nav class="l-header__nav">
+    <a>
+      <form>
+        <input type="search" placeholder="Search">
+      </form>
+    </a>
+    <a routerLink="/#" routerLinkActive="active">Movies</a>
+    <a routerLink="/#" routerLinkActive="active">TV Shows</a>
+    <a routerLink="/login" routerLinkActive="active">Log in</a>
+    <a routerLink="/login" routerLinkActive="active">Sign up</a>
+  </nav>
+
 </header>
