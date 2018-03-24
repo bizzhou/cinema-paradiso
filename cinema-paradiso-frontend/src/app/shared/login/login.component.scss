@@ -26,7 +26,7 @@ $color-red: rgb(229, 9, 20);
   width:100%;
   height:100%;
   position:fixed;
-  z-index: 100;
+  z-index: -100;
   top:0; left:0;
   background:rgba(0,0,0,0.75);
   visibility:hidden;
@@ -38,13 +38,13 @@ $color-red: rgb(229, 9, 20);
 .modal-wrapper.open{
   opacity:1;
   visibility:visible;
+  z-index: 100;
 }
 
 .modal{
   width:1000px;
   height:600px;
   display:block;
-  //margin:50% 0 0 -300px;
   position:relative;
   top:35%; left:15%;
   background:#fff;
