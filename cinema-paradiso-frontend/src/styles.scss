@@ -2,7 +2,6 @@
 
 // TODO reduce font-awesome.css size
 @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css";
-@import "https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css";
 
 html{
   font-size: 1.2em;
@@ -12,13 +11,16 @@ html{
   -moz-osx-font-smoothing: grayscale;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
   box-sizing: border-box;
+  //background-color: lighten(black, 11%);
 }
 
 *, *:before, *:after{
   box-sizing: inherit;
 }
 body {
-  background-color: lighten(black, 10%);
+  background-color: lighten(black, 11%);
+  //background: url("https://goo.gl/YRxqs1") no-repeat center;
+  //background-size: cover;
 }
 
 header, footer, main {
@@ -28,6 +30,7 @@ header, footer, main {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  box-shadow: 0 12px 15px 0 rgba(black, 0.25);
 }
 body, h1, ul, p{
   margin: 0;

@@ -22,7 +22,7 @@
         "styles.scss"
       ],
       "scripts": [
-        "../node_modules/jquery/dist/jquery.min.js",
+        "../node_modules/bootstrap/dist/css/bootstrap.min.css"
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
