@@ -1,7 +1,6 @@
 backend/.DS_Store
 backend/.idea
-backend/target/
-
+backend/target
 movie_data/venv/
 
 movie_data/new_data/test\.ipynb
@@ -21,3 +20,4 @@ target/
 
 cinema-paradiso-frontend/node_modules
 cinema_paradiso/target/
+backend/
