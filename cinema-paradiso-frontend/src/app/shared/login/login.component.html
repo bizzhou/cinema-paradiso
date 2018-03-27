@@ -26,15 +26,17 @@
               <form class="forms_form">
                 <fieldset class="forms_fieldset">
                   <div class="forms_field">
-                    <input type="email" placeholder="Email" class="forms_field-input" required/>
+                    <input type="email" placeholder="Email" class="forms_field-input"
+                           [(ngModel)]="email" name="login_username" required/>
                   </div>
                   <div class="forms_field">
-                    <input type="password" placeholder="Password" class="forms_field-input" required/>
+                    <input type="password" placeholder="Password" class="forms_field-input"
+                           [(ngModel)]="password" name="login_password" required/>
                   </div>
                 </fieldset>
                 <div class="forms_buttons">
                   <button type="button" class="forms_buttons-forgot">Forgot password?</button>
-                  <input type="submit" value="Log In" class="forms_buttons-action">
+                  <input type="submit" value="Log In" class="forms_buttons-action" (click)="login()">
                 </div>
               </form>
             </div>
@@ -43,20 +45,23 @@
               <form class="forms_form">
                 <fieldset class="forms_fieldset">
                   <div class="forms_field">
-                    <input type="text" placeholder="Username" class="forms_field-input" required/>
+                    <input type="text" placeholder="Username" class="forms_field-input"
+                    [(ngModel)]="user.username" name="username" required/>
                   </div>
                   <div class="forms_field">
-                    <input type="email" placeholder="Email" class="forms_field-input" required/>
+                    <input type="email" placeholder="Email" class="forms_field-input"
+                    [(ngModel)]="user.email" name="email" required/>
                   </div>
                   <div class="forms_field">
-                    <input type="password" placeholder="Password" class="forms_field-input" required/>
+                    <input type="password" placeholder="Password" class="forms_field-input first_password"
+                    [(ngModel)]="user.password" name="password" required/>
                   </div>
                   <div class="forms_field">
-                    <input type="password" placeholder="Re-enter password" class="forms_field-input" required/>
+                    <input type="password" placeholder="Re-enter password" class="forms_field-input second_password" required/>
                   </div>
                 </fieldset>
                 <div class="forms_buttons">
-                  <input type="submit" value="Sign up" class="forms_buttons-action">
+                  <input type="submit" value="Sign up" class="forms_buttons-action" (click)="signup()">
                 </div>
               </form>
             </div>
