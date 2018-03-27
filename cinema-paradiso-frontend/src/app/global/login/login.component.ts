@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import * as $ from 'jquery';
-import {User} from './user.model';
+import {User} from '../user/user.model';
 import {LoginService} from './login.service';
 
 @Component({
