@@ -12,6 +12,7 @@ import {AppRoutingModule} from './app.routing';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './global/login/login.component';
 import { CategoriesComponent } from './global/categories/categories.component';
+import { MovieDetailComponent } from './global/movie-detail/movie-detail.component';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { CategoriesComponent } from './global/categories/categories.component';
     UserComponent,
     LoginComponent,
     CategoriesComponent,
+    MovieDetailComponent,
   ],
   imports: [
     BrowserModule,
