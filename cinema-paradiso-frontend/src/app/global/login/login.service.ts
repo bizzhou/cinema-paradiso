@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
+import {User} from './user.model';
 
 @Injectable()
 export class LoginService {
@@ -7,9 +8,9 @@ export class LoginService {
   constructor(private http: HttpClient) {
   }
 
-  singup(username: string, email: string, password: string) {
-    const credential = {username: username, email: email, password: password};
-    return this.http.post('http://localhost:8080/user/signup', credential);
+  singup(user: User) {
+    // const credential = {username: username, email: email, password: password};
+    return this.http.post('http://localhost:8080/user/signup', user);
   }
 
   login(email: string, password: string) {
