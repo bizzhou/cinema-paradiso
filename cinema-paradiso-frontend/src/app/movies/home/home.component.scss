@@ -40,7 +40,7 @@ main {
   margin-bottom: 2em;
 }
 .l-hero__text-wrapper {
-  width: 40%;
+  width: 50%;
   background: linear-gradient(to right, black, lighten(black, 5%),lighten(black, 7%), transparent);
 }
 .l-hero__text{
@@ -62,6 +62,7 @@ main {
   font-size: 12px;
   text-transform: uppercase;
   letter-spacing: 0.03em;
+  padding-bottom: 5px;
   display: block;
 }
 // movie title
@@ -70,6 +71,7 @@ main {
   line-height: 1;
   text-transform: uppercase;
   letter-spacing: 0.03em;
+
 }
 // rating
 .absolute .flex{
@@ -86,22 +88,19 @@ main {
   color:$color-red;
 }
 // rate
-.flex h6:nth-of-type(1){
+.flex p:nth-of-type(1){
   margin-left:5px;
   margin-right:10px;
   color:white;
 }
-.flex h6:nth-of-type(2){
+.flex p:nth-of-type(2){
   background:grey;
-  color:white;
-  font-weight:bold;
-  text-align:center;
-  width:45px;
-  padding:2px;
+  color: #fff;
+  padding: 0 4px;
 }
 // Layouts
 .c-plot {
-  margin-top: 20px;
+  margin-top: 15px;
   margin-bottom: 15px;
 }
 p {
@@ -133,7 +132,7 @@ p {
 }
 // title of each section
 .l-cards__title{
-  font-size: 1.2em;
+  font-size: 0.9em;
   color: white;
   display: inline;
   margin-left: 1.5%;
@@ -143,7 +142,7 @@ p {
   float: right;
   color: white;
   background-color: $color-red;
-  font-size: 1em;
+  font-size: 0.8em;
   padding: 1px 8px;
   border-radius: 50%;
 }
@@ -164,7 +163,7 @@ p {
 .l-cards__text{
   text-align: center;
   font-weight: 500;
-  font-size: 0.9em !important;
+  font-size: 0.6em !important;
   // ratings
   p {
     color: $color-red;
@@ -173,8 +172,8 @@ p {
 // individual poster
 .l-cards__item{
   background-color: $color-gray;
-  height: 7em;
-  flex: 0 0 11em;   // size of each poster
+  height: 3em;
+  flex: 0 0 7.57em;   // size of each poster
   margin: 0 1.2em;
   text-align: center;
   // text under poster

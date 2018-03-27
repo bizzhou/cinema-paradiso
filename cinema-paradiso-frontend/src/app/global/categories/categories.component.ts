@@ -1,23 +1,19 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import * as $ from 'jquery';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
-
+  selector: 'app-categories',
+  templateUrl: './categories.component.html',
+  styleUrls: ['./categories.component.scss']
 })
-export class HomeComponent implements OnInit {
+export class CategoriesComponent implements OnInit {
 
-  currentRate = 3.14;
+  page = 1;
 
-  constructor() {}
+  constructor() { }
 
   ngOnInit() {
     this.loadPosters();
-
   }
-
 
   loadPosters(): void {
     let movieNames = ["Blade Runner 2049", "Coco", "Call Me By Your Name", "Lady Bird", "Get Out", "Dunkirk", "In the Fade", "Phantom Thread"];
@@ -41,7 +37,7 @@ export class HomeComponent implements OnInit {
       var img = document.createElement('img');
       img.setAttribute('src', images[y]);
       img.setAttribute('alt', movieNames[y]);
-      img.style.height = '16em';
+      img.style.height = '10em';
       imageContainers[i].appendChild(img);
 
       // create span and append movie names and ratings
@@ -59,6 +55,5 @@ export class HomeComponent implements OnInit {
     }
 
   }
-
 
 }
