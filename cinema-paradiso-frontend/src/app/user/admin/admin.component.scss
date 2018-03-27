@@ -1,0 +1,233 @@
+@mixin cols ($width, $padding-left, $padding-right){
+  width: $width;
+  float:left;
+  position: relative;
+  min-height: 1px;
+  padding-right: $padding-right;
+  padding-left: $padding-left;
+}
+$color-light-red: #e8716d;
+$color-light-blue: lightskyblue;
+
+.col-users-title {
+  @include cols(90%, 0, 0);
+}
+.col-users-item {
+  @include cols (9%, 0, 0);
+}
+.col-movies-title {
+  @include cols(79%, 0, 0);
+}
+.col-movies-item {
+  @include cols (10%, 0, 0);
+}
+.col-reviews-title {
+  @include cols(90%, 0, 0);
+}
+.col-reviews-item {
+  @include cols (9%, 0, 0);
+}
+.col-carousel-title{
+  @include cols(79%, 0, 0);
+}
+.col-carousel-item {
+  @include cols (10%, 0, 0);
+}
+.col-application-title {
+  @include cols(79%, 0, 0);
+}
+.col-application-item {
+  @include cols (10%, 0, 0);
+}
+.col-celebrity-title {
+  @include cols(79%, 0, 0);
+}
+.col-celebrity-item {
+  @include cols (10%, 0, 0);
+}
+
+.bckg {
+  //background-color:#383B42;
+  box-shadow:-4px 0px 10px rgba(14, 14, 14, 0.48) inset;
+  //width:300px;
+  height:100%;
+  position:fixed;
+  left:0;
+  top:0;
+}
+
+// title: dashboard
+h1 {
+  text-align: center;
+  font-weight: normal;
+  color: #F6F6EF;
+  line-height:60px;
+  margin:0;
+  font-size:20px;
+  letter-spacing:2px;
+  background-color:#34363A;
+  border-bottom:1px solid rgba(101, 116, 134, 0.57);
+}
+// main panel title
+h2 {
+  font-size: 20px;
+  text-transform: uppercase;
+  margin: 0;
+  letter-spacing: 3px;
+  color: #919191;
+  font-weight: normal;
+  padding-left: 40px;
+  line-height: 60px;
+  text-shadow: 1px 1px 2px #fff;
+  position: relative;
+  flex:1;
+  -webkit-flex:1;
+  -ms-flex:1;
+
+  &:before {
+    content:'';
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    left: -19px;
+    top: 12px;
+    background-color:#34363A;
+    -webkit-transform:rotate(45deg);
+    -moz-transform:rotate(45deg);
+    transform:rotate(45deg);
+  }
+}
+// main panel, subtitle
+h3 {
+  font-size:17px;
+  margin:0;
+  line-height: 40px;
+  color: #555;
+  cursor:pointer;
+  position:relative;
+}
+
+// sidebar
+header {
+  width:250px;
+  height:100%;
+  float:left;
+  position:relative;
+  z-index:99;
+
+  & nav ul li {
+    border-bottom:1px solid #42454D;
+    padding-left:48px;
+    transition:all 0.6s;
+    border-top:1px solid #2E3036;
+
+    &:hover {
+      background-color: #454952;
+      transition: all 0.6s;
+      border-bottom: 1px solid #797979;
+    }
+
+    &:hover a {
+      color:#fff;
+      transition:all 0.6s;
+    }
+
+    & a {
+      line-height:55px;
+      font-size:18px;
+      position:relative;
+      letter-spacing:1px;
+      transition:all 0.6s;
+
+      &:before {
+        font-family: 'entypo', sans-serif;
+        font-size:20px;
+        position:absolute;
+        left:-32px;
+      }
+    }
+
+    &:first-child a:before {content:"\1f465";}
+    &:nth-child(2) a:before {content:"\268f";}
+    &:nth-child(3) a:before {content:"\268f";}
+    &:nth-child(4) a:before {content:"\268f";}
+    &:nth-child(5) a:before {content:"\1f465";}
+    &:nth-child(6) a:before {content:"\1f50d";}
+    &:nth-child(7) a:before {content:"\2699";}
+  }
+}
+
+// main panel
+.main-panel {
+  flex:1;
+  -webkit-flex:1;
+  -ms-flex:1;
+}
+// main panel, title and welcome message
+.title {
+  background-color: #fff;
+  border-bottom: 1px solid #C0C1C0;
+  height:60px;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display:flex;
+
+  & a {
+    color: #AAA;
+    width: auto;
+    margin: 0 20px;
+    float: right;
+    line-height: 62px;
+    position:relative;
+    text-decoration:none;
+    transition:all .5s;
+
+    &:before {
+      content:"\1f464";
+      font-size: 38px;
+      position:absolute;
+      left:-50px;
+    }
+  }
+}
+
+a:hover {
+  color:#33526B;
+  transition:all .5s;
+}
+
+.mp-users, .mp-movies, .mp-reviews, .mp-carousel, .mp-application, .mp-celebrity {
+  padding:30px 30px;
+
+  //min-height: 800px;
+  background-color:#f0f0f0;
+
+  & div {
+    background-color: #F7F7F7;
+    border: 1px solid #E2E2E2;
+    padding: 0 20px;
+    margin:15px 0;
+
+    &:hover {
+      background-color:#fafafa;
+    }
+
+
+    & p {
+      display:none;
+      margin-left:10px;
+      padding:0 15px;
+      border-left:1px solid #ccc;
+    }
+  }
+  button {
+    background-color: transparent;
+    border: none;
+    color: $color-light-red;
+    font-size: 0.7em;
+    text-decoration: underline;
+  }
+}
+
