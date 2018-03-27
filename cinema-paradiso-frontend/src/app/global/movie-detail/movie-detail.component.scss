@@ -41,6 +41,18 @@ main{
 .col-testimonial {
   @include cols(33%, 15px, 15px);
 }
+.col-ratings {
+  @include cols(49.5%, 15px, 15px);
+}
+.col-profile-img {
+  @include cols(23%, 15px, 15px);
+}
+.col-add-ratings {
+  @include cols(76.5%, 15px, 15px);
+}
+//.col-list-btn {
+//  @include cols(23%, 15px, 15px);
+//}
 
 .sidebar {
   padding-left: 3%;
@@ -156,12 +168,12 @@ main{
 
 .o-button{
   color: white;
-  font-size: 0.75em;
+  font-size: 0.6em;
   line-height: 1;
   letter-spacing: 0.1em;
   font-weight: bold;
   text-transform: uppercase;
-  padding: 0.5rem 1.125em;
+  padding: 0.5em 1.125em;
   background-color: $color-red;
   border: none;
 
@@ -308,4 +320,176 @@ main{
 .owl-theme .owl-controls .owl-page.active span,
 .owl-theme .owl-controls.clickable .owl-page:hover span{
   background: #e50914;
+}
+
+
+// ratings
+
+.rating-container {
+  /*padding: 4px;*/
+  /*margin: 0 auto;*/
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  padding: 1em;
+  //margin-right: 2em;
+}
+
+.rating-inner {
+  margin-right: 2em;
+  //border: 1px solid gray;
+  background-color: #1a1a1a;
+  /*overflow: hidden;*/
+  /*position: relative;*/
+  /*border: 1px solid gray;*/
+  /* -webkit-border-radius: 4px;
+   -moz-border-radius: 4px;
+   border-radius: 4px; */
+}
+.ratings-header {
+  color: gray;
+  font-size: 0.8em;
+  margin-bottom: 0.5em;
+}
+.rating {
+  float: left;
+  width: 40%;
+  /*margin-right: 5%;*/
+  text-align: center;
+}
+
+.rating-num {
+  color: #e50914;
+  font-size: 3em;
+  font-weight: 100;
+  line-height: 1em;
+}
+
+.rating-stars {
+  font-size: 0.8em;
+  color: $color-red;
+  margin-bottom: .5em;
+}
+.rating-stars .active {
+  color: #737373;
+}
+.non-rated {
+  color: gray;
+}
+.rating-users {
+  font-size: 14px;
+  color: white;
+}
+
+.ratings-add {
+  textarea {
+    width: 100%;
+    height: 60px;
+    margin-top: 0.5em;
+    font-size: 0.8em;
+  }
+  #post-btn {
+    float: right;
+    font-size: 0.8em;
+    border: none;
+
+  }
+}
+.histo {
+  float: left;
+  width: 60%;
+  font-size: 13px;
+  color: white;
+}
+
+.histo-star {
+  float: left;
+  padding: 3px;
+
+}
+
+.histo-rate {
+  width: 100%;
+  display: block;
+  clear: both;
+  padding-top: 2px;
+}
+
+.bar-block {
+  /*margin-left: 5px;*/
+  color: white;
+  display: block;
+  float: left;
+  width: 90%;
+  position: relative;
+}
+
+.bar {
+  padding: 4px;
+  /*display: block;*/
+}
+
+#bar-five {
+  width: 0;
+  background-color: #9FC05A;
+}
+
+#bar-four {
+  width: 0;
+  background-color: #ADD633;
+}
+
+#bar-three {
+  width: 0;
+  background-color: #FFD834;
+}
+
+#bar-two {
+  width: 0;
+  background-color: #FFB234;
+}
+
+#bar-one {
+  width: 0;
+  background-color: #FF8B5A;
+  margin-left: 2px;
+}
+
+
+#bar-ten {
+  width: 0;
+  background-color: #9FC05A;
+}
+
+#bar-nine {
+  width: 0;
+  background-color: #ADD633;
+}
+
+#bar-eight {
+  width: 0;
+  background-color: #FFD834;
+}
+
+#bar-seven {
+  width: 0;
+  background-color: #FFB234;
+}
+
+#bar-six {
+  width: 0;
+  background-color: #FF8B5A;
+  margin-left: 2px;
+}
+
+a {
+  color: white;
+}
+
+.col-profile-img{
+    height: 100px;
+    width: auto;
+}
+ngb-rating{
+  color: #fff;
 }
