@@ -7,8 +7,8 @@
     <div class="l-hero">
       <!-- 			carousel dots -->
       <ol class="carousel-indicators ">
-        <li data-target="#hero-carousel" data-slide-to="0" class="active"></li>
-        <li data-target="#hero-carousel" data-slide-to="1"></li>
+        <!--<li data-target="#hero-carousel" data-slide-to="0" ></li>-->
+        <li data-target="#hero-carousel" data-slide-to="1" class="active"></li>
         <li data-target="#hero-carousel" data-slide-to="2"></li>
         <li data-target="#hero-carousel" data-slide-to="3"></li>
         <li data-target="#hero-carousel" data-slide-to="4"></li>
@@ -17,6 +17,7 @@
 
       <!-- 			end carousel dots -->
       <div class="l-hero__text-wrapper">
+        <a routerLink="/movie-detail">
         <div class="l-hero__text">
           <div class="c-title">
             <span class="c-title__category"><strong>Academy Awarded</strong> </span>
@@ -47,10 +48,11 @@
             Genres <span>Adventure, Drama, Fantasy, Horror, Romance</span>
           </p>
           <div class="l-hero__buttons">
-            <div class="o-button o-button--gray">+ Watchlist</div>
-            <div class="o-button">+ Wishlist</div>
+            <button class="o-button o-button--gray">+ Watchlist</button>
+            <button class="o-button">+ Wishlist</button>
           </div>
         </div>
+        </a>
       </div>
     </div>
 

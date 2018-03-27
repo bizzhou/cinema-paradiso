@@ -4,15 +4,16 @@ import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
 
-import {HomeComponent} from './movies/home/home.component';
+import {HomeComponent} from './global/home/home.component';
 import {FooterComponent} from './global/footer/footer.component';
 import {HeaderComponent} from './global/header/header.component';
-import {UserComponent} from './global/user/user.component';
+// import {UserComponent} from './global/user/user.component';
 import {AppRoutingModule} from './app.routing';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { LoginComponent } from './global/login/login.component';
 import { CategoriesComponent } from './global/categories/categories.component';
 import { MovieDetailComponent } from './global/movie-detail/movie-detail.component';
+import { CelebrityComponent } from './global/celebrity/celebrity.component';
 
 @NgModule({
   declarations: [
@@ -20,10 +21,11 @@ import { MovieDetailComponent } from './global/movie-detail/movie-detail.compone
     HomeComponent,
     FooterComponent,
     HeaderComponent,
-    UserComponent,
+    // UserComponent,
     LoginComponent,
     CategoriesComponent,
     MovieDetailComponent,
+    CelebrityComponent,
   ],
   imports: [
     BrowserModule,

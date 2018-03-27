@@ -29,14 +29,14 @@ main{
   @include cols(33%, 1px, 1px);
 }
 .col-video {
-  @include cols(33%, 15px, 15px);
+  @include cols(33%, 0, 0);
 }
 .col-photos {
-  @include cols(24.5%, 15px, 15px);
+  @include cols(24.5%, 0, 0);
 
 }
 .col-casts {
-  @include cols(24.5%, 15px, 15px);
+  @include cols(24.5%, 0, 0);
 }
 .col-testimonial {
   @include cols(33%, 15px, 15px);
@@ -211,9 +211,7 @@ main{
   .item__detail {
     padding-right: 20px;
   }
-  //} {
-  //  padding: 10px;
-  //}
+
   img {
     height: 14em;
   }
