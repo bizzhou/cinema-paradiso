@@ -15,6 +15,7 @@ import { CategoriesComponent } from './global/categories/categories.component';
 import { MovieDetailComponent } from './global/movie-detail/movie-detail.component';
 import { CelebrityComponent } from './global/celebrity/celebrity.component';
 import { RegUserComponent } from './user/reg-user/reg-user.component';
+import { SearchComponent } from './global/search/search.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { RegUserComponent } from './user/reg-user/reg-user.component';
     MovieDetailComponent,
     CelebrityComponent,
     RegUserComponent,
+    SearchComponent,
   ],
   imports: [
     BrowserModule,
