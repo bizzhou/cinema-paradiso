@@ -29,11 +29,11 @@ def load_reviews(movie_file, outfile_name):
 		title = movie_data["Title"]
 
 		# extract movie reviews and save to outfile
-		get_reviews(IMDb_URL_PREFIX + imdb_id + IMDb_URL_SUFFIX, title, outfile_name)
+		get_reviews(IMDb_URL_PREFIX + imdb_id + IMDb_URL_SUFFIX, imdb_id, title, outfile_name)
 
 
 
-def get_reviews(url, title, outfile_name):
+def get_reviews(url, imdb_id,title, outfile_name):
 	try: 
 		page = urllib.request.urlopen(url)
 	except Exception:
@@ -52,6 +52,7 @@ def get_reviews(url, title, outfile_name):
 		# use json format
 		# use .text to get contents inside a tag
 		data = {}
+		data["id"] = imdb_id
 		data["movie"] = title
 		data["review_title"] = review_title.text
 		data["review_author"] = review_author.a.text
@@ -68,11 +69,11 @@ def get_reviews(url, title, outfile_name):
 FILE_1 = "academy_award_data.json"
 FILE_1_OUTPUT = "academy_award_reviews.json"
 
-FILE_2 = "recent_film_data.json"
-FILE_2_OUTPUT = "recent_film_reviews.json"
+# FILE_2 = "recent_film_data.json"
+# FILE_2_OUTPUT = "recent_film_reviews.json"
 
-FILE_3 = "movies_of_interest_data.json"
-FILE_3_OUTPUT = "movies_of_interest_reviews.json"
+# FILE_3 = "movies_of_interest_data.json"
+# FILE_3_OUTPUT = "movies_of_interest_reviews.json"
 
 if __name__ == '__main__':
 	# load_reviews(FILE_1, FILE_1_OUTPUT)
