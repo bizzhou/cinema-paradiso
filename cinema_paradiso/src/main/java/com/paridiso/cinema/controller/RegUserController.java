@@ -2,8 +2,6 @@ package com.paridiso.cinema.controller;
 
 import com.paridiso.cinema.entity.User;
 import com.paridiso.cinema.entity.UserProfile;
-import com.paridiso.cinema.exceptions.UserAlreadyExistException;
-import com.paridiso.cinema.exceptions.UserNotFound;
 import com.paridiso.cinema.security.JwtTokenGenerator;
 import com.paridiso.cinema.security.JwtTokenValidator;
 import com.paridiso.cinema.security.JwtUser;
@@ -14,7 +12,9 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import com.paridiso.cinema.service.implementation.RegUserServiceImpl;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.server.ResponseStatusException;
 
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RequestMapping("/user")
@@ -38,7 +38,8 @@ public class RegUserController {
     @RequestMapping(value = "/login", method = POST)
     public ResponseEntity<JwtUser> userLogin(@RequestParam(value = "email", required = true) String email,
                                              @RequestParam(value = "password", required = true) String password) {
-        User user = userService.login(email, password).orElseThrow(() -> new UserNotFound(email));
+        User user = userService.login(email, password).orElseThrow(() ->
+                new ResponseStatusException(BAD_REQUEST, "USER NOT FOUND"));
         JwtUser jwtUser = new JwtUser(user.getUsername(), generator.generate(user), user.getUserID(), user.getRole());
 
         return ResponseEntity.ok(jwtUser);
@@ -52,7 +53,7 @@ public class RegUserController {
     @RequestMapping(value = "/signup", method = POST)
     public ResponseEntity<JwtUser> userSignup(@RequestBody User user) {
         User optionalUser = userService.signup(user).orElseThrow(() ->
-                new UserAlreadyExistException("USER ALREADY EXIST: ", user.getUsername(), user.getEmail()));
+                new ResponseStatusException(BAD_REQUEST, "USER ALREADY EXISTS"));
         JwtUser jwtUser = new JwtUser(optionalUser.getUsername(),
                 generator.generate(optionalUser), optionalUser.getUserID(), optionalUser.getRole());
 

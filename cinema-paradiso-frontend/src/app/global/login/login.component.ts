@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import * as $ from 'jquery';
 import {User} from '../../user/user/user.model';
 import {LoginService} from './login.service';
+import {LoginStatusService} from './login.status.service';
 
 @Component({
   selector: 'app-login',
@@ -11,9 +12,10 @@ import {LoginService} from './login.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private loginService: LoginService) {
+  constructor(private loginService: LoginService, private loginStatusService: LoginStatusService) {
   }
 
+  private status: boolean;
   private user = new User();
   private isSamePassword: boolean;
   private email: string;
@@ -45,7 +47,6 @@ export class LoginComponent implements OnInit {
     const parentCtx = this;
 
     $('.second_password').on('keyup', function () {
-
       if ($('.first_password').val() === $('.second_password').val()) {
         console.log('same password');
         parentCtx.isSamePassword = true;
@@ -64,15 +65,23 @@ export class LoginComponent implements OnInit {
         console.log(data);
       });
     }
-
+    
   }
-
+  
   login() {
-
+    
     if (this.email !== null && this.password !== null) {
       this.loginService.login(this.email, this.password).subscribe(data => {
         console.log(data);
+
+        // Set user loggedIn status to global. So header can subscribe to the event.
+        this.loginStatusService.changeStatus(true);
+        localStorage.setItem("credential", JSON.stringify(data));
+
+        console.log(localStorage.getItem("credential"));
+        
       });
+
     }
 
 
