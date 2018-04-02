@@ -1,0 +1,89 @@
+Moonlight::tt4975722::vi2537731865
+Spotlight::tt1895587::vi4025725465
+Birdman::tt0061237::N/A
+12 Years a Slave::tt2024544::vi302032921
+Argo::tt1024648::vi1537319449
+The Artist::tt1655442::vi3105725977
+The King's Speech::tt1504320::vi806197529
+The Hurt Locker::tt0887912::vi2755855129
+Slumdog Millionaire::tt1010048::vi2220163097
+No Country for Old Men::tt0477348::vi145883417
+The Departed::tt0407887::vi2760573209
+Crash::tt0375679::vi2898198809
+Million Dollar Baby::tt0405159::vi3684040985
+The Lord of the Rings: The Return of the King::tt0167260::vi402694937
+Chicago::tt0299658::vi2884541977
+A Beautiful Mind::tt0268978::N/A
+Gladiator::tt0172495::vi2628367897
+American Beauty::tt0169547::vi788506137
+Shakespeare in Love::tt0138097::vi2497749273
+Titanic::tt0120338::vi907189785
+The English Patient::tt0116209::vi561882649
+Braveheart::tt0112573::vi3399129113
+Forrest Gump::tt0109830::vi3567517977
+Schindler's List::tt0108052::vi210108697
+Unforgiven::tt0105695::vi579771161
+The Silence of the Lambs::tt0102926::vi1140457753
+Dances with Wolves::tt0099348::vi2341967897
+Driving Miss Daisy::tt0097239::N/A
+Rain Man::tt0095953::vi1846975001
+The Last Emperor::tt0093389::vi2227569433
+Platoon::tt0091763::vi212245529
+Out of Africa::tt0089755::N/A
+Amadeus::tt0086879::vi2535496985
+Terms of Endearment::tt0086425::N/A
+Gandhi::tt0083987::vi1044512793
+Chariots of Fire::tt0082158::vi3076105241
+Ordinary People::tt0081283::vi108049433
+Kramer vs. Kramer::tt0079417::vi2588606489
+The Deer Hunter::tt0077416::vi3045785881
+Annie Hall::tt0075686::vi713859097
+Rocky::tt0075148::vi2997093657
+One Flew Over the Cuckoo's Nest::tt0073486::vi3943282969
+The Godfather: Part II::tt0071562::vi696162841
+The Sting::tt0070735::vi2717122841
+The Godfather::tt0068646::vi1348706585
+The French Connection::tt0067116::vi2196898073
+Patton::tt0066206::vi3499819289
+Midnight Cowboy::tt0064665::N/A
+Oliver!::tt0063385::N/A
+All About Eve::tt0042192::vi2863989017
+All Quiet on the Western Front::tt0020629::N/A
+All the King's Men::tt0405676::vi3467968793
+An American in Paris::tt0043278::vi769957145
+The Apartment::tt0053604::N/A
+Around the World in 80 Days::tt0327437::vi1927086361
+Ben-Hur::tt0052618::vi3059328025
+The Best Years of Our Lives::tt0036868::vi730792217
+The Bridge on the River Kwai::tt0050212::vi1900740633
+The Broadway Melody::tt0019729::N/A
+Casablanca::tt0034583::vi6095897
+Cavalcade::tt0023876::N/A
+Cimarron::tt0021746::N/A
+From Here to Eternity::tt0045793::vi3735552281
+Gentleman's Agreement::tt0039416::N/A
+Gigi::tt0051658::N/A
+Going My Way::tt0036872::vi2752492569
+Gone with the Wind::tt0031381::vi581873433
+Grand Hotel::tt0022958::vi3953263897
+The Great Ziegfeld::tt0027698::vi888340761
+The Greatest Show on Earth::tt0044672::N/A
+Hamlet::tt0116477::vi229376281
+How Green Was My Valley::tt0033729::vi3416719641
+In the Heat of the Night::tt0061811::N/A
+It Happened One Night::tt0025316::vi3410886681
+Lawrence of Arabia::tt0056172::vi1481310233
+The Life of Emile Zola::tt0029146::N/A
+The Lost Weekend::tt0037884::vi499163673
+A Man for All Seasons::tt0060665::vi1574811161
+Marty::tt0048356::vi2597500953
+Mrs. Miniver::tt0035093::N/A
+Mutiny on the Bounty::tt0026752::N/A
+My Fair Lady::tt0058385::vi3277783577
+On the Waterfront::tt0047296::vi1817421337
+Rebecca::tt0032976::vi110100761
+The Sound of Music::tt0059742::vi1567600153
+Tom Jones::tt0057590::vi1873085721
+West Side Story::tt0055614::vi4134641177
+Wings::tt0018578::vi4232356633
+You Can't Take It with You::tt0030993::N/A
