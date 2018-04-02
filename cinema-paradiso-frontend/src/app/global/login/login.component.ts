@@ -15,11 +15,11 @@ export class LoginComponent implements OnInit {
   constructor(private loginService: LoginService, private loginStatusService: LoginStatusService) {
   }
 
-  private status: boolean;
-  private user = new User();
-  private isSamePassword: boolean;
-  private email: string;
-  private password: string;
+  status: boolean;
+  user = new User();
+   isSamePassword: boolean;
+   email: string;
+   password: string;
 
   ngOnInit() {
 
