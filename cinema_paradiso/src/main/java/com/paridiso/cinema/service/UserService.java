@@ -2,7 +2,7 @@ package com.paridiso.cinema.service;
 
 import com.paridiso.cinema.entity.Mail;
 import com.paridiso.cinema.entity.User;
-import com.paridiso.cinema.persistence.UserDao;
+import com.paridiso.cinema.persistence.UserRepository;
 import com.paridiso.cinema.service.implementation.EmailServiceImpl;
 import com.paridiso.cinema.service.implementation.UtilityServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +15,7 @@ import java.util.Optional;
 public abstract class UserService {
 
     @Autowired
-    UserDao userDao;
+    UserRepository userRepository;
 
     @Autowired
     EmailServiceImpl emailService;
@@ -29,7 +29,7 @@ public abstract class UserService {
     @Transactional
     public Optional<User> login(String email, String password) {
         String hashedPassword = utilityService.getHashedPassword(password, salt);
-        return Optional.ofNullable(userDao.findUserByEmailAndPassword(email, hashedPassword));
+        return Optional.ofNullable(userRepository.findUserByEmailAndPassword(email, hashedPassword));
     }
 
     public void forgotPassword(String email) {

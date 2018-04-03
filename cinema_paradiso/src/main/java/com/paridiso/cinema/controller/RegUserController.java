@@ -34,7 +34,6 @@ public class RegUserController {
     @Autowired
     private Environment environment;
 
-
     @RequestMapping(value = "/login", method = POST)
     public ResponseEntity<JwtUser> userLogin(@RequestParam(value = "email", required = true) String email,
                                              @RequestParam(value = "password", required = true) String password) {

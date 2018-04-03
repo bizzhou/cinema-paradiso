@@ -15,11 +15,11 @@ export class LoginComponent implements OnInit {
   constructor(private loginService: LoginService, private loginStatusService: LoginStatusService) {
   }
 
-  private status: boolean;
-  private user = new User();
-  private isSamePassword: boolean;
-  private email: string;
-  private password: string;
+  status: boolean;
+  user = new User();
+   isSamePassword: boolean;
+   email: string;
+   password: string;
 
   ngOnInit() {
 
@@ -77,7 +77,6 @@ export class LoginComponent implements OnInit {
         // Set user loggedIn status to global. So header can subscribe to the event.
         this.loginStatusService.changeStatus(true);
         localStorage.setItem("credential", JSON.stringify(data));
-
         console.log(localStorage.getItem("credential"));
         
       });
