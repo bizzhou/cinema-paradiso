@@ -77,7 +77,6 @@ export class LoginComponent implements OnInit {
         // Set user loggedIn status to global. So header can subscribe to the event.
         this.loginStatusService.changeStatus(true);
         localStorage.setItem("credential", JSON.stringify(data));
-
         console.log(localStorage.getItem("credential"));
         
       });
