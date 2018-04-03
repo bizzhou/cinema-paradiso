@@ -5,7 +5,7 @@ import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.entity.Trailer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import com.paridiso.cinema.persistence.FilmDao;
+import com.paridiso.cinema.persistence.FilmRepository;
 import com.paridiso.cinema.service.FilmService;
 import com.paridiso.cinema.service.UtilityService;
 
@@ -16,7 +16,7 @@ public class MovieServiceImpl implements FilmService {
 
     @Autowired
     @Qualifier("TVDaoImpl")
-    FilmDao filmDao;
+    FilmRepository filmRepository;
 
     @Autowired
     @Qualifier("InputUtilityServiceImpl")
