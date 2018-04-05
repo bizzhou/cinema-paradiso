@@ -2,11 +2,11 @@ package com.paridiso.cinema.entity;
 
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "UserProfiles")
 public class UserProfile {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,12 +22,17 @@ public class UserProfile {
     @Column(name = "biography")
     private String biography;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private WatchList watchList;
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private WishList wishList;
 
     @Column(name = "isCritic")
     private Boolean isCritic;
+
+    @OneToMany(cascade = {CascadeType.MERGE},fetch= FetchType.LAZY, mappedBy = "userProfile")
+    private List<Review> reviews;
 
     public Boolean getCritic() {
         return isCritic;
@@ -96,5 +101,13 @@ public class UserProfile {
                 ", wishList=" + wishList +
                 ", isCritic=" + isCritic +
                 '}';
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 }

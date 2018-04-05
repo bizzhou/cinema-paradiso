@@ -11,8 +11,8 @@ public class Review {
     private Long reviewId;
 
     @ManyToOne(cascade = {CascadeType.MERGE},fetch= FetchType.LAZY)
-    @JoinColumn(name = "userId", nullable = false)
-    private User user;
+    @JoinColumn(name = "userProfileId", nullable = false)
+    private UserProfile userProfile;
 
     @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "imdbId", nullable = false)
@@ -56,19 +56,19 @@ public class Review {
         this.reviewContent = reviewContent;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public Movie getMovie() {
         return movie;
     }
 
     public void setMovie(Movie movie) {
         this.movie = movie;
+    }
+
+    public UserProfile getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
     }
 }

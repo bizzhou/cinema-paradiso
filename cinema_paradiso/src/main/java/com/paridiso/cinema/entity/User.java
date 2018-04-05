@@ -1,6 +1,7 @@
 package com.paridiso.cinema.entity;
 
 import com.paridiso.cinema.entity.enumerations.Role;
+import com.paridiso.cinema.service.WishlistService;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
@@ -38,8 +39,6 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private UserProfile userProfile;
 
-    @OneToMany(cascade = {CascadeType.MERGE},fetch= FetchType.LAZY, mappedBy = "user")
-    private List<Review> reviews;
 
     public User() {
     }
@@ -109,13 +108,5 @@ public class User {
                 ", role=" + role +
                 ", isAccountSuspended=" + isAccountSuspended +
                 '}';
-    }
-
-    public List<Review> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
     }
 }
