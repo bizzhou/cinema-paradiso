@@ -1,6 +1,7 @@
 package com.paridiso.cinema.entity;
 
 import com.paridiso.cinema.entity.enumerations.Role;
+import com.paridiso.cinema.service.WishlistService;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
@@ -113,13 +114,5 @@ public class User {
                 ", userProfile=" + userProfile +
                 ", reviews=" + reviews +
                 '}';
-    }
-
-    public List<Review> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
     }
 }

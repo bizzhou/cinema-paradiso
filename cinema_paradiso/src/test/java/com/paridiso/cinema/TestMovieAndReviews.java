@@ -51,45 +51,29 @@ public class TestMovieAndReviews {
 
     @Test
     public void testOneToManyMovieAndReviews() {
-        User u1 = new User();
-        User u2 = new User();
+        UserProfile up1 = new UserProfile();
+        Movie m1 = new Movie();
+        m1.setImdbId("tt111");
 
-        List<Review> reviewList1 = new ArrayList();
         Review r1 = new Review();
         Review r2 = new Review();
+        List<Review> reviews = new ArrayList();
+        reviews.add(r1);
+        reviews.add(r2);
 
-        Film m1 = new Movie();
+        r1.setMovie(m1);
+        r2.setMovie(m1);
+        r1.setUserProfile(up1);
+        r2.setUserProfile(up1);
 
-        // set movie data
-        m1.setImdbId("tt000001");
+        // add reviews to movie 1
+        m1.setReviews(reviews);
 
-        // set user data
-        u1.setUserID(234);
-        u1.setEmail("mel@gmail.com");
-        u1.setUsername("Mel");
-
-        u2.setUserID(456);
-        u2.setEmail("melanie@gmail.com");
-        u2.setUsername("Melanie");
-
-        // set review data
-        r1.setReviewId(new Long(1));
-        r1.setUser(u1);
-        r1.setMovie((Movie)m1);
-
-        r2.setReviewId(new Long(2));
-        r2.setUser(u2);
-        r2.setMovie((Movie)m1);
-
-        reviewList1.add(r1);
-        reviewList1.add(r2);
-
-        // add to the movie
-        m1.setReviews(reviewList1);
+        // add reviews to user 1
+        up1.setReviews(reviews);
 
         session.save(m1);
-        session.save(u1);
-        session.save(u2);
+        session.save(up1);
         session.save(r1);
         session.save(r2);
         session.getTransaction().commit();
@@ -98,25 +82,15 @@ public class TestMovieAndReviews {
         session = sessionFactory.openSession();
         session.beginTransaction();
 
-        // able to get reviews
-        Movie testMovie = (Movie) session.get(Movie.class, m1.getImdbId());
-        List<Review> testReviews = testMovie.getReviews();
-        assertEquals(2, testReviews.size());
+        // get m1 reviews
+        assertNotNull(session.get(Movie.class, m1.getImdbId()));
+        Movie testm1 = session.get(Movie.class, m1.getImdbId());
+        assertEquals(2, testm1.getReviews().size());
 
-        // able to get user 1
-        assertNotNull(testReviews.get(0).getUser());
-        User testUser1 = testReviews.get(0).getUser();
-        assertEquals("Mel", testUser1.getUsername());
-
-        assertNotNull(testReviews.get(1).getUser());
-        User testUser2 = testReviews.get(1).getUser();
-        assertEquals("Melanie", testUser2.getUsername());
-
-        // get reviews from a user
-        assertNotNull(testUser1.getReviews());
-        List<Review> testReviews2 = testUser1.getReviews();
-        assertEquals(testReviews2.size(), 1);
-
+        // get user 1's reviews
+        assertNotNull(session.get(UserProfile.class, up1.getId()));
+        UserProfile testUp1 = session.get(UserProfile.class, up1.getId());
+        assertEquals(2, testUp1.getReviews().size());
     }
 
 }
