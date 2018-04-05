@@ -9,7 +9,7 @@ import java.util.Calendar;
 import java.util.Set;
 
 @Entity
-@Table(name = "Movies",  uniqueConstraints = @UniqueConstraint(columnNames = "filmId"))
+@Table(name = "Movies",  uniqueConstraints = @UniqueConstraint(columnNames = "imdbId"))
 public class Movie extends Film {
 
     @Column(name = "runtime")

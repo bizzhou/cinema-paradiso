@@ -12,15 +12,11 @@ import java.net.URI;
 public class Celebrity {
 
 
-    public URI PHOTO_LOCATION = new URI("/tmp/celebrity");
+    public URI PHOTO_LOCATION;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "celebrityId")
-    private Integer celebrityId;
-
-    @Column(name = "imdbId", unique = true)
-    private String imdbId;
+    @Column(name = "celebrityId", unique = true)
+    private String celebrityId;
 
     @Column(name = "name")
     private String name;
@@ -53,7 +49,38 @@ public class Celebrity {
     @Column(name = "filmography")
     private Set<Movie> filmography;
 
-    public Celebrity() throws URISyntaxException {
+    public Celebrity() {
+    }
+
+
+    public URI getPHOTO_LOCATION() {
+        try {
+            PHOTO_LOCATION = new URI("/tmp/celebrity");
+        }
+        catch (URISyntaxException e) {
+            e.printStackTrace();
+        }
+        return PHOTO_LOCATION;
+    }
+
+    public void setPHOTO_LOCATION(URI PHOTO_LOCATION) {
+        this.PHOTO_LOCATION = PHOTO_LOCATION;
+    }
+
+    public String getCelebrityId() {
+        return celebrityId;
+    }
+
+    public void setCelebrityId(String celebrityId) {
+        this.celebrityId = celebrityId;
+    }
+
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
     }
 
     public String getName() {
@@ -128,13 +155,6 @@ public class Celebrity {
         this.birthState = birthState;
     }
 
-    public Integer getId() {
-        return celebrityId;
-    }
-
-    public void setId(Integer id) {
-        this.celebrityId = id;
-    }
 
     public Set<Movie> getFilmography() {
         return filmography;
@@ -144,11 +164,4 @@ public class Celebrity {
         this.filmography = filmography;
     }
 
-    public String getImdbId() {
-        return imdbId;
-    }
-
-    public void setImdbId(String imdbId) {
-        this.imdbId = imdbId;
-    }
 }

@@ -1,12 +1,27 @@
 package com.paridiso.cinema.entity;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "Reviews", uniqueConstraints = @UniqueConstraint(columnNames = {"reviewId", "imdbId"}))
 public class Review {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long reviewId;
-    private Integer userId;
-    private Long movieId;
+
+    @ManyToOne(cascade = {CascadeType.MERGE},fetch= FetchType.LAZY)
+    @JoinColumn(name = "userId", nullable = false)
+    private User user;
+
+    @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "imdbId", nullable = false)
+    private Movie movie;
+
     private Integer likeCount;
+
     private boolean isCriticReview;
+
     private String reviewContent;
 
     public Long getReviewId() {
@@ -15,22 +30,6 @@ public class Review {
 
     public void setReviewId(Long reviewId) {
         this.reviewId = reviewId;
-    }
-
-    public Integer getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Integer userId) {
-        this.userId = userId;
-    }
-
-    public Long getMovieId() {
-        return movieId;
-    }
-
-    public void setMovieId(Long movieId) {
-        this.movieId = movieId;
     }
 
     public Integer getLikeCount() {
@@ -55,5 +54,21 @@ public class Review {
 
     public void setReviewContent(String reviewContent) {
         this.reviewContent = reviewContent;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Movie getMovie() {
+        return movie;
+    }
+
+    public void setMovie(Movie movie) {
+        this.movie = movie;
     }
 }

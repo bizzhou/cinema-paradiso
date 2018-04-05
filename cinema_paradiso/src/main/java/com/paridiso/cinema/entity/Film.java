@@ -14,12 +14,13 @@ import java.util.Set;
 public class Film {
 
     public static final String PHOTO_LOCATION = "/tmp";
+//
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    @Column(name = "id")
+//    private Integer id;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "filmId")
-    private Integer filmId;
-
     @Column(name = "imdbId", unique = true)
     private String imdbId;
 
@@ -49,6 +50,12 @@ public class Film {
     )
     private List<Celebrity> casts;
 
+    @OneToMany(cascade = {CascadeType.MERGE},fetch= FetchType.EAGER, mappedBy = "movie")
+    private Set<Trailer> trailers;
+
+    @OneToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER, mappedBy = "movie")
+    private List<Review> reviews;
+
     @Column(name = "plot")
     private String plot;
 
@@ -66,9 +73,6 @@ public class Film {
     private Double rating;
 
 //    private List<String> photos;
-
-    @OneToMany(cascade = {CascadeType.MERGE},fetch= FetchType.EAGER, mappedBy = "movie")
-    private Set<Trailer> trailers;
 
     @Column(name = "production")
     private String production;
@@ -124,13 +128,13 @@ public class Film {
         return PHOTO_LOCATION;
     }
 
-    public Integer getId() {
-        return filmId;
-    }
-
-    public void setId(Integer id) {
-        this.filmId = id;
-    }
+//    public Integer getId() {
+//        return filmId;
+//    }
+//
+//    public void setId(Integer id) {
+//        this.filmId = id;
+//    }
 
     public String getTitle() {
         return title;
@@ -227,6 +231,15 @@ public class Film {
     public void setTrailers(Set<Trailer> trailers) {
         this.trailers = trailers;
     }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
 
 //    public List<String> getPhotos() {
 //        return photos;

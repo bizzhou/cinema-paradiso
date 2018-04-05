@@ -5,15 +5,15 @@ import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "Users", uniqueConstraints = @UniqueConstraint(columnNames = {"username", "email"}))
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "userId")
-    private Integer userID;
+    private Integer userId;
 
     @Size(max = 100)
     @Column(name = "username")
@@ -38,16 +38,22 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private UserProfile userProfile;
 
+    @OneToMany(cascade = {CascadeType.MERGE},fetch= FetchType.LAZY, mappedBy = "user")
+    private List<Review> reviews;
+
+    public User() {
+    }
+
     public void setAccountSuspended(Boolean accountSuspended) {
         isAccountSuspended = accountSuspended;
     }
 
     public Integer getUserID() {
-        return userID;
+        return userId;
     }
 
     public void setUserID(Integer userID) {
-        this.userID = userID;
+        this.userId = userID;
     }
 
     public String getUsername() {
@@ -97,11 +103,19 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "userID=" + userID +
+                "userID=" + userId +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
                 ", role=" + role +
                 ", isAccountSuspended=" + isAccountSuspended +
                 '}';
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
     }
 }

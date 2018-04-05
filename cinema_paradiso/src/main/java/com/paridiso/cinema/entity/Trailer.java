@@ -13,8 +13,9 @@ public class Trailer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer trailerId;
 
+    // can't be Film film, Film is not an entity --> unknown entity exception
     @ManyToOne(cascade = {CascadeType.MERGE},fetch= FetchType.EAGER)
-    @JoinColumn(name = "filmId", nullable = false)
+    @JoinColumn(name = "imdbId", nullable = false)          // mapped with Film.imdbId
     private Movie movie;
 
     private String name;
