@@ -7,12 +7,23 @@ import com.paridiso.cinema.security.JwtTokenValidator;
 import com.paridiso.cinema.security.JwtUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 import com.paridiso.cinema.service.implementation.RegUserServiceImpl;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
@@ -87,6 +98,32 @@ public class RegUserController {
         return ResponseEntity.ok(true);
     }
 
+    @GetMapping(value = "/avatar/{fileName}", produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<byte[]> getAvatar(@PathVariable String fileName) throws IOException {
+        ClassPathResource classPathResource = new ClassPathResource("images/" + fileName);
+        byte[] bytes = StreamUtils.copyToByteArray(classPathResource.getInputStream());
+        return ResponseEntity.ok()
+                .contentType(MediaType.IMAGE_JPEG)
+                .body(bytes);
+    }
+
+    @PostMapping(value = "/upload")
+    public ResponseEntity<?> upload(@RequestParam MultipartFile file) throws IOException {
+        if (!file.isEmpty()) {
+
+            String fileName = file.getOriginalFilename();
+            InputStream is = file.getInputStream();
+
+            Files.copy(is, Paths.get("/src/main/resources/static/images" + fileName),
+                    StandardCopyOption.REPLACE_EXISTING);
+
+            return ResponseEntity.ok("UPLOAD SUCCESS");
+        } else {
+            return ResponseEntity.badRequest().body("UPLOAD FAILURE ......");
+        }
+    }
+
+
     @RequestMapping(value = "/forgot_password", method = POST)
     public ResponseEntity<User> verifyCritic(@RequestParam(value = "email", required = true) String email) {
         userService.forgotPassword(email);
@@ -94,12 +131,9 @@ public class RegUserController {
     }
 
     @RequestMapping(value = "/update_profile", method = POST)
-    public ResponseEntity<Boolean> updateProfile(@RequestBody UserProfile userProfile) {
-//        System.out.println(userProfile);
-//        System.out.println("***********************");
-//        Boolean success = userService.updateProfile(userProfile);
-//        System.out.printf("insertion is %s", success.toString());
-        return null;
+    public ResponseEntity<?> updateProfile(@RequestBody UserProfile userProfile) {
+        UserProfile newProfile = userService.updateProfile(userProfile);
+        return new ResponseEntity<>(newProfile, HttpStatus.OK);
     }
 
 

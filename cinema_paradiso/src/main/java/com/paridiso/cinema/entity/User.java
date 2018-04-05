@@ -13,6 +13,7 @@ public class User {
 
     @Id
     @Column(name = "userId")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer userId;
 
     @Size(max = 100)
@@ -38,7 +39,7 @@ public class User {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private UserProfile userProfile;
 
-    @OneToMany(cascade = {CascadeType.MERGE},fetch= FetchType.LAZY, mappedBy = "user")
+    @OneToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY, mappedBy = "user")
     private List<Review> reviews;
 
     public User() {
@@ -103,11 +104,14 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "userID=" + userId +
+                "userId=" + userId +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 ", role=" + role +
                 ", isAccountSuspended=" + isAccountSuspended +
+                ", userProfile=" + userProfile +
+                ", reviews=" + reviews +
                 '}';
     }
 

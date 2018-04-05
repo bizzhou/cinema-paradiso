@@ -7,7 +7,6 @@ import javax.persistence.*;
 @Table(name = "UserProfiles")
 public class UserProfile {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
@@ -28,6 +27,9 @@ public class UserProfile {
 
     @Column(name = "isCritic")
     private Boolean isCritic;
+
+    @Column(name = "isPrivate")
+    private Boolean isPrivate;
 
     public Boolean getCritic() {
         return isCritic;
@@ -83,6 +85,14 @@ public class UserProfile {
 
     public void setWishList(WishList wishList) {
         this.wishList = wishList;
+    }
+
+    public Boolean getPrivate() {
+        return isPrivate;
+    }
+
+    public void setPrivate(Boolean aPrivate) {
+        isPrivate = aPrivate;
     }
 
     @Override
