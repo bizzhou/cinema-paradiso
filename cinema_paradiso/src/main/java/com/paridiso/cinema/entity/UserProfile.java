@@ -4,19 +4,19 @@ package com.paridiso.cinema.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user_profile")
+@Table(name = "UserProfiles")
 public class UserProfile {
 
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "profile_id")
+    @Column(name = "id")
     private Integer id;
 
     @Column(name = "name")
     private String name;
 
-    @Column(name = "profile_image")
+    @Column(name = "profileImage")
     private String profileImage;
 
     @Column(name = "biography")
@@ -26,7 +26,7 @@ public class UserProfile {
 
     private WishList wishList;
 
-    @Column(name = "is_critic")
+    @Column(name = "isCritic")
     private Boolean isCritic;
 
     public Boolean getCritic() {
