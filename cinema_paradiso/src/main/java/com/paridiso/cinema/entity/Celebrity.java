@@ -8,7 +8,7 @@ import java.util.Set;
 import java.net.URI;
 
 @Entity
-@Table(name = "celebrities", uniqueConstraints = @UniqueConstraint(columnNames = "celebrityId"))
+@Table(name = "Celebrities", uniqueConstraints = @UniqueConstraint(columnNames = "celebrityId"))
 public class Celebrity {
 
 

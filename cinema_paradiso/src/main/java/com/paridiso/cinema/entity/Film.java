@@ -38,10 +38,10 @@ public class Film {
 
 //    private List<Genre> genres;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private Celebrity director;
 
-    @ManyToMany(cascade = { CascadeType.ALL})
+    @ManyToMany(cascade = { CascadeType.MERGE})
     @JoinTable(
             name = "JoinFilmsCelebrities",
             joinColumns = {@JoinColumn(name = "filmId")},
@@ -59,12 +59,21 @@ public class Film {
     private String country;
 
     //    private Set<String> awards;
+    @Column(name = "poster")
     private String poster;
+
+    @Column(name = "rating")
     private Double rating;
-    private String studio;
+
 //    private List<String> photos;
-//    private List<Trailer> trailers;
+
+    @OneToMany(cascade = {CascadeType.MERGE},fetch= FetchType.EAGER, mappedBy = "movie")
+    private Set<Trailer> trailers;
+
+    @Column(name = "production")
     private String production;
+
+    @Column(name = "website")
     private URI website;
 
     public Film() {
@@ -203,20 +212,20 @@ public class Film {
         this.rating = rating;
     }
 
-    public String getStudio() {
-        return studio;
-    }
-
-    public void setStudio(String studio) {
-        this.studio = studio;
-    }
-
     public String getImdbId() {
         return imdbId;
     }
 
     public void setImdbId(String imdbId) {
         this.imdbId = imdbId;
+    }
+
+    public Set<Trailer> getTrailers() {
+        return trailers;
+    }
+
+    public void setTrailers(Set<Trailer> trailers) {
+        this.trailers = trailers;
     }
 
 //    public List<String> getPhotos() {
