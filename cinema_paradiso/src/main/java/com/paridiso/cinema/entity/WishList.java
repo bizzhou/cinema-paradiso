@@ -9,7 +9,7 @@ import java.util.List;
 @Table(name = "WishLists", uniqueConstraints = @UniqueConstraint(columnNames = {"wishlistId"}))
 public class WishList extends LinkedList {
 
-    public static final Integer SIZE_LIMIT = 999;
+    public final Integer SIZE_LIMIT = 999;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +29,7 @@ public class WishList extends LinkedList {
         movies = new ArrayList<>();
     }
 
-    public static Integer getSizeLimit() {
+    public Integer getSizeLimit() {
         return SIZE_LIMIT;
     }
 
@@ -52,12 +52,5 @@ public class WishList extends LinkedList {
     public void addMovie(Movie movie) {
         this.movies.add(movie);
     }
-//
-//    public UserProfile getUserProfile() {
-//        return userProfile;
-//    }
-//
-//    public void setUserProfile(UserProfile userProfile) {
-//        this.userProfile = userProfile;
-//    }
+
 }

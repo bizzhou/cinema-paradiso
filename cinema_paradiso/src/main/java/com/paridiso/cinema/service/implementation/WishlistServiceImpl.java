@@ -38,20 +38,28 @@ public class WishlistServiceImpl implements ListService, WishlistService {
         return null;
     }
 
-    // @Todo: check existence of a movie
     @Transactional
     @Override
-    public void addToList(Integer userId, String filmImdbId) {
+    public boolean addToList(Integer userId, String filmImdbId) {
+        // find movie
         Movie movie = movieRepository.findMovieByImdbId(filmImdbId);
+
+        // find user
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, "USER NOT FOUND"));
 
+        // check movie existence and size limit
         List<Movie> movies = user.getUserProfile().getWishList().getMovies();
-        movies.add(movie);
 
+        if (containsMovie(movies, filmImdbId) || movies.size() >= user.getUserProfile().getWishList().getSizeLimit())
+            return false;
+
+        // add to list
+        movies.add(movie);
         user.getUserProfile().getWishList().setMovies(movies);
 
         wishListRepository.save(user.getUserProfile().getWishList());
+        return true;
     }
 
     @Override
@@ -61,6 +69,15 @@ public class WishlistServiceImpl implements ListService, WishlistService {
 
     @Override
     public boolean removeFromList(Long filmId) {
+        return false;
+    }
+
+    @Override
+    public boolean containsMovie(List<Movie> movies, String filmImdbId) {
+        for (Movie movie: movies) {
+            if (movie.getImdbId().equals(filmImdbId))
+                return true;
+        }
         return false;
     }
 
