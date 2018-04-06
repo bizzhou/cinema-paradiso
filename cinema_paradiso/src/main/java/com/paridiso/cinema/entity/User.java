@@ -13,7 +13,6 @@ import java.util.List;
 public class User {
 
     @Id
-    @Column(name = "userId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
 
@@ -92,7 +91,7 @@ public class User {
     }
 
     public UserProfile getUserProfile() {
-        return userProfile;
+        return (userProfile != null ? userProfile : new UserProfile());
     }
 
     public void setUserProfile(UserProfile userProfile) {

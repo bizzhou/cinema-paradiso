@@ -1,20 +1,23 @@
 package com.paridiso.cinema.service.implementation;
 
-import com.paridiso.cinema.entity.User;
-import com.paridiso.cinema.entity.UserProfile;
+import com.paridiso.cinema.entity.*;
 import com.paridiso.cinema.entity.enumerations.Role;
 import com.paridiso.cinema.persistence.UserProfileRepository;
 
+import com.paridiso.cinema.persistence.WatchListRepository;
+import com.paridiso.cinema.persistence.WishListRepository;
 import com.paridiso.cinema.security.JwtTokenValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.paridiso.cinema.persistence.UserRepository;
 import com.paridiso.cinema.service.UserService;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
@@ -37,6 +40,13 @@ public class RegUserServiceImpl extends UserService {
     @Autowired
     private JwtTokenValidator validator;
 
+    @Autowired
+    WishListRepository wishListRepository;
+
+    @Autowired
+    WatchListRepository watchListRepository;
+
+
     @Transactional
     public Optional<User> signup(User user) {
         user.setRole(Role.ROLE_USER);
@@ -46,13 +56,16 @@ public class RegUserServiceImpl extends UserService {
         if (userRepository.findUserByEmail(user.getEmail()) != null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "USER EXISTS");
         }
+
         // first create a user_profile for the user;
         user.setUserProfile(userProfileRepository.save(new UserProfile()));
+        user.getUserProfile().setWishList(wishListRepository.save(new WishList()));
+        user.getUserProfile().setWishList(watchListRepository.save(new WishList()));
         return Optional.ofNullable(userRepository.save(user));
 
     }
 
-    @Transactional
+
     public UserProfile updateProfile(UserProfile userProfile) {
 
         UserProfile profile = userProfileRepository.findById(userProfile.getId())
@@ -105,3 +118,4 @@ public class RegUserServiceImpl extends UserService {
     }
 
 }
+

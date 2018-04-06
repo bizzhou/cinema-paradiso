@@ -11,8 +11,8 @@ public class WatchlistServiceImpl implements ListService {
     }
 
     @Override
-    public boolean addToList(Long filmId) {
-        return false;
+    public void addToList(Integer userId, String filmId) {
+
     }
 
     @Override
