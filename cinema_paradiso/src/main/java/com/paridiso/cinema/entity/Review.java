@@ -24,6 +24,7 @@ public class Review {
 
     private String reviewContent;
 
+
     public Long getReviewId() {
         return reviewId;
     }

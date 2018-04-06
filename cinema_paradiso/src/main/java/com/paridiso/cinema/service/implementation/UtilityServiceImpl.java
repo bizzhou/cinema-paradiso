@@ -12,6 +12,10 @@ import org.springframework.stereotype.Service;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import static java.nio.charset.StandardCharsets.*;
 
@@ -42,6 +46,11 @@ public class UtilityServiceImpl implements UtilityService {
         }
 
         return hashedPassword;
+    }
+
+    @Override
+    public List<String> tokenizedString(String string) {
+        return Arrays.asList(string.split(" "));
     }
 
 
