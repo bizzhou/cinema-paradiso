@@ -1,6 +1,8 @@
 package com.paridiso.cinema.controller;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.paridiso.cinema.entity.CriticApplication;
 import com.paridiso.cinema.security.JwtTokenGenerator;
 import com.paridiso.cinema.security.JwtUser;
@@ -29,6 +31,9 @@ public class AdminController {
     @Autowired
     private JwtTokenGenerator generator;
 
+    @Autowired
+    private ObjectMapper objectMapper;
+
     @RequestMapping(value = "/login", method = POST)
     public ResponseEntity<JwtUser> adminLogin(@RequestParam(value = "email", required = true) String email,
                                               @RequestParam(value = "password", required = true) String password) {
@@ -39,24 +44,26 @@ public class AdminController {
         return ResponseEntity.ok(jwtUser);
     }
 
-    @RequestMapping(value = "/logout", method = POST)
+    @PostMapping(value = "/logout")
     public ResponseEntity<Boolean> adminLogout() {
         return null;
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(value = "/protected/suspend/{id}", method = POST)
-    public ResponseEntity<Boolean> suspendUser(@PathVariable Integer id) {
-        return null;
+    //    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping(value = "/suspend/{id}")
+    public ResponseEntity<?> suspendUser(@PathVariable Integer id) {
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("success", userService.suspendUser(id));
+        return ResponseEntity.ok(objectNode);
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
-    @RequestMapping(value = "/protected/all_user", method = GET)
+    //    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping(value = "/get/users")
     public ResponseEntity<List> getUsers() {
         return ResponseEntity.ok(userService.getAllUsers());
     }
 
-    @RequestMapping(value = "/verify_critic", method = POST)
+    @PostMapping(value = "/verify/critic")
     public ResponseEntity<Boolean> verifyCritic(@RequestBody CriticApplication application) {
         return null;
     }
