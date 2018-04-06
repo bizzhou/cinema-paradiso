@@ -1,5 +1,7 @@
 package com.paridiso.cinema.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.paridiso.cinema.entity.User;
 import com.paridiso.cinema.entity.UserProfile;
 import com.paridiso.cinema.security.JwtTokenGenerator;
@@ -11,7 +13,7 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 import com.paridiso.cinema.service.implementation.RegUserServiceImpl;
@@ -19,14 +21,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RequestMapping("/user")
 @RestController
@@ -45,7 +43,10 @@ public class RegUserController {
     @Autowired
     private Environment environment;
 
-    @RequestMapping(value = "/login", method = POST)
+    @Autowired
+    private ObjectMapper objectMapper;
+
+    @PostMapping(value = "/login")
     public ResponseEntity<JwtUser> userLogin(@RequestParam(value = "email", required = true) String email,
                                              @RequestParam(value = "password", required = true) String password) {
         User user = userService.login(email, password).orElseThrow(() ->
@@ -55,12 +56,12 @@ public class RegUserController {
         return ResponseEntity.ok(jwtUser);
     }
 
-    @RequestMapping(value = "/logout", method = POST)
+    @PostMapping(value = "/logout")
     public ResponseEntity<Boolean> userLogout() {
         return ResponseEntity.ok(true);
     }
 
-    @RequestMapping(value = "/signup", method = POST)
+    @PostMapping(value = "/signup")
     public ResponseEntity<JwtUser> userSignup(@RequestBody User user) {
         User optionalUser = userService.signup(user).orElseThrow(() ->
                 new ResponseStatusException(BAD_REQUEST, "USER ALREADY EXISTS"));
@@ -70,30 +71,39 @@ public class RegUserController {
         return ResponseEntity.ok(jwtUser);
     }
 
-    @RequestMapping(value = "/check_username_taken/{username}", method = POST)
-    public ResponseEntity<Boolean> checkUsername(@PathVariable String username) {
-        return null;
+    @PostMapping(value = "/check/username/{username}")
+    public ResponseEntity<?> checkUsername(@PathVariable String username) {
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        boolean nameTaken = userService.checkUserNameTaken(username);
+        objectNode.put("taken", nameTaken);
+        return ResponseEntity.ok(objectNode);
     }
 
-    @RequestMapping(value = "/check_email_taken/{email}", method = POST)
-    public ResponseEntity<Boolean> checkUserEmail(@PathVariable String email) {
-        return null;
+    @PostMapping(value = "/check/email/{email}")
+    public ResponseEntity<?> checkUserEmail(@PathVariable String email) {
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        boolean nameTaken = userService.checkEmailTaken(email);
+        objectNode.put("taken", nameTaken);
+        return ResponseEntity.ok(objectNode);
     }
 
-    @RequestMapping(value = "/change_password", method = POST)
-    public ResponseEntity<Boolean> changePassword(@RequestParam(value = "old_password", required = true) String oldPass,
-                                                  @RequestParam(value = "new_password", required = true) String newPass) {
-        return null;
+    @PostMapping(value = "/change/password")
+    public ResponseEntity<?> changePassword(@RequestParam(value = "old_password", required = true) String oldPass,
+                                            @RequestParam(value = "new_password", required = true) String newPass) {
+        User user = userService.updatePassword(1, oldPass, newPass);
+        System.out.println(user);
+
+        return ResponseEntity.ok(user);
     }
 
     // TODO: Sending image to the backend....
 
-    @PreAuthorize("hasRole('ROLE_USER')")
-    @RequestMapping(value = "/protected/change_profile_picture", method = POST)
+//    @PreAuthorize("hasRole('ROLE_USER')")
+    @PostMapping(value = "/protected/change/avatar")
     public ResponseEntity<Boolean> changeProfilePicture(@RequestHeader(value = "Authorization") String jwtToken) {
         int headerLength = environment.getProperty("token.type").length();
         User validatedUser = validator.validate(jwtToken.substring(headerLength));
-        System.out.println(validatedUser);
+
         // Now you can get the user information with the data.
         return ResponseEntity.ok(true);
     }
@@ -110,13 +120,8 @@ public class RegUserController {
     @PostMapping(value = "/upload")
     public ResponseEntity<?> upload(@RequestParam MultipartFile file) throws IOException {
         if (!file.isEmpty()) {
-
             String fileName = file.getOriginalFilename();
-            InputStream is = file.getInputStream();
-
-            Files.copy(is, Paths.get("/src/main/resources/static/images" + fileName),
-                    StandardCopyOption.REPLACE_EXISTING);
-
+            FileCopyUtils.copy(file.getBytes(), new File("src/main/resources/static/images/" + fileName));
             return ResponseEntity.ok("UPLOAD SUCCESS");
         } else {
             return ResponseEntity.badRequest().body("UPLOAD FAILURE ......");
@@ -124,22 +129,26 @@ public class RegUserController {
     }
 
 
-    @RequestMapping(value = "/forgot_password", method = POST)
+    @PostMapping(value = "/forgot/password")
     public ResponseEntity<User> verifyCritic(@RequestParam(value = "email", required = true) String email) {
         userService.forgotPassword(email);
         return null;
     }
 
-    @RequestMapping(value = "/update_profile", method = POST)
+    @PostMapping(value = "/update/profile")
     public ResponseEntity<?> updateProfile(@RequestBody UserProfile userProfile) {
+        System.out.println("here");
         UserProfile newProfile = userService.updateProfile(userProfile);
+        System.out.println(newProfile);
         return new ResponseEntity<>(newProfile, HttpStatus.OK);
     }
 
 
-    @RequestMapping(value = "/mark_private", method = POST)
-    public ResponseEntity<Boolean> makeSummaryPrivate() {
-        return null;
+    @PostMapping(value = "/set/private")
+    public ResponseEntity<?> makeSummaryPrivate(@RequestHeader(value = "Authorization") String jwtToken) {
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("success", userService.makeSummaryPrivate(jwtToken));
+        return ResponseEntity.ok(objectNode);
     }
 
 }

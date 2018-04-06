@@ -5,9 +5,11 @@ import com.paridiso.cinema.entity.UserProfile;
 import com.paridiso.cinema.entity.enumerations.Role;
 import com.paridiso.cinema.persistence.UserProfileRepository;
 
+import com.paridiso.cinema.security.JwtTokenValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.paridiso.cinema.persistence.UserRepository;
 import com.paridiso.cinema.service.UserService;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -15,17 +17,25 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.transaction.Transactional;
 import java.util.Optional;
 
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+
 @Service
 public class RegUserServiceImpl extends UserService {
 
     @Autowired
-    UtilityServiceImpl utilityService;
+    private UtilityServiceImpl utilityService;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    UserProfileRepository userProfileRepository;
+    private UserProfileRepository userProfileRepository;
+
+    @Autowired
+    private Environment environment;
+
+    @Autowired
+    private JwtTokenValidator validator;
 
     @Transactional
     public Optional<User> signup(User user) {
@@ -36,10 +46,10 @@ public class RegUserServiceImpl extends UserService {
         if (userRepository.findUserByEmail(user.getEmail()) != null) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "USER EXISTS");
         }
-
         // first create a user_profile for the user;
         user.setUserProfile(userProfileRepository.save(new UserProfile()));
         return Optional.ofNullable(userRepository.save(user));
+
     }
 
     @Transactional
@@ -59,25 +69,23 @@ public class RegUserServiceImpl extends UserService {
     }
 
     @Transactional
-    public UserProfile makeSummaryPrivate(Integer profileId) {
-        UserProfile profile = userProfileRepository.findById(profileId)
+    public boolean makeSummaryPrivate(String jwtToken) {
+        int headerLength = environment.getProperty("token.type").length();
+        User validatedUser = validator.validate(jwtToken.substring(headerLength));
+
+        UserProfile profile = userProfileRepository.findById(validatedUser.getUserProfile().getId())
                 .orElseThrow(() -> new RuntimeException("CANNOT FIND PROFILE"));
 
         profile.setPrivate(true);
-        return userProfileRepository.save(profile);
+        return userProfileRepository.save(profile).getPrivate() == true ? true : false;
     }
 
     @Transactional
     public User updatePassword(Integer userId, String oldPassword, String newPassword) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("USER NOT FOUND"));
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, "USER NOT FOUND"));
 
-        System.out.println(user);
         String hashedPassword = utilityService.getHashedPassword(oldPassword, salt);
-        System.out.println(oldPassword);
-        System.out.println(salt);
-        System.out.println(hashedPassword);
-
         if (!hashedPassword.equals(user.getPassword())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "WRONG PASSWORD");
         } else {

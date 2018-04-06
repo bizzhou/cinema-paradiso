@@ -19,15 +19,16 @@ public class JwtTokenGenerator {
 
     public String generate(User jwtUser) {
 
-        Date expirationTime = new Date(System.currentTimeMillis() + expirationInMills);
+//        Date expirationTime = new Date(System.currentTimeMillis() + expirationInMills);
 
         Claims claims = Jwts.claims()
-                .setSubject(jwtUser.getUsername())
-                .setExpiration(expirationTime);
+                .setSubject(jwtUser.getUsername());
+//                .setExpiration(expirationTime);
 
         claims.put("username", jwtUser.getUsername());
         claims.put("role", jwtUser.getRole().name());
         claims.put("id", jwtUser.getUserID());
+        claims.put("profile_id", jwtUser.getUserProfile().getId());
 
         return Jwts.builder()
                 .setClaims(claims)

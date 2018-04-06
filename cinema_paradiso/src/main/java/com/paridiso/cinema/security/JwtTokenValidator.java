@@ -1,6 +1,7 @@
 package com.paridiso.cinema.security;
 
 import com.paridiso.cinema.entity.User;
+import com.paridiso.cinema.entity.UserProfile;
 import com.paridiso.cinema.entity.enumerations.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -18,19 +19,21 @@ public class JwtTokenValidator {
         User jwtUser = null;
 
         try {
-
             Claims body = Jwts.parser()
                     .setSigningKey(this.secret)
                     .parseClaimsJws(token)
                     .getBody();
 
             jwtUser = new User();
-
             jwtUser.setUserID(Integer.parseInt(body.get("id").toString()));
             jwtUser.setUsername(body.get("username").toString());
             jwtUser.setRole(Role.valueOf(body.get("role").toString()));
 
-
+            if (body.get("profile_id").toString() != null) {
+                UserProfile userProfile = new UserProfile();
+                userProfile.setId(Integer.parseInt(body.get("profile_id").toString()));
+                jwtUser.setUserProfile(userProfile);
+            }
         } catch (Exception e) {
             System.out.println("Cannot verify the token");
         }

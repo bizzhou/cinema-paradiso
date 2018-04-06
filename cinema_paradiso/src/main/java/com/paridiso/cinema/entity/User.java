@@ -14,7 +14,7 @@ public class User {
 
     @Id
     @Column(name = "userId")
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
 
     @Size(max = 100)
@@ -37,11 +37,8 @@ public class User {
     @Column(name = "suspended")
     private Boolean isAccountSuspended;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private UserProfile userProfile;
-
-    @OneToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY, mappedBy = "user")
-    private List<Review> reviews;
 
     public User() {
     }
@@ -112,7 +109,6 @@ public class User {
                 ", role=" + role +
                 ", isAccountSuspended=" + isAccountSuspended +
                 ", userProfile=" + userProfile +
-                ", reviews=" + reviews +
                 '}';
     }
 }

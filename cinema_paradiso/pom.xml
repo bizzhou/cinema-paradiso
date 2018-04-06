@@ -83,6 +83,13 @@
             <scope>runtime</scope>
         </dependency>
 
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>3.0.7</version>
+            <scope>test</scope>
+        </dependency>
+
         <!--Dependency for Java 9-->
         <!--<dependency>-->
         <!--<groupId>javax.xml.bind</groupId>-->
