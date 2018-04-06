@@ -10,7 +10,7 @@ public interface FilmService {
 
     boolean addFilm(Film film);
 
-    Film getFilm(Film film);
+    Film getFilm(String filmId);
 
     Film deleteFilm(Long filmId);
 

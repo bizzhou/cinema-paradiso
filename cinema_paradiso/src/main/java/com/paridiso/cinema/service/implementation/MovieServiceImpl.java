@@ -8,19 +8,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import com.paridiso.cinema.service.FilmService;
 import com.paridiso.cinema.service.UtilityService;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
 
+@Service
+@Qualifier(value = "MovieServiceImpl")
 public class MovieServiceImpl implements FilmService {
 
     @Autowired
-//    @Qualifier("TVDaoImpl")
     MovieRepository movieRepository;
 
-    @Autowired
-    @Qualifier("InputUtilityServiceImpl")
-    UtilityService utilityService;
+//    @Autowired
+//    @Qualifier("InputUtilityServiceImpl")
+//    UtilityService utilityService;
 
     @Override
     public boolean addFilm(Film film) {
@@ -28,8 +30,8 @@ public class MovieServiceImpl implements FilmService {
     }
 
     @Override
-    public Film getFilm(Film film) {
-        return null;
+    public Film getFilm(String filmId) {
+        return movieRepository.findMovieByImdbId(filmId);
     }
 
     @Override

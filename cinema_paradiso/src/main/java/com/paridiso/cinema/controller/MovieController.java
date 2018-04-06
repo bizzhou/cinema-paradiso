@@ -3,6 +3,7 @@ package com.paridiso.cinema.controller;
 import com.paridiso.cinema.entity.Movie;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.paridiso.cinema.service.FilmService;
@@ -17,9 +18,9 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @RestController
 public class MovieController {
 
-//    @Autowired
-//    @Qualifier("MovieServiceImpl")
-//    FilmService filmService;
+    @Autowired
+    @Qualifier("MovieServiceImpl")
+    FilmService filmService;
 
     @RequestMapping(value = "/all", method = GET)
     public ResponseEntity<List> getAllMovies() {
@@ -27,13 +28,17 @@ public class MovieController {
     }
 
 
-    @RequestMapping(value = "/{id}", method = GET)
-    public ResponseEntity<Movie> getMovie(@PathVariable Long id) {
-        return null;
+    @RequestMapping(value = "/{filmId}", method = GET)
+    public ResponseEntity<Movie> getMovie(@PathVariable String filmId) {
+        Movie movie = (Movie)filmService.getFilm(filmId);
+        if (movie != null)
+            return new ResponseEntity<>(movie, HttpStatus.OK);
+
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping(value = "/add_movie", method = POST)
-    public ResponseEntity<Boolean> addMvoie(@RequestBody Movie movie) {
+    public ResponseEntity<Boolean> addMovie(@RequestBody Movie movie) {
         return null;
     }
 

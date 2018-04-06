@@ -1,7 +1,7 @@
 package com.paridiso.cinema.service.implementation;
 
 import com.paridiso.cinema.entity.Movie;
-import com.paridiso.cinema.persistence.SearchRepository;
+import com.paridiso.cinema.persistence.MovieRepository;
 import com.paridiso.cinema.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,28 +12,29 @@ import java.util.*;
 public class SearchServiceImpl implements SearchService{
 
     @Autowired
-    SearchRepository searchRepository;
+    MovieRepository movieRepository;
 
     // @TODO: tokenize the keyword
+    // @TODO: celebrity search
     @Override
     public List<Movie> getMoviesFromKeyword(String keyword) {
         // LinkedHashSet: no duplicates and allow ordering
-        LinkedHashSet<Movie> moviesSet = new LinkedHashSet<>();
-        moviesSet.addAll(getExactMatch(keyword));
-        moviesSet.addAll(getPhraseMatch(keyword));
+        LinkedHashSet<Movie> movieSet = new LinkedHashSet<>();
+        movieSet.addAll(getExactMatch(keyword));
+        movieSet.addAll(getPhraseMatch(keyword));
 
         List<Movie> movieList = new ArrayList<>(new LinkedHashSet<Movie>());
-        movieList.addAll(moviesSet);
+        movieList.addAll(movieSet);
 
         return movieList;
     }
 
     private List<Movie> getExactMatch(String keyword) {
-        return searchRepository.findMoviesByTitle(keyword);
+        return movieRepository.findMoviesByTitle(keyword);
     }
 
     private List<Movie> getPhraseMatch(String keyword) {
-        return searchRepository.findMoviesByTitleContains(keyword);
+        return movieRepository.findMoviesByTitleContains(keyword);
     }
 
 
