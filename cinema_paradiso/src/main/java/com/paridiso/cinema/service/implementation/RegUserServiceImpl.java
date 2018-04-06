@@ -81,16 +81,16 @@ public class RegUserServiceImpl extends UserService {
     }
 
     @Transactional
-    public User updatePassword(Integer userId, String oldPassword, String newPassword) {
+    public boolean updatePassword(Integer userId, String oldPassword, String newPassword) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, "USER NOT FOUND"));
 
         String hashedPassword = utilityService.getHashedPassword(oldPassword, salt);
         if (!hashedPassword.equals(user.getPassword())) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "WRONG PASSWORD");
+            return false;
         } else {
             user.setPassword(utilityService.getHashedPassword(newPassword, salt));
-            return userRepository.save(user);
+            return userRepository.save(user).getPassword() != null ? true : false;
         }
     }
 

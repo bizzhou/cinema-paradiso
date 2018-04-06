@@ -88,17 +88,19 @@ public class RegUserController {
     }
 
     @PostMapping(value = "/change/password")
-    public ResponseEntity<?> changePassword(@RequestParam(value = "old_password", required = true) String oldPass,
+    public ResponseEntity<?> changePassword(@RequestHeader(value = "Authorization") String jwtToken,
+                                            @RequestParam(value = "old_password", required = true) String oldPass,
                                             @RequestParam(value = "new_password", required = true) String newPass) {
-        User user = userService.updatePassword(1, oldPass, newPass);
-        System.out.println(user);
-
-        return ResponseEntity.ok(user);
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        int headerLength = environment.getProperty("token.type").length();
+        User validatedUser = validator.validate(jwtToken.substring(headerLength));
+        objectNode.put("success", userService.updatePassword(validatedUser.getUserID(), oldPass, newPass));
+        return ResponseEntity.ok(objectNode);
     }
 
     // TODO: Sending image to the backend....
 
-//    @PreAuthorize("hasRole('ROLE_USER')")
+    //    @PreAuthorize("hasRole('ROLE_USER')")
     @PostMapping(value = "/protected/change/avatar")
     public ResponseEntity<Boolean> changeProfilePicture(@RequestHeader(value = "Authorization") String jwtToken) {
         int headerLength = environment.getProperty("token.type").length();

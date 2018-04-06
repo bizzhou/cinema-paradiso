@@ -31,16 +31,7 @@ public class UserProfile {
     public UserProfile() {
     }
 
-    public UserProfile(String name, String profileImage, String biography, WatchList watchList, WishList wishList, Boolean isCritic, Boolean isPrivate, List<Review> reviews) {
-        this.name = name;
-        this.profileImage = profileImage;
-        this.biography = biography;
-        this.watchList = watchList;
-        this.wishList = wishList;
-        this.isCritic = isCritic;
-        this.isPrivate = isPrivate;
-        this.reviews = reviews;
-    }
+
 
     @Column(name = "isCritic")
     private Boolean isCritic;

@@ -1,16 +1,20 @@
 package com.paridiso.cinema.controller;
 
 import com.paridiso.cinema.entity.UserProfile;
+import com.paridiso.cinema.entity.UserProfileBuilder;
+import com.paridiso.cinema.entity.WatchList;
+import com.paridiso.cinema.entity.WishList;
 import io.restassured.response.ValidatableResponse;
 
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
-
-import java.util.HashMap;
+import org.junit.runners.MethodSorters;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
+@FixMethodOrder(MethodSorters.DEFAULT)
 public class RegUserControllerTest {
 
     static final String url = "http://localhost:8080/user/";
@@ -86,23 +90,25 @@ public class RegUserControllerTest {
 
     @Test
     public void changePassword() {
+        String jwtToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwidXNlcm5hbWUiOiJ1c2VyIiwicm9sZSI6IlJPTEVfVVNFUiIsImlkIjozLCJwcm9maWxlX2lkIjoxfQ.obr4RphbYxzPwYJhSRXhsIDcogQkWakkpE25KT8zMpg";
         ValidatableResponse validatableResponse = given()
+                .auth().preemptive().oauth2(jwtToken)
                 .param("old_password", "123")
                 .param("new_password", "234")
                 .when().post(url + "change/password")
-                .then().statusCode(200);
-        validatableResponse.body("username", equalTo("admin"));
-        validatableResponse.body("role", equalTo("ROLE_ADMIN"));
+                .then().statusCode(200).body("success", equalTo(true));
     }
 
 
     @Test
     public void changePasswordFail() {
+        String jwtToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwidXNlcm5hbWUiOiJ1c2VyIiwicm9sZSI6IlJPTEVfVVNFUiIsImlkIjozLCJwcm9maWxlX2lkIjoxfQ.obr4RphbYxzPwYJhSRXhsIDcogQkWakkpE25KT8zMpg";
         ValidatableResponse validatableResponse = given()
-                .param("old_password", "345")
-                .param("new_password", "123")
+                .auth().preemptive().oauth2(jwtToken)
+                .param("old_password", "342")
+                .param("new_password", "234")
                 .when().post(url + "change/password")
-                .then().statusCode(400);
+                .then().statusCode(200).body("success", equalTo(false));
     }
 
     @Test
@@ -126,36 +132,35 @@ public class RegUserControllerTest {
     @Test
     public void updateProfile() {
 
-//        HashMap hashMap = new HashMap<>();
-//        hashMap.put("id", "1");
-//        hashMap.put("name", "Bin Zhou");
-//        hashMap.put("isCritic", false);
-
-        UserProfile userProfile = new UserProfile("Bin Zhou", null, "Hello", null, null, false, false, null);
-        userProfile.setId(1);
+        UserProfile build = new UserProfileBuilder()
+                .withId(1)
+                .withName("Bin Zhou")
+                .withProfileImage(null)
+                .withBiography("This is me")
+                .withWatchList(new WatchList())
+                .withWishList(new WishList())
+                .withReviews(null)
+                .build();
 
 
         ValidatableResponse validatableResponse = given()
                 .contentType("application/json")
-                .body(userProfile)
+                .body(build)
                 .when().post(url + "update/profile")
                 .then().statusCode(200);
 
         validatableResponse.body("name", equalTo("Bin Zhou"));
-//        validatableResponse.body("biography", equalTo("This is me"));
+        validatableResponse.body("biography", equalTo("This is me"));
 
 
     }
 
-//    @Test
-//    public void makeSummaryPrivate() {
-//
-//        String jwtToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwidXNlcm5hbWUiOiJ1c2VyIiwicm9sZSI6IlJPTEVfVVNFUiIsImlkIjozLCJwcm9maWxlX2lkIjoxfQ.obr4RphbYxzPwYJhSRXhsIDcogQkWakkpE25KT8zMpg";
-//        ValidatableResponse validatableResponse = given()
-//                .when().post(url + "update/profile")
-//                .then().statusCode(200);
-//
-//
-//
-//    }
+    @Test
+    public void makeSummaryPrivate() {
+        String jwtToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwidXNlcm5hbWUiOiJ1c2VyIiwicm9sZSI6IlJPTEVfVVNFUiIsImlkIjozLCJwcm9maWxlX2lkIjoxfQ.obr4RphbYxzPwYJhSRXhsIDcogQkWakkpE25KT8zMpg";
+        ValidatableResponse validatableResponse1 = given()
+                .auth().preemptive().oauth2(jwtToken)
+                .when().post(url + "set/private")
+                .then().statusCode(200).body("success", equalTo(true));
+    }
 }
