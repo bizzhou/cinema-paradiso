@@ -1,11 +1,19 @@
 package com.paridiso.cinema.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.paridiso.cinema.entity.User;
 import com.paridiso.cinema.entity.WatchList;
+import com.paridiso.cinema.security.JwtTokenGenerator;
+import com.paridiso.cinema.security.JwtTokenValidator;
+import com.paridiso.cinema.service.ListService;
+import com.paridiso.cinema.service.UtilityService;
+import com.paridiso.cinema.service.WishlistService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.core.env.Environment;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import com.paridiso.cinema.service.WatchlistService;
 
 import static org.springframework.web.bind.annotation.RequestMethod.*;
@@ -18,19 +26,25 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @RestController
 public class WatchlistController {
 
-//    @Autowired
-//    WatchlistService wishlistService;
+    @Autowired
+    @Qualifier(value = "watchlistServiceImpl")
+    ListService listService;
+
+    @Autowired
+    UtilityService utilityService;
 
     @RequestMapping(value = "/", method = GET)
     public ResponseEntity<WatchList> getWatchlist() {
         return null;
     }
 
-    @RequestMapping(value = "/{filmId}", method = POST)
-    public ResponseEntity<Boolean> addToWatchList(@PathVariable Integer filmId) {
-        return null;
+    @RequestMapping(value = "", method = POST)
+    public ResponseEntity<Boolean> addToWishList(@RequestHeader(value = "Authorization") String jwtToken, @RequestParam("filmId") String filmId) {
+        Boolean result = listService.addToList(utilityService.getUserIdFromToken(jwtToken), filmId);
+        if (result)
+            return ResponseEntity.ok(true);
+        return ResponseEntity.ok(false);
     }
-
     @RequestMapping(value = "/{filmId}", method = DELETE)
     public ResponseEntity<Boolean> removeFromWatchList(@PathVariable Integer filmId) {
         return null;

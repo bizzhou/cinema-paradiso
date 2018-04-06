@@ -1,14 +1,13 @@
 package com.paridiso.cinema.entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 @Entity
 @Table(name = "WatchList")
 public class WatchList extends LinkedList {
-
-    public static final Integer SIZE_LIMIT = 999;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,8 +22,13 @@ public class WatchList extends LinkedList {
     )
     private List<Movie> movies;
 
-    public static Integer getSizeLimit() {
-        return SIZE_LIMIT;
+
+    public WatchList() {
+        movies = new ArrayList<>();
+    }
+
+    public Integer getSizeLimit() {
+        return 999;
     }
 
     public Integer getWatchListId() {

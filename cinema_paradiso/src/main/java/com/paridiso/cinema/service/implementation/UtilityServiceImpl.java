@@ -1,6 +1,13 @@
 package com.paridiso.cinema.service.implementation;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.paridiso.cinema.entity.User;
+import com.paridiso.cinema.security.JwtTokenGenerator;
+import com.paridiso.cinema.security.JwtTokenValidator;
 import com.paridiso.cinema.service.UtilityService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
 import java.security.MessageDigest;
@@ -10,6 +17,18 @@ import static java.nio.charset.StandardCharsets.*;
 
 @Service
 public class UtilityServiceImpl implements UtilityService {
+
+    @Autowired
+    private JwtTokenGenerator generator;
+
+    @Autowired
+    private JwtTokenValidator validator;
+
+    @Autowired
+    private Environment environment;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Override
     public String getHashedPassword(String passwordToHash, String salt) {
@@ -35,6 +54,13 @@ public class UtilityServiceImpl implements UtilityService {
         }
 
         return hashedPassword;
+    }
+
+    public Integer getUserIdFromToken(String jwtToken) {
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        int headerLength = environment.getProperty("token.type").length();
+        User validatedUser = validator.validate(jwtToken.substring(headerLength));
+        return validatedUser.getUserID();
     }
 
 }

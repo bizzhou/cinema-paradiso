@@ -7,7 +7,9 @@ import com.paridiso.cinema.entity.WatchList;
 import com.paridiso.cinema.security.JwtTokenGenerator;
 import com.paridiso.cinema.security.JwtTokenValidator;
 import com.paridiso.cinema.service.ListService;
+import com.paridiso.cinema.service.UtilityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.paridiso.cinema.service.WishlistService;
@@ -27,22 +29,11 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 public class WishlistController {
 
     @Autowired
-    WishlistService wishlistService;
-
-    @Autowired
+    @Qualifier(value = "wishlistServiceImpl")
     ListService listService;
 
     @Autowired
-    private JwtTokenGenerator generator;
-
-    @Autowired
-    private JwtTokenValidator validator;
-
-    @Autowired
-    private Environment environment;
-
-    @Autowired
-    private ObjectMapper objectMapper;
+    UtilityService utilityService;
 
     @RequestMapping(value = "/", method = GET)
     public ResponseEntity<WatchList> getWishList() {
@@ -53,12 +44,10 @@ public class WishlistController {
     @RequestMapping(value = "", method = POST)
     public ResponseEntity<Boolean> addToWishList(@RequestHeader(value = "Authorization") String jwtToken, @RequestParam("filmId") String filmId) {
 
-        ObjectNode objectNode = objectMapper.createObjectNode();
-        int headerLength = environment.getProperty("token.type").length();
-        User validatedUser = validator.validate(jwtToken.substring(headerLength));
-        listService.addToList(validatedUser.getUserID(), filmId);
-
-        return null;
+        Boolean result = listService.addToList(utilityService.getUserIdFromToken(jwtToken), filmId);
+        if (result)
+            return ResponseEntity.ok(true);
+        return ResponseEntity.ok(false);
     }
 
     @RequestMapping(value = "/{filmId}", method = DELETE)

@@ -9,7 +9,7 @@ import java.util.List;
 @Table(name = "WishLists", uniqueConstraints = @UniqueConstraint(columnNames = {"wishlistId"}))
 public class WishList extends LinkedList {
 
-    public final Integer SIZE_LIMIT = 999;
+    private final Integer SIZE_LIMIT = 999;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
