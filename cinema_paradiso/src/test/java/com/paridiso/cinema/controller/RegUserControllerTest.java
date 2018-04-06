@@ -1,18 +1,17 @@
 package com.paridiso.cinema.controller;
 
-import com.paridiso.cinema.entity.UserProfile;
-import com.paridiso.cinema.entity.UserProfileBuilder;
-import com.paridiso.cinema.entity.WatchList;
-import com.paridiso.cinema.entity.WishList;
 import io.restassured.response.ValidatableResponse;
-
 import org.junit.Before;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runners.MethodSorters;
 
+import java.io.File;
+
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
+
+//import com.paridiso.cinema.entity.UserProfileBuilder;
 
 @FixMethodOrder(MethodSorters.DEFAULT)
 public class RegUserControllerTest {
@@ -117,41 +116,38 @@ public class RegUserControllerTest {
 
     @Test
     public void getAvatar() {
-    }
-
-    @Test
-    public void upload() {
+        given()
+                .pathParam("fileName", "1.jpeg")
+                .when().get(url + "avatar/{fileName}")
+                .then().statusCode(200);
     }
 
     @Test
     public void verifyCritic() {
     }
 
-    @Test
-    public void updateProfile() {
-
-        UserProfile build = new UserProfileBuilder()
-                .withId(1)
-                .withName("Bin Zhou")
-                .withProfileImage(null)
-                .withBiography("This is me")
-                .withWatchList(new WatchList())
-                .withWishList(new WishList())
-                .withReviews(null)
-                .build();
-
-
-        ValidatableResponse validatableResponse = given()
-                .contentType("application/json")
-                .body(build)
-                .when().post(url + "update/profile")
-                .then().statusCode(200);
-
-        validatableResponse.body("name", equalTo("Bin Zhou"));
-        validatableResponse.body("biography", equalTo("This is me"));
-
-
-    }
+//    @Test
+//    public void updateProfile() {
+//        UserProfile build = new UserProfileBuilder()
+//                .withId(1)
+//                .withName("Bin Zhou")
+//                .withProfileImage(null)
+//                .withBiography("This is me")
+//                .withWatchList(new WatchList())
+//                .withWishList(new WishList())
+//                .withReviews(null)
+//                .build();
+//
+//
+//        ValidatableResponse validatableResponse = given()
+//                .contentType("application/json")
+//                .body(build)
+//                .when().post(url + "update/profile")
+//                .then().statusCode(200);
+//
+//        validatableResponse.body("name", equalTo("Bin Zhou"));
+//        validatableResponse.body("biography", equalTo("This is me"));
+//    }
 
     @Test
     public void makeSummaryPrivate() {
@@ -161,4 +157,5 @@ public class RegUserControllerTest {
                 .when().post(url + "set/private")
                 .then().statusCode(200).body("success", equalTo(true));
     }
+
 }
