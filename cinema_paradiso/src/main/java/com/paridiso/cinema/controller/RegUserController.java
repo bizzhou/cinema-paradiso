@@ -7,22 +7,27 @@ import com.paridiso.cinema.entity.UserProfile;
 import com.paridiso.cinema.security.JwtTokenGenerator;
 import com.paridiso.cinema.security.JwtTokenValidator;
 import com.paridiso.cinema.security.JwtUser;
+import com.paridiso.cinema.service.implementation.RegUserServiceImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.FileCopyUtils;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
-import com.paridiso.cinema.service.implementation.RegUserServiceImpl;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
@@ -30,7 +35,6 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
 public class RegUserController {
-
     @Autowired
     private RegUserServiceImpl userService;
 
@@ -45,6 +49,8 @@ public class RegUserController {
 
     @Autowired
     private ObjectMapper objectMapper;
+
+    private static final Logger logger = LogManager.getLogger(RegUserController.class);
 
     @PostMapping(value = "/login")
     public ResponseEntity<JwtUser> userLogin(@RequestParam(value = "email", required = true) String email,
@@ -67,7 +73,6 @@ public class RegUserController {
                 new ResponseStatusException(BAD_REQUEST, "USER ALREADY EXISTS"));
         JwtUser jwtUser = new JwtUser(optionalUser.getUsername(),
                 generator.generate(optionalUser), optionalUser.getUserID(), optionalUser.getRole());
-
         return ResponseEntity.ok(jwtUser);
     }
 
@@ -112,18 +117,28 @@ public class RegUserController {
 
     @GetMapping(value = "/avatar/{fileName}", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<byte[]> getAvatar(@PathVariable String fileName) throws IOException {
-        ClassPathResource classPathResource = new ClassPathResource("images/" + fileName);
-        byte[] bytes = StreamUtils.copyToByteArray(classPathResource.getInputStream());
-        return ResponseEntity.ok()
-                .contentType(MediaType.IMAGE_JPEG)
-                .body(bytes);
+        String fileLocation = Paths.get("avatars/" + fileName).toAbsolutePath().toString();
+        logger.info(fileLocation);
+
+        try {
+            File file = new File(fileLocation);
+            InputStream inputStream = new FileInputStream(file);
+            byte[] bytes = StreamUtils.copyToByteArray(inputStream);
+            return ResponseEntity.ok()
+                    .contentType(MediaType.IMAGE_JPEG)
+                    .body(bytes);
+        } catch (IOException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "RESOURCE NOT FOUND");
+        }
     }
 
     @PostMapping(value = "/upload")
-    public ResponseEntity<?> upload(@RequestParam MultipartFile file) throws IOException {
+    public ResponseEntity<?> upload(@RequestParam MultipartFile file, @RequestParam int userId) throws IOException {
         if (!file.isEmpty()) {
-            String fileName = file.getOriginalFilename();
-            FileCopyUtils.copy(file.getBytes(), new File("src/main/resources/static/images/" + fileName));
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get("avatars/" + userId + ".jpeg");
+            logger.info(path.toAbsolutePath().toString());
+            Files.write(path, bytes);
             return ResponseEntity.ok("UPLOAD SUCCESS");
         } else {
             return ResponseEntity.badRequest().body("UPLOAD FAILURE ......");
@@ -139,9 +154,7 @@ public class RegUserController {
 
     @PostMapping(value = "/update/profile")
     public ResponseEntity<?> updateProfile(@RequestBody UserProfile userProfile) {
-        System.out.println("here");
         UserProfile newProfile = userService.updateProfile(userProfile);
-        System.out.println(newProfile);
         return new ResponseEntity<>(newProfile, HttpStatus.OK);
     }
 
@@ -152,7 +165,6 @@ public class RegUserController {
         objectNode.put("success", userService.makeSummaryPrivate(jwtToken));
         return ResponseEntity.ok(objectNode);
     }
-
 }
 
 
