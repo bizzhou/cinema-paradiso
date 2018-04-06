@@ -117,8 +117,6 @@ public class RegUserControllerTest {
 
     @Test
     public void getAvatar() {
-
-
     }
 
     @Test

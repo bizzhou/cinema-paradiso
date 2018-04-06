@@ -52,7 +52,6 @@ public class RegUserController {
         User user = userService.login(email, password).orElseThrow(() ->
                 new ResponseStatusException(BAD_REQUEST, "USER NOT FOUND"));
         JwtUser jwtUser = new JwtUser(user.getUsername(), generator.generate(user), user.getUserID(), user.getRole());
-
         return ResponseEntity.ok(jwtUser);
     }
 
@@ -67,7 +66,6 @@ public class RegUserController {
                 new ResponseStatusException(BAD_REQUEST, "USER ALREADY EXISTS"));
         JwtUser jwtUser = new JwtUser(optionalUser.getUsername(),
                 generator.generate(optionalUser), optionalUser.getUserID(), optionalUser.getRole());
-
         return ResponseEntity.ok(jwtUser);
     }
 
@@ -139,7 +137,6 @@ public class RegUserController {
 
     @PostMapping(value = "/update/profile")
     public ResponseEntity<?> updateProfile(@RequestBody UserProfile userProfile) {
-        System.out.println("here");
         UserProfile newProfile = userService.updateProfile(userProfile);
         System.out.println(newProfile);
         return new ResponseEntity<>(newProfile, HttpStatus.OK);
