@@ -6,6 +6,4 @@ public interface UtilityService {
 
     String getHashedPassword(String passwordToHash, String salt) throws NoSuchAlgorithmException;
 
-    Integer getUserIdFromToken(String jwtToken);
-
 }

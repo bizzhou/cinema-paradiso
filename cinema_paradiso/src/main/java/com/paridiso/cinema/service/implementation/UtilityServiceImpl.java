@@ -18,18 +18,6 @@ import static java.nio.charset.StandardCharsets.*;
 @Service
 public class UtilityServiceImpl implements UtilityService {
 
-    @Autowired
-    private JwtTokenGenerator generator;
-
-    @Autowired
-    private JwtTokenValidator validator;
-
-    @Autowired
-    private Environment environment;
-
-    @Autowired
-    private ObjectMapper objectMapper;
-
     @Override
     public String getHashedPassword(String passwordToHash, String salt) {
 
@@ -56,12 +44,6 @@ public class UtilityServiceImpl implements UtilityService {
         return hashedPassword;
     }
 
-    public Integer getUserIdFromToken(String jwtToken) {
-        ObjectNode objectNode = objectMapper.createObjectNode();
-        int headerLength = environment.getProperty("token.type").length();
-        User validatedUser = validator.validate(jwtToken.substring(headerLength));
-        return validatedUser.getUserID();
-    }
 
 }
 

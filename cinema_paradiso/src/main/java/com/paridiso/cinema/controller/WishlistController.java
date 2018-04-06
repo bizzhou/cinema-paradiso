@@ -6,6 +6,7 @@ import com.paridiso.cinema.entity.User;
 import com.paridiso.cinema.entity.WatchList;
 import com.paridiso.cinema.security.JwtTokenGenerator;
 import com.paridiso.cinema.security.JwtTokenValidator;
+import com.paridiso.cinema.service.JwtTokenService;
 import com.paridiso.cinema.service.ListService;
 import com.paridiso.cinema.service.UtilityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class WishlistController {
     ListService listService;
 
     @Autowired
-    UtilityService utilityService;
+    JwtTokenService jwtTokenService;
 
     @RequestMapping(value = "/", method = GET)
     public ResponseEntity<WatchList> getWishList() {
@@ -44,7 +45,7 @@ public class WishlistController {
     @RequestMapping(value = "", method = POST)
     public ResponseEntity<Boolean> addToWishList(@RequestHeader(value = "Authorization") String jwtToken, @RequestParam("filmId") String filmId) {
 
-        Boolean result = listService.addToList(utilityService.getUserIdFromToken(jwtToken), filmId);
+        Boolean result = listService.addToList(jwtTokenService.getUserIdFromToken(jwtToken), filmId);
         if (result)
             return ResponseEntity.ok(true);
         return ResponseEntity.ok(false);
