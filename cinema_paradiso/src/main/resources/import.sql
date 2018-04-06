@@ -5,3 +5,7 @@ INSERT INTO Users (email, suspended, password, role, username) VALUES ("user@adm
 INSERT INTO Movies (imdb_id, title) VALUES ("tt000001", "Coco");
 INSERT INTO Movies (imdb_id, title) VALUES ("tt000002", "The Shape Of Water");
 INSERT INTO Movies (imdb_id, title) VALUES ("tt000003", "Blade Runner");
+
+INSERT INTO user_profiles (id, biography, is_critic, is_private, name, profile_image, watch_list_watch_list_id, wish_list_wishlist_id) VALUES (1, "Hello World", FALSE, FALSE, "John Doe", NULL, NULL, NULL);
+INSERT INTO user_profiles (id, biography, is_critic, is_private, name, profile_image, watch_list_watch_list_id, wish_list_wishlist_id) VALUES (2, "Raze World", TRUE, FALSE, "Peter Vim", NULL, NULL, NULL);
+

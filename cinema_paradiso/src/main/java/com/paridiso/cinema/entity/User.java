@@ -14,7 +14,6 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "userId")
     private Integer userId;
 
     @Size(max = 100)
@@ -37,9 +36,8 @@ public class User {
     @Column(name = "suspended")
     private Boolean isAccountSuspended;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private UserProfile userProfile;
-
 
     public User() {
     }
@@ -103,11 +101,13 @@ public class User {
     @Override
     public String toString() {
         return "User{" +
-                "userID=" + userId +
+                "userId=" + userId +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 ", role=" + role +
                 ", isAccountSuspended=" + isAccountSuspended +
+                ", userProfile=" + userProfile +
                 '}';
     }
 }

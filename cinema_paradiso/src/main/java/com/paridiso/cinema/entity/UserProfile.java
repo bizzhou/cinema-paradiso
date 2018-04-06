@@ -29,8 +29,12 @@ public class UserProfile {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private WishList wishList;
 
+
     @Column(name = "isCritic")
     private Boolean isCritic;
+
+    @Column(name = "isPrivate")
+    private Boolean isPrivate;
 
     @OneToMany(cascade = {CascadeType.MERGE},fetch= FetchType.LAZY, mappedBy = "userProfile")
     private List<Review> reviews;
@@ -100,6 +104,14 @@ public class UserProfile {
 
     public void setWishList(WishList wishList) {
         this.wishList = wishList;
+    }
+
+    public Boolean getPrivate() {
+        return isPrivate;
+    }
+
+    public void setPrivate(Boolean aPrivate) {
+        isPrivate = aPrivate;
     }
 
     @Override

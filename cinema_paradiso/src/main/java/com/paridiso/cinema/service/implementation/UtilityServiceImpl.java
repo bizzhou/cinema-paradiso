@@ -37,6 +37,5 @@ public class UtilityServiceImpl implements UtilityService {
         return hashedPassword;
     }
 
-
 }
 
