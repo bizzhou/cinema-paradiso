@@ -7,10 +7,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.paridiso.cinema.service.FilmService;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.locks.ReentrantLock;
 
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 
@@ -37,9 +40,11 @@ public class MovieController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(value = "/add_movie", method = POST)
+    @RequestMapping(value = "/add", method = POST)
     public ResponseEntity<Boolean> addMovie(@RequestBody Movie movie) {
-        return null;
+        Movie optionalMovie = filmService.addMovie(movie).orElseThrow(() ->
+                new ResponseStatusException(BAD_REQUEST, "Unable to add movie"));
+        return ResponseEntity.ok(true);
     }
 
 

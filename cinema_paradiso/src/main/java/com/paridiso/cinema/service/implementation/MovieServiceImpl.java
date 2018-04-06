@@ -8,10 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import com.paridiso.cinema.service.FilmService;
 import com.paridiso.cinema.service.UtilityService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Qualifier(value = "MovieServiceImpl")
@@ -24,9 +27,10 @@ public class MovieServiceImpl implements FilmService {
 //    @Qualifier("InputUtilityServiceImpl")
 //    UtilityService utilityService;
 
-    @Override
-    public boolean addFilm(Film film) {
-        return false;
+    public Optional<Movie> addMovie(Movie movie) {
+        if (movieRepository.findMovieByImdbId(movie.getImdbId()) != null)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "MOVIE EXISTS");
+        return Optional.ofNullable(movieRepository.save(movie));
     }
 
     @Override

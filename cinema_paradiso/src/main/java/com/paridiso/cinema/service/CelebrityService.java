@@ -3,6 +3,7 @@ package com.paridiso.cinema.service;
 import com.paridiso.cinema.entity.Celebrity;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CelebrityService {
 
@@ -14,6 +15,6 @@ public interface CelebrityService {
 
     boolean updateCelebrity(Celebrity celebrity);
 
-    boolean addCelebrity(Celebrity celebrity);
+    Optional<Celebrity> addCelebrity(Celebrity celebrity);
 
 }
