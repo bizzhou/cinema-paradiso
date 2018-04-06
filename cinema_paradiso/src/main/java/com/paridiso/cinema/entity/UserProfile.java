@@ -2,6 +2,7 @@ package com.paridiso.cinema.entity;
 
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -9,7 +10,7 @@ import java.util.List;
 public class UserProfile {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
@@ -33,6 +34,16 @@ public class UserProfile {
 
     @OneToMany(cascade = {CascadeType.MERGE},fetch= FetchType.LAZY, mappedBy = "userProfile")
     private List<Review> reviews;
+
+    public UserProfile() {
+        reviews = new ArrayList<>();
+        wishList = new WishList();
+        watchList = new WatchList();
+    }
+
+    public UserProfile(Integer id) {
+        this.id = id;
+    }
 
     public Boolean getCritic() {
         return isCritic;
@@ -83,7 +94,8 @@ public class UserProfile {
     }
 
     public WishList getWishList() {
-        return wishList;
+        return (wishList != null) ? wishList : new WishList();
+//        return wishList;
     }
 
     public void setWishList(WishList wishList) {

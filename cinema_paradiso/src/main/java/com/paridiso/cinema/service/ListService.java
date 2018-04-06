@@ -6,7 +6,7 @@ public interface ListService {
 
     Integer getSize();
 
-    boolean addToList(Long filmId);
+    void addToList(Integer userId, String filmId);
 
     List<?> getList();
 

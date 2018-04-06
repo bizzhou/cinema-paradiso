@@ -45,7 +45,7 @@ public class Film {
     @ManyToMany(cascade = { CascadeType.MERGE})
     @JoinTable(
             name = "JoinFilmsCelebrities",
-            joinColumns = {@JoinColumn(name = "filmId")},
+            joinColumns = {@JoinColumn(name = "imdbId")},
             inverseJoinColumns = {@JoinColumn(name = "celebrityId")}
     )
     private List<Celebrity> casts;
@@ -79,6 +79,10 @@ public class Film {
 
     @Column(name = "website")
     private URI website;
+
+//    @ManyToOne(cascade = {CascadeType.MERGE},fetch= FetchType.LAZY)
+//    @JoinColumn(name = "wishList")
+//    private UserProfile wishList;
 
     public Film() {
     }
@@ -239,6 +243,14 @@ public class Film {
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
     }
+
+//    public UserProfile getWishList() {
+//        return wishList;
+//    }
+//
+//    public void setWishList(UserProfile wishList) {
+//        this.wishList = wishList;
+//    }
 
 
 //    public List<String> getPhotos() {

@@ -1,18 +1,20 @@
 package com.paridiso.cinema.service.implementation;
 
-import com.paridiso.cinema.entity.User;
-import com.paridiso.cinema.entity.UserProfile;
+import com.paridiso.cinema.entity.*;
 import com.paridiso.cinema.entity.enumerations.Role;
 import com.paridiso.cinema.persistence.UserProfileRepository;
 
+import com.paridiso.cinema.persistence.WishListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.paridiso.cinema.persistence.UserRepository;
 import com.paridiso.cinema.service.UserService;
 import org.springframework.http.HttpStatus;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -27,6 +29,10 @@ public class RegUserServiceImpl extends UserService {
     @Autowired
     UserProfileRepository userProfileRepository;
 
+    @Autowired
+    WishListRepository wishListRepository;
+
+
     @Transactional
     public Optional<User> signup(User user) {
 
@@ -38,11 +44,18 @@ public class RegUserServiceImpl extends UserService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "USER EXISTS");
         }
 
-        // UxserProfile p = userProfileRepository.save(new UserProfile());
-        // user.setUserProfile(p);
-
+        user = initUserProfile(user);
         return Optional.ofNullable(userRepository.save(user));
 
+    }
+
+    @Transactional
+    public User initUserProfile(User user) {
+        // init U.P, wishlist, watchlist
+        UserProfile userProfile = new UserProfile();
+        userProfile.setId(user.getUserID());
+        user.setUserProfile(userProfile);
+        return user;
     }
 
     public boolean updateProfile(UserProfile userProfile) {
@@ -58,5 +71,5 @@ public class RegUserServiceImpl extends UserService {
         return false;
     }
 
-
 }
+

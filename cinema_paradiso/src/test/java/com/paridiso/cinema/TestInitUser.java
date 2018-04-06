@@ -1,6 +1,7 @@
 package com.paridiso.cinema;
 
 import com.paridiso.cinema.entity.*;
+import com.paridiso.cinema.service.implementation.RegUserServiceImpl;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
@@ -9,6 +10,10 @@ import org.hibernate.service.ServiceRegistry;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import javax.transaction.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,10 +23,15 @@ import static com.paridiso.cinema.Constants.hibernateUsername;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-public class TestWishListAndUserProfile {
+@Component
+public class TestInitUser {
+
     private static SessionFactory sessionFactory;
 
     private Session session;
+
+    @Autowired
+    RegUserServiceImpl regUserService;
 
     @BeforeClass
     public static void beforeTests() {
@@ -50,56 +60,53 @@ public class TestWishListAndUserProfile {
     }
 
     @Test
-    public void testOneToOneUserProfileAndWishlist() {
-        UserProfile up1 = new UserProfile();
-        UserProfile up2 = new UserProfile();
+    public void testInitUser() {
+        // create user
+        User user = new User();
+        user.setUsername("melanie");
+        user.setEmail("mel@gmail.com");
+        user = regUserService.initUserProfile(user);
 
-        WishList wl1 = new WishList();
-        WishList wl2 = new WishList();
-        up1.setWishList(wl1);
-        WatchList watchList = new WatchList();
-        up1.setWatchList(watchList);
+        User user2 = new User();
+        user2.setUsername("hello");
+        user2.setEmail("hello@gmail.com");
+        user2 = regUserService.initUserProfile(user2);
 
-        up2.setWishList(wl2);
-
-        // save movies to wl1
+        // add movie to wishlist
         Movie m1 = new Movie();
         m1.setImdbId("tt001");
         Movie m2 = new Movie();
         m2.setImdbId("tt002");
+        Movie m3 = new Movie();
+        m3.setImdbId("tt003");
         List<Movie> movies = new ArrayList<>();
         movies.add(m1);
         movies.add(m2);
-        wl1.setMovies(movies);
-        wl2.setMovies(movies);
+        movies.add(m3);
+        user.getUserProfile().getWishList().setMovies(movies);
+        user2.getUserProfile().getWishList().setMovies(movies);
 
-        session.save(up1);
-        session.save(up2);
-        session.save(wl1);
-        session.save(wl2);
+        assertEquals(3, user.getUserProfile().getWishList().getMovies().size());
+        assertEquals(3, user2.getUserProfile().getWishList().getMovies().size());
         session.save(m1);
         session.save(m2);
+        session.save(m3);
+
+        regUserService.saveUser(user);
+        regUserService.saveUser(user2);
+
         session.getTransaction().commit();
         session.close();
 
         session = sessionFactory.openSession();
         session.beginTransaction();
 
-        // get user 1's wishlist and watchlist
-        assertNotNull(session.get(UserProfile.class, up1.getId()));
-        UserProfile testUp1 = session.get(UserProfile.class, up1.getId());
-        UserProfile testUp2 = session.get(UserProfile.class, up2.getId());
-        assertNotNull(testUp1.getWatchList());
-        assertNotNull(testUp1.getWishList());
-
-        assertNotNull(testUp2.getWishList());
-
-        // get movies from wishlist 1
-        assertNotNull(testUp1.getWishList().getMovies());
-        assertEquals(2, testUp1.getWishList().getMovies().size());
-        assertEquals(2, testUp2.getWishList().getMovies().size());
+        // get the user's wishlist
+        User testUser = session.get(User.class, user.getUserID());
+        User testUser2 = session.get(User.class, user2.getUserID());
+        assertEquals(3, testUser.getUserProfile().getWishList().getMovies().size());
+        assertEquals(3, testUser2.getUserProfile().getWishList().getMovies().size());
 
     }
-
 
 }
