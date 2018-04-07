@@ -42,14 +42,17 @@ public class UserProfile {
     @OneToMany(cascade = {CascadeType.MERGE},fetch= FetchType.LAZY, mappedBy = "userProfile")
     private List<Review> likedReviews;
 
-    @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "UserRatedMovies",
-            joinColumns = {@JoinColumn(name = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "imdbId")}
-    )
-    @MapKeyColumn(name = "imdbId")
-    private List<Movie> ratedMovies;
+//    @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+//    @JoinTable(
+//            name = "UserRatedMovies",
+//            joinColumns = {@JoinColumn(name = "id")},
+//            inverseJoinColumns = {@JoinColumn(name = "imdbId")}
+//    )
+//    @MapKeyColumn(name = "imdbId")
+//    private List<Movie> ratedMovies;
+
+    @OneToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+    private List<UserRating> userRatings;
 
     public UserProfile() {
 
@@ -145,19 +148,19 @@ public class UserProfile {
         this.reviews = reviews;
     }
 
-    public List<Movie> getRatedMovies() {
-        return ratedMovies;
-    }
-
-    public void setRatedMovies(List<Movie> ratedMovies) {
-        this.ratedMovies = ratedMovies;
-    }
-
     public List<Review> getLikedReviews() {
         return likedReviews;
     }
 
     public void setLikedReviews(List<Review> likedReviews) {
         this.likedReviews = likedReviews;
+    }
+
+    public List<UserRating> getUserRatings() {
+        return userRatings;
+    }
+
+    public void setUserRatings(List<UserRating> userRatings) {
+        this.userRatings = userRatings;
     }
 }
