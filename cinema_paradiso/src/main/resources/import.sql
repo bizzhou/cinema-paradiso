@@ -2,7 +2,14 @@ INSERT INTO Users (email, suspended, password, role, username) VALUES ("admin@ad
 INSERT INTO Users (email, suspended, password, role, username) VALUES ("critic@admin.com", FALSE , "ce9e5e60e4ef914d949c2f942695f9191e932b7aed7cf87526e633b6fec67037f7ca344a85f2c2f4c619be567a449983a81e4d9814268e8726c0724cc6953b9a", "ROLE_CRITIC", "critic");
 INSERT INTO Users (email, suspended, password, role, username) VALUES ("user@admin.com", FALSE , "ce9e5e60e4ef914d949c2f942695f9191e932b7aed7cf87526e633b6fec67037f7ca344a85f2c2f4c619be567a449983a81e4d9814268e8726c0724cc6953b9a", "ROLE_USER", "user");
 
-INSERT INTO Movies (imdb_id, title) VALUES ("tt000001", "Hellococo");
+INSERT INTO Celebrities (celebrity_id, name) VALUES ("nm000001", "Guillermo del Toro");
+-- INSERT INTO Celebrities (celebrity_id, name) VALUES ("nm000001", "Guillermo del Toro");
+--
+-- INSERT INTO Movies (imdb_id, country, language, plot, production, rated, rating, released_date, title, year, box_office, runtime, director_celebrity_id)
+-- VALUES ("tt000001", "USA", "English", "At a top secret research facility in the 1960s, a lonely janitor forms a unique relationship with an amphibious creature that is being held in captivity.",
+--  "Bull Productions", "R", 4.2 , "2017-12-22", "The Shape of Water", "2017", 19400000, 123, "nm000001");
+--
+
 INSERT INTO Movies (imdb_id, title) VALUES ("tt000002", "The Shape Of Water");
 INSERT INTO Movies (imdb_id, title) VALUES ("tt000003", "Blade Runner");
 INSERT INTO Movies (imdb_id, title) VALUES ("tt000004", "Cocoabc");

@@ -1,14 +1,17 @@
 package com.paridiso.cinema.service;
 
 import com.paridiso.cinema.entity.Film;
+import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.entity.Trailer;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public interface FilmService {
 
-    boolean addFilm(Film film);
+//    Film addFilm(Film film);
+    Optional<Movie> addMovie(Movie movie);
 
     Film getFilm(String filmId);
 

@@ -14,11 +14,6 @@ import java.util.Set;
 public class Film {
 
     public static final String PHOTO_LOCATION = "/tmp";
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    @Column(name = "id")
-//    private Integer id;
 
     @Id
     @Column(name = "imdbId", unique = true)
