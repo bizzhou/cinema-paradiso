@@ -8,13 +8,11 @@ export class RegUserService {
   }
 
   upload(formData: FormData) {
-    const req = new HttpRequest('POST', 'http://localhost:8080/user/upload', formData, {
+    const req = new HttpRequest('POST', 'http://localhost:8080/user/update/avatar', formData, {
       reportProgress: true,
       responseType: 'text'
     });
-    return this.http.request(req).subscribe(data => {
-      console.log(data);
-    });
+    return this.http.request(req);
   }
 
 

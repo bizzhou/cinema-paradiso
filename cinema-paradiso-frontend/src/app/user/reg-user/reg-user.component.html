@@ -12,7 +12,8 @@
          title="close menu">
         <i class="fa fa-remove"></i>
       </a>
-      <img src="https://user-images.githubusercontent.com/20979257/36620069-64e71fbe-18bf-11e8-87e8-565e2fc4d6da.jpeg"
+
+      <img src="http://localhost:8080/user/avatar/{{profile.profileImage}}"
            style="width:45%;"
            id="profile_image"
            class="w3-round"
@@ -22,7 +23,7 @@
 
       <h4>
 
-        <div *ngIf="profile.is_critic; else userProfile">
+        <div *ngIf="profile.isCritic; else userProfile">
           <p class="w3-text-blue">Critic</p>
         </div>
 
@@ -344,7 +345,7 @@
         <form target="_blank">
           <label>User Name: {{profile.username}}</label>
           <br>
-          <div *ngIf="profile.is_critic;else notCritic">
+          <div *ngIf="profile.isCritic;else notCritic">
             <label>Level： Critic</label>
           </div>
           <ng-template #notCritic>
@@ -363,7 +364,8 @@
             <label></label>
 
             <label>About me</label>
-            <textarea id="about_me_box" name="mini_bio" class="w3-input" cols="30" rows="10" [(ngModel)]="profile.biography">
+            <textarea id="about_me_box" name="mini_bio" class="w3-input" cols="30" rows="10"
+                      [(ngModel)]="profile.biography">
               Hello World
             </textarea>
 

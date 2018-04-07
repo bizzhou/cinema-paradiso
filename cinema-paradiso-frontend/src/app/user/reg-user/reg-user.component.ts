@@ -3,14 +3,14 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {RegUserService} from './reg-user.service';
 import {Token} from '../../global/login/token.model';
 import {LoginStatusService} from '../../global/login/login.status.service';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import {JwtHelperService} from '@auth0/angular-jwt';
 
 class Profile {
   name: string;
   id: number;
-  profile_image: string;
+  profileImage: string;
   biography: string;
-  is_critic: boolean;
+  isCritic: boolean;
   username: string;
   email: string;
 }
@@ -48,13 +48,18 @@ export class RegUserComponent implements OnInit {
         this.profile.email = decodedToken['email'];
         this.profile.id = decodedToken['profileId'];
         this.profile.username = decodedToken['username'];
-        this.profile.profile_image = decodedToken['profileImage'];
+        this.profile.profileImage = decodedToken['profileImage'];
+
+        if (this.profile.profileImage === undefined) {
+          this.profile.profileImage = 'default.jpeg';
+        }
 
         console.log(decodedToken);
         console.log(profileDetails);
       });
     }
   }
+
 
   updateProfile() {
     this.regUserService.update(this.profile).subscribe(data => {
@@ -90,7 +95,11 @@ export class RegUserComponent implements OnInit {
       formData.append('file', file, file.name);
       const user = JSON.parse(localStorage.getItem('credential')) as Token;
       formData.append('userId', user.id.toString());
-      this.regUserService.upload(formData);
+      this.regUserService.upload(formData).subscribe(data => {
+        console.log(data);
+      }, error => {
+        console.log(error);
+      });
     }
   }
 

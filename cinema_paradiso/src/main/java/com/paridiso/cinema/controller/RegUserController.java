@@ -105,19 +105,18 @@ public class RegUserController {
     // TODO: Sending image to the backend....
 
     //    @PreAuthorize("hasRole('ROLE_USER')")
-    @PostMapping(value = "/protected/change/avatar")
-    public ResponseEntity<Boolean> changeProfilePicture(@RequestHeader(value = "Authorization") String jwtToken) {
-        int headerLength = environment.getProperty("token.type").length();
-        User validatedUser = validator.validate(jwtToken.substring(headerLength));
-
-        // Now you can get the user information with the data.
-        return ResponseEntity.ok(true);
-    }
+//    @PostMapping(value = "/protected/change/avatar")
+//    public ResponseEntity<Boolean> changeProfilePicture(@RequestHeader(value = "Authorization") String jwtToken) {
+//        int headerLength = environment.getProperty("token.type").length();
+//        User validatedUser = validator.validate(jwtToken.substring(headerLength));
+//
+//        // Now you can get the user information with the data.
+//        return ResponseEntity.ok(true);
+//    }
 
     @GetMapping(value = "/get/profile")
     public ResponseEntity<?> getProfile(@RequestHeader(value = "Authorization") String jwtToken) {
 
-        System.out.println(jwtToken);
         UserProfile profile = userService.getProfile(jwtToken);
 
         ObjectNode objectNode = objectMapper.createObjectNode();
@@ -148,17 +147,10 @@ public class RegUserController {
         }
     }
 
-    @PostMapping(value = "/upload")
-    public ResponseEntity<?> upload(@RequestParam MultipartFile file, @RequestParam int userId) throws IOException {
-        if (!file.isEmpty()) {
-            byte[] bytes = file.getBytes();
-            Path path = Paths.get("avatars/" + userId + ".jpeg");
-            logger.info(path.toAbsolutePath().toString());
-            Files.write(path, bytes);
-            return ResponseEntity.ok("UPLOAD SUCCESS");
-        } else {
-            return ResponseEntity.badRequest().body("UPLOAD FAILURE ......");
-        }
+    @PostMapping(value = "/update/avatar")
+    public ResponseEntity<?> upload(@RequestParam MultipartFile file,
+                                    @RequestHeader(value = "Authorization") String jwtToken) throws IOException {
+        return ResponseEntity.ok(userService.chagneProfilePicture(jwtToken, file));
     }
 
 
