@@ -17,7 +17,7 @@ public class WishList extends LinkedList {
 
     // should not use @OneToMany because
     // https://stackoverflow.com/questions/14408977/hibernate-onetomany-mapping-failing
-    @ManyToMany(cascade = {CascadeType.MERGE},fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.LAZY)
     @JoinTable(
             name = "WishListsMovies",
             joinColumns = {@JoinColumn(name = "wishListId")},
@@ -33,11 +33,11 @@ public class WishList extends LinkedList {
         return SIZE_LIMIT;
     }
 
-    public Integer getWatchListId() {
+    public Integer getWishlistId() {
         return wishlistId;
     }
 
-    public void setWatchListId(Integer wishlistId) {
+    public void setWishlistId(Integer wishlistId) {
         this.wishlistId = wishlistId;
     }
 

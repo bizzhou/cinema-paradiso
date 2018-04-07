@@ -9,7 +9,7 @@ public interface CelebrityService {
 
     List<Celebrity> getCelebrities();
 
-    Celebrity getCelebrity(Integer celebrityId);
+    Celebrity getCelebrity(String celebrityId);
 
     boolean deleteCelebrity(Integer celebrityId);
 

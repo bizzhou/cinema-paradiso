@@ -37,7 +37,7 @@ public class WishlistController {
     JwtTokenService jwtTokenService;
 
     @RequestMapping(value = "/", method = GET)
-    public ResponseEntity<WatchList> getWishList() {
+    public ResponseEntity<WatchList> getWishList(@RequestHeader(value = "Authorization") String jwtToke) {
         return null;
     }
 

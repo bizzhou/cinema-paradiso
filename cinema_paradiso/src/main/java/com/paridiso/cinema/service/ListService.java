@@ -15,6 +15,4 @@ public interface ListService {
 
     boolean removeFromList(Long filmId);
 
-    boolean containsMovie(List<Movie> movies, String filmImdbId);
-
 }

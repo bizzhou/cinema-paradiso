@@ -25,27 +25,40 @@ public class Film {
     @Column(name = "year")
     private String year;
 
+    @Enumerated
     @Column(name = "rated")
     private Rated rated;
 
     @Column(name = "releasedDate")
     private Calendar releaseDate;
 
+    @ElementCollection(targetClass = Genre.class)
+    @CollectionTable(name = "MovieGenres", joinColumns = @JoinColumn(name = "imdbId"))
+    @Column(name = "genre")
+    private List<Genre> genres;
 
-//    private List<Genre> genres;
+    @ElementCollection
+    @CollectionTable(name = "MovieAwards", joinColumns = @JoinColumn(name = "imdbId"))
+    @Column(name = "award")
+    private Set<String> awards;
+
+    @ElementCollection
+    @CollectionTable(name = "MoviePhotos", joinColumns = @JoinColumn(name = "imdbId"))
+    @Column(name = "photo")
+    private List<String> photos;
 
     @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private Celebrity director;
 
-    @ManyToMany(cascade = { CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.MERGE})
     @JoinTable(
-            name = "JoinFilmsCelebrities",
+            name = "FilmsCelebrities",
             joinColumns = {@JoinColumn(name = "imdbId")},
             inverseJoinColumns = {@JoinColumn(name = "celebrityId")}
     )
     private List<Celebrity> casts;
 
-    @OneToMany(cascade = {CascadeType.MERGE},fetch= FetchType.EAGER, mappedBy = "movie")
+    @OneToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER, mappedBy = "movie")
     private Set<Trailer> trailers;
 
     @OneToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER, mappedBy = "movie")
@@ -60,24 +73,20 @@ public class Film {
     @Column(name = "country")
     private String country;
 
-    //    private Set<String> awards;
     @Column(name = "poster")
     private String poster;
 
     @Column(name = "rating")
     private Double rating;
 
-//    private List<String> photos;
+    @Column(name = "numberOfRatings")
+    private Integer numberOfRatings;
 
     @Column(name = "production")
     private String production;
 
     @Column(name = "website")
     private URI website;
-
-//    @ManyToOne(cascade = {CascadeType.MERGE},fetch= FetchType.LAZY)
-//    @JoinColumn(name = "wishList")
-//    private UserProfile wishList;
 
     public Film() {
     }
@@ -99,14 +108,6 @@ public class Film {
         this.country = country;
     }
 
-//    public Set<String> getAwards() {
-//        return awards;
-//    }
-//
-//    public void setAwards(Set<String> awards) {
-//        this.awards = awards;
-//    }
-
     public String getProduction() {
         return production;
     }
@@ -126,14 +127,6 @@ public class Film {
     public static String getPhotoLocation() {
         return PHOTO_LOCATION;
     }
-
-//    public Integer getId() {
-//        return filmId;
-//    }
-//
-//    public void setId(Integer id) {
-//        this.filmId = id;
-//    }
 
     public String getTitle() {
         return title;
@@ -166,14 +159,6 @@ public class Film {
     public void setReleaseDate(Calendar releaseDate) {
         this.releaseDate = releaseDate;
     }
-
-//    public List<Genre> getGenres() {
-//        return genres;
-//    }
-//
-//    public void setGenres(List<Genre> genres) {
-//        this.genres = genres;
-//    }
 
     public Celebrity getDirector() {
         return director;
@@ -239,28 +224,36 @@ public class Film {
         this.reviews = reviews;
     }
 
-//    public UserProfile getWishList() {
-//        return wishList;
-//    }
-//
-//    public void setWishList(UserProfile wishList) {
-//        this.wishList = wishList;
-//    }
+    public List<Genre> getGenres() {
+        return genres;
+    }
 
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
+    }
 
-//    public List<String> getPhotos() {
-//        return photos;
-//    }
-//
-//    public void setPhotos(List<String> photos) {
-//        this.photos = photos;
-//    }
-//
-//    public List<Trailer> getTrailers() {
-//        return trailers;
-//    }
-//
-//    public void setTrailers(List<Trailer> trailers) {
-//        this.trailers = trailers;
-//    }
+    public Set<String> getAwards() {
+        return awards;
+    }
+
+    public void setAwards(Set<String> awards) {
+        this.awards = awards;
+    }
+
+    public List<String> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<String> photos) {
+        this.photos = photos;
+    }
+
+    public Integer getNumberOfRatings() {
+        return numberOfRatings;
+    }
+
+    public void setNumberOfRatings(Integer numberOfRatings) {
+        this.numberOfRatings = numberOfRatings;
+    }
+
 }

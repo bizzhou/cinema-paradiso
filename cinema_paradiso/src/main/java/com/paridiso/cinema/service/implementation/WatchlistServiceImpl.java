@@ -5,6 +5,7 @@ import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.entity.User;
 import com.paridiso.cinema.persistence.*;
 import com.paridiso.cinema.service.ListService;
+import com.paridiso.cinema.service.UtilityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,9 @@ public class WatchlistServiceImpl implements ListService {
     @Autowired
     UserProfileRepository userProfileRepository;
 
+    @Autowired
+    UtilityService utilityService;
+
     @Override
     public Integer getSize() {
         return null;
@@ -47,7 +51,7 @@ public class WatchlistServiceImpl implements ListService {
         List<Movie> movies = user.getUserProfile().getWatchList().getMovies();
 
 
-        if (containsMovie(movies, filmId) || movies.size() >= user.getUserProfile().getWatchList().getSizeLimit())
+        if (utilityService.containsMovie(movies, filmId) || movies.size() >= user.getUserProfile().getWatchList().getSizeLimit())
             return false;
 
         // add to list
@@ -68,12 +72,4 @@ public class WatchlistServiceImpl implements ListService {
         return false;
     }
 
-    @Override
-    public boolean containsMovie(List<Movie> movies, String filmImdbId) {
-        for (Movie movie: movies) {
-            if (movie.getImdbId().equals(filmImdbId))
-                return true;
-        }
-        return false;
-    }
 }

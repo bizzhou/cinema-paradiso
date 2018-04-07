@@ -2,13 +2,10 @@ package com.paridiso.cinema.service.implementation;
 
 import com.paridiso.cinema.entity.*;
 import com.paridiso.cinema.entity.enumerations.Role;
-import com.paridiso.cinema.persistence.UserProfileRepository;
+import com.paridiso.cinema.persistence.*;
 
-import com.paridiso.cinema.persistence.WatchListRepository;
-import com.paridiso.cinema.persistence.WishListRepository;
 import com.paridiso.cinema.security.JwtTokenValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import com.paridiso.cinema.persistence.UserRepository;
 import com.paridiso.cinema.service.UserService;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
@@ -18,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
@@ -46,6 +44,8 @@ public class RegUserServiceImpl extends UserService {
     @Autowired
     WatchListRepository watchListRepository;
 
+    @Autowired
+    MovieRepository movieRepository;
 
     @Transactional
     public Optional<User> signup(User user) {
@@ -59,6 +59,7 @@ public class RegUserServiceImpl extends UserService {
 
         // first create a user_profile for the user;
         user.setUserProfile(userProfileRepository.save(new UserProfile()));
+//        user.getUserProfile().setReviews();
         user.getUserProfile().setWishList(wishListRepository.save(new WishList()));
         user.getUserProfile().setWatchList(watchListRepository.save(new WatchList()));
         return Optional.ofNullable(userRepository.save(user));
@@ -116,6 +117,34 @@ public class RegUserServiceImpl extends UserService {
         return userRepository.findUserByEmail(email) != null ? true : false;
     }
 
+    // @TODO: Map<Movie, Double>
+    @Transactional
+    public boolean rateMovie(Integer userId, String filmId, Double rating) {
+        // get user
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, "USER NOT FOUND"));
+
+        Movie newRatedMovie = movieRepository.findMovieByImdbId(filmId);
+        newRatedMovie.setRating(rating);
+        // check existence
+//        Map<Movie, Double> ratedMovies = user.getUserProfile().getRatedMovies();
+//        List<Movie> movies = new ArrayList(ratedMovies.keySet());
+//        if (ratedMovies.keySet().size() == 0)
+//            ratedMovies = new ArrayList<>();
+//        else
+        List<Movie> movieList = user.getUserProfile().getRatedMovies();
+
+        if (utilityService.containsMovie(movieList, filmId))
+            return false;
+
+        // add to rated movie list
+//        ratedMovies.put(newRatedMovie, rating);
+//        user.getUserProfile().setRatedMovies(ratedMovies);
+        movieList.add(newRatedMovie);
+        user.getUserProfile().setRatedMovies(movieList);
+        userProfileRepository.save(user.getUserProfile());
+        return true;
+    }
     @Transactional
     public UserProfile getProfile(String jwtToken) {
         int headerLength = environment.getProperty("token.type").length();
