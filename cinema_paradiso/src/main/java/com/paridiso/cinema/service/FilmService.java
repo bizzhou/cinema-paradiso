@@ -15,9 +15,11 @@ public interface FilmService {
 
     Film getFilm(String filmId);
 
-    Film deleteFilm(Long filmId);
+    List<Movie> getMovies();
 
-    boolean rateFilm(Long filmId);
+    void deleteFilm(String filmId);
+
+    void rateFilm(String filmId, Double rating);
 
     void updateFilmRating(Long filmId);
 

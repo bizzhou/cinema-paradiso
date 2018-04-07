@@ -10,6 +10,7 @@ import com.paridiso.cinema.service.FilmService;
 import com.paridiso.cinema.service.UtilityService;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Date;
@@ -23,29 +24,32 @@ public class MovieServiceImpl implements FilmService {
     @Autowired
     MovieRepository movieRepository;
 
-//    @Autowired
-//    @Qualifier("InputUtilityServiceImpl")
-//    UtilityService utilityService;
-
+    @Transactional
+    @Override
     public Optional<Movie> addMovie(Movie movie) {
         if (movieRepository.findMovieByImdbId(movie.getImdbId()) != null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "MOVIE EXISTS");
         return Optional.ofNullable(movieRepository.save(movie));
     }
 
+    @Transactional
     @Override
     public Film getFilm(String filmId) {
         return movieRepository.findMovieByImdbId(filmId);
     }
 
+    @Transactional
     @Override
-    public Film deleteFilm(Long filmId) {
-        return null;
+    public List<Movie> getMovies() {
+        return movieRepository.findAll();
     }
 
+    @Transactional
     @Override
-    public boolean rateFilm(Long filmId) {
-        return false;
+    public void deleteFilm(String filmId) {
+        if (movieRepository.findMovieByImdbId(filmId) == null)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "MOVIE DOES NOT EXIST");
+        movieRepository.deleteById(filmId);
     }
 
     @Override
@@ -90,6 +94,17 @@ public class MovieServiceImpl implements FilmService {
 
     public List<Movie> getTopBoxOffice() {
         return null;
+    }
+
+    @Transactional
+    @Override
+    public void rateFilm(String filmId, Double rating) {
+        // add the rating to total rating, then get average
+        Movie movie = (Movie) this.getFilm(filmId);
+        movie.setNumberOfRatings(movie.getNumberOfRatings()+1);
+        Double newRatings = (movie.getRating() + rating)/movie.getNumberOfRatings();
+        movie.setRating(newRatings);
+        movieRepository.save(movie);
     }
 
 }

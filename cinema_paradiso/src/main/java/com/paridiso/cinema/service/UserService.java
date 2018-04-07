@@ -53,5 +53,4 @@ public abstract class UserService {
 //    boolean changePassword(Integer userId, String oldPassword, String newPassword);
 //
 //    void forgotPassword(String email);
-
 }

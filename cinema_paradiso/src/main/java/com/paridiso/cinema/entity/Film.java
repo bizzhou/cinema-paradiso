@@ -32,7 +32,20 @@ public class Film {
     private Calendar releaseDate;
 
 
-//    private List<Genre> genres;
+    @ElementCollection(targetClass = Genre.class)
+    @CollectionTable(name = "MovieGenres", joinColumns=@JoinColumn(name="imdbId"))
+    @Column(name = "genre")
+    private List<Genre> genres;
+
+    @ElementCollection
+    @CollectionTable(name = "MovieAwards", joinColumns = @JoinColumn(name = "imdbId"))
+    @Column(name = "award")
+    private Set<String> awards;
+
+    @ElementCollection
+    @CollectionTable(name = "MoviePhotos", joinColumns = @JoinColumn(name = "imdbId"))
+    @Column(name = "photo")
+    private List<String> photos;
 
     @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private Celebrity director;
@@ -67,17 +80,14 @@ public class Film {
     @Column(name = "rating")
     private Double rating;
 
-//    private List<String> photos;
+    @Column(name = "numberOfRatings")
+    private Integer numberOfRatings;
 
     @Column(name = "production")
     private String production;
 
     @Column(name = "website")
     private URI website;
-
-//    @ManyToOne(cascade = {CascadeType.MERGE},fetch= FetchType.LAZY)
-//    @JoinColumn(name = "wishList")
-//    private UserProfile wishList;
 
     public Film() {
     }
@@ -99,14 +109,6 @@ public class Film {
         this.country = country;
     }
 
-//    public Set<String> getAwards() {
-//        return awards;
-//    }
-//
-//    public void setAwards(Set<String> awards) {
-//        this.awards = awards;
-//    }
-
     public String getProduction() {
         return production;
     }
@@ -126,14 +128,6 @@ public class Film {
     public static String getPhotoLocation() {
         return PHOTO_LOCATION;
     }
-
-//    public Integer getId() {
-//        return filmId;
-//    }
-//
-//    public void setId(Integer id) {
-//        this.filmId = id;
-//    }
 
     public String getTitle() {
         return title;
@@ -166,14 +160,6 @@ public class Film {
     public void setReleaseDate(Calendar releaseDate) {
         this.releaseDate = releaseDate;
     }
-
-//    public List<Genre> getGenres() {
-//        return genres;
-//    }
-//
-//    public void setGenres(List<Genre> genres) {
-//        this.genres = genres;
-//    }
 
     public Celebrity getDirector() {
         return director;
@@ -239,28 +225,36 @@ public class Film {
         this.reviews = reviews;
     }
 
-//    public UserProfile getWishList() {
-//        return wishList;
-//    }
-//
-//    public void setWishList(UserProfile wishList) {
-//        this.wishList = wishList;
-//    }
+    public List<Genre> getGenres() {
+        return genres;
+    }
 
+    public void setGenres(List<Genre> genres) {
+        this.genres = genres;
+    }
 
-//    public List<String> getPhotos() {
-//        return photos;
-//    }
-//
-//    public void setPhotos(List<String> photos) {
-//        this.photos = photos;
-//    }
-//
-//    public List<Trailer> getTrailers() {
-//        return trailers;
-//    }
-//
-//    public void setTrailers(List<Trailer> trailers) {
-//        this.trailers = trailers;
-//    }
+    public Set<String> getAwards() {
+        return awards;
+    }
+
+    public void setAwards(Set<String> awards) {
+        this.awards = awards;
+    }
+
+    public List<String> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<String> photos) {
+        this.photos = photos;
+    }
+
+    public Integer getNumberOfRatings() {
+        return numberOfRatings;
+    }
+
+    public void setNumberOfRatings(Integer numberOfRatings) {
+        this.numberOfRatings = numberOfRatings;
+    }
+
 }

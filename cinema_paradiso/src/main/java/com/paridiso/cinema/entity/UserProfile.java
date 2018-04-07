@@ -29,6 +29,14 @@ public class UserProfile {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private WishList wishList;
 
+    @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "UserRatedMovies",
+            joinColumns = {@JoinColumn(name = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "imdbId")}
+    )
+    @MapKeyColumn(name = "imdbId")
+    private List<Movie> ratedMovies;
 
     @Column(name = "isCritic")
     private Boolean isCritic;
@@ -133,5 +141,13 @@ public class UserProfile {
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
+    }
+
+    public List<Movie> getRatedMovies() {
+        return ratedMovies;
+    }
+
+    public void setRatedMovies(List<Movie> ratedMovies) {
+        this.ratedMovies = ratedMovies;
     }
 }
