@@ -2,6 +2,15 @@ import {Component, OnInit} from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {RegUserService} from './reg-user.service';
 import {Token} from '../../global/login/token.model';
+import {LoginStatusService} from '../../global/login/login.status.service';
+
+class Profile {
+  name: string;
+  id: number;
+  profile_image: string;
+  biography: string;
+  is_critic: boolean;
+}
 
 @Component({
   selector: 'app-reg-user',
@@ -14,7 +23,7 @@ export class RegUserComponent implements OnInit {
   currentIndex = 1;
   closeReason: string;
 
-  constructor(private modalService: NgbModal, private regUserService: RegUserService) {
+  constructor(private modalService: NgbModal, private regUserService: RegUserService, private loginStatusService: LoginStatusService) {
   }
 
 
@@ -25,6 +34,10 @@ export class RegUserComponent implements OnInit {
 
   ngOnInit() {
     this.loadPosters();
+    if (this.loginStatusService.getTokenDetails() !== null) {
+      this.loginStatusService.changeStatus(true);
+      this.regUserService.getProfile();
+    }
   }
 
   open(content) {
@@ -51,9 +64,6 @@ export class RegUserComponent implements OnInit {
     const fileList: FileList = event.target.files;
     if (fileList.length > 0) {
       const file: File = fileList[0];
-
-      console.log(file.name);
-
       const formData: FormData = new FormData();
       formData.append('file', file, file.name);
       const user = JSON.parse(localStorage.getItem('credential')) as Token;

@@ -116,8 +116,17 @@ public class RegUserController {
 
     @GetMapping(value = "/get/profile")
     public ResponseEntity<?> getProfile(@RequestHeader(value = "Authorization") String jwtToken) {
+
         UserProfile profile = userService.getProfile(jwtToken);
-        return ResponseEntity.ok(profile);
+
+        ObjectNode objectNode = objectMapper.createObjectNode();
+        objectNode.put("name", profile.getName());
+        objectNode.put("id", profile.getId());
+        objectNode.put("profile_image", profile.getProfileImage());
+        objectNode.put("biography", profile.getBiography());
+        objectNode.put("is_critic", profile.getCritic());
+        return ResponseEntity.ok(objectNode);
+
     }
 
 

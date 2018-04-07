@@ -58,12 +58,13 @@ public class RegUserServiceImpl extends UserService {
         }
 
         // first create a user_profile for the user;
-        user.setUserProfile(userProfileRepository.save(new UserProfile()));
-//        user.getUserProfile().setReviews();
+        UserProfile profile = new UserProfile();
+        profile.setProfileImage("default.jpeg");
+        user.setUserProfile(userProfileRepository.save(profile));
+
         user.getUserProfile().setWishList(wishListRepository.save(new WishList()));
         user.getUserProfile().setWatchList(watchListRepository.save(new WatchList()));
         return Optional.ofNullable(userRepository.save(user));
-
     }
 
     @Transactional

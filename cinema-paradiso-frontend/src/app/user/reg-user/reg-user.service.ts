@@ -8,24 +8,21 @@ export class RegUserService {
   }
 
   upload(formData: FormData) {
-
     const req = new HttpRequest('POST', 'http://localhost:8080/user/upload', formData, {
       reportProgress: true,
       responseType: 'text'
     });
-
-    console.log('122');
-
     return this.http.request(req).subscribe(data => {
+      console.log(data);
+    });
+  }
+
+
+  getProfile() {
+    this.http.get('http://localhost:8080/user/get/profile').subscribe(data => {
       console.log(data);
     });
 
   }
-
-
-
-
-
-
 
 }
