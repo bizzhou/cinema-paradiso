@@ -1,15 +1,20 @@
 import {Component, OnInit} from '@angular/core';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {RegUserService} from './reg-user.service';
+import {Token} from '../../global/login/token.model';
 
 @Component({
   selector: 'app-reg-user',
   templateUrl: './reg-user.component.html',
-  styleUrls: ['./reg-user.component.scss']
+  styleUrls: ['./reg-user.component.scss'],
+  providers: [RegUserService]
 })
 export class RegUserComponent implements OnInit {
 
   currentIndex = 1;
+  closeReason: string;
 
-  constructor() {
+  constructor(private modalService: NgbModal, private regUserService: RegUserService) {
   }
 
 
@@ -21,6 +26,38 @@ export class RegUserComponent implements OnInit {
   ngOnInit() {
     this.loadPosters();
   }
+
+  open(content) {
+    this.modalService.open(content).result.then(result => {
+      this.closeReason = `Reason ${result}`;
+    }, (reason) => {
+      this.closeReason = `Dismissed ${this.getDissmissReason(reason)}`;
+    });
+  }
+
+
+  getDissmissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing escape';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking x';
+    } else {
+      return `With ${reason}`;
+    }
+  }
+
+  upload(event) {
+    const fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      const file: File = fileList[0];
+      const formData: FormData = new FormData();
+      formData.append('file', file, file.name);
+      const user = JSON.parse(localStorage.getItem('credential')) as Token;
+      formData.append('userId', user.id.toString());
+      this.regUserService.upload(formData);
+    }
+  }
+
 
   loadPosters(): void {
     let movieNames = ['Blade Runner 2049', 'Coco', 'Call Me By Your Name', 'Lady Bird', 'Get Out', 'Dunkirk', 'In the Fade', 'Phantom Thread'];

@@ -7,13 +7,16 @@
   <!-- Sidebar/menu -->
   <nav class="w3-sidebar w3-collapse w3-black w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
     <div class="w3-container">
+
       <a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey"
          title="close menu">
         <i class="fa fa-remove"></i>
       </a>
       <img src="https://user-images.githubusercontent.com/20979257/36620069-64e71fbe-18bf-11e8-87e8-565e2fc4d6da.jpeg"
            style="width:45%;"
-           class="w3-round">
+           id="profile_image"
+           class="w3-round"
+           (click)="open(content)">
 
       <br><br>
 
@@ -23,10 +26,6 @@
     <div class="w3-bar-block">
       <a class="show_Account w3-bar-item w3-button w3-padding w3-text-teal" (click)="showDiv(7)"><i
         class="fa fa-user fa-fw w3-margin-right"></i>Account</a>
-      <a class="show_Portfolio w3-bar-item w3-button w3-padding" (click)="showDiv(8)"><i
-        class="fa fa-th-large fa-fw w3-margin-right"></i>PORTFOLIO</a>
-      <a class="w3-bar-item w3-button w3-padding"><i
-        class="fa fa-cog fa-fw w3-margin-right"></i>SETTINGS</a>
     </div>
 
   </nav>
@@ -37,12 +36,7 @@
   <!-- !PAGE CONTENT! -->
   <div class="w3-main" style="margin-left:300px">
 
-    <!-- Header -->
-    <!--<header id="portfolio">-->
-    <!--&lt;!&ndash;<a href="#"><img src="http://img0.pconline.com.cn/pconline/1307/07/3373207_1345164140k150-561101.jpg"&ndash;&gt;-->
-    <!--&lt;!&ndash;style="width:65px;" class="w3-circle w3-right w3-margin w3-hide-large w3-hover-opacity"></a>&ndash;&gt;-->
-    <!--&lt;!&ndash;<span class="w3-button w3-hide-large w3-xxlarge w3-hover-text-grey" onclick="w3_open()"><i&ndash;&gt;-->
-    <!--&lt;!&ndash;class="fa fa-bars"></i></span>&ndash;&gt;-->
+
     <div class="w3-container">
       <div class="w3-section w3-bottombar w3-padding-large">
         <button class="show_Summary w3-button w3-black" (click)="showDiv(1)">
@@ -51,9 +45,7 @@
         <button class="show_Movie_Ratings w3-button w3-white w3-hide-small" aria-hidden="true" (click)="showDiv(2)">
           <i class="fa fa-film w3-margin-right"></i>Movie Ratings
         </button>
-        <!--<button class="show_TV_Ratings w3-button w3-white w3-hide-small"><i-->
-        <!--class="fa fa-tv w3-margin-right"></i>TV Ratings-->
-        <!--</button>-->
+
         <button class="show_Wish_List w3-button w3-white w3-hide-small" aria-hidden="true" (click)="showDiv(3)">
           <i class="fa fa-heart w3-margin-right"></i>Wishlist
         </button>
@@ -65,13 +57,6 @@
         </button>
       </div>
     </div>
-
-    <!--<div class="w3-container Account" style="display:none">-->
-      <!--<h1><b>My Account</b></h1>-->
-      <!--<div class="w3-section w3-bottombar w3-border-dark-gray w3-padding-16">-->
-      <!--</div>-->
-    <!--</div>-->
-    <!--</header>-->
 
     <br>
 
@@ -158,8 +143,6 @@
         </ul>
       </section>
     </div>
-
-
     <div class="container Movie_Ratings_results" *ngIf="currentIndex === 2">
       <h2 class="l-cards__title w3-margin-left">Last Rated Movies</h2>
       <div class="row">
@@ -216,103 +199,6 @@
         </ul>
       </section>
     </div>
-
-
-    <!--<div class="container TV_Ratings_results" *ngIf="currentIndex === 3">-->
-    <!--<h2 class="l-cards__title w3-margin-left">Last Rated TV</h2>-->
-    <!--<div class="row">-->
-    <!--<div class="col-4 image-wrap">-->
-    <!--<img-->
-    <!--src="https://images-na.ssl-images-amazon.com/images/M/MV5BMjE3NTQ1NDg1Ml5BMl5BanBnXkFtZTgwNzY2NDA0MjI@._V1_UX182_CR0,0,182,268_AL_.jpg"-->
-    <!--alt="">-->
-    <!--</div>-->
-    <!--<div class="col-8">-->
-    <!--<p class="tv_name">Game of Throne</p>-->
-
-    <!--<div class="flex">-->
-    <!--<i class="fa fa-star"></i>-->
-    <!--<i class="fa fa-star"></i>-->
-    <!--<i class="fa fa-star"></i>-->
-    <!--<i class="fa fa-star"></i>-->
-    <!--<i class="fa fa-star"></i>-->
-    <!--<h6>5.0/5.0</h6>-->
-    <!--<h6>RR</h6>-->
-    <!--</div>-->
-    <!--<h2 class="l-cards__title">Your Rate</h2>-->
-    <!--<div class="flex">-->
-
-    <!--<i class="fa fa-star"></i>-->
-    <!--<i class="fa fa-star"></i>-->
-    <!--<i class="fa fa-star"></i>-->
-    <!--<i class="fa fa-star"></i>-->
-    <!--<i class="fa fa-star"></i>-->
-
-    <!--</div>-->
-
-    <!--<p class="c-plot">Nine noble families fight for control over the mythical lands of Westeros, while an-->
-    <!--ancient enemy returns-->
-    <!--after being dormant for thousands of years. </p>-->
-    <!--<p>-->
-    <!--Starring-->
-    <!--<span> Emilia Clarke, Peter Dinklage, Kit Harington </span>-->
-    <!--</p>-->
-    <!--<p>-->
-    <!--Director-->
-    <!--<span> David Benioff, D.B. Weiss </span>-->
-    <!--</p>-->
-    <!--<p>-->
-    <!--Genres-->
-    <!--<span> Action | Adventure | Drama | Fantasy | Romance </span>-->
-    <!--</p>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div class="show_more w3-margin-right">-->
-    <!--<a class="l-cards__more load_more_movies" href="javascript:void(0)">more-->
-    <!--<i class="fa fa-angle-double-right"></i>-->
-    <!--</a>-->
-    <!--</div>-->
-    <!--<br>-->
-    <!--<div class="testimonial">-->
-    <!--<div class="testimonial-content">-->
-    <!--<div class="testimonial-icon">-->
-    <!--<i class="fa fa-quote-left"></i>-->
-    <!--</div>-->
-    <!--<div class="l_description">-->
-    <!--<p class="description">-->
-    <!--You don't have any review on this Show.-->
-    <!--</p>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<h3 class="title">BookOfFools</h3>-->
-    <!--<span class="post">Critics</span>-->
-    <!--</div>-->
-    <!--<section class="l-cards">-->
-    <!--<h2 class="l-cards__title">Rated TV</h2>-->
-    <!--<a class="l-cards__more w3-margin-right" href="#">more <i class="fa fa-angle-double-right"></i></a>-->
-    <!--<ul class="l-cards__list">-->
-    <!--<li class="l-cards__item">-->
-    <!--<a href="#" class="l-cards__image fill"></a>-->
-    <!--<a href="#" class="l-cards__text"></a>-->
-    <!--</li>-->
-
-    <!--<li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>-->
-    <!--<a href="#" class="l-cards__text"></a></li>-->
-
-    <!--<li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>-->
-    <!--<a href="#" class="l-cards__text"></a></li>-->
-
-    <!--<li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>-->
-    <!--<a href="#" class="l-cards__text"></a></li>-->
-    <!--<li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>-->
-    <!--<a href="#" class="l-cards__text"></a></li>-->
-    <!--<li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>-->
-    <!--<a href="#" class="l-cards__text"></a></li>-->
-    <!--<li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>-->
-    <!--<a href="#" class="l-cards__text"></a></li>-->
-    <!--</ul>-->
-    <!--</section>-->
-    <!--</div>-->
-
     <div class="container Wish_List_results" *ngIf="currentIndex === 3">
       <section class="l-cards">
         <h2 class="l-cards__title">My Wishlist </h2>
@@ -339,7 +225,6 @@
         </ul>
       </section>
     </div>
-
     <div class="container Movie_List_results" *ngIf="currentIndex === 4">
       <section class="l-cards">
         <h2 class="l-cards__title">My Watchlist</h2>
@@ -364,7 +249,6 @@
         </ul>
       </section>
     </div>
-
     <div class="container My_Critics_results" *ngIf="currentIndex === 5">
       <div class="w3-container w3-padding-large w3-black">
 
@@ -460,32 +344,58 @@
           <label>Email: nan.jiang.1@stonybrook.edu</label>
 
           <hr class="w3-opacity">
-          <div class="w3-section">
 
-            <label>User Name</label>
-            <input class="w3-input " type="text" name="Name" placeholder="BookOfFools" required>
-          </div>
           <div class="w3-section">
-            <label>Password</label>
-            <input class="w3-input" type="text" name="Password" placeholder="**********" required>
-          </div>
-          <div class="w3-section">
-            <label>Email</label>
-            <input class="w3-input" type="text" name="Email" placeholder="nan.jiang.1@stonybrook.edu" required>
-          </div>
-          <div class="w3-section">
-            <label>Self-description</label>
+            <label>About Me</label>
             <input class="w3-input" type="text" name="description" placeholder="A critic user, happy everyday">
+
+            <label></label>
+
+            <label>Mini Biogrphy</label>
+            <textarea name="mini_bio" class="w3-input" cols="30" rows="10"></textarea>
+
+
+            <label>Change Avatar</label>
+            <input class="w3-input" type="text" name="description" placeholder="A critic user, happy everyday">
+
+
+            <label>Privacy</label>
+            <input class="w3-input" type="checkbox" name="description" placeholder="A critic user, happy everyday">
+
+
           </div>
+
           <button type="submit" class="w3-button w3-black w3-margin-bottom"><i
             class="fa fa-paper-plane w3-margin-right"></i>Update
           </button>
         </form>
 
+        <hr class="w3-opacity">
+
+        <form target="_blank">
+          <hr class="w3-opacity">
+
+          <div class="w3-section">
+            <label>Password</label>
+            <input class="w3-input" type="text" name="Password" placeholder="**********" required>
+          </div>
+
+          <div class="w3-section">
+            <label>New Password</label>
+            <input class="w3-input" type="text" name="Password" placeholder="**********" required>
+          </div>
+
+          <button type="submit" class="w3-button w3-black w3-margin-bottom"><i
+            class="fa fa-paper-plane w3-margin-right"></i>Reset Password
+          </button>
+        </form>
+
+
       </div>
     </div>
 
     <hr class="w3-opacity">
+
     <!-- 	Recommend section	 -->
     <section class="l-cards">
       <h2 class="l-cards__title">Recommended For Me</h2>
@@ -514,4 +424,29 @@
 </main>
 </body>
 
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Change Profile</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>
+      This is the uploading images section
+    </p>
+
+    <input type="file" (change)="upload($event)" required class="form-control " name="attach_file" id="attach_file">
+
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>
+
 </html>
+
+
+
+

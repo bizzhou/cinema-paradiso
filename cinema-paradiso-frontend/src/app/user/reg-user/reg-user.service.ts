@@ -1,8 +1,27 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpParams, HttpRequest} from '@angular/common/http';
 
 @Injectable()
 export class RegUserService {
 
-  constructor() { }
+  constructor(private http: HttpClient) {
+  }
+
+  upload(formData: FormData) {
+
+    const req = new HttpRequest('POST', 'http://localhost:8080/user/upload', formData, {
+      reportProgress: true,
+      responseType: 'text'
+    });
+
+    return this.http.request(req);
+
+  }
+
+
+  
+
+
+
 
 }
