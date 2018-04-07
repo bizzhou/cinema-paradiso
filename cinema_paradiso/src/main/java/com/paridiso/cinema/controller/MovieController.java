@@ -1,6 +1,10 @@
 package com.paridiso.cinema.controller;
 
 import com.paridiso.cinema.entity.Movie;
+import com.paridiso.cinema.persistence.UserProfileRepository;
+import com.paridiso.cinema.service.JwtTokenService;
+import com.paridiso.cinema.service.UserService;
+import com.paridiso.cinema.service.implementation.RegUserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -25,9 +29,16 @@ public class MovieController {
     @Qualifier("MovieServiceImpl")
     FilmService filmService;
 
+    @Autowired
+    private RegUserServiceImpl userService;
+
+
+    @Autowired
+    JwtTokenService jwtTokenService;
+
     @RequestMapping(value = "/all", method = GET)
     public ResponseEntity<List> getAllMovies() {
-        return null;
+        return ResponseEntity.ok(filmService.getMovies());
     }
 
 
@@ -47,17 +58,27 @@ public class MovieController {
         return ResponseEntity.ok(true);
     }
 
-
-    @RequestMapping(value = "/{id}", method = DELETE)
-    public ResponseEntity<Boolean> deleteMovie(@PathVariable Long id) {
-        return null;
+    @RequestMapping(value = "/{filmId}", method = DELETE)
+    public ResponseEntity<Boolean> deleteMovie(@PathVariable String filmId) {
+        filmService.deleteFilm(filmId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
-    @RequestMapping(value = "/rate_movie/{id}", method = POST)
-    public ResponseEntity<Boolean> rateMovie(@PathVariable Long id,
+    @RequestMapping(value = "/{filmId}", method = POST, params = "rating")
+    public ResponseEntity<Boolean> rateMovie(@RequestHeader(value = "Authorization") String jwtToken,
+                                             @PathVariable String filmId,
                                              @RequestParam(value = "rating", required = true) Double rating) {
-        return null;
+
+        // add to user
+        boolean result = userService.rateMovie(jwtTokenService.getUserIdFromToken(jwtToken), filmId, rating);
+        if (!result)
+            return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
+
+        // add to film
+        filmService.rateFilm(filmId, rating);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/update_movie", method = POST)

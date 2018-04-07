@@ -39,7 +39,10 @@ public class Celebrity {
     @Column(name = "birthCountry")
     private String birthCountry;
 
-//    private List<String> photos;
+    @ElementCollection
+    @CollectionTable(name = "CelebrityPhotos", joinColumns = @JoinColumn(name = "imdbId"))
+    @Column(name = "photo")
+    private List<String> photos;
 
     @Column(name = "isDirector")
     private boolean isDirector;
@@ -164,4 +167,11 @@ public class Celebrity {
         this.filmography = filmography;
     }
 
+    public List<String> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<String> photos) {
+        this.photos = photos;
+    }
 }

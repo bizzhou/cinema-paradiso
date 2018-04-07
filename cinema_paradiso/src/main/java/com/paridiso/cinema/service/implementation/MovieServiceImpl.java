@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -23,34 +24,42 @@ public class MovieServiceImpl implements FilmService {
     @Autowired
     MovieRepository movieRepository;
 
-//    @Autowired
-//    @Qualifier("InputUtilityServiceImpl")
-//    UtilityService utilityService;
-
+    @Transactional
     public Optional<Movie> addMovie(Movie movie) {
         if (movieRepository.findMovieByImdbId(movie.getImdbId()) != null)
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "MOVIE EXISTS");
         return Optional.ofNullable(movieRepository.save(movie));
     }
 
+    @Transactional
     @Override
     public Film getFilm(String filmId) {
         return movieRepository.findMovieByImdbId(filmId);
     }
 
+    @Transactional
     @Override
-    public Film deleteFilm(Long filmId) {
-        return null;
+    public List<Movie> getMovies() {
+       return movieRepository.findAll();
     }
 
+    @Transactional
     @Override
-    public boolean rateFilm(Long filmId) {
-        return false;
+    public void deleteFilm(String filmId) {
+        if (movieRepository.findMovieByImdbId(filmId) == null)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "MOVIE DOES NOT EXIST");
+        movieRepository.deleteById(filmId);
     }
 
+    @Transactional
     @Override
-    public void updateFilmRating(Long filmId) {
-
+    public void rateFilm(String filmId, Double rating) {
+        // add the rating to total rating, then get average
+        Movie movie = (Movie) this.getFilm(filmId);
+        movie.setNumberOfRatings(movie.getNumberOfRatings()+1);
+        Double newRatings = (movie.getRating() + rating)/movie.getNumberOfRatings();
+        movie.setRating(newRatings);
+        movieRepository.save(movie);
     }
 
     @Override

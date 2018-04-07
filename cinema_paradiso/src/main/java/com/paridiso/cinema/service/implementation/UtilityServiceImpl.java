@@ -2,6 +2,7 @@ package com.paridiso.cinema.service.implementation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.entity.User;
 import com.paridiso.cinema.security.JwtTokenGenerator;
 import com.paridiso.cinema.security.JwtTokenValidator;
@@ -53,6 +54,15 @@ public class UtilityServiceImpl implements UtilityService {
         return Arrays.asList(string.split(" "));
     }
 
+
+    @Override
+    public boolean containsMovie(List<Movie> movies, String filmImdbId) {
+        for (Movie movie: movies) {
+            if (movie.getImdbId().equals(filmImdbId))
+                return true;
+        }
+        return false;
+    }
 
 }
 

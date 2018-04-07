@@ -4,6 +4,7 @@ import com.paridiso.cinema.entity.Celebrity;
 import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.service.CelebrityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,8 +40,12 @@ public class CelebrityController {
     }
 
     @RequestMapping(value = "/{id}", method = GET)
-    public ResponseEntity<Celebrity> getCelebrities(@PathVariable Integer id) {
-        return null;
+    public ResponseEntity<Celebrity> getCelebrity(@PathVariable String id) {
+        Celebrity celebrity = celebrityService.getCelebrity(id);
+        if (celebrity != null)
+            return new ResponseEntity<>(celebrity, HttpStatus.OK);
+
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping(value = "/{id}", method = DELETE)
