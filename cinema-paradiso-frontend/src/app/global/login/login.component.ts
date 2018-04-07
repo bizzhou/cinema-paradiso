@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
 
   checkEmailTaken(email: string) {
     this.loginService.checkEmailTaken(email).then(result => {
-      if (result.taken === true) {
+      if (result['taken'] === true) {
         console.log('email taken');
         this.emailTaken = true;
       } else {
@@ -77,7 +77,7 @@ export class LoginComponent implements OnInit {
 
   checkUserName(username: string) {
     this.loginService.checkUserName(username).then(result => {
-        if (result.taken === true) {
+        if (result['taken'] === true) {
           console.log('username taken');
           this.userNameTaken = true;
         } else {

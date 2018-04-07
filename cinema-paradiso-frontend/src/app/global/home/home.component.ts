@@ -1,6 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import * as $ from 'jquery';
-import { stat } from 'fs';
 import {LoginStatusService} from '../login/login.status.service';
 
 @Component({
