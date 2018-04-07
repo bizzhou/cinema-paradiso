@@ -75,7 +75,7 @@ public class RegUserController {
         return ResponseEntity.ok(jwtUser);
     }
 
-    @PostMapping(value = "/check/username/{username}")
+    @GetMapping(value = "/check/username/{username}")
     public ResponseEntity<?> checkUsername(@PathVariable String username) {
         ObjectNode objectNode = objectMapper.createObjectNode();
         boolean nameTaken = userService.checkUserNameTaken(username);
@@ -83,7 +83,7 @@ public class RegUserController {
         return ResponseEntity.ok(objectNode);
     }
 
-    @PostMapping(value = "/check/email/{email}")
+    @GetMapping(value = "/check/email/{email}")
     public ResponseEntity<?> checkUserEmail(@PathVariable String email) {
         ObjectNode objectNode = objectMapper.createObjectNode();
         boolean nameTaken = userService.checkEmailTaken(email);

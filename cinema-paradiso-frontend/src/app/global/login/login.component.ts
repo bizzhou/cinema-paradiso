@@ -14,11 +14,13 @@ export class LoginComponent implements OnInit {
   constructor(private loginService: LoginService, private loginStatusService: LoginStatusService) {
   }
 
-  status: boolean;
   user = new User();
   isSamePassword: boolean;
   email: string;
   password: string;
+  emailTaken: boolean;
+  userNameTaken: boolean;
+
 
   ngOnInit() {
     const signupButton = document.getElementById('signup-button'),
@@ -42,33 +44,57 @@ export class LoginComponent implements OnInit {
     }, false);
   }
 
+
   signup() {
-
-    // if (this.isSamePassword && this.user !== undefined) {
-    //   this.loginService.singup(this.user).subscribe(data => {
-    //     console.log(data);
-    //   });
-    // }
-
-  }
-
-  login() {
-
-    console.log('loggin in');
-
-    console.log(this.email);
-    console.log(this.password);
-    if (this.email !== null && this.password !== null) {
-      this.loginService.login(this.email, this.password).subscribe(data => {
-        console.log(data);
+    // check password is the same
+    if (!this.emailTaken && !this.userNameTaken && this.user !== undefined) {
+      this.loginService.singup(this.user).subscribe(data => {
         localStorage.setItem('credential', JSON.stringify(data));
         // Set user loggedIn status to global. So header can subscribe to the event.
         this.loginStatusService.changeStatus(true);
       });
-
     }
-
   }
 
+  checkSamePassword(password: string, event) {
+    if (password === event.target.value) {
+      this.isSamePassword = true;
+    } else {
+      this.isSamePassword = false;
+    }
+  }
+
+  checkEmailTaken(email: string) {
+    this.loginService.checkEmailTaken(email).then(result => {
+      if (result.taken === true) {
+        console.log('email taken');
+        this.emailTaken = true;
+      } else {
+        this.emailTaken = false;
+      }
+    });
+  }
+
+  checkUserName(username: string) {
+    this.loginService.checkUserName(username).then(result => {
+        if (result.taken === true) {
+          console.log('username taken');
+          this.userNameTaken = true;
+        } else {
+          this.userNameTaken = false;
+        }
+      }
+    );
+  }
+
+  login() {
+    if (this.email !== null && this.password !== null) {
+      this.loginService.login(this.email, this.password).subscribe(data => {
+        localStorage.setItem('credential', JSON.stringify(data));
+        // Set user loggedIn status to global. So header can subscribe to the event.
+        this.loginStatusService.changeStatus(true);
+      });
+    }
+  }
 
 }
