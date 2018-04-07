@@ -47,9 +47,13 @@ export class RegUserComponent implements OnInit {
   }
 
   upload(event) {
+    console.log('uploading');
     const fileList: FileList = event.target.files;
     if (fileList.length > 0) {
       const file: File = fileList[0];
+
+      console.log(file.name);
+
       const formData: FormData = new FormData();
       formData.append('file', file, file.name);
       const user = JSON.parse(localStorage.getItem('credential')) as Token;

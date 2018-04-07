@@ -14,12 +14,16 @@ export class RegUserService {
       responseType: 'text'
     });
 
-    return this.http.request(req);
+    console.log('122');
+
+    return this.http.request(req).subscribe(data => {
+      console.log(data);
+    });
 
   }
 
 
-  
+
 
 
 

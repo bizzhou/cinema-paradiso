@@ -38,7 +38,7 @@ export class HeaderComponent implements OnInit {
 
         console.log(this.user);
 
-        if (this.user.role === 'ROLE_USER') {
+        if (this.user.role === 'ROLE_USER' || this.user.role === 'ROLE_CRITIC') {
           this.is_admin = false;
           console.log(this.is_admin);
         } else {
