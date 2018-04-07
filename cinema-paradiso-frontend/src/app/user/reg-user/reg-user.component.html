@@ -381,17 +381,19 @@
 
         <hr class="w3-opacity">
 
-        <form target="_blank">
+        <form target="_blank" #changePasswordForm="ngForm" (submit)="changePassword(changePasswordForm)">
           <hr class="w3-opacity">
 
           <div class="w3-section">
             <label>Password</label>
-            <input class="w3-input" type="text" name="Password" placeholder="**********" required>
+            <input class="w3-input" type="password" name="oldPassword"
+                   placeholder="**********" required [(ngModel)]="oldPassword">
           </div>
 
           <div class="w3-section">
             <label>New Password</label>
-            <input class="w3-input" type="text" name="Password" placeholder="**********" required>
+            <input class="w3-input" type="password" name="newPassword"
+                   placeholder="**********" required [(ngModel)]="newPassword">
           </div>
 
           <button type="submit" class="w3-button w3-black w3-margin-bottom"><i

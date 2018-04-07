@@ -15,7 +15,6 @@ export class RegUserService {
     return this.http.request(req);
   }
 
-
   getProfile() {
     return this.http.get('http://localhost:8080/user/get/profile');
   }
@@ -23,5 +22,10 @@ export class RegUserService {
   update(profile: any) {
     return this.http.post('http://localhost:8080/user/update/profile', profile);
 
+  }
+
+  changePassword(oldPassword: string, newPassword: string) {
+    const params = new HttpParams().set('old_password', oldPassword).set('new_password', newPassword);
+    return this.http.post('http://localhost:8080/user/change/password', params);
   }
 }

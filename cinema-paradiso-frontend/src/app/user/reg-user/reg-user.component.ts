@@ -4,6 +4,7 @@ import {RegUserService} from './reg-user.service';
 import {Token} from '../../global/login/token.model';
 import {LoginStatusService} from '../../global/login/login.status.service';
 import {JwtHelperService} from '@auth0/angular-jwt';
+import {NgForm} from '@angular/forms';
 
 class Profile {
   name: string;
@@ -27,7 +28,9 @@ export class RegUserComponent implements OnInit {
   closeReason: string;
   profile = new Profile();
   tokenHelper = new JwtHelperService();
-  profile_url:string;
+  profile_url: string;
+  oldPassword: string;
+  newPassword: string;
 
   constructor(private modalService: NgbModal, private regUserService: RegUserService, private loginStatusService: LoginStatusService) {
   }
@@ -107,6 +110,19 @@ export class RegUserComponent implements OnInit {
         console.log(error);
       });
     }
+  }
+
+
+  changePassword(form: NgForm) {
+    this.regUserService.changePassword(this.oldPassword, this.newPassword).subscribe(result => {
+      if (result['success'] === true) {
+        alert('success');
+        form.resetForm();
+      } else {
+        alert('failure');
+        form.resetForm();
+      }
+    });
   }
 
 
