@@ -1,23 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import { LoginStatusService } from '../login/login.status.service';
-
-
+import {Component, OnInit} from '@angular/core';
+import {LoginStatusService} from '../login/login.status.service';
+import {Location} from '@angular/common';
+import {Token} from '../login/token.model';
+import {LoginService} from '../login/login.service';
+import {connectableObservableDescriptor} from 'rxjs/observable/ConnectableObservable';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
+  providers: [LoginService]
 })
 export class HeaderComponent implements OnInit {
-
-
   status: boolean;
+  user: Token;
+  is_admin: boolean;
 
-  constructor(private loginStatusService: LoginStatusService) { }
+  constructor(private loginStatusService: LoginStatusService, private loginService: LoginService) {
+  }
 
   ngOnInit() {
-    $( document ).ready(function() {
-      $('.trigger').click(function() {
+    $(document).ready(function () {
+      $('.trigger').click(function () {
         $('.modal-wrapper').toggleClass('open');
         $('.page-wrapper').toggleClass('blur');
         return false;
@@ -26,24 +30,31 @@ export class HeaderComponent implements OnInit {
 
     // listen to the loggin state
     this.loginStatusService.currentStatus.subscribe(state => {
-      console.log(state);
       this.status = state;
-
       if (this.status) {
-        console.log('Profile Image should be shown');
+        $('.modal-wrapper').hide();
+        $('.page-wrapper').hide();
+        this.user = this.loginStatusService.getTokenDetails() as Token;
 
+        console.log(this.user);
 
-        console.log('Header has received the data');
-      } else {
+        if (this.user.role === 'ROLE_USER') {
+          this.is_admin = false;
+          console.log(this.is_admin);
+        } else {
+          this.is_admin = true;
+          console.log(this.is_admin);
+        }
 
       }
-
     });
-
-
 
   }
 
+
+  logout() {
+    this.loginService.logout();
+  }
 
 
 }

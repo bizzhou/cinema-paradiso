@@ -19,7 +19,18 @@ export class LoginService {
   }
 
   checkEmailTaken(email: string) {
+    return this.http.get('http://localhost:8080/user/check/email/' + email)
+      .toPromise();
+  }
 
+  checkUserName(username: string) {
+    return this.http.get('http://localhost:8080/user/check/username/' + username)
+      .toPromise();
+  }
+
+  logout() {
+    localStorage.clear();
+    window.location.reload(true);
   }
 
 }
