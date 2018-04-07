@@ -20,12 +20,12 @@
     </div>
     <ng-template #elseBlock>
         <div *ngIf ="is_admin; else userBlock">
-          <a routerLink="profile">{{user.username}}</a>
+          <a routerLink="admin">{{user.username}}</a>
           <a class="trigger" (click)="logout()">LogOut</a>
         </div>
 
         <ng-template #userBlock>
-          <a routerLink="userProfiel">{{user.username}}</a>
+          <a routerLink="user">{{user.username}}</a>
           <a class="trigger" (click)="logout()">LogOut</a>
         </ng-template>
     </ng-template>

@@ -9,11 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.paridiso.cinema.service.UserService;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -59,26 +65,32 @@ public class RegUserServiceImpl extends UserService {
 
         // first create a user_profile for the user;
         user.setUserProfile(userProfileRepository.save(new UserProfile()));
-//        user.getUserProfile().setReviews();
+
         user.getUserProfile().setWishList(wishListRepository.save(new WishList()));
         user.getUserProfile().setWatchList(watchListRepository.save(new WatchList()));
         return Optional.ofNullable(userRepository.save(user));
-
     }
 
-
+    @Transactional
     public UserProfile updateProfile(UserProfile userProfile) {
-
         UserProfile profile = userProfileRepository.findById(userProfile.getId())
-                .orElseThrow(() -> new RuntimeException("CANNOT FIND PROFILE"));
+                .orElseThrow(() -> new RuntimeException("CANNOT FIND PROFILE " + userProfile.getId()));
 
-        profile.setCritic(userProfile.getCritic());
         profile.setBiography(userProfile.getBiography());
         profile.setWatchList(userProfile.getWatchList());
         profile.setWishList(userProfile.getWishList());
         profile.setName(userProfile.getName());
         profile.setProfileImage(userProfile.getProfileImage());
         profile.setPrivate(userProfile.getPrivate());
+        return userProfileRepository.save(profile);
+    }
+
+    @Transactional
+    UserProfile makeUserCritic(Integer id) {
+        UserProfile profile = userProfileRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("CANNOT FIND PROFILE " + id));
+
+        profile.setCritic(true);
         return userProfileRepository.save(profile);
     }
 
@@ -93,6 +105,30 @@ public class RegUserServiceImpl extends UserService {
         profile.setPrivate(true);
         return userProfileRepository.save(profile).getPrivate() == true ? true : false;
     }
+
+    @Transactional
+    public boolean chagneProfilePicture(String jwtToken, MultipartFile file) throws IOException {
+        int headerLength = environment.getProperty("token.type").length();
+        User validatedUser = validator.validate(jwtToken.substring(headerLength));
+
+        UserProfile profile = userProfileRepository.findById(validatedUser.getUserProfile().getId())
+                .orElseThrow(() -> new RuntimeException("CANNOT FIND PROFILE"));
+
+        profile.setProfileImage(validatedUser.getUserProfile().getId() + ".jpeg");
+        System.out.println(profile);
+        UserProfile profile1 = userProfileRepository.save(profile);
+
+        if (!file.isEmpty()) {
+            byte[] bytes = file.getBytes();
+            Path path = Paths.get("avatars/" + profile.getId() + ".jpeg");
+            System.out.println(path.toAbsolutePath().toString());
+            Files.write(path, bytes);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 
     @Transactional
     public boolean updatePassword(Integer userId, String oldPassword, String newPassword) {
@@ -139,5 +175,19 @@ public class RegUserServiceImpl extends UserService {
 //        userProfileRepository.save(user.getUserProfile());
         return true;
     }
+
+    @Transactional
+    public UserProfile getProfile(String jwtToken) {
+        int headerLength = environment.getProperty("token.type").length();
+        User validatedUser = validator.validate(jwtToken.substring(headerLength));
+
+        System.out.println(validatedUser.getUserID());
+        System.out.println(validatedUser.getUserProfile().getId());
+
+        return userProfileRepository.findById(validatedUser.getUserProfile().getId())
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, "PROFILE NOT FOUND"));
+    }
+
+
 }
 

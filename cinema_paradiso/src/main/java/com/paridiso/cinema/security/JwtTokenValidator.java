@@ -28,12 +28,14 @@ public class JwtTokenValidator {
             jwtUser.setUserID(Integer.parseInt(body.get("id").toString()));
             jwtUser.setUsername(body.get("username").toString());
             jwtUser.setRole(Role.valueOf(body.get("role").toString()));
+            jwtUser.setEmail(body.get("email").toString());
 
-            if (body.get("profile_id").toString() != null) {
+            if (body.get("profileId").toString() != null) {
                 UserProfile userProfile = new UserProfile();
-                userProfile.setId(Integer.parseInt(body.get("profile_id").toString()));
+                userProfile.setId(Integer.parseInt(body.get("profileId").toString()));
                 jwtUser.setUserProfile(userProfile);
             }
+
         } catch (Exception e) {
             System.out.println("Cannot verify the token");
         }

@@ -1,149 +1,130 @@
 import {Component, OnInit} from '@angular/core';
+import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {RegUserService} from './reg-user.service';
+import {Token} from '../../global/login/token.model';
+import {LoginStatusService} from '../../global/login/login.status.service';
+import {JwtHelperService} from '@auth0/angular-jwt';
+import {NgForm} from '@angular/forms';
+
+class Profile {
+  name: string;
+  id: number;
+  profileImage: string;
+  biography: string;
+  isCritic: boolean;
+  username: string;
+  email: string;
+}
 
 @Component({
   selector: 'app-reg-user',
   templateUrl: './reg-user.component.html',
-  styleUrls: ['./reg-user.component.scss']
+  styleUrls: ['./reg-user.component.scss'],
+  providers: [RegUserService]
 })
 export class RegUserComponent implements OnInit {
 
-  constructor() {
+  currentIndex = 1;
+  closeReason: string;
+  profile = new Profile();
+  tokenHelper = new JwtHelperService();
+  profile_url: string;
+  oldPassword: string;
+  newPassword: string;
+
+  constructor(private modalService: NgbModal, private regUserService: RegUserService, private loginStatusService: LoginStatusService) {
+  }
+
+
+  showDiv(index) {
+    this.currentIndex = index;
+    console.log(this.currentIndex);
   }
 
   ngOnInit() {
+
     this.loadPosters();
 
-    $('.show_Account').click(function (e) {
+    if (this.loginStatusService.getTokenDetails() !== null) {
+      this.loginStatusService.changeStatus(true);
+      this.regUserService.getProfile().subscribe(profileDetails => {
+        console.log(profileDetails);
 
-      e.preventDefault();
-      $('.Account').show();
-      $('.Portfolio').hide();
-      $('.Summary_results').hide();
-      $('.Movie_Ratings_results').hide();
-      $('.TV_Ratings_results').hide();
-      $('.Wish_List_results').hide();
-      $('.Movie_List_results').hide();
-      $('.My_Critics_results').hide();
+        this.profile = profileDetails as Profile;
+        const decodedToken = this.tokenHelper.decodeToken(localStorage.getItem('token'));
+        this.profile.email = decodedToken['email'];
+        this.profile.id = decodedToken['profileId'];
+        this.profile.username = decodedToken['username'];
 
-    });
+        this.profile.profileImage = profileDetails['profileImage'];
 
-    $('.show_Portfolio').click(function (e) {
+        if (this.profile.profileImage === undefined) {
+          this.profile_url = 'http://localhost:8080/user/avatar/default.jpeg';
+        } else {
+          this.profile_url = 'http://localhost:8080/user/avatar/' + profileDetails['profileImage'];
+        }
 
-      e.preventDefault();
-      $('.Account').hide();
-      $('.Portfolio').show();
-      $('.Summary_results').show();
-      $('.Movie_Ratings_results').hide();
-      $('.TV_Ratings_results').hide();
-      $('.Wish_List_results').hide();
-      $('.Movie_List_results').hide();
-      $('.My_Critics_results').hide();
-
-    });
-
-    $('.show_Summary').click(function (e) {
-
-      e.preventDefault();
-      $('.Summary_results').show();
-      $('.Movie_Ratings_results').hide();
-      $('.TV_Ratings_results').hide();
-      $('.Wish_List_results').hide();
-      $('.Movie_List_results').hide();
-      $('.My_Critics_results').hide();
-
-    });
-
-    $('.show_Movie_Ratings').click(function (e) {
-
-      e.preventDefault();
-      $('.Summary_results').hide();
-      $('.Movie_Ratings_results').show();
-      $('.TV_Ratings_results').hide();
-      $('.Wish_List_results').hide();
-      $('.Movie_List_results').hide();
-      $('.My_Critics_results').hide();
-
-    });
-
-    $('.show_TV_Ratings').click(function (e) {
-
-      e.preventDefault();
-      $('.Summary_results').hide();
-      $('.Movie_Ratings_results').hide();
-      $('.TV_Ratings_results').show();
-      $('.Wish_List_results').hide();
-      $('.Movie_List_results').hide();
-      $('.My_Critics_results').hide();
-
-    });
-
-    $('.show_Wish_List').click(function (e) {
-
-      e.preventDefault();
-      $('.Summary_results').hide();
-      $('.Movie_Ratings_results').hide();
-      $('.TV_Ratings_results').hide();
-      $('.Wish_List_results').show();
-      $('.Movie_List_results').hide();
-      $('.My_Critics_results').hide();
-
-    });
-
-    $('.show_Movie_List').click(function (e) {
-
-      e.preventDefault();
-      $('.Summary_results').hide();
-      $('.Movie_Ratings_results').hide();
-      $('.TV_Ratings_results').hide();
-      $('.Wish_List_results').hide();
-      $('.Movie_List_results').show();
-      $('.My_Critics_results').hide();
-
-    });
-
-    $('.show_My_Critics').click(function (e) {
-
-      e.preventDefault();
-      $('.Summary_results').hide();
-      $('.Movie_Ratings_results').hide();
-      $('.TV_Ratings_results').hide();
-      $('.Wish_List_results').hide();
-      $('.Movie_List_results').hide();
-      $('.My_Critics_results').show();
-
-    });
-
-    $('.show_movies').click(function (e) {
-
-      e.preventDefault();
-      $('.movie_results').show();
-      $('.people_results').hide();
-      $('.tv_results').hide();
-
-    });
-
-
-    $('.show_tv').click(function (e) {
-
-      e.preventDefault();
-      $('.movie_results').hide();
-      $('.people_results').hide();
-      $('.tv_results').show();
-
-
-    });
-
-    $('.show_people').click(function (e) {
-
-      e.preventDefault();
-      $('.movie_results').hide();
-      $('.people_results').show();
-      $('.tv_results').hide();
-
-    });
-
-
+        console.log(decodedToken);
+      });
+    }
   }
+
+
+  updateProfile() {
+    this.regUserService.update(this.profile).subscribe(data => {
+      console.log(data);
+    });
+  }
+
+  open(content) {
+    this.modalService.open(content).result.then(result => {
+      this.closeReason = `Reason ${result}`;
+    }, (reason) => {
+      this.closeReason = `Dismissed ${this.getDissmissReason(reason)}`;
+    });
+  }
+
+
+  getDissmissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing escape';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking x';
+    } else {
+      return `With ${reason}`;
+    }
+  }
+
+  upload(event) {
+    console.log('uploading');
+    const fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      const file: File = fileList[0];
+      const formData: FormData = new FormData();
+      formData.append('file', file, file.name);
+      const user = JSON.parse(localStorage.getItem('credential')) as Token;
+      formData.append('userId', user.id.toString());
+      this.regUserService.upload(formData).subscribe(data => {
+        console.log(data);
+      }, error => {
+        console.log(error);
+      });
+    }
+  }
+
+
+  changePassword(form: NgForm) {
+    this.regUserService.changePassword(this.oldPassword, this.newPassword).subscribe(result => {
+      if (result['success'] === true) {
+        alert('success');
+        form.resetForm();
+      } else {
+        alert('failure');
+        form.resetForm();
+      }
+    });
+  }
+
 
   loadPosters(): void {
     let movieNames = ['Blade Runner 2049', 'Coco', 'Call Me By Your Name', 'Lady Bird', 'Get Out', 'Dunkirk', 'In the Fade', 'Phantom Thread'];

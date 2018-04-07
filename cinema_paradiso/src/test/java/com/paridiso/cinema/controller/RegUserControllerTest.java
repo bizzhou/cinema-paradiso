@@ -158,4 +158,15 @@ public class RegUserControllerTest {
                 .then().statusCode(200).body("success", equalTo(true));
     }
 
+    @Test
+    public void getProfile() {
+
+        // should get the name of the
+        String jwtToken = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1c2VyIiwidXNlcm5hbWUiOiJ1c2VyIiwicm9sZSI6IlJPTEVfVVNFUiIsImlkIjozLCJwcm9maWxlX2lkIjoxfQ.obr4RphbYxzPwYJhSRXhsIDcogQkWakkpE25KT8zMpg";
+        ValidatableResponse validatableResponse1 = given()
+                .auth().preemptive().oauth2(jwtToken)
+                .when().get(url + "get/profile")
+                .then().statusCode(200).body("name", equalTo("John Doe"));
+    }
+
 }
