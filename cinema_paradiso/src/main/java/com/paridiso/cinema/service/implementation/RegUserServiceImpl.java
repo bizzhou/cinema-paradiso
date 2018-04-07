@@ -65,9 +65,8 @@ public class RegUserServiceImpl extends UserService {
 
     }
 
-
+    @Transactional
     public UserProfile updateProfile(UserProfile userProfile) {
-
         UserProfile profile = userProfileRepository.findById(userProfile.getId())
                 .orElseThrow(() -> new RuntimeException("CANNOT FIND PROFILE"));
 
@@ -116,6 +115,16 @@ public class RegUserServiceImpl extends UserService {
     public boolean checkEmailTaken(String email) {
         return userRepository.findUserByEmail(email) != null ? true : false;
     }
+
+    @Transactional
+    public UserProfile getProfile(String jwtToken) {
+        int headerLength = environment.getProperty("token.type").length();
+        User validatedUser = validator.validate(jwtToken.substring(headerLength));
+
+        return userProfileRepository.findById(validatedUser.getUserProfile().getId())
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, "PROFILE NOT FOUND"));
+    }
+
 
 }
 

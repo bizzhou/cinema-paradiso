@@ -114,6 +114,13 @@ public class RegUserController {
         return ResponseEntity.ok(true);
     }
 
+    @GetMapping(value = "/get/profile")
+    public ResponseEntity<?> getProfile(@RequestHeader(value = "Authorization") String jwtToken) {
+        UserProfile profile = userService.getProfile(jwtToken);
+        return ResponseEntity.ok(profile);
+    }
+
+
     @GetMapping(value = "/avatar/{fileName}", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<byte[]> getAvatar(@PathVariable String fileName) throws IOException {
         String fileLocation = Paths.get("avatars/" + fileName).toAbsolutePath().toString();
