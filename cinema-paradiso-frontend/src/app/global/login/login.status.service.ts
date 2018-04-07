@@ -5,10 +5,15 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 export class LoginStatusService {
 	private logInStatus = new BehaviorSubject<boolean>(false);
 	currentStatus = this.logInStatus.asObservable();
-
 	constructor() {}
 
 	changeStatus(status: boolean) {
 		this.logInStatus.next(status);
 	}
+
+	getTokenDetails() {
+		let user = JSON.parse(localStorage.getItem("credential"));
+		return user;
+	} 
+
 }

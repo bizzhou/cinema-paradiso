@@ -1,5 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import * as $ from 'jquery';
+import { stat } from 'fs';
+import {LoginStatusService} from '../login/login.status.service';
 
 @Component({
   selector: 'app-home',
@@ -11,11 +13,14 @@ export class HomeComponent implements OnInit {
 
   currentRate = 3.14;
 
-  constructor() {}
+  constructor(private loginStatusService: LoginStatusService) {}
 
   ngOnInit() {
     this.loadPosters();
 
+    if (this.loginStatusService.getTokenDetails() !== null) {
+      this.loginStatusService.changeStatus(true);
+    }
   }
 
 

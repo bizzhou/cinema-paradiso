@@ -19,7 +19,13 @@ export class LoginService {
   }
 
   checkEmailTaken(email: string) {
+    // return this.http.post("http://localhost:8080/user/check/email")
 
+  }
+
+  logout() {
+    localStorage.clear();
+    window.location.reload(true);
   }
 
 }
