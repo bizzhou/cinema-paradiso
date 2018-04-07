@@ -1,6 +1,7 @@
 package com.paridiso.cinema.entity;
 
 import javax.persistence.*;
+import java.util.Calendar;
 
 @Entity
 @Table(name = "Reviews", uniqueConstraints = @UniqueConstraint(columnNames = {"reviewId", "imdbId"}))
@@ -17,6 +18,12 @@ public class Review {
     @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "imdbId", nullable = false)
     private Movie movie;
+
+    private String title;
+
+    private String author;
+
+    private Calendar postedDate;
 
     private Integer likeCount;
 
@@ -71,5 +78,29 @@ public class Review {
 
     public void setUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public Calendar getPostedDate() {
+        return postedDate;
+    }
+
+    public void setPostedDate(Calendar postedDate) {
+        this.postedDate = postedDate;
     }
 }

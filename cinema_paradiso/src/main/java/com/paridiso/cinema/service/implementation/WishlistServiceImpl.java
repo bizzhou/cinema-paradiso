@@ -6,6 +6,7 @@ import com.paridiso.cinema.persistence.UserProfileRepository;
 import com.paridiso.cinema.persistence.UserRepository;
 import com.paridiso.cinema.persistence.WishListRepository;
 import com.paridiso.cinema.service.ListService;
+import com.paridiso.cinema.service.UtilityService;
 import com.paridiso.cinema.service.WishlistService;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class WishlistServiceImpl implements ListService, WishlistService {
     @Autowired
     UserProfileRepository userProfileRepository;
 
+    @Autowired
+    UtilityService utilityService;
+
     @Override
     public Integer getSize() {
         return null;
@@ -53,7 +57,9 @@ public class WishlistServiceImpl implements ListService, WishlistService {
         // check movie existence and size limit
         List<Movie> movies = user.getUserProfile().getWishList().getMovies();
 
-        if (containsMovie(movies, filmImdbId) || movies.size() >= user.getUserProfile().getWishList().getSizeLimit())
+        System.out.println("wish list id: " + user.getUserProfile().getWishList().getWishlistId());
+
+        if (utilityService.containsMovie(movies, filmImdbId) || movies.size() >= user.getUserProfile().getWishList().getSizeLimit())
             return false;
 
         // add to list
@@ -74,13 +80,5 @@ public class WishlistServiceImpl implements ListService, WishlistService {
         return false;
     }
 
-    @Override
-    public boolean containsMovie(List<Movie> movies, String filmImdbId) {
-        for (Movie movie: movies) {
-            if (movie.getImdbId().equals(filmImdbId))
-                return true;
-        }
-        return false;
-    }
 
 }

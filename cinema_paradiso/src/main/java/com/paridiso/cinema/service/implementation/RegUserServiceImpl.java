@@ -59,6 +59,7 @@ public class RegUserServiceImpl extends UserService {
 
         // first create a user_profile for the user;
         user.setUserProfile(userProfileRepository.save(new UserProfile()));
+//        user.getUserProfile().setReviews();
         user.getUserProfile().setWishList(wishListRepository.save(new WishList()));
         user.getUserProfile().setWatchList(watchListRepository.save(new WatchList()));
         return Optional.ofNullable(userRepository.save(user));
@@ -133,6 +134,7 @@ public class RegUserServiceImpl extends UserService {
 //            ratedMovies = new ArrayList<>();
 //        else
         List<Movie> movieList = user.getUserProfile().getRatedMovies();
+
         if (utilityService.containsMovie(movieList, filmId))
             return false;
 
@@ -144,6 +146,5 @@ public class RegUserServiceImpl extends UserService {
         userProfileRepository.save(user.getUserProfile());
         return true;
     }
-
 }
 

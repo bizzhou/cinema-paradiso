@@ -1,5 +1,9 @@
 package com.paridiso.cinema.entity.enumerations;
 
+import javax.persistence.Entity;
+import javax.persistence.Enumerated;
+import javax.persistence.Table;
+
 public enum Genre {
     ACTION,
     ADVENTURE,

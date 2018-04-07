@@ -21,8 +21,6 @@ public interface FilmService {
 
     void rateFilm(String filmId, Double rating);
 
-    void updateFilmRating(Long filmId);
-
     List<Trailer> getTrailers(Long filmId);
 
     boolean updateTrailer(Long filmId, Integer trailerId);

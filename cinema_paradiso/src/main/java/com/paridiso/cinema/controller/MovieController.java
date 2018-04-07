@@ -57,7 +57,7 @@ public class MovieController {
     }
 
 
-    @RequestMapping(value = "/{id}", method = DELETE)
+    @RequestMapping(value = "/{filmId}", method = DELETE)
     public ResponseEntity<Boolean> deleteMovie(@PathVariable String filmId) {
         filmService.deleteFilm(filmId);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -78,7 +78,6 @@ public class MovieController {
         filmService.rateFilm(filmId, rating);
 
         return ResponseEntity.ok(true);
-
     }
 
     @RequestMapping(value = "/update_movie", method = POST)

@@ -23,8 +23,8 @@ public class CelebrityServiceImpl implements CelebrityService {
     }
 
     @Override
-    public Celebrity getCelebrity(Integer celebrityId) {
-        return null;
+    public Celebrity getCelebrity(String celebrityId) {
+        return celebrityRepository.findCelebrityByCelebrityId(celebrityId);
     }
 
     @Override

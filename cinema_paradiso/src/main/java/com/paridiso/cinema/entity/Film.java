@@ -25,15 +25,15 @@ public class Film {
     @Column(name = "year")
     private String year;
 
+    @Enumerated
     @Column(name = "rated")
     private Rated rated;
 
     @Column(name = "releasedDate")
     private Calendar releaseDate;
 
-
     @ElementCollection(targetClass = Genre.class)
-    @CollectionTable(name = "MovieGenres", joinColumns=@JoinColumn(name="imdbId"))
+    @CollectionTable(name = "MovieGenres", joinColumns = @JoinColumn(name = "imdbId"))
     @Column(name = "genre")
     private List<Genre> genres;
 
@@ -50,15 +50,15 @@ public class Film {
     @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
     private Celebrity director;
 
-    @ManyToMany(cascade = { CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.MERGE})
     @JoinTable(
-            name = "JoinFilmsCelebrities",
+            name = "FilmsCelebrities",
             joinColumns = {@JoinColumn(name = "imdbId")},
             inverseJoinColumns = {@JoinColumn(name = "celebrityId")}
     )
     private List<Celebrity> casts;
 
-    @OneToMany(cascade = {CascadeType.MERGE},fetch= FetchType.EAGER, mappedBy = "movie")
+    @OneToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER, mappedBy = "movie")
     private Set<Trailer> trailers;
 
     @OneToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER, mappedBy = "movie")
@@ -73,7 +73,6 @@ public class Film {
     @Column(name = "country")
     private String country;
 
-    //    private Set<String> awards;
     @Column(name = "poster")
     private String poster;
 

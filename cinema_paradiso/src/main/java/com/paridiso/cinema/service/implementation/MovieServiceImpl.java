@@ -24,7 +24,6 @@ public class MovieServiceImpl implements FilmService {
     @Autowired
     MovieRepository movieRepository;
 
-    @Transactional
     @Override
     public Optional<Movie> addMovie(Movie movie) {
         if (movieRepository.findMovieByImdbId(movie.getImdbId()) != null)
@@ -41,7 +40,9 @@ public class MovieServiceImpl implements FilmService {
     @Transactional
     @Override
     public List<Movie> getMovies() {
+
         return movieRepository.findAll();
+
     }
 
     @Transactional
@@ -52,9 +53,15 @@ public class MovieServiceImpl implements FilmService {
         movieRepository.deleteById(filmId);
     }
 
+    @Transactional
     @Override
-    public void updateFilmRating(Long filmId) {
-
+    public void rateFilm(String filmId, Double rating) {
+        // add the rating to total rating, then get average
+        Movie movie = (Movie) this.getFilm(filmId);
+        movie.setNumberOfRatings(movie.getNumberOfRatings()+1);
+        Double newRatings = (movie.getRating() + rating)/movie.getNumberOfRatings();
+        movie.setRating(newRatings);
+        movieRepository.save(movie);
     }
 
     @Override
@@ -94,17 +101,6 @@ public class MovieServiceImpl implements FilmService {
 
     public List<Movie> getTopBoxOffice() {
         return null;
-    }
-
-    @Transactional
-    @Override
-    public void rateFilm(String filmId, Double rating) {
-        // add the rating to total rating, then get average
-        Movie movie = (Movie) this.getFilm(filmId);
-        movie.setNumberOfRatings(movie.getNumberOfRatings()+1);
-        Double newRatings = (movie.getRating() + rating)/movie.getNumberOfRatings();
-        movie.setRating(newRatings);
-        movieRepository.save(movie);
     }
 
 }

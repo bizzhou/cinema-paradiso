@@ -4,6 +4,7 @@ package com.paridiso.cinema.entity;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Entity
 @Table(name = "UserProfiles")
@@ -29,6 +30,18 @@ public class UserProfile {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private WishList wishList;
 
+    @Column(name = "isCritic")
+    private Boolean isCritic;
+
+    @Column(name = "isPrivate")
+    private Boolean isPrivate;
+
+    @OneToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY, mappedBy = "userProfile")
+    private List<Review> reviews;
+
+    @OneToMany(cascade = {CascadeType.MERGE},fetch= FetchType.LAZY, mappedBy = "userProfile")
+    private List<Review> likedReviews;
+
     @ManyToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinTable(
             name = "UserRatedMovies",
@@ -38,19 +51,8 @@ public class UserProfile {
     @MapKeyColumn(name = "imdbId")
     private List<Movie> ratedMovies;
 
-    @Column(name = "isCritic")
-    private Boolean isCritic;
-
-    @Column(name = "isPrivate")
-    private Boolean isPrivate;
-
-    @OneToMany(cascade = {CascadeType.MERGE},fetch= FetchType.LAZY, mappedBy = "userProfile")
-    private List<Review> reviews;
-
     public UserProfile() {
-        reviews = new ArrayList<>();
-        wishList = new WishList();
-        watchList = new WatchList();
+
     }
 
     public UserProfile(Integer id) {
@@ -149,5 +151,13 @@ public class UserProfile {
 
     public void setRatedMovies(List<Movie> ratedMovies) {
         this.ratedMovies = ratedMovies;
+    }
+
+    public List<Review> getLikedReviews() {
+        return likedReviews;
+    }
+
+    public void setLikedReviews(List<Review> likedReviews) {
+        this.likedReviews = likedReviews;
     }
 }

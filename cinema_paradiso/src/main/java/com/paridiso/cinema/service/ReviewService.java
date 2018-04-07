@@ -3,6 +3,7 @@ package com.paridiso.cinema.service;
 import com.paridiso.cinema.entity.Review;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ReviewService {
 
@@ -10,9 +11,11 @@ public interface ReviewService {
 
     List<Review> getCriticReviews(Long filmId);
 
-    boolean addReview(Review review);
+    void addReview(Integer userId, String movieId, Review review);
 
-    boolean removeReview(Long reviewId);
+    Optional<Review> getReview(Long reviewId);
+
+    Review removeReview(Integer userId, String filmId, Long reviewId);
 
     boolean likeReview(Long reviewId);
 
