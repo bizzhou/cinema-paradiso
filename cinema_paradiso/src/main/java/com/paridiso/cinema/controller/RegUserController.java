@@ -122,9 +122,18 @@ public class RegUserController {
         ObjectNode objectNode = objectMapper.createObjectNode();
         objectNode.put("name", profile.getName());
         objectNode.put("id", profile.getId());
-        objectNode.put("profileImage", profile.getProfileImage());
+
+        if (profile.getProfileImage() == null) {
+            objectNode.put("profileImage", "default.jpeg");
+        } else {
+            objectNode.put("profileImage", profile.getProfileImage());
+        }
+
         objectNode.put("biography", profile.getBiography());
         objectNode.put("isCritic", profile.getCritic());
+
+        System.out.println(objectNode);
+
         return ResponseEntity.ok(objectNode);
 
     }

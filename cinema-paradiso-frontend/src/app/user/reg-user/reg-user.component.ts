@@ -27,6 +27,7 @@ export class RegUserComponent implements OnInit {
   closeReason: string;
   profile = new Profile();
   tokenHelper = new JwtHelperService();
+  profile_url:string;
 
   constructor(private modalService: NgbModal, private regUserService: RegUserService, private loginStatusService: LoginStatusService) {
   }
@@ -38,24 +39,29 @@ export class RegUserComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.loadPosters();
 
     if (this.loginStatusService.getTokenDetails() !== null) {
       this.loginStatusService.changeStatus(true);
       this.regUserService.getProfile().subscribe(profileDetails => {
+        console.log(profileDetails);
+
         this.profile = profileDetails as Profile;
         const decodedToken = this.tokenHelper.decodeToken(localStorage.getItem('token'));
         this.profile.email = decodedToken['email'];
         this.profile.id = decodedToken['profileId'];
         this.profile.username = decodedToken['username'];
-        this.profile.profileImage = decodedToken['profileImage'];
+
+        this.profile.profileImage = profileDetails['profileImage'];
 
         if (this.profile.profileImage === undefined) {
-          this.profile.profileImage = 'default.jpeg';
+          this.profile_url = 'http://localhost:8080/user/avatar/default.jpeg';
+        } else {
+          this.profile_url = 'http://localhost:8080/user/avatar/' + profileDetails['profileImage'];
         }
 
         console.log(decodedToken);
-        console.log(profileDetails);
       });
     }
   }
