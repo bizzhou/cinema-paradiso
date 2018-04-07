@@ -6,10 +6,9 @@ import {HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpHeaders} from 
 export class AuthInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    if (localStorage.getItem('credential') !== undefined) {
+    if (localStorage.getItem('credential') !== null) {
 
-      console.log('1231238457');
-      console.log('1231238457');
+      console.log('INTERCEPTING REQ');
 
       const token = JSON.parse(localStorage.getItem('credential')).token;
 

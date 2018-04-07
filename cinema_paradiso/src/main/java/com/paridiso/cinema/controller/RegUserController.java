@@ -117,14 +117,15 @@ public class RegUserController {
     @GetMapping(value = "/get/profile")
     public ResponseEntity<?> getProfile(@RequestHeader(value = "Authorization") String jwtToken) {
 
+        System.out.println(jwtToken);
         UserProfile profile = userService.getProfile(jwtToken);
 
         ObjectNode objectNode = objectMapper.createObjectNode();
         objectNode.put("name", profile.getName());
         objectNode.put("id", profile.getId());
-        objectNode.put("profile_image", profile.getProfileImage());
+        objectNode.put("profileImage", profile.getProfileImage());
         objectNode.put("biography", profile.getBiography());
-        objectNode.put("is_critic", profile.getCritic());
+        objectNode.put("isCritic", profile.getCritic());
         return ResponseEntity.ok(objectNode);
 
     }

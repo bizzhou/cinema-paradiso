@@ -19,10 +19,11 @@ export class RegUserService {
 
 
   getProfile() {
-    this.http.get('http://localhost:8080/user/get/profile').subscribe(data => {
-      console.log(data);
-    });
-
+    return this.http.get('http://localhost:8080/user/get/profile');
   }
 
+  update(profile: any) {
+    return this.http.post('http://localhost:8080/user/update/profile', profile);
+
+  }
 }

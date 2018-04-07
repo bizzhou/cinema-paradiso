@@ -58,9 +58,7 @@ public class RegUserServiceImpl extends UserService {
         }
 
         // first create a user_profile for the user;
-        UserProfile profile = new UserProfile();
-        profile.setProfileImage("default.jpeg");
-        user.setUserProfile(userProfileRepository.save(profile));
+        user.setUserProfile(userProfileRepository.save(new UserProfile()));
 
         user.getUserProfile().setWishList(wishListRepository.save(new WishList()));
         user.getUserProfile().setWatchList(watchListRepository.save(new WatchList()));
@@ -70,7 +68,7 @@ public class RegUserServiceImpl extends UserService {
     @Transactional
     public UserProfile updateProfile(UserProfile userProfile) {
         UserProfile profile = userProfileRepository.findById(userProfile.getId())
-                .orElseThrow(() -> new RuntimeException("CANNOT FIND PROFILE"));
+                .orElseThrow(() -> new RuntimeException("CANNOT FIND PROFILE " + userProfile.getId()));
 
         profile.setCritic(userProfile.getCritic());
         profile.setBiography(userProfile.getBiography());
@@ -150,6 +148,8 @@ public class RegUserServiceImpl extends UserService {
     public UserProfile getProfile(String jwtToken) {
         int headerLength = environment.getProperty("token.type").length();
         User validatedUser = validator.validate(jwtToken.substring(headerLength));
+        System.out.println(validatedUser.getUserID());
+        System.out.println(validatedUser.getUserProfile().getId());
 
         return userProfileRepository.findById(validatedUser.getUserProfile().getId())
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, "PROFILE NOT FOUND"));

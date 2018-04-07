@@ -20,7 +20,18 @@
 
       <br><br>
 
-      <h4><p class="w3-text-blue">Critic</p><b>Mel</b></h4>
+      <h4>
+
+        <div *ngIf="profile.is_critic; else userProfile">
+          <p class="w3-text-blue">Critic</p>
+        </div>
+
+        <ng-template #userProfile>
+          <p class="w3-text-blue">User</p>
+        </ng-template>
+
+        <b>{{profile.name}}</b>
+      </h4>
       <p class="w3-text-gray">A critic user, happy everyday</p>
     </div>
     <div class="w3-bar-block">
@@ -65,11 +76,7 @@
         <form target="_blank">
           <div class="w3-container w3-padding-large" style="margin-bottom:32px">
             <h4><b>About Me</b></h4>
-            <p>Just me, myself and I, exploring the universe of unknownment. I have a heart of love and an
-              interest of lorem ipsum and mauris neque quam blog. I want to share my world with you. Praesent
-              tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies
-              congue gravida diam non fringilla. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo
-              condimentum, porta lectus vitae, ultricies congue gravida diam non fringilla.</p>
+            <p>{{profile.biography}}</p>
             <hr>
           </div>
         </form>
@@ -272,7 +279,7 @@
               </p>
             </div>
           </div>
-          <h3 class="title">BookOfFools</h3>
+          <h3 class="title">{{profile.username}}</h3>
           <span class="post">Critics</span>
         </div>
         <div class="testimonial">
@@ -295,7 +302,7 @@
               </p>
             </div>
           </div>
-          <h3 class="title">BookOfFools</h3>
+          <h3 class="title">{{profile.username}}</h3>
           <span class="post">Critics</span>
         </div>
         <div class="testimonial">
@@ -318,7 +325,7 @@
               </p>
             </div>
           </div>
-          <h3 class="title">BookOfFools</h3>
+          <h3 class="title">{{profile.username}}</h3>
           <span class="post">Critics</span>
         </div>
         <div class="show_more w3-margin-right">
@@ -335,37 +342,37 @@
       <div class="w3-container w3-padding-large w3-black">
 
         <form target="_blank">
-          <label>User Name: BookOfFools</label>
+          <label>User Name: {{profile.username}}</label>
           <br>
-          <label>Level： Critic</label>
+          <div *ngIf="profile.is_critic;else notCritic">
+            <label>Level： Critic</label>
+          </div>
+          <ng-template #notCritic>
+            <label>Level: User</label>
+          </ng-template>
+
           <br>
           <label>Registered Date：2017-03-08 </label>
           <br>
-          <label>Email: nan.jiang.1@stonybrook.edu</label>
+          <label>Email: {{profile.email}}</label>
 
           <hr class="w3-opacity">
 
           <div class="w3-section">
-            <label>About Me</label>
-            <input class="w3-input" type="text" name="description" placeholder="A critic user, happy everyday">
 
             <label></label>
 
-            <label>Mini Biogrphy</label>
-            <textarea name="mini_bio" class="w3-input" cols="30" rows="10"></textarea>
+            <label>About me</label>
+            <textarea id="about_me_box" name="mini_bio" class="w3-input" cols="30" rows="10" [(ngModel)]="profile.biography">
+              Hello World
+            </textarea>
 
-
-            <label>Change Avatar</label>
-            <input class="w3-input" type="text" name="description" placeholder="A critic user, happy everyday">
-
-
-            <label>Privacy</label>
+            <label>Make Profile Private</label>
             <input class="w3-input" type="checkbox" name="description" placeholder="A critic user, happy everyday">
-
 
           </div>
 
-          <button type="submit" class="w3-button w3-black w3-margin-bottom"><i
+          <button class="w3-button w3-black w3-margin-bottom" (click)="updateProfile()"><i
             class="fa fa-paper-plane w3-margin-right"></i>Update
           </button>
         </form>

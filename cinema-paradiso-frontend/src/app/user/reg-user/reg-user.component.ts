@@ -3,6 +3,7 @@ import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {RegUserService} from './reg-user.service';
 import {Token} from '../../global/login/token.model';
 import {LoginStatusService} from '../../global/login/login.status.service';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 class Profile {
   name: string;
@@ -10,6 +11,8 @@ class Profile {
   profile_image: string;
   biography: string;
   is_critic: boolean;
+  username: string;
+  email: string;
 }
 
 @Component({
@@ -22,6 +25,8 @@ export class RegUserComponent implements OnInit {
 
   currentIndex = 1;
   closeReason: string;
+  profile = new Profile();
+  tokenHelper = new JwtHelperService();
 
   constructor(private modalService: NgbModal, private regUserService: RegUserService, private loginStatusService: LoginStatusService) {
   }
@@ -34,10 +39,27 @@ export class RegUserComponent implements OnInit {
 
   ngOnInit() {
     this.loadPosters();
+
     if (this.loginStatusService.getTokenDetails() !== null) {
       this.loginStatusService.changeStatus(true);
-      this.regUserService.getProfile();
+      this.regUserService.getProfile().subscribe(profileDetails => {
+        this.profile = profileDetails as Profile;
+        const decodedToken = this.tokenHelper.decodeToken(localStorage.getItem('token'));
+        this.profile.email = decodedToken['email'];
+        this.profile.id = decodedToken['profileId'];
+        this.profile.username = decodedToken['username'];
+        this.profile.profile_image = decodedToken['profileImage'];
+
+        console.log(decodedToken);
+        console.log(profileDetails);
+      });
     }
+  }
+
+  updateProfile() {
+    this.regUserService.update(this.profile).subscribe(data => {
+      console.log(data);
+    });
   }
 
   open(content) {

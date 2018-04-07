@@ -1,7 +1,7 @@
 //@import "https://www.w3schools.com/w3css/4/w3.css";
-@mixin cols ($width, $padding-left, $padding-right){
+@mixin cols($width, $padding-left, $padding-right) {
   width: $width;
-  float:left;
+  float: left;
   position: relative;
   min-height: 1px;
   padding-right: $padding-right;
@@ -11,7 +11,7 @@
 $color-red: rgb(229, 9, 20);
 $color-gray: rgb(100, 100, 100);
 
-main{
+main {
   //background-color: lighten(black, 7%);
   height: 100%;
   //padding-top: 3%;
@@ -24,16 +24,18 @@ main{
   margin: 0 0 1em;
   color: gray;
 }
-.l-cards{
+
+.l-cards {
   padding-left: 1.2em;
   padding-bottom: 12.5em;
 }
 
-.l-cards__title-wrap{
+.l-cards__title-wrap {
   padding-bottom: 5px;
 }
+
 // title of each section
-.l-cards__title{
+.l-cards__title {
   font-size: 0.9em;
   color: white;
   display: inline;
@@ -42,8 +44,9 @@ main{
     color: $color-red;
   }
 }
+
 // the more button on the right
-.l-cards__nav-left, .l-cards__nav-right{
+.l-cards__nav-left, .l-cards__nav-right {
   float: right;
   color: white;
   background-color: $color-red;
@@ -51,21 +54,23 @@ main{
   padding: 1px 8px;
   border-radius: 50%;
 }
-.l-cards__nav-left{
+
+.l-cards__nav-left {
   margin-right: 3%;
 }
+
 .l-cards__nav-right {
   margin-right: 0.5em;
 }
 
 // poster list
-.l-cards__list{
+.l-cards__list {
   margin-top: 0.5em;
   //padding-bottom: 5em;
   display: flex;
 }
 
-.l-cards__text{
+.l-cards__text {
   text-align: center;
   font-weight: 500;
   font-size: 0.6em !important;
@@ -74,11 +79,12 @@ main{
     color: $color-red;
   }
 }
+
 // individual poster
-.l-cards__item{
+.l-cards__item {
   background-color: $color-gray;
   height: 3em;
-  flex: 0 0 7.57em;   // size of each poster
+  flex: 0 0 7.57em; // size of each poster
   margin: 0 1.2em;
   text-align: center;
   // text under poster
@@ -87,18 +93,23 @@ main{
     font-size: 0.7em;
     // text-decoration: none;
   }
-  // fix the height
   img {
     //height: 5em !important;
   }
 
-  & + &{
+  & + & {
     margin-left: 0.25rem;
   }
 }
+
 .film_name {
   color: white
 }
+
 p {
   color: gray;
+}
+
+#about_me_box {
+  color: black;
 }
