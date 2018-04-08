@@ -1,8 +1,8 @@
 export class Trailer {
-  trailer_id: number;
+  trailerId: number;
   name: string;
   path: string;
-  imdb_id: string;
+  imdbId: string;
 
   constructor(values: Object = {}) {
     Object.assign(this, values);

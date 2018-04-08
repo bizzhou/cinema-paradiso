@@ -12,7 +12,7 @@ const appRoutes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'home'},
   {path: 'home', component: HomeComponent},
   {path: 'movies', component: CategoriesComponent},
-  {path: 'movie-detail', component: MovieDetailComponent},
+  {path: ':id', component: MovieDetailComponent},
   {path: 'celebrity', component: CelebrityComponent},
   {path: 'user', component: RegUserComponent},
   {path: 'search', component: SearchComponent},

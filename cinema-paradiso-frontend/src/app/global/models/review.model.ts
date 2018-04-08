@@ -1,13 +1,13 @@
 export class Review {
-  review_id: number;
+  reviewId: number;
   author: string;
-  is_critic_review: boolean;
-  like_count: number;
-  posted_date: Date;
-  review_content: string;
+  isCriticReview: boolean;
+  likeCount: number;
+  postedDate: Date;
+  reviewContent: string;
   title: string;
-  imdb_id: string;
-  user_profile_id: number;
+  imdbId: string;
+  userProfileId: number;
 
   constructor(values: Object = {}) {
     Object.assign(this, values);

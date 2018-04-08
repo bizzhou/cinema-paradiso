@@ -1,14 +1,14 @@
 export class Celebrity {
-  celebrity_id: string;
-  photo_location: string;
+  celebrityId: string;
+  photoLocation: string;
   biography: string;
-  birth_city: string;
-  birth_country: string;
-  birth_date: Date;
-  birth_state: string;
-  is_director: boolean;
+  birthCity: string;
+  birthCountry: string;
+  birthDate: Date;
+  birthState: string;
+  isDirector: boolean;
   name: string;
-  profile_image: string;
+  profileImage: string;
 
   constructor(values: Object = {}) {
     Object.assign(this, values);

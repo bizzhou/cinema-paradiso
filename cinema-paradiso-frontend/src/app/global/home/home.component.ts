@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
 
   currentRate = 3.14;
 
-  // temp
+  //TODO:should create Slide[]
   carousel: Movie[];
 
   constructor(private loginStatusService: LoginStatusService,

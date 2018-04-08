@@ -3,11 +3,11 @@ import {Trailer} from './trailer.model';
 import {Review} from './review.model';
 
 export class Movie {
-  imdb_id: string;
+  imdbId: string;
   title: string;
   year: number;
   rated: string;
-  release_date: Date;
+  releaseDate: Date;
   genres: string[];
   awards: string[];
   photos: string[];
@@ -22,7 +22,7 @@ export class Movie {
   rating: number;
   production: string;
   website: string;
-  box_office: number;
+  boxOffice: number;
   runTime: number;
 
   constructor(values: Object = {}) {
