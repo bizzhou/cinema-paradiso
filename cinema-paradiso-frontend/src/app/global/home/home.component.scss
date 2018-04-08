@@ -33,7 +33,7 @@ main {
 .l-hero{
   width: 100%;
   height: 450px;
-  background: url("https://images-na.ssl-images-amazon.com/images/M/MV5BZDdmMDU2OWUtMzY2NS00YmIyLWJhMGEtYzlhY2M3MTkyYTdmXkEyXkFqcGdeQXVyNDg2MjUxNjM@._V1_SX1500_CR0,100,1500,500_AL_.jpg");
+  //background: url("
   background-size:cover;
   padding-bottom: 3em;
   position: relative;
@@ -103,6 +103,10 @@ main {
 .c-plot {
   margin-top: 15px;
   margin-bottom: 15px;
+}
+
+c-genres {
+  text-transform: capitalize;
 }
 p {
   // font-size: 0.8rem;
