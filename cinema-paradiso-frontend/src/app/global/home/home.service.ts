@@ -8,6 +8,8 @@ import 'rxjs/add/operator/catch';
 @Injectable()
 export class HomeService {
 
+  public selectedImdbId: string;
+
   constructor(private http: HttpClient) { }
 
   getCarousel() {
@@ -22,4 +24,10 @@ export class HomeService {
   getMoviesPlaying() {
     return this.http.get('http://localhost:8080/movie/playing');
   }
+
+  parseImdbId(imdbId: string) {
+    return this.selectedImdbId = imdbId;
+  }
+
+
 }

@@ -12,6 +12,7 @@ const appRoutes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'home'},
   {path: 'home', component: HomeComponent},
   {path: 'movies', component: CategoriesComponent},
+  // {path: ':id', component: MovieDetailComponent, data: {imdb_id: this.}},
   {path: ':id', component: MovieDetailComponent},
   {path: 'celebrity', component: CelebrityComponent},
   {path: 'user', component: RegUserComponent},

@@ -11,7 +11,7 @@
           <div class="l-hero__text-wrapper">
             <div class="l-hero__text">
 
-              <a routerLink="/{{carouselSlide.imdbId}}">
+              <a routerLink="/{{carouselSlide.imdbId}}" (click)="setImdbId(carouselSlide.imdbId)">
 
                 <div class="c-title">
                   <span class="c-title__category"><strong>{{carouselSlide.awards}}</strong> </span>
