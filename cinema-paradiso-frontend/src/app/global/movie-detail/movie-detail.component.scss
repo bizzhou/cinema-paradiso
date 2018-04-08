@@ -133,18 +133,18 @@ main{
   margin-bottom: 1em;
   position: relative;
   overflow: hidden;
-  background: url("https://images-na.ssl-images-amazon.com/images/M/MV5BZDdmMDU2OWUtMzY2NS00YmIyLWJhMGEtYzlhY2M3MTkyYTdmXkEyXkFqcGdeQXVyNDg2MjUxNjM@._V1_SX1500_CR0,100,1500,500_AL_.jpg") no-repeat;
+  //background: url("https://images-na.ssl-images-amazon.com/images/M/MV5BZDdmMDU2OWUtMzY2NS00YmIyLWJhMGEtYzlhY2M3MTkyYTdmXkEyXkFqcGdeQXVyNDg2MjUxNjM@._V1_SX1500_CR0,100,1500,500_AL_.jpg") no-repeat;
   background-size: cover;
   height: 15em;
 }
 
-
 // the play button
 .r_poster--play {
+  position: absolute;
   box-sizing: border-box;
-  position:relative;
   display:inline-block;
-  top: 28%;
+  top: 30%;
+  left: 45%;
   width:80px;
   height:80px;
   padding-top: 14px;
@@ -225,7 +225,7 @@ main{
   }
 
   img {
-    height: 14em;
+    min-height: 14em;
   }
 
 }

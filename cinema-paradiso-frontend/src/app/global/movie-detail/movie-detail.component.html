@@ -104,6 +104,7 @@
       <div class="col-right content-wrap">
         <!-- poster -->
         <div class="r_poster">
+          <img [src]="movie.photos[0]" [alt]="movie.title" >
           <a href="#" class="r_poster--play"><i class="fa fa-play fa-2x"></i></a>
         </div>
         <!-- ratings -->
@@ -112,7 +113,7 @@
             <div class="col-ratings rating-container">
               <div class="rating-inner">
                 <div class="rating">
-                  <span class="rating-num">4.9</span>
+                  <span class="rating-num">{{movie.rating}}</span>
                   <div class="rating-stars">
                     <span><i class=" fa fa-star icon-star"></i></span>
                     <span><i class=" fa fa-star icon-star"></i></span>
@@ -181,7 +182,7 @@
             <div class="col-ratings rating-container">
               <div class="rating-inner">
                 <div class="rating">
-                  <span class="rating-num">3.0</span>
+                  <span class="rating-num">{{movie.rating}}</span>
                   <div class="rating-stars">
                     <span><i class=" fa fa-star icon-star"></i></span>
                     <span><i class=" fa fa-star icon-star"></i></span>
@@ -271,35 +272,25 @@
 
         <!-- movie info -->
         <div class="md_wrap">
-          <h4 class="md-title"><span>The Shape of Water </span></h4>
+          <h4 class="md-title"><span>{{movie.title}}</span></h4>
 
 
-          <p class="md-plot">From master story teller, Guillermo del Toro, comes THE SHAPE OF WATER - an
-            other-worldly fairy tale, set against the backdrop of Cold War era America circa 1962.
-            In the hidden high-security government laboratory where she works, lonely Elisa (Sally
-            Hawkins) is trapped in a life of isolation.
-            Elisa's life is changed forever when she and co-worker Zelda (Octavia Spencer) discover a
-            secret classified experiment.
-            Rounding out the cast are Michael Shannon, Richard Jenkins, Doug Jones and Michael
-            Stuhlbarg.</p>
+          <p class="md-plot">{{movie.plot}}</p>
 
           <p>
-            Director <span> <a href="people.html">Guillermo del Toro</a></span>
+            Director <span> <a href="people.html">{{movie.director.name}}</a></span>
           </p>
           <p>
-            Starring <span><a href="people.html">Sally Hawkins,</a>
-                                       <a href="people.html">Octavia Spencer, </a>
-                                      <a href="people.html">Michael Shannon</a> </span>
+            Starring
+            <span *ngFor="let cast of movie.cast">
+              <a href="">{{cast.name}},</a>
+            </span>
           </p>
           <p>
             Genre
-            <span>
-                                <a href="search_result.html">Adventure, </a>
-                                <a href="search_result.html">Drama, </a>
-                                <a href="search_result.html">Fantasy, </a>
-                                <a href="search_result.html">Horror, </a>
-                                <a href="search_result.html">Romance</a>
-                            </span>
+            <span *ngFor="let genre of movie.genres" style="text-transform: lowercase">
+              <a href="">{{genre}}</a>
+            </span>
           </p>
 
         </div>
@@ -332,23 +323,20 @@
           <h2 class="md-title"><span>PHOTOS</span></h2>
           <!--<a class="l-cards__more" href="#">more <i class="fa fa-angle-double-right"></i></a>-->
           <ul class="container md-list__photos">
+            <!--<li class="row md-list__item" *ngFor="let photo of movie.photos">-->
             <li class="row md-list__item">
-
-              <a class="col-photos item__detail" href="https://resizing.flixster.com/n73JS3_l-gc6pDy4BoUhrKI8zuE=/fit-in/1152x864/v1.bjsxNjc1NTk3O2o7MTc2NTk7MTIwMDsxOTIwOzEwODA"><img
-                src="https://resizing.flixster.com/hrYegFtVsVik43RWyJ0WY9YTL-k=/300x300/v1.bjsxNjc1NTk3O2o7MTc2NTk7MTIwMDsxOTIwOzEwODA"></a>
-              <a href="#"></a>
-
-              <a class="col-photos item__detail"  href="#"><img
-                src="https://resizing.flixster.com/ZcrQRR56v1Iujg0tyFcCRUh2t6I=/300x300/v1.bjsxNzEyMzc1O2o7MTc2NTk7MTIwMDs1MDQ4OzMzNjU"></a>
-              <a href="#"></a>
-
-              <a class="col-photos item__detail" href="#"><img
-                src="https://resizing.flixster.com/R1yLnakfZ0pIhRZ7q34YgeSO7HQ=/300x300/v1.bjsxNzEyMzc2O2o7MTc2NTk7MTIwMDsyMDQ4OzExNTI"></a>
-              <a href="#"></a>
-
-              <a class="col-photos item__detail"  href="#"><img
-                src="https://resizing.flixster.com/O3mc7G_lbMXNSsaWcVOt6skTJrs=/300x300/v1.bjsxNzEyMzc3O2o7MTc2NTk7MTIwMDsyMDQ4OzExNTI"></a>
-              <a href="#"></a>
+              <a class="col-photos item__detail" href="">
+                <img [src]="movie.photos[0]" [alt]="movie.title">
+              </a>
+              <a class="col-photos item__detail" href="">
+                <img [src]="movie.photos[0]" [alt]="movie.title">
+              </a>
+              <a class="col-photos item__detail" href="">
+                <img [src]="movie.photos[0]" [alt]="movie.title">
+              </a>
+              <a class="col-photos item__detail" href="">
+                <img [src]="movie.photos[0]" [alt]="movie.title">
+              </a>
 
             </li>
 

@@ -27,24 +27,29 @@ export class MovieDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    // TODO: get data from route instead of the movieService.movieIdObservable
+    // TODO: get data from route instead of from movieService.movieIdObservable
     // this.sub = this.route
     //   .data
     //   .subscribe(v => console.log(v)
     //   );
     this.movieService.movieIdObservable.subscribe(movieIdObs => this.selectedMovieId = movieIdObs);
 
-    this.getMovie();
+    this.getMovie(this.selectedMovieId);
 
     this.ratingAnimation();
   }
 
-  getMovie(): any {
-    console.log('Selected movie: ' + this.selectedMovieId);
-    this.movie = this.movieDetailService.getMovie(this.selectedMovieId);
-    console.log(this.movie);
+  getMovie(imdbId: string): any {
+    console.log('Selected movie: ' + imdbId);
+    this.movieDetailService.getMovie(imdbId)
+      .subscribe(
+        data => {
+          console.log(data);
+          this.movie = data as Movie;
+        },
+        error => console.log('Failed to fetch movie with id')
+      );
   }
-
 
   // TODO: temp method
   ratingAnimation(): void {

@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit {
   // TODO:should create Slide[]
   carousel: Movie[];
   moviesPlaying: Movie[];
-  selectedMovieObs: any;
+  selectedMovieId: string;
 
   constructor(private loginStatusService: LoginStatusService,
               private homeService: HomeService,
@@ -49,7 +49,7 @@ export class HomeComponent implements OnInit {
       this.loginStatusService.changeStatus(true);
     }
 
-    this.movieService.selectedMovieObs.subscribe(movieObs => this.selectedMovieObs = movieObs);
+    this.movieService.movieIdObservable.subscribe(observable => this.selectedMovieId = observable);
   }
 
   getCarousel(): any {
