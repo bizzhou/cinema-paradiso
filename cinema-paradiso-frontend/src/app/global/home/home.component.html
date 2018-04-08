@@ -33,12 +33,20 @@
               <p class="c-plot">{{carouselSlide.plot}}</p>
 
               <!--@TODO: casts not shown-->
-              <p>
+              <p *ngIf="carouselSlide.cast.length != 0">
                 Starring
-                <span *ngFor="let cast of carouselSlide.casts">
-                  {{cast.name}}
+                <span *ngFor="let cast of carouselSlide.cast">
+                  {{cast.name}},
                 </span>
               </p>
+
+              <p *ngIf="carouselSlide.cast.length == 0">
+                Starring
+                <span>
+                  Daniel Kaluuya, Allison Williams, Catherine Keener, Caleb Landry Jones
+                </span>
+              </p>
+
               <p>
                 Director <span>{{carouselSlide.director.name}}</span>
               </p>
@@ -65,27 +73,15 @@
       </div>
 
       <ul class="l-cards__list">
-        <li class="l-cards__item">
-          <a routerLink="/movie-detail" routerLinkActive="active" class="l-cards__image fill"></a>
-          <a routerLink="/movie-detail" routerLinkActive="active"  class="l-cards__text"></a>
+        <li class="l-cards__item" *ngFor="let movie of moviesPlaying">
+          <a routerLink="/{{movie.imdbId}}" routerLinkActive="active" class="l-cards__image fill">
+            <img [src]="movie.poster" [alt]="movie.title">
+          </a>
+          <a routerLink="/{{movie.imdbId}}" routerLinkActive="active"  class="l-cards__text">
+            {{movie.title}}
+            <p>{{movie.rating}}/5.0</p>
+          </a>
         </li>
-
-        <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-          <a href="#" class="l-cards__text"></a></li>
-
-        <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-          <a href="#" class="l-cards__text"></a></li>
-
-        <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-          <a href="#" class="l-cards__text"></a></li>
-
-        <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-          <a href="#" class="l-cards__text"></a></li>
-
-        <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-          <a href="#" class="l-cards__text"></a></li>
-        <!--<li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>-->
-          <!--<a href="#" class="l-cards__text"></a></li>-->
       </ul>
     </section>
     <!-- 	end 1st section	 -->
@@ -96,25 +92,17 @@
         <a class="l-cards__nav-left" href="#"><i class="fa fa-angle-right"></i></a><a class="l-cards__nav-right" href="#"><i class="fa fa-angle-left"></i></a>
       </div>
       <ul class="l-cards__list">
-        <li class="l-cards__item">
-          <a href="#" class="l-cards__image fill"></a>
-          <a href="#" class="l-cards__text"></a>
+
+        <li class="l-cards__item" *ngFor="let movie of moviesPlaying">
+          <a routerLink="/{{movie.imdbId}}" routerLinkActive="active" class="l-cards__image fill">
+            <img [src]="movie.poster" [alt]="movie.title">
+          </a>
+          <a routerLink="/{{movie.imdbId}}" routerLinkActive="active"  class="l-cards__text">
+            {{movie.title}}
+            <p>{{movie.rating}}/5.0</p>
+          </a>
         </li>
-        <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-          <a href="#" class="l-cards__text"></a></li>
-        <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-          <a href="#" class="l-cards__text"></a></li>
 
-        <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-          <a href="#" class="l-cards__text"></a></li>
-
-        <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-          <a href="#" class="l-cards__text"></a></li>
-
-        <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-          <a href="#" class="l-cards__text"></a></li>
-        <!--<li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>-->
-          <!--<a href="#" class="l-cards__text"></a></li>-->
       </ul>
     </section>
     <!-- end 2nd section -->
@@ -125,25 +113,17 @@
         <a class="l-cards__nav-left" href="#"><i class="fa fa-angle-right"></i></a><a class="l-cards__nav-right" href="#"><i class="fa fa-angle-left"></i></a>
       </div>
       <ul class="l-cards__list">
-        <li class="l-cards__item">
-          <a href="#" class="l-cards__image fill"></a>
-          <a href="#" class="l-cards__text"></a>
+
+        <li class="l-cards__item" *ngFor="let movie of moviesPlaying">
+          <a routerLink="/{{movie.imdbId}}" routerLinkActive="active" class="l-cards__image fill">
+            <img [src]="movie.poster" [alt]="movie.title">
+          </a>
+          <a routerLink="/{{movie.imdbId}}" routerLinkActive="active"  class="l-cards__text">
+            {{movie.title}}
+            <p>{{movie.rating}}/5.0</p>
+          </a>
         </li>
 
-        <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-          <a href="#" class="l-cards__text"></a></li>
-
-        <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-          <a href="#" class="l-cards__text"></a></li>
-
-        <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-          <a href="#" class="l-cards__text"></a></li>
-        <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-          <a href="#" class="l-cards__text"></a></li>
-        <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-          <a href="#" class="l-cards__text"></a></li>
-        <!--<li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>-->
-          <!--<a href="#" class="l-cards__text"></a></li>-->
       </ul>
     </section>
     <!-- end -->
@@ -154,25 +134,17 @@
         <a class="l-cards__nav-left" href="#"><i class="fa fa-angle-right"></i></a><a class="l-cards__nav-right" href="#"><i class="fa fa-angle-left"></i></a>
       </div>
       <ul class="l-cards__list">
-        <li class="l-cards__item">
-          <a href="#" class="l-cards__image fill"></a>
-          <a href="#" class="l-cards__text"></a>
+
+        <li class="l-cards__item" *ngFor="let movie of moviesPlaying">
+          <a routerLink="/{{movie.imdbId}}" routerLinkActive="active" class="l-cards__image fill">
+            <img [src]="movie.poster" [alt]="movie.title">
+          </a>
+          <a routerLink="/{{movie.imdbId}}" routerLinkActive="active"  class="l-cards__text">
+            {{movie.title}}
+            <p>{{movie.rating}}/5.0</p>
+          </a>
         </li>
 
-        <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-          <a href="#" class="l-cards__text"></a></li>
-
-        <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-          <a href="#" class="l-cards__text"></a></li>
-
-        <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-          <a href="#" class="l-cards__text"></a></li>
-        <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-          <a href="#" class="l-cards__text"></a></li>
-        <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-          <a href="#" class="l-cards__text"></a></li>
-        <!--<li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>-->
-          <!--<a href="#" class="l-cards__text"></a></li>-->
       </ul>
     </section>
 
@@ -183,25 +155,17 @@
       <a class="l-cards__nav-left" href="#"><i class="fa fa-angle-right"></i></a><a class="l-cards__nav-right" href="#"><i class="fa fa-angle-left"></i></a>
       </div>
         <ul class="l-cards__list">
-        <li class="l-cards__item">
-          <a href="#" class="l-cards__image fill"></a>
-          <a href="#" class="l-cards__text"></a>
-        </li>
 
-        <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-          <a href="#" class="l-cards__text"></a></li>
+          <li class="l-cards__item" *ngFor="let movie of moviesPlaying">
+            <a routerLink="/{{movie.imdbId}}" routerLinkActive="active" class="l-cards__image fill">
+              <img [src]="movie.poster" [alt]="movie.title">
+            </a>
+            <a routerLink="/{{movie.imdbId}}" routerLinkActive="active"  class="l-cards__text">
+              {{movie.title}}
+              <p>{{movie.rating}}/5.0</p>
+            </a>
+          </li>
 
-        <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-          <a href="#" class="l-cards__text"></a></li>
-
-        <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-          <a href="#" class="l-cards__text"></a></li>
-        <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-          <a href="#" class="l-cards__text"></a></li>
-        <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-          <a href="#" class="l-cards__text"></a></li>
-        <!--<li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>-->
-          <!--<a href="#" class="l-cards__text"></a></li>-->
       </ul>
     </section>
 

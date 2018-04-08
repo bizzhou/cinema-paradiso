@@ -198,7 +198,11 @@ p {
   }
   // fix the height
   img {
-    //height: 5em !important;
+    height: 16em;
+  }
+  p {
+    color: $color-red;
+    font-size: 1em;
   }
 
   & + &{

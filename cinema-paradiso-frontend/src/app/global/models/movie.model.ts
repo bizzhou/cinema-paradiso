@@ -12,7 +12,7 @@ export class Movie {
   awards: string[];
   photos: string[];
   director: Celebrity;
-  casts: Celebrity[];
+  cast: Celebrity[];
   trailers: Trailer[];
   reviews: Review[];
   plot: string;

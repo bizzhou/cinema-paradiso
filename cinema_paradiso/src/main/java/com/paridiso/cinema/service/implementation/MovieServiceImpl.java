@@ -48,9 +48,10 @@ public class MovieServiceImpl implements FilmService {
     public List<Movie> getCarouselMovies() {
         List<Movie> movieList = new ArrayList<>();
         Movie movie1 = (Movie)this.getFilm("tt2380307");
-        Movie movie2 = (Movie)this.getFilm("tt5580390");
-        movieList.add(movie1);
-        movieList.add(movie2);
+        Movie movie2 = (Movie)this.getFilm("tt5052448");
+        Movie movie3 = (Movie)this.getFilm("tt1856101");
+
+        movieList.addAll(Arrays.asList(movie1, movie2, movie3));
         return movieList;
     }
 
@@ -107,7 +108,9 @@ public class MovieServiceImpl implements FilmService {
         Movie movie2 = (Movie)this.getFilm("tt2380307");
         Movie movie3 = (Movie)this.getFilm("tt5726616");
         Movie movie4 = (Movie)this.getFilm("tt4925292");
-        movieList.addAll(Arrays.asList(movie1, movie2, movie3, movie4));
+        Movie movie5 = (Movie)this.getFilm("tt5052448");
+        Movie movie6 = (Movie)this.getFilm("tt5723272");
+        movieList.addAll(Arrays.asList(movie1, movie2, movie3, movie4, movie5, movie6));
         return movieList;
     }
 
