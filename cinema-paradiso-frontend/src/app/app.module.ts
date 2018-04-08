@@ -3,6 +3,8 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {HomeComponent} from './global/home/home.component';
 import {FooterComponent} from './global/footer/footer.component';
@@ -18,8 +20,7 @@ import {SearchComponent} from './global/search/search.component';
 import {AdminComponent} from './user/admin/admin.component';
 import {LoginStatusService} from './global/login/login.status.service';
 import {AuthInterceptor} from './http.interceptor';
-import {MessageComponent} from './global/message/message.component';
-
+import {ToastrModule} from 'ngx-toastr';
 
 @NgModule({
   // entryComponents: [MessageComponent],
@@ -35,7 +36,6 @@ import {MessageComponent} from './global/message/message.component';
     RegUserComponent,
     SearchComponent,
     AdminComponent,
-    MessageComponent
   ],
   imports: [
     BrowserModule,
@@ -43,6 +43,9 @@ import {MessageComponent} from './global/message/message.component';
     FormsModule,
     AppRoutingModule,
     NgbModule.forRoot(),
+    CommonModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
   ],
   providers: [LoginStatusService, {
     provide: HTTP_INTERCEPTORS,

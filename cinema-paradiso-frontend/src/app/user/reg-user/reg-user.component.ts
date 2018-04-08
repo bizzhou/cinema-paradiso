@@ -4,8 +4,8 @@ import {RegUserService} from './reg-user.service';
 import {Token} from '../../global/login/token.model';
 import {LoginStatusService} from '../../global/login/login.status.service';
 import {JwtHelperService} from '@auth0/angular-jwt';
+import {ToastrService} from 'ngx-toastr';
 import {NgForm} from '@angular/forms';
-import {MessageComponent} from '../../global/message/message.component';
 
 class Profile {
   name: string;
@@ -24,8 +24,6 @@ class Profile {
   providers: [RegUserService]
 })
 export class RegUserComponent implements OnInit {
-  @ViewChild('app-message') appModal: MessageComponent;
-
   currentIndex = 1;
   closeReason: string;
   profile = new Profile();
@@ -36,7 +34,7 @@ export class RegUserComponent implements OnInit {
   changePasswordSuccess: boolean;
   changePasswordFailure: boolean;
 
-  constructor(private modalService: NgbModal, private regUserService: RegUserService, private loginStatusService: LoginStatusService) {
+  constructor(private modalService: NgbModal, private regUserService: RegUserService, private loginStatusService: LoginStatusService, private toastr: ToastrService) {
   }
 
   showDiv(index) {
@@ -45,7 +43,6 @@ export class RegUserComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.loadPosters();
 
     if (this.loginStatusService.getTokenDetails() !== null) {
@@ -125,6 +122,7 @@ export class RegUserComponent implements OnInit {
       } else {
         this.changePasswordFailure = true;
         console.log('fail to cahnge the password');
+        this.toastr.error('Hello World', 'You got the wrong password');
         form.resetForm();
       }
     });
