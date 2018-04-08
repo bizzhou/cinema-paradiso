@@ -1,11 +1,12 @@
+// MOVIE 1
 {
-    "imdbId": "tt4975722",
+    "imdbId": "tt2380307",
     "title": "Coco",
     "year": 2016,
     "rated": "PG",
     "releaseDate": 20171121,
     "genres": ["ANIMATION", "ADVENTURE", "COMEDY"],
-    "awards": ["Nominated for 2 Oscars", "Another 55 wins ", "39 nominations"],
+    "awards": ["Oscar Best Animation"],
     "photos": [],
     "director": {
         "PHOTO_LOCATION": "/tmp/celebrity",
@@ -76,6 +77,107 @@
         "birthCountry": null,
         "filmography": [],
         "director": false,
+        "photo_LOCATION": "/tmp/celebrity",
+        "profileImageName": null
+    }
+        ]
+}
+
+
+// MOVIE 2
+{
+    "imdbId": "tt5580390",
+    "title": "The Shape of Water",
+    "year": 2017,
+    "rated": "R",
+    "releaseDate": 20171118,
+    "genres": ["ADVENTURE", "DRAMA", "FANTASY", "HORROR", "ROMANCE"],
+    "awards": ["Academy Awards"],
+    "photos": [],
+    "director": {
+        "PHOTO_LOCATION": "/tmp/celebrity",
+        "celebrityId": "nm0868219",
+        "name": "Guillermo del Toro",
+        "profileImage": null,
+        "biography": "Guillermo del Toro was born October 9, 1964 in Guadalajara Jalisco, Mexico. Raised by his Catholic grandmother, del Toro developed an interest in filmmaking in his early teens...",
+        "birthDate": null,
+        "birthCity": null,
+        "birthState": null,
+        "birthCountry": null,
+        "filmography": [],
+        "director": true,
+        "photo_LOCATION": "/tmp/celebrity",
+        "profileImageName": null
+    },
+    "trailers": [],
+    "reviews": [],
+    "plot": "At a top secret research facility in the 1960s, a lonely janitor forms a unique relationship with an amphibious creature that is being held in captivity.",
+    "language": "English",
+    "country": "USA",
+    "poster": null,
+    "rating": 4.3,
+    "production": "A24 Films",
+    "website": "http://moonlight.movie/",
+    "boxOffice": 19400000,
+    "runTime": 111,
+    "cast": [
+        {
+        "PHOTO_LOCATION": "/tmp/celebrity",
+        "celebrityId": "nm1020089",
+        "name": "Sally Hawkins",
+        "profileImage": null,
+        "biography": null,
+        "birthDate": null,
+        "birthCity": null,
+        "birthState": null,
+        "birthCountry": null,
+        "filmography": [],
+        "director": true,
+        "photo_LOCATION": "/tmp/celebrity",
+        "profileImageName": null
+    },
+    {
+        "PHOTO_LOCATION": "/tmp/celebrity",
+        "celebrityId": "nm0788335",
+        "name": "Michael Shannon",
+        "profileImage": null,
+        "biography": null,
+        "birthDate": null,
+        "birthCity": null,
+        "birthState": null,
+        "birthCountry": null,
+        "filmography": [],
+        "director": true,
+        "photo_LOCATION": "/tmp/celebrity",
+        "profileImageName": null
+    },
+    {
+        "PHOTO_LOCATION": "/tmp/celebrity",
+        "celebrityId": "nm0420955",
+        "name": "Richard Jenkins",
+        "profileImage": null,
+        "biography": null,
+        "birthDate": null,
+        "birthCity": null,
+        "birthState": null,
+        "birthCountry": null,
+        "filmography": [],
+        "director": true,
+        "photo_LOCATION": "/tmp/celebrity",
+        "profileImageName": null
+    },
+    {
+        "PHOTO_LOCATION": "/tmp/celebrity",
+        "celebrityId": "nm0818055",
+        "name": "Octavia Spencer",
+        "profileImage": null,
+        "biography": null,
+        "birthDate": null,
+        "birthCity": null,
+        "birthState": null,
+        "birthCountry": null,
+        "filmography": [],
+        "director": true,
         "photo_LOCATION": "/tmp/celebrity",
         "profileImageName": null
     }

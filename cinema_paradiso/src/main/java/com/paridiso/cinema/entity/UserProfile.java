@@ -47,9 +47,9 @@ public class UserProfile {
 //    )
 //    @MapKeyColumn(name = "imdbId")
 //    private List<Movie> ratedMovies;
-
-    @OneToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
-    private List<UserRating> userRatings;
+//
+//    @OneToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+//    private List<UserRating> userRatings;
 
     public UserProfile() {
 
@@ -153,11 +153,11 @@ public class UserProfile {
         this.likedReviews = likedReviews;
     }
 
-    public List<UserRating> getUserRatings() {
-        return userRatings;
-    }
-
-    public void setUserRatings(List<UserRating> userRatings) {
-        this.userRatings = userRatings;
-    }
+//    public List<UserRating> getUserRatings() {
+//        return userRatings;
+//    }
+//
+//    public void setUserRatings(List<UserRating> userRatings) {
+//        this.userRatings = userRatings;
+//    }
 }

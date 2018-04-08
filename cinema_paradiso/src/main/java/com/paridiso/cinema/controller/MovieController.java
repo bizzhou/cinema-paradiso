@@ -22,6 +22,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RequestMapping("/movie")
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class MovieController {
 
     @Autowired
@@ -39,6 +40,12 @@ public class MovieController {
         return ResponseEntity.ok(filmService.getMovies());
     }
 
+    @RequestMapping(value = "/carousel", method = GET)
+    public ResponseEntity<List<Movie>> getCarousel() {
+        System.out.println("Movie Controller: Get carousel ... ");
+
+        return ResponseEntity.ok(filmService.getCarouselMovies());
+    }
 
     @RequestMapping(value = "/{filmId}", method = GET)
     public ResponseEntity<Movie> getMovie(@PathVariable String filmId) {

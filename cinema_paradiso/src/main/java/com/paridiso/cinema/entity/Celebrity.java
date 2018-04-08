@@ -48,9 +48,13 @@ public class Celebrity {
     private boolean isDirector;
 
 
-    @ManyToMany(mappedBy = "casts")
-    @Column(name = "filmography")
-    private Set<Movie> filmography;
+    @ManyToMany(cascade = {CascadeType.MERGE})
+    @JoinTable(
+            name = "CelebritiesFilms",
+            joinColumns = {@JoinColumn(name = "celebrityId")},
+            inverseJoinColumns = {@JoinColumn(name = "imdbId")}
+    )
+    private List<Movie> filmography;
 
     public Celebrity() {
     }
@@ -159,11 +163,11 @@ public class Celebrity {
     }
 
 
-    public Set<Movie> getFilmography() {
+    public List<Movie> getFilmography() {
         return filmography;
     }
 
-    public void setFilmography(Set<Movie> filmography) {
+    public void setFilmography(List<Movie> filmography) {
         this.filmography = filmography;
     }
 

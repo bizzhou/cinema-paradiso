@@ -2,6 +2,7 @@ package com.paridiso.cinema.entity;
 
 import javax.persistence.*;
 
+// each user has a list of UserRatings
 @Entity
 @Table(name = "UserRatings")
 public class UserRating {
@@ -13,7 +14,7 @@ public class UserRating {
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Movie movie;
 
-    private Double rating;
+    private Double userRating;
 
     public UserRating() {
     }
@@ -34,11 +35,11 @@ public class UserRating {
         this.movie = movie;
     }
 
-    public Double getRating() {
-        return rating;
+    public Double getUserRating() {
+        return userRating;
     }
 
-    public void setRating(Double rating) {
-        this.rating = rating;
+    public void setUserRating(Double userRating) {
+        this.userRating = userRating;
     }
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -43,6 +44,16 @@ public class MovieServiceImpl implements FilmService {
 
         return movieRepository.findAll();
 
+    }
+
+    @Override
+    public List<Movie> getCarouselMovies() {
+        List<Movie> movieList = new ArrayList<>();
+        Movie movie1 = (Movie)this.getFilm("tt2380307");
+        Movie movie2 = (Movie)this.getFilm("tt5580390");
+        movieList.add(movie1);
+        movieList.add(movie2);
+        return movieList;
     }
 
     @Transactional
