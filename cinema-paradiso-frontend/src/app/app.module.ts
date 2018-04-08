@@ -3,6 +3,8 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
+import { CommonModule } from '@angular/common';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {HomeComponent} from './global/home/home.component';
 import {FooterComponent} from './global/footer/footer.component';
@@ -21,7 +23,7 @@ import {AuthInterceptor} from './http.interceptor';
 import {HomeService} from "./global/home/home.service";
 import {MovieDetailService} from "./global/movie-detail/movie-detail.service";
 import {MovieService} from "./global/movie/movie.service";
-
+import {ToastrModule} from 'ngx-toastr';
 
 @NgModule({
   // entryComponents: [MessageComponent],
@@ -37,7 +39,6 @@ import {MovieService} from "./global/movie/movie.service";
     RegUserComponent,
     SearchComponent,
     AdminComponent,
-    MessageComponent
   ],
   imports: [
     BrowserModule,
@@ -45,6 +46,9 @@ import {MovieService} from "./global/movie/movie.service";
     FormsModule,
     AppRoutingModule,
     NgbModule.forRoot(),
+    CommonModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
   ],
   providers: [
     LoginStatusService,
