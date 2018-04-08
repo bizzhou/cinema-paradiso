@@ -18,9 +18,11 @@ import {SearchComponent} from './global/search/search.component';
 import {AdminComponent} from './user/admin/admin.component';
 import {LoginStatusService} from './global/login/login.status.service';
 import {AuthInterceptor} from './http.interceptor';
+import {MessageComponent} from './global/message/message.component';
 
 
 @NgModule({
+  // entryComponents: [MessageComponent],
   declarations: [
     AppComponent,
     HomeComponent,
@@ -33,6 +35,7 @@ import {AuthInterceptor} from './http.interceptor';
     RegUserComponent,
     SearchComponent,
     AdminComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,
