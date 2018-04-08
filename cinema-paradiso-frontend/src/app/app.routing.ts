@@ -7,6 +7,7 @@ import {CelebrityComponent} from './global/celebrity/celebrity.component';
 import {RegUserComponent} from './user/reg-user/reg-user.component';
 import {SearchComponent} from './global/search/search.component';
 import {AdminComponent} from './user/admin/admin.component';
+import {MessageComponent} from './global/message/message.component';
 
 const appRoutes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'home'},
@@ -17,7 +18,8 @@ const appRoutes: Routes = [
   {path: 'celebrity', component: CelebrityComponent},
   {path: 'user', component: RegUserComponent},
   {path: 'search', component: SearchComponent},
-  {path: 'admin', component: AdminComponent}
+  {path: 'admin', component: AdminComponent},
+  {path: 'message', component: MessageComponent}
 ];
 
 @NgModule({

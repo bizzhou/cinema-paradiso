@@ -24,6 +24,7 @@ import {MovieService} from "./global/movie/movie.service";
 
 
 @NgModule({
+  // entryComponents: [MessageComponent],
   declarations: [
     AppComponent,
     HomeComponent,
@@ -36,6 +37,7 @@ import {MovieService} from "./global/movie/movie.service";
     RegUserComponent,
     SearchComponent,
     AdminComponent,
+    MessageComponent
   ],
   imports: [
     BrowserModule,

@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 import {RegUserService} from './reg-user.service';
 import {Token} from '../../global/login/token.model';
 import {LoginStatusService} from '../../global/login/login.status.service';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {NgForm} from '@angular/forms';
+import {MessageComponent} from '../../global/message/message.component';
 
 class Profile {
   name: string;
@@ -23,6 +24,7 @@ class Profile {
   providers: [RegUserService]
 })
 export class RegUserComponent implements OnInit {
+  @ViewChild('app-message') appModal: MessageComponent;
 
   currentIndex = 1;
   closeReason: string;
@@ -31,10 +33,11 @@ export class RegUserComponent implements OnInit {
   profile_url: string;
   oldPassword: string;
   newPassword: string;
+  changePasswordSuccess: boolean;
+  changePasswordFailure: boolean;
 
   constructor(private modalService: NgbModal, private regUserService: RegUserService, private loginStatusService: LoginStatusService) {
   }
-
 
   showDiv(index) {
     this.currentIndex = index;
@@ -118,8 +121,10 @@ export class RegUserComponent implements OnInit {
       if (result['success'] === true) {
         alert('success');
         form.resetForm();
+        this.changePasswordSuccess = true;
       } else {
-        alert('failure');
+        this.changePasswordFailure = true;
+        console.log('fail to cahnge the password');
         form.resetForm();
       }
     });
