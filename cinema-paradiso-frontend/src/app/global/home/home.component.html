@@ -55,7 +55,10 @@
               </p>
               <div class="l-hero__buttons">
                 <button class="o-button o-button--gray">+ Watchlist</button>
-                <button class="o-button">+ Wishlist</button>
+                <button *ngIf="!isMovieExistInWishList" class="o-button"
+                        (click)="addToWishList(carouselSlide.imdbId)">
+                  + Wishlist
+                </button>
               </div>
             </div>
           </div>

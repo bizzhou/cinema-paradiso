@@ -18,9 +18,8 @@ import {SearchComponent} from './global/search/search.component';
 import {AdminComponent} from './user/admin/admin.component';
 import {LoginStatusService} from './global/login/login.status.service';
 import {AuthInterceptor} from './http.interceptor';
-import {HomeService} from "./global/home/home.service";
-import {MovieDetailService} from "./global/movie-detail/movie-detail.service";
-import {MovieService} from "./global/movie/movie.service";
+import {HomeService} from './global/home/home.service';
+import {MovieService} from './global/movie/movie.service';
 
 
 @NgModule({
@@ -48,7 +47,6 @@ import {MovieService} from "./global/movie/movie.service";
     LoginStatusService,
     HomeService,
     MovieService,
-    MovieDetailService,
     {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,

@@ -1,7 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
 import {Movie} from '../models/movie.model';
-import {MovieDetailService} from './movie-detail.service';
 import {MovieService} from '../movie/movie.service';
 import {ActivatedRoute} from '@angular/router';
 // import {MovieService} from "../movie/movie.service";
@@ -18,9 +17,10 @@ export class MovieDetailComponent implements OnInit {
 
   selectedMovieId: string;
 
+  isMovieExistInWishList: boolean;
+
   constructor(config: NgbRatingConfig,
               private movieService: MovieService,
-              private movieDetailService: MovieDetailService,
               route: ActivatedRoute) {
 
     this.selectedMovieId = route.snapshot.params['id'];
@@ -31,26 +31,35 @@ export class MovieDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    // TODO: get data from route instead of from movieService.movieIdObservable
-    // this.sub = this.route
-    //   .data
-    //   .subscribe(v => console.log(v)
-    //   );
-    console.log('id: ' + this.selectedMovieId);
+    // TODO: get movies when login, otherwise rendering too slow
     this.getMovie(this.selectedMovieId);
 
     this.ratingAnimation();
   }
 
   getMovie(imdbId: string): any {
-    console.log('Selected movie: ' + imdbId);
-    this.movieDetailService.getMovie(imdbId)
+    console.log('get movie: ' + imdbId);
+    this.movieService.getMovie(imdbId)
       .subscribe(
         data => {
           console.log(data);
           this.movie = data as Movie;
         },
         error => console.log('Failed to fetch movie with id')
+      );
+  }
+
+  addToWishList(imdbId: string) {
+    this.movieService.addToWishList(imdbId)
+      .subscribe(
+        data => {
+          console.log(data);
+          if (data === false) {
+            this.isMovieExistInWishList = false;
+          } else {
+            this.isMovieExistInWishList = true;
+          }
+        }
       );
   }
 
@@ -94,4 +103,7 @@ export class MovieDetailComponent implements OnInit {
     }, 500);
 
   }
+
+
+
 }

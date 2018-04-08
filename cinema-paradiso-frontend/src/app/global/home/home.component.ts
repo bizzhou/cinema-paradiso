@@ -10,9 +10,8 @@ import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
 import {CarouselSlide} from '../models/carouselSlide.model';
-import {MovieDetailService} from '../movie-detail/movie-detail.service';
 import {MovieService} from '../movie/movie.service';
-import {Observable} from "rxjs/Observable";
+import {Observable} from 'rxjs/Observable';
 // import {MovieService} from '../movie/movie.service';
 
 @Component({
@@ -28,6 +27,8 @@ export class HomeComponent implements OnInit {
   carousel: Movie[];
   moviesPlaying: Movie[];
   selectedMovieId: string;
+
+  isMovieExistInWishList: boolean;              // button changes accordingly
 
   constructor(private loginStatusService: LoginStatusService,
               private homeService: HomeService,
@@ -65,7 +66,7 @@ export class HomeComponent implements OnInit {
   }
 
   getMoviesPlaying(): any {
-    this.homeService.getMoviesPlaying()
+    this.movieService.getMoviesPlaying()
       .subscribe(
         data => {
           this.moviesPlaying = data as Movie[];
@@ -80,5 +81,35 @@ export class HomeComponent implements OnInit {
     this.movieService.setSelectedMovieId(imdbId);
   }
 
+
+  addToWishList(imdbId: string) {
+    this.movieService.addToWishList(imdbId)
+    //   .map((res: Response) => {
+    //     if (res) {
+    //       if (res.status === 200) {
+    //         this.isMovieExistInWishList = true;
+    //       }
+    //     }
+    //   }).catch((error: any) => {
+    //   // user not login
+    //   if (error.status === 400) {
+    //
+    //     return Observable.throw(new Error(error.status));
+    //   } else if (error.status === 409) {
+    //     this.isMovieExistInWishList = true;
+    //     return Observable.throw(new Error(error.status));
+    //   }
+    // });
+      .subscribe(
+        data => {
+          if (data === false) {
+            this.isMovieExistInWishList = false;
+          } else {
+            this.isMovieExistInWishList = true;
+          }
+        }
+      );
+
+  }
 
 }

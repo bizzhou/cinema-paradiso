@@ -21,10 +21,6 @@ export class HomeService {
     return Observable.throw(error.json.error || 'Server error');
   }
 
-  getMoviesPlaying() {
-    return this.http.get('http://localhost:8080/movie/playing');
-  }
-
   parseImdbId(imdbId: string) {
     return this.selectedImdbId = imdbId;
   }
