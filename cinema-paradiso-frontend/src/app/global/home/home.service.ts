@@ -18,4 +18,8 @@ export class HomeService {
     console.log(error);
     return Observable.throw(error.json.error || 'Server error');
   }
+
+  getMoviesPlaying() {
+    return this.http.get('http://localhost:8080/movie/playing');
+  }
 }

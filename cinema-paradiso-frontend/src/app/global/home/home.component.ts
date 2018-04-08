@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
 
   //TODO:should create Slide[]
   carousel: Movie[];
+  moviesPlaying: Movie[];
 
   constructor(private loginStatusService: LoginStatusService,
               private homeService: HomeService,
@@ -39,6 +40,9 @@ export class HomeComponent implements OnInit {
 
     // load carousel
     this.getCarousel();
+
+    // load movies playing
+    this.getMoviesPlaying();
 
     if (this.loginStatusService.getTokenDetails() !== null) {
       this.loginStatusService.changeStatus(true);
@@ -98,6 +102,15 @@ export class HomeComponent implements OnInit {
       );
   }
 
-
+  getMoviesPlaying(): any {
+    this.homeService.getMoviesPlaying()
+      .subscribe(
+        data => {
+          this.moviesPlaying = data as Movie[];
+          console.log(this.moviesPlaying);
+        },
+        error => console.log('Failed to fetch movies playing')
+      );
+  }
 
 }

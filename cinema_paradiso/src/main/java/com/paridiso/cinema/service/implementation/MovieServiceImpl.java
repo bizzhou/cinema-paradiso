@@ -13,10 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @Qualifier(value = "MovieServiceImpl")
@@ -46,6 +43,7 @@ public class MovieServiceImpl implements FilmService {
 
     }
 
+    // TODO: movies
     @Override
     public List<Movie> getCarouselMovies() {
         List<Movie> movieList = new ArrayList<>();
@@ -100,14 +98,30 @@ public class MovieServiceImpl implements FilmService {
         return null;
     }
 
+    // TODO: find proper movies
+    @Transactional
     @Override
-    public List<Film> getPlaying() {
-        return null;
+    public List<Movie> getMoviesPlaying() {
+        List<Movie> movieList = new ArrayList<>();
+        Movie movie1 = (Movie)this.getFilm("tt1856101");
+        Movie movie2 = (Movie)this.getFilm("tt2380307");
+        Movie movie3 = (Movie)this.getFilm("tt5726616");
+        Movie movie4 = (Movie)this.getFilm("tt4925292");
+        movieList.addAll(Arrays.asList(movie1, movie2, movie3, movie4));
+        return movieList;
     }
 
     @Override
     public List<Film> getTopRating() {
         return null;
+    }
+
+    @Transactional
+    @Override
+    public Movie updateMovie(Movie movie) {
+        if (movieRepository.findMovieByImdbId(movie.getImdbId()) == null)
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "MOVIE DOES NOT EXIST");
+        return movieRepository.save(movie);
     }
 
     public List<Movie> getTopBoxOffice() {

@@ -87,9 +87,10 @@ public class MovieController {
         return ResponseEntity.ok(true);
     }
 
-    @RequestMapping(value = "/update_movie", method = POST)
+    @RequestMapping(value = "/update", method = POST)
     public ResponseEntity<Boolean> updateMovie(@RequestBody Movie movie) {
-        return null;
+        Movie optionalMovie = filmService.updateMovie(movie);
+        return ResponseEntity.ok(true);
     }
 
     // TODO how to represent image ?
@@ -115,7 +116,7 @@ public class MovieController {
 
     @RequestMapping(value = "/playing", method = GET)
     public ResponseEntity<List> getMoviesPlaying() {
-        return null;
+        return new ResponseEntity<>(filmService.getMoviesPlaying(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/top_boxoffice", method = GET)

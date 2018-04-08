@@ -18,6 +18,7 @@ import {SearchComponent} from './global/search/search.component';
 import {AdminComponent} from './user/admin/admin.component';
 import {LoginStatusService} from './global/login/login.status.service';
 import {AuthInterceptor} from './http.interceptor';
+import { MovieDetailSidebarComponent } from './global/movie-detail-sidebar/movie-detail-sidebar.component';
 
 
 @NgModule({
@@ -33,6 +34,7 @@ import {AuthInterceptor} from './http.interceptor';
     RegUserComponent,
     SearchComponent,
     AdminComponent,
+    MovieDetailSidebarComponent,
   ],
   imports: [
     BrowserModule,

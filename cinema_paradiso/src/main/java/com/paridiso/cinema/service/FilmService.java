@@ -33,8 +33,9 @@ public interface FilmService {
 
     List<Film> getTrending();
 
-    List<Film> getPlaying();
+    List<Movie> getMoviesPlaying();
 
     List<Film> getTopRating();
 
+    Movie updateMovie(Movie movie);
 }
