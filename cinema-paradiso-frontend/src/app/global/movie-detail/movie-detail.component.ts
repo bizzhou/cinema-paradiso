@@ -3,6 +3,7 @@ import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
 import {Movie} from '../models/movie.model';
 import {MovieDetailService} from './movie-detail.service';
 import {MovieService} from '../movie/movie.service';
+import {ActivatedRoute} from '@angular/router';
 // import {MovieService} from "../movie/movie.service";
 
 @Component({
@@ -19,9 +20,12 @@ export class MovieDetailComponent implements OnInit {
 
   constructor(config: NgbRatingConfig,
               private movieService: MovieService,
-              private movieDetailService: MovieDetailService
-              /*private route: ActivatedRoute*/) {
-    // customize default values of ratings used by this component tree
+              private movieDetailService: MovieDetailService,
+              route: ActivatedRoute) {
+
+    this.selectedMovieId = route.snapshot.params['id'];
+
+    // customize default values carousel slider
     config.max = 5;
     config.readonly = true;
   }
@@ -32,8 +36,7 @@ export class MovieDetailComponent implements OnInit {
     //   .data
     //   .subscribe(v => console.log(v)
     //   );
-    this.movieService.movieIdObservable.subscribe(movieIdObs => this.selectedMovieId = movieIdObs);
-
+    console.log('id: ' + this.selectedMovieId);
     this.getMovie(this.selectedMovieId);
 
     this.ratingAnimation();
