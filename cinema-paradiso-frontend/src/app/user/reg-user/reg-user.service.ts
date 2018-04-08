@@ -21,7 +21,6 @@ export class RegUserService {
 
   update(profile: any) {
     return this.http.post('http://localhost:8080/user/update/profile', profile);
-
   }
 
   changePassword(oldPassword: string, newPassword: string) {
