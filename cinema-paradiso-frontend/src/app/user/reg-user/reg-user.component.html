@@ -379,7 +379,7 @@
           </button>
         </form>
 
-        <hr class="w3-opacity">
+        <!--<hr class="w3-opacity">-->
 
         <form target="_blank" #changePasswordForm="ngForm" (submit)="changePassword(changePasswordForm)">
           <hr class="w3-opacity">
@@ -437,7 +437,7 @@
 
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
-    <h4 class="modal-title">Change Profile</h4>
+    <h4 class="modal-title">Change Profile Image</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
@@ -448,7 +448,6 @@
     </p>
 
     <input type="file" (change)="upload($event)" required class="form-control " name="attach_file" id="attach_file">
-
 
   </div>
   <div class="modal-footer">

@@ -17,7 +17,7 @@ const appRoutes: Routes = [
   {path: 'celebrity', component: CelebrityComponent},
   {path: 'user', component: RegUserComponent},
   {path: 'search', component: SearchComponent},
-  {path: 'admin', component: AdminComponent}
+  {path: 'admin', component: AdminComponent},
 ];
 
 @NgModule({
