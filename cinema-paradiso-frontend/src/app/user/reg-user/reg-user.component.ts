@@ -100,12 +100,11 @@ export class RegUserComponent implements OnInit {
     if (fileList.length > 0) {
       const file: File = fileList[0];
       const formData: FormData = new FormData();
-      formData.append('file', file, file.name);
       const user = JSON.parse(localStorage.getItem('credential')) as Token;
+      formData.append('file', file, file.name);
       formData.append('userId', user.id.toString());
 
       this.regUserService.upload(formData).subscribe(data => {
-        this.toastr.success('Success');
         this.router.navigateByUrl('/user');
       }, error => {
         this.toastr.success('Failure');

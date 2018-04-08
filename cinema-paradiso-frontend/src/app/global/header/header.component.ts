@@ -44,8 +44,6 @@ export class HeaderComponent implements OnInit {
           this.is_admin = true;
           console.log(this.is_admin);
         }
-        this.toastrService.success('Successfully logged in');
-
       }
 
     }, error => {

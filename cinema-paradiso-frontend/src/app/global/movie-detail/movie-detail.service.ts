@@ -8,7 +8,7 @@ export class MovieDetailService {
 
   constructor(private http: HttpClient) { }
 
-  getMovie(imdbId: string): any {
+  getMovieDetails(imdbId: string): any {
     return this.http.get(MOVIE_SERVER + imdbId);
   }
 

@@ -1,15 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, OnInit, Input} from '@angular/core';
 import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
 import {Movie} from '../models/movie.model';
 import {MovieDetailService} from './movie-detail.service';
 import {MovieService} from '../movie/movie.service';
 import {ActivatedRoute} from '@angular/router';
-// import {MovieService} from "../movie/movie.service";
+
 
 @Component({
   selector: 'app-movie-detail',
   templateUrl: './movie-detail.component.html',
   styleUrls: ['./movie-detail.component.scss'],
+  providers: [MovieDetailService]
 })
 export class MovieDetailComponent implements OnInit {
 
@@ -44,7 +45,7 @@ export class MovieDetailComponent implements OnInit {
 
   getMovie(imdbId: string): any {
     console.log('Selected movie: ' + imdbId);
-    this.movieDetailService.getMovie(imdbId)
+    this.movieDetailService.getMovieDetails(imdbId)
       .subscribe(
         data => {
           console.log(data);

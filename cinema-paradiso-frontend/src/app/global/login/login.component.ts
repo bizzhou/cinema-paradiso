@@ -11,6 +11,7 @@ import {LoginStatusService} from './login.status.service';
   providers: [LoginService]
 })
 export class LoginComponent implements OnInit {
+
   constructor(private loginService: LoginService, private loginStatusService: LoginStatusService) {
   }
 
