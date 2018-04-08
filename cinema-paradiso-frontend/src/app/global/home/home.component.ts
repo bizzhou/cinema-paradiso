@@ -28,8 +28,8 @@ export class HomeComponent implements OnInit {
               private homeService: HomeService,
               private _http: HttpClient,
               config: NgbCarouselConfig) {
-    config.interval = 1000;
-    config.wrap = false;
+    config.interval = 5000;
+    config.wrap = true;
     config.keyboard = false;
   }
 
@@ -98,6 +98,6 @@ export class HomeComponent implements OnInit {
       );
   }
 
-  
+
 
 }

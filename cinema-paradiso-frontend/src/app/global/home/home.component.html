@@ -6,10 +6,8 @@
   <article>
     <div class="l-hero">
       <ngb-carousel>
-        <div *ngFor="let carouselSlide of carousel">
-        <img [src]=carouselSlide.poster alt="Random first slide">
-        </div>
         <ng-template ngbSlide *ngFor="let carouselSlide of carousel">
+          <img [src]=carouselSlide.poster alt="slide" class="l-hero__img" >
           <div class="l-hero__text-wrapper">
             <div class="l-hero__text">
               <a routerLink="/movie-detail">
