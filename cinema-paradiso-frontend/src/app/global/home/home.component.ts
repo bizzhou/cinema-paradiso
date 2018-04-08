@@ -1,18 +1,21 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import * as $ from 'jquery';
 import {LoginStatusService} from '../login/login.status.service';
+import {HomeService} from './home.service';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-
+  providers: [HomeService]
 })
 export class HomeComponent implements OnInit {
 
   currentRate = 3.14;
 
-  constructor(private loginStatusService: LoginStatusService) {}
+
+  constructor(private loginStatusService: LoginStatusService,
+              private homeService: HomeService) {}
 
   ngOnInit() {
     this.loadPosters();
@@ -61,8 +64,10 @@ export class HomeComponent implements OnInit {
       y++;
       if (y == 4) y = 0;
     }
-
   }
 
+  getCarousel(): any {
+    this.homeService.getCarousel();
+  }
 
 }

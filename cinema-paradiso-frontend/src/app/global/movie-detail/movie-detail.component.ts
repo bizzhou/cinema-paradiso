@@ -43,10 +43,11 @@ export class MovieDetailComponent implements OnInit {
 
       setTimeout(function() {
         $('.bar span').fadeIn('slow');
-      }, 2000);
+      }, 1000);
 
     });
 
   }
+
 
 }
