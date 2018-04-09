@@ -13,6 +13,7 @@ public interface ListService {
 
     List<?> getList();
 
-    boolean removeFromList(Long filmId);
+    void removeFromList(Integer userId, String filmId);
 
+    Boolean isMovieInWishList(Integer userId, String filmId);
 }

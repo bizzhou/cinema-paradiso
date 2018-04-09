@@ -57,8 +57,6 @@ public class WishlistServiceImpl implements ListService, WishlistService {
         // check movie existence and size limit
         List<Movie> movies = user.getUserProfile().getWishList().getMovies();
 
-        System.out.println("wish list id: " + user.getUserProfile().getWishList().getWishlistId());
-
         if (utilityService.containsMovie(movies, filmImdbId) || movies.size() >= user.getUserProfile().getWishList().getSizeLimit())
             return false;
 
@@ -76,8 +74,40 @@ public class WishlistServiceImpl implements ListService, WishlistService {
     }
 
     @Override
-    public boolean removeFromList(Long filmId) {
-        return false;
+    public void removeFromList(Integer userId, String filmId) {
+        // find movie
+        Movie movie = movieRepository.findMovieByImdbId(filmId);
+
+        // find user
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, "USER NOT FOUND"));
+
+        // check movie existence and size limit
+        List<Movie> movies = user.getUserProfile().getWishList().getMovies();
+        for (Movie m: movies) {
+            if (m.getImdbId().equals(movie.getImdbId()))  {
+                movies.remove(m);
+                break;
+            }
+        }
+
+        user.getUserProfile().getWishList().setMovies(movies);
+        wishListRepository.save(user.getUserProfile().getWishList());
+    }
+
+    @Override
+    public Boolean isMovieInWishList(Integer userId, String filmId) {
+
+        // find movie
+        Movie movie = movieRepository.findMovieByImdbId(filmId);
+
+        // find user
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, "USER NOT FOUND"));
+
+        // check movie existence and size limit
+        List<Movie> movies = user.getUserProfile().getWishList().getMovies();
+        return utilityService.containsMovie(movies, filmId);
     }
 
 

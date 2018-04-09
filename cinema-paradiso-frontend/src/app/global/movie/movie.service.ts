@@ -35,11 +35,16 @@ export class MovieService {
     return this.http.post(WISH_LIST_SERVER + 'add', params);
   }
 
+  removeFromWishList(imdbId: string) {
+    const params = new HttpParams().set('filmId', imdbId);
+    console.log('Sending request to: ' + WISH_LIST_SERVER + 'add');
+    return this.http.delete(WISH_LIST_SERVER + 'delete', params);
+  }
+
   isMovieInWishList(imdbId: string) {
     const params = new HttpParams().set('filmId', imdbId);
     console.log('Check movie existence: ' + WISH_LIST_SERVER + 'exist');
     return this.http.post(WISH_LIST_SERVER + 'exist', params);
   }
-
 
 }

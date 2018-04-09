@@ -68,8 +68,13 @@ public class WatchlistServiceImpl implements ListService {
     }
 
     @Override
-    public boolean removeFromList(Long filmId) {
-        return false;
+    public void removeFromList(Integer userId, String filmId) {
+
+    }
+
+    @Override
+    public Boolean isMovieInWishList(Integer userId, String filmId) {
+        return null;
     }
 
 }

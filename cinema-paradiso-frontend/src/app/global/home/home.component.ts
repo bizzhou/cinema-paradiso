@@ -85,32 +85,11 @@ export class HomeComponent implements OnInit {
   }
 
   addToWishList(imdbId: string) {
-    this.movieService.addToWishList(imdbId)
-    //   .map((res: Response) => {
-    //     if (res) {
-    //       if (res.status === 200) {
-    //         this.isMovieExistInWishList = true;
-    //       }
-    //     }
-    //   }).catch((error: any) => {
-    //   // user not login
-    //   if (error.status === 400) {
-    //
-    //     return Observable.throw(new Error(error.status));
-    //   } else if (error.status === 409) {
-    //     this.isMovieExistInWishList = true;
-    //     return Observable.throw(new Error(error.status));
-    //   }
-    // });
-      .subscribe(
-        data => {
-          if (data === false) {
-            this.isMovieExistInWishList = false;
-          } else {
-            this.isMovieExistInWishList = true;
-          }
-        }
-      );
+    this.movieService.addToWishList(imdbId);
+  }
+
+  removeFromWishList(imdbId: string) {
+    this.movieService.removeFromWishList(imdbId);
   }
 
   checkMoviesInWishList(movies: Movie[]) {
@@ -132,7 +111,7 @@ export class HomeComponent implements OnInit {
    * @param {string} imdbId
    * true if in the list, false otherwise
    */
-  public isMovieInWishList(imdbId: string) {
+  isMovieInWishList(imdbId: string) {
     this.movieService.isMovieInWishList(imdbId)
       .map((res: Response) => {
         if (res) {
