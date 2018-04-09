@@ -83,10 +83,10 @@
 
       <ul class="l-cards__list">
         <li class="l-cards__item" *ngFor="let movie of moviesPlaying">
-          <a routerLink="/{{movie.imdbId}}" (click)="setImdbId(carouselSlide.imdbId)" routerLinkActive="active" class="l-cards__image fill">
+          <a routerLink="/movie/{{movie.imdbId}}" (click)="setImdbId(carouselSlide.imdbId)" routerLinkActive="active" class="l-cards__image fill">
             <img [src]="movie.poster" [alt]="movie.title">
           </a>
-          <a routerLink="/{{movie.imdbId}}" (click)="setImdbId(carouselSlide.imdbId)" routerLinkActive="active"  class="l-cards__text">
+          <a routerLink="/movie/{{movie.imdbId}}" (click)="setImdbId(carouselSlide.imdbId)" routerLinkActive="active"  class="l-cards__text">
             {{movie.title}}
             <p>{{movie.rating}}/5.0</p>
           </a>
@@ -103,10 +103,10 @@
       <ul class="l-cards__list">
 
         <li class="l-cards__item" *ngFor="let movie of moviesPlaying">
-          <a routerLink="/{{movie.imdbId}}" (click)="setImdbId(carouselSlide.imdbId)" routerLinkActive="active" class="l-cards__image fill">
+          <a routerLink="/movie/{{movie.imdbId}}" (click)="setImdbId(carouselSlide.imdbId)" routerLinkActive="active" class="l-cards__image fill">
             <img [src]="movie.poster" [alt]="movie.title">
           </a>
-          <a routerLink="/{{movie.imdbId}}" (click)="setImdbId(carouselSlide.imdbId)" routerLinkActive="active"  class="l-cards__text">
+          <a routerLink="/movie/{{movie.imdbId}}" (click)="setImdbId(carouselSlide.imdbId)" routerLinkActive="active"  class="l-cards__text">
             {{movie.title}}
             <p>{{movie.rating}}/5.0</p>
           </a>
@@ -124,10 +124,10 @@
       <ul class="l-cards__list">
 
         <li class="l-cards__item" *ngFor="let movie of moviesPlaying">
-          <a routerLink="/{{movie.imdbId}}" (click)="setImdbId(carouselSlide.imdbId)" routerLinkActive="active" class="l-cards__image fill">
+          <a routerLink="/movie/{{movie.imdbId}}" (click)="setImdbId(carouselSlide.imdbId)" routerLinkActive="active" class="l-cards__image fill">
             <img [src]="movie.poster" [alt]="movie.title">
           </a>
-          <a routerLink="/{{movie.imdbId}}" (click)="setImdbId(carouselSlide.imdbId)" routerLinkActive="active"  class="l-cards__text">
+          <a routerLink="/movie/{{movie.imdbId}}" (click)="setImdbId(carouselSlide.imdbId)" routerLinkActive="active"  class="l-cards__text">
             {{movie.title}}
             <p>{{movie.rating}}/5.0</p>
           </a>
@@ -145,10 +145,10 @@
       <ul class="l-cards__list">
 
         <li class="l-cards__item" *ngFor="let movie of moviesPlaying">
-          <a routerLink="/{{movie.imdbId}}" (click)="setImdbId(carouselSlide.imdbId)" routerLinkActive="active" class="l-cards__image fill">
+          <a routerLink="/movie/{{movie.imdbId}}" (click)="setImdbId(carouselSlide.imdbId)" routerLinkActive="active" class="l-cards__image fill">
             <img [src]="movie.poster" [alt]="movie.title">
           </a>
-          <a routerLink="/{{movie.imdbId}}" (click)="setImdbId(carouselSlide.imdbId)" routerLinkActive="active"  class="l-cards__text">
+          <a routerLink="/movie/{{movie.imdbId}}" (click)="setImdbId(carouselSlide.imdbId)" routerLinkActive="active"  class="l-cards__text">
             {{movie.title}}
             <p>{{movie.rating}}/5.0</p>
           </a>
@@ -166,10 +166,10 @@
         <ul class="l-cards__list">
 
           <li class="l-cards__item" *ngFor="let movie of moviesPlaying">
-            <a routerLink="/{{movie.imdbId}}" routerLinkActive="active" class="l-cards__image fill">
+            <a routerLink="/movie/{{movie.imdbId}}" routerLinkActive="active" class="l-cards__image fill">
               <img [src]="movie.poster" [alt]="movie.title">
             </a>
-            <a routerLink="/{{movie.imdbId}}" routerLinkActive="active"  class="l-cards__text">
+            <a routerLink="/movie/{{movie.imdbId}}" routerLinkActive="active"  class="l-cards__text">
               {{movie.title}}
               <p>{{movie.rating}}/5.0</p>
             </a>

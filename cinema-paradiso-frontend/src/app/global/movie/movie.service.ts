@@ -35,6 +35,7 @@ export class MovieService {
     return this.http.post(WISH_LIST_SERVER + 'add', params);
   }
 
+  // TODO: something wrong with the url
   removeFromWishList(imdbId: string) {
     // const params = new HttpParams().set('filmId', imdbId);
     return this.http.delete(WISH_LIST_SERVER + 'delete/' + imdbId);

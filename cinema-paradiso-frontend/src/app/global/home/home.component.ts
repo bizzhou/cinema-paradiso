@@ -11,8 +11,6 @@ import {map} from 'rxjs/operators';
 import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
 import {CarouselSlide} from '../models/carouselSlide.model';
 import {MovieService} from '../movie/movie.service';
-import {Observable} from 'rxjs/Observable';
-// import {MovieService} from '../movie/movie.service';
 
 @Component({
   selector: 'app-home',

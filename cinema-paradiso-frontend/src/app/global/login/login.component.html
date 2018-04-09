@@ -46,15 +46,16 @@
                 <fieldset class="forms_fieldset">
                   <div class="forms_field">
                     <input type="text" placeholder="Username" class="forms_field-input"
-                    [(ngModel)]="user.username" name="username" required (focusout)="checkUserName(user.username)"/>
+                           [(ngModel)]="user.username" name="username" required
+                           (focusout)="checkUserName(user.username)"/>
                   </div>
                   <div class="forms_field">
                     <input type="email" placeholder="Email" class="forms_field-input"
-                    [(ngModel)]="user.email" name="email" required (focusout)="checkEmailTaken(user.email)"/>
+                           [(ngModel)]="user.email" name="email" required (focusout)="checkEmailTaken(user.email)"/>
                   </div>
                   <div class="forms_field">
                     <input type="password" placeholder="Password" class="forms_field-input first_password"
-                    [(ngModel)]="user.password" name="password" required/>
+                           [(ngModel)]="user.password" name="password" required/>
                   </div>
                   <div class="forms_field">
                     <input type="password" placeholder="Re-enter password" class="forms_field-input second_password"

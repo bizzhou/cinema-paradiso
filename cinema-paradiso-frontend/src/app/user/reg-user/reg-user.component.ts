@@ -1,10 +1,14 @@
 import {Component, OnInit} from '@angular/core';
-import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
+import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {RegUserService} from './reg-user.service';
 import {Token} from '../../global/login/token.model';
 import {LoginStatusService} from '../../global/login/login.status.service';
 import {JwtHelperService} from '@auth0/angular-jwt';
+import {ToastrService} from 'ngx-toastr';
 import {NgForm} from '@angular/forms';
+import {LoginService} from '../../global/login/login.service';
+
+import {Router} from '@angular/router';
 
 class Profile {
   name: string;
@@ -20,10 +24,9 @@ class Profile {
   selector: 'app-reg-user',
   templateUrl: './reg-user.component.html',
   styleUrls: ['./reg-user.component.scss'],
-  providers: [RegUserService]
+  providers: [RegUserService, LoginService]
 })
 export class RegUserComponent implements OnInit {
-
   currentIndex = 1;
   closeReason: string;
   profile = new Profile();
@@ -31,10 +34,11 @@ export class RegUserComponent implements OnInit {
   profile_url: string;
   oldPassword: string;
   newPassword: string;
+  changePasswordSuccess: boolean;
+  changePasswordFailure: boolean;
 
-  constructor(private modalService: NgbModal, private regUserService: RegUserService, private loginStatusService: LoginStatusService) {
+  constructor(private router: Router, private loginService: LoginService, private modalService: NgbModal, private regUserService: RegUserService, private loginStatusService: LoginStatusService, private toastr: ToastrService) {
   }
-
 
   showDiv(index) {
     this.currentIndex = index;
@@ -42,7 +46,6 @@ export class RegUserComponent implements OnInit {
   }
 
   ngOnInit() {
-
     this.loadPosters();
 
     if (this.loginStatusService.getTokenDetails() !== null) {
@@ -55,7 +58,6 @@ export class RegUserComponent implements OnInit {
         this.profile.email = decodedToken['email'];
         this.profile.id = decodedToken['profileId'];
         this.profile.username = decodedToken['username'];
-
         this.profile.profileImage = profileDetails['profileImage'];
 
         if (this.profile.profileImage === undefined) {
@@ -63,16 +65,15 @@ export class RegUserComponent implements OnInit {
         } else {
           this.profile_url = 'http://localhost:8080/user/avatar/' + profileDetails['profileImage'];
         }
-
-        console.log(decodedToken);
       });
     }
   }
 
-
   updateProfile() {
     this.regUserService.update(this.profile).subscribe(data => {
-      console.log(data);
+      this.toastr.success('Success');
+    }, error => {
+      this.toastr.error('Failed to update profile');
     });
   }
 
@@ -83,7 +84,6 @@ export class RegUserComponent implements OnInit {
       this.closeReason = `Dismissed ${this.getDissmissReason(reason)}`;
     });
   }
-
 
   getDissmissReason(reason: any): string {
     if (reason === ModalDismissReasons.ESC) {
@@ -96,35 +96,39 @@ export class RegUserComponent implements OnInit {
   }
 
   upload(event) {
-    console.log('uploading');
     const fileList: FileList = event.target.files;
     if (fileList.length > 0) {
       const file: File = fileList[0];
       const formData: FormData = new FormData();
-      formData.append('file', file, file.name);
       const user = JSON.parse(localStorage.getItem('credential')) as Token;
+      formData.append('file', file, file.name);
       formData.append('userId', user.id.toString());
+
       this.regUserService.upload(formData).subscribe(data => {
-        console.log(data);
+        this.router.navigateByUrl('/user');
       }, error => {
+        this.toastr.success('Failure');
         console.log(error);
       });
     }
   }
 
-
   changePassword(form: NgForm) {
     this.regUserService.changePassword(this.oldPassword, this.newPassword).subscribe(result => {
       if (result['success'] === true) {
-        alert('success');
         form.resetForm();
+        this.changePasswordSuccess = true;
+        this.toastr.success('Success');
+        this.loginService.logout();
+        this.router.navigateByUrl('/home');
       } else {
-        alert('failure');
+        this.changePasswordFailure = true;
+        console.log('fail to cahnge the password');
+        this.toastr.error('Failed to change the password, make sure you passwords are correct');
         form.resetForm();
       }
     });
   }
-
 
   loadPosters(): void {
     let movieNames = ['Blade Runner 2049', 'Coco', 'Call Me By Your Name', 'Lady Bird', 'Get Out', 'Dunkirk', 'In the Fade', 'Phantom Thread'];

@@ -49,7 +49,7 @@ public class MovieController {
 
     @RequestMapping(value = "/{filmId}", method = GET)
     public ResponseEntity<Movie> getMovie(@PathVariable String filmId) {
-        Movie movie = (Movie)filmService.getFilm(filmId);
+        Movie movie = (Movie) filmService.getFilm(filmId);
         if (movie != null)
             return new ResponseEntity<>(movie, HttpStatus.OK);
 
@@ -71,11 +71,14 @@ public class MovieController {
     }
 
 
-    @RequestMapping(value = "/{filmId}", method = POST, params = "rating")
+    @RequestMapping(value = "/{filmId}/{rating}", method = POST)
     public ResponseEntity<Boolean> rateMovie(@RequestHeader(value = "Authorization") String jwtToken,
                                              @PathVariable String filmId,
-                                             @RequestParam(value = "rating", required = true) Double rating) {
+                                             @PathVariable Double rating) {
 
+        System.out.println(jwtToken);
+        System.out.println(filmId);
+        System.out.println(rating);
         // add to user
         boolean result = userService.rateMovie(jwtTokenService.getUserIdFromToken(jwtToken), filmId, rating);
         if (!result)
