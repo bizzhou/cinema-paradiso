@@ -37,7 +37,8 @@ export class MovieDetailComponent implements OnInit {
   }
 
   addReview() {
-
+    //TODO: add review code goes here
+    console.log('reviews');
   }
 
 
@@ -49,6 +50,9 @@ export class MovieDetailComponent implements OnInit {
 
 
   ngOnInit() {
+
+    //TODO check if user has rate the movie...
+
 
     if (this.loginStatusService.getTokenDetails() !== null) {
       this.loginStatusService.changeStatus(true);
