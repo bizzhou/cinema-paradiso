@@ -36,9 +36,8 @@ export class MovieService {
   }
 
   removeFromWishList(imdbId: string) {
-    const params = new HttpParams().set('filmId', imdbId);
-    console.log('Sending request to: ' + WISH_LIST_SERVER + 'add');
-    return this.http.delete(WISH_LIST_SERVER + 'delete', params);
+    // const params = new HttpParams().set('filmId', imdbId);
+    return this.http.delete(WISH_LIST_SERVER + 'delete/' + imdbId);
   }
 
   isMovieInWishList(imdbId: string) {

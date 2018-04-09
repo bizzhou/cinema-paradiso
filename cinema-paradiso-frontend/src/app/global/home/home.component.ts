@@ -62,9 +62,9 @@ export class HomeComponent implements OnInit {
           this.carousel = data as Movie[];
           this.carousel.forEach(function(part, index, theArray) {
               if (this.isMovieInWishList(part.imdbId)) {
-                part.isInWishlist = false;
-              } else {
                 part.isInWishlist = true;
+              } else {
+                part.isInWishlist = false;
               }
           }.bind(this));
           console.log(this.carousel);
