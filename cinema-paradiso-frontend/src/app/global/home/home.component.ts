@@ -46,19 +46,27 @@ export class HomeComponent implements OnInit {
     // load movies playing
     this.getMoviesPlaying();
 
+    // this.checkMoviesInWishList(this.carousel);
+
     if (this.loginStatusService.getTokenDetails() !== null) {
       this.loginStatusService.changeStatus(true);
     }
 
-    this.movieService.movieIdObservable.subscribe(observable => this.selectedMovieId = observable);
   }
 
   getCarousel(): any {
     this.homeService.getCarousel()
       .subscribe(
         data => {
-          // console.log(data);
+          // assign movies to carousel
           this.carousel = data as Movie[];
+          this.carousel.forEach(function(part, index, theArray) {
+              if (this.isMovieInWishList(part.imdbId)) {
+                part.isInWishlist = false;
+              } else {
+                part.isInWishlist = true;
+              }
+          }.bind(this));
           console.log(this.carousel);
         },
         error => console.log('Failed to fetch carousel data')
@@ -75,12 +83,6 @@ export class HomeComponent implements OnInit {
         error => console.log('Failed to fetch movies playing')
       );
   }
-
-  // pass the selected movie id to movie detail page for rendering
-  setImdbId(imdbId: string) {
-    this.movieService.setSelectedMovieId(imdbId);
-  }
-
 
   addToWishList(imdbId: string) {
     this.movieService.addToWishList(imdbId)
@@ -109,7 +111,34 @@ export class HomeComponent implements OnInit {
           }
         }
       );
+  }
 
+  checkMoviesInWishList(movies: Movie[]) {
+    // movies.forEach(function(movie, index, movieArray) {
+    //   if (this.isMovieInWishList(movie.imdbId)) {
+    //     movie.isInWishlist = true;
+    //   } else {
+    //     movie.isInWishlist = false;
+    //   }
+    // });
+
+    // movies.forEach(function(part, index, theArray) {
+    //   theArray[index].isInWishlist = false;
+    // });
+  }
+
+  /**
+   *
+   * @param {string} imdbId
+   * true if in the list, false otherwise
+   */
+  public isMovieInWishList(imdbId: string) {
+    this.movieService.isMovieInWishList(imdbId)
+      .map((res: Response) => {
+        if (res) {
+          return res.status === 200;
+        }
+      });
   }
 
 }

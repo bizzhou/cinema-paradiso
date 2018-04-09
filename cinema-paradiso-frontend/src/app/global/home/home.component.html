@@ -6,7 +6,7 @@
   <article>
     <div class="l-hero">
       <ngb-carousel>
-        <ng-template ngbSlide *ngFor="let carouselSlide of carousel">
+        <ng-template ngbSlide *ngFor="let carouselSlide of carousel" >
           <img [src]=carouselSlide.photos[0] alt="slide" class="l-hero__img" >
           <div class="l-hero__text-wrapper">
             <div class="l-hero__text">
@@ -54,10 +54,16 @@
                 Genres <span class="c-genres" style="text-transform: lowercase">{{carouselSlide.genres}}</span>
               </p>
               <div class="l-hero__buttons">
-                <button class="o-button o-button--gray">+ Watchlist</button>
-                <button *ngIf="!isMovieExistInWishList" class="o-button"
+                <button class="o-button color-gray">
+                  + Watchlist
+                </button>
+                <button *ngIf="!carouselSlide.isInWishlist" class="o-button color-red"
                         (click)="addToWishList(carouselSlide.imdbId)">
                   + Wishlist
+                </button>
+                <button *ngIf="carouselSlide.isInWishlist" class="o-button color-gray"
+                        (click)="addToWishList(carouselSlide.imdbId)">
+                   - Wishlist
                 </button>
               </div>
             </div>

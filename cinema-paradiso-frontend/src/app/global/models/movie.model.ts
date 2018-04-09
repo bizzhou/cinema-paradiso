@@ -24,6 +24,7 @@ export class Movie {
   website: string;
   boxOffice: number;
   runTime: number;
+  isInWishlist: boolean;
 
   constructor(values: Object = {}) {
     Object.assign(this, values);
