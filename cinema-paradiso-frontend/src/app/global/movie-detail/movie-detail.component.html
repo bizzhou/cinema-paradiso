@@ -266,8 +266,8 @@
               </ngb-rating>
 
 
-              <textarea placeholder="Add a review..."></textarea>
-              <button id="post-btn">Post</button>
+              <textarea placeholder="Add a review..." [(ngModel)]="review" name="review"></textarea>
+              <button id="post-btn" (click)="addReview()">Post</button>
             </div>
           </div>
         </div>

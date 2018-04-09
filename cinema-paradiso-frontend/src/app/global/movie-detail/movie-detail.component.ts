@@ -36,7 +36,8 @@ export class MovieDetailComponent implements OnInit {
   }
 
   addReview() {
-
+    //TODO: add review code goes here
+    console.log('reviews');
   }
 
 
@@ -53,6 +54,8 @@ export class MovieDetailComponent implements OnInit {
     //   .data
     //   .subscribe(v => console.log(v)
     //   );
+
+    //TODO check if user has rate the movie...
 
 
     if (this.loginStatusService.getTokenDetails() !== null) {

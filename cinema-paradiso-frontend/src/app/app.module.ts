@@ -3,8 +3,8 @@ import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
-import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {CommonModule} from '@angular/common';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 import {HomeComponent} from './global/home/home.component';
 import {FooterComponent} from './global/footer/footer.component';
@@ -24,7 +24,8 @@ import {HomeService} from './global/home/home.service';
 import {MovieDetailService} from './global/movie-detail/movie-detail.service';
 import {MovieService} from './global/movie/movie.service';
 import {ToastrModule} from 'ngx-toastr';
-import { StarsComponent } from './global/stars/stars.component';
+import {StarsComponent} from './global/stars/stars.component';
+import {SearchService} from './global/search/search.service';
 
 @NgModule({
   // entryComponents: [MessageComponent],
@@ -54,14 +55,15 @@ import { StarsComponent } from './global/stars/stars.component';
   ],
   providers: [
     LoginStatusService,
+    SearchService,
     HomeService,
     MovieService,
     MovieDetailService,
     {
-    provide: HTTP_INTERCEPTORS,
-    useClass: AuthInterceptor,
-    multi: true
-  }],
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

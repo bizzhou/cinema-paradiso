@@ -7,8 +7,8 @@
 
   <nav class="l-header__nav">
     <a>
-      <form>
-        <input type="search" placeholder="Search">
+      <form (ngSubmit)="keywordSubmit()">
+        <input type="search" placeholder="Coco" [(ngModel)]="keywords" name="keywords">
       </form>
     </a>
     <a routerLink="/home" routerLinkActive="active">Home</a>

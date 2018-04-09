@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.Set;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RequestMapping("/search")
 @RestController
@@ -24,11 +25,9 @@ public class SearchController {
 
     // http://localhost:8080/search?keyword=the+shape
     // http://localhost:8080/search?keyword=coco
-    @RequestMapping(value = "", method = GET)
+    @RequestMapping(value = "", method = POST)
     public ResponseEntity<List<Movie>> search(@RequestParam("keyword") String keyword) {
-
         List<Movie> movieList = searchService.getMoviesFromKeyword(keyword);
-
         return new ResponseEntity<>(movieList, HttpStatus.OK);
     }
 
