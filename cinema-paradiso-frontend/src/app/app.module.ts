@@ -24,6 +24,7 @@ import {HomeService} from './global/home/home.service';
 import {MovieDetailService} from './global/movie-detail/movie-detail.service';
 import {MovieService} from './global/movie/movie.service';
 import {ToastrModule} from 'ngx-toastr';
+import { StarsComponent } from './global/stars/stars.component';
 
 @NgModule({
   // entryComponents: [MessageComponent],
@@ -39,6 +40,7 @@ import {ToastrModule} from 'ngx-toastr';
     RegUserComponent,
     SearchComponent,
     AdminComponent,
+    StarsComponent,
   ],
   imports: [
     BrowserModule,

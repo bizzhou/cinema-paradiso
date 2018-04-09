@@ -16,8 +16,9 @@ export class MovieDetailComponent implements OnInit {
 
   movie: Movie;
   sub: any;
-
   selectedMovieId: string;
+  selected = 0;
+  hovered = 0;
 
   constructor(config: NgbRatingConfig,
               private movieService: MovieService,
@@ -30,6 +31,16 @@ export class MovieDetailComponent implements OnInit {
     config.max = 5;
     config.readonly = true;
   }
+
+  rateMovie() {
+
+    this.movieDetailService.rateMovie(this.hovered, this.selectedMovieId).subscribe(result => {
+      console.log(result);
+    });
+
+  }
+
+
 
   ngOnInit() {
     // TODO: get data from route instead of from movieService.movieIdObservable

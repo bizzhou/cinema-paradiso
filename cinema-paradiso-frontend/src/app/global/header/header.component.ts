@@ -45,7 +45,6 @@ export class HeaderComponent implements OnInit {
           console.log(this.is_admin);
         }
       }
-
     }, error => {
       console.log('error');
       this.toastrService.error('Logged in failed');
