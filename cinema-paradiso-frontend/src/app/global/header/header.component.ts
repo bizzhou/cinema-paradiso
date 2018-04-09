@@ -32,6 +32,9 @@ export class HeaderComponent implements OnInit {
     // listen to the loggin state
     this.loginStatusService.currentStatus.subscribe(state => {
       this.status = state;
+      console.log('current login state ', this.status);
+
+
       if (this.status) {
         $('.modal-wrapper').hide();
         $('.page-wrapper').hide();
@@ -49,7 +52,6 @@ export class HeaderComponent implements OnInit {
       console.log('error');
       this.toastrService.error('Logged in failed');
     });
-
   }
 
   logout() {

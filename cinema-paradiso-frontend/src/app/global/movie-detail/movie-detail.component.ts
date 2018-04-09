@@ -4,6 +4,7 @@ import {Movie} from '../models/movie.model';
 import {MovieDetailService} from './movie-detail.service';
 import {MovieService} from '../movie/movie.service';
 import {ActivatedRoute} from '@angular/router';
+import {LoginStatusService} from '../login/login.status.service';
 
 
 @Component({
@@ -19,10 +20,12 @@ export class MovieDetailComponent implements OnInit {
   selectedMovieId: string;
   selected = 0;
   hovered = 0;
+  review: string;
 
   constructor(config: NgbRatingConfig,
               private movieService: MovieService,
               private movieDetailService: MovieDetailService,
+              private loginStatusService: LoginStatusService,
               route: ActivatedRoute) {
 
     this.selectedMovieId = route.snapshot.params['id'];
@@ -32,14 +35,16 @@ export class MovieDetailComponent implements OnInit {
     config.readonly = true;
   }
 
-  rateMovie() {
-
-    this.movieDetailService.rateMovie(this.hovered, this.selectedMovieId).subscribe(result => {
-      console.log(result);
-    });
+  addReview() {
 
   }
 
+
+  rateMovie() {
+    this.movieDetailService.rateMovie(this.hovered, this.selectedMovieId).subscribe(result => {
+      console.log(result);
+    });
+  }
 
 
   ngOnInit() {
@@ -48,10 +53,17 @@ export class MovieDetailComponent implements OnInit {
     //   .data
     //   .subscribe(v => console.log(v)
     //   );
+
+
+    if (this.loginStatusService.getTokenDetails() !== null) {
+      this.loginStatusService.changeStatus(true);
+    }
+
     console.log('id: ' + this.selectedMovieId);
     this.getMovie(this.selectedMovieId);
 
     this.ratingAnimation();
+    console.log('user token ', this.loginStatusService.getTokenDetails());
   }
 
   getMovie(imdbId: string): any {
