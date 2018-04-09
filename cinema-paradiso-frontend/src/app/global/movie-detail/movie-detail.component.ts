@@ -4,13 +4,13 @@ import {Movie} from '../models/movie.model';
 import {MovieService} from '../movie/movie.service';
 import {ActivatedRoute} from '@angular/router';
 import {LoginStatusService} from '../login/login.status.service';
+import {MovieDetailService} from './movie-detail.service';
 
 
 @Component({
   selector: 'app-movie-detail',
   templateUrl: './movie-detail.component.html',
   styleUrls: ['./movie-detail.component.scss'],
-  providers: [MovieDetailService]
 })
 export class MovieDetailComponent implements OnInit {
 
@@ -25,11 +25,8 @@ export class MovieDetailComponent implements OnInit {
 
   constructor(config: NgbRatingConfig,
               private movieService: MovieService,
-<<<<<<< HEAD
-=======
               private movieDetailService: MovieDetailService,
               private loginStatusService: LoginStatusService,
->>>>>>> ca0638266ab12539d2d08d8d00066f89e2df5f89
               route: ActivatedRoute) {
 
     this.selectedMovieId = route.snapshot.params['id'];
@@ -52,22 +49,12 @@ export class MovieDetailComponent implements OnInit {
 
 
   ngOnInit() {
-<<<<<<< HEAD
-    // TODO: get movies when login, otherwise rendering too slow
-=======
-    // TODO: get data from route instead of from movieService.movieIdObservable
-    // this.sub = this.route
-    //   .data
-    //   .subscribe(v => console.log(v)
-    //   );
-
 
     if (this.loginStatusService.getTokenDetails() !== null) {
       this.loginStatusService.changeStatus(true);
     }
 
     console.log('id: ' + this.selectedMovieId);
->>>>>>> ca0638266ab12539d2d08d8d00066f89e2df5f89
     this.getMovie(this.selectedMovieId);
 
     this.ratingAnimation();
@@ -75,13 +62,7 @@ export class MovieDetailComponent implements OnInit {
   }
 
   getMovie(imdbId: string): any {
-<<<<<<< HEAD
-    console.log('get movie: ' + imdbId);
-    this.movieService.getMovie(imdbId)
-=======
-    console.log('Selected movie: ' + imdbId);
     this.movieDetailService.getMovieDetails(imdbId)
->>>>>>> ca0638266ab12539d2d08d8d00066f89e2df5f89
       .subscribe(
         data => {
           console.log(data);

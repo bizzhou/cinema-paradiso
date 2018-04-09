@@ -56,6 +56,7 @@ import { StarsComponent } from './global/stars/stars.component';
     LoginStatusService,
     HomeService,
     MovieService,
+    MovieDetailService,
     {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
