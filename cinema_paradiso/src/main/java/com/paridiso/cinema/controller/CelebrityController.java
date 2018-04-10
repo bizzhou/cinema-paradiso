@@ -1,7 +1,6 @@
 package com.paridiso.cinema.controller;
 
 import com.paridiso.cinema.entity.Celebrity;
-import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.service.CelebrityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,7 +22,6 @@ import static org.springframework.web.bind.annotation.RequestMethod.POST;
 @RestController
 public class CelebrityController {
 
-
     @Autowired
     CelebrityService celebrityService;
 
@@ -34,18 +32,16 @@ public class CelebrityController {
 
     @RequestMapping(value = "/add", method = POST)
     public ResponseEntity<Boolean> addCelebrity(@RequestBody final Celebrity celebrity) {
-        Celebrity optionalCelebrity = celebrityService.addCelebrity(celebrity).orElseThrow(() ->
-                new ResponseStatusException(BAD_REQUEST, "Unable to add movie"));
+        Celebrity optionalCelebrity = celebrityService.addCelebrity(celebrity)
+                .orElseThrow(() -> new ResponseStatusException(BAD_REQUEST, "UNABLE TO ADD MOVIE"));
         return ResponseEntity.ok(true);
     }
 
     @RequestMapping(value = "/{id}", method = GET)
     public ResponseEntity<Celebrity> getCelebrity(@PathVariable String id) {
-        Celebrity celebrity = celebrityService.getCelebrity(id);
-        if (celebrity != null)
-            return new ResponseEntity<>(celebrity, HttpStatus.OK);
-
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        Celebrity celebrity = celebrityService.getCelebrity(id)
+                .orElseThrow(() -> new ResponseStatusException(BAD_REQUEST, "CELEBRITY NOT FOUND"));
+        return new ResponseEntity<>(celebrity, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = DELETE)
