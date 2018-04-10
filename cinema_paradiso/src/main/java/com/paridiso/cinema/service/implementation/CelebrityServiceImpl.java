@@ -23,7 +23,7 @@ public class CelebrityServiceImpl implements CelebrityService {
     }
 
     @Override
-    public Celebrity getCelebrity(String celebrityId) {
+    public Optional<Celebrity> getCelebrity(String celebrityId) {
         return celebrityRepository.findCelebrityByCelebrityId(celebrityId);
     }
 

@@ -1,18 +1,12 @@
 package com.paridiso.cinema.entity;
 
 import javax.persistence.*;
-import java.net.URISyntaxException;
 import java.util.Calendar;
 import java.util.List;
-import java.util.Set;
-import java.net.URI;
 
 @Entity
 @Table(name = "Celebrities", uniqueConstraints = @UniqueConstraint(columnNames = "celebrityId"))
 public class Celebrity {
-
-
-    public URI PHOTO_LOCATION;
 
     @Id
     @Column(name = "celebrityId", unique = true)
@@ -47,7 +41,6 @@ public class Celebrity {
     @Column(name = "isDirector")
     private boolean isDirector;
 
-
     @ManyToMany(cascade = {CascadeType.MERGE})
     @JoinTable(
             name = "CelebritiesFilms",
@@ -57,21 +50,6 @@ public class Celebrity {
     private List<Movie> filmography;
 
     public Celebrity() {
-    }
-
-
-    public URI getPHOTO_LOCATION() {
-        try {
-            PHOTO_LOCATION = new URI("/tmp/celebrity");
-        }
-        catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-        return PHOTO_LOCATION;
-    }
-
-    public void setPHOTO_LOCATION(URI PHOTO_LOCATION) {
-        this.PHOTO_LOCATION = PHOTO_LOCATION;
     }
 
     public String getCelebrityId() {
@@ -161,7 +139,6 @@ public class Celebrity {
     public void setBirthState(String birthState) {
         this.birthState = birthState;
     }
-
 
     public List<Movie> getFilmography() {
         return filmography;
