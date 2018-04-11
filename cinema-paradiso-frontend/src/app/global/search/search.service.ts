@@ -9,20 +9,18 @@ const SEARCH_SERVER = 'http://localhost:8080/search/';
 
 @Injectable()
 export class SearchService {
-  private searchKeyword = new BehaviorSubject<string>('');
-  currentKeyword = this.searchKeyword.asObservable();
+  private searchResult = new BehaviorSubject<Object>(null);
+  currentResult = this.searchResult.asObservable();
 
-  constructor() {
-  }
-
-  nextKeyword(keyword: string) {
-    this.searchKeyword.next(keyword);
+  nextResult(result: Object) {
+    this.searchResult.next(result);
   }
 
   constructor(private http: HttpClient) {
   }
 
   search(keywords: string) {
+    console.log(keywords);
     const param = new HttpParams().set('keyword', keywords);
     return this.http.post(SEARCH_SERVER, param);
   }

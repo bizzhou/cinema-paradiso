@@ -11,11 +11,10 @@ export class SearchComponent implements OnInit {
   constructor(private searchService: SearchService) { }
 
   ngOnInit() {
-    this.searchService.currentKeyword.subscribe(keywords => {
-      console.log(keywords);
-      this.searchService.search(keywords).subscribe(result => {
-        console.log(result);
-      });
+
+    this.searchService.currentResult.subscribe(results => {
+      console.log('hello world');
+      console.log(results);
     });
 
     $('.show_movies').click(function (e) {
