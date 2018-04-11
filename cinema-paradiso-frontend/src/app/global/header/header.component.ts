@@ -26,8 +26,10 @@ export class HeaderComponent implements OnInit {
   }
 
   keywordSubmit() {
-    this.searchService.nextKeyword(this.keywords);
-    this.router.navigateByUrl('/search');
+    this.searchService.search(this.keywords).subscribe(result => {
+      this.searchService.nextResult(result);
+      this.router.navigateByUrl('search');
+    });
   }
 
   ngOnInit() {
