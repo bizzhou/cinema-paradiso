@@ -1,6 +1,8 @@
 package com.paridiso.cinema.service.implementation;
 
+import com.paridiso.cinema.entity.Celebrity;
 import com.paridiso.cinema.entity.Movie;
+import com.paridiso.cinema.entity.TV;
 import com.paridiso.cinema.persistence.MovieRepository;
 import com.paridiso.cinema.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,18 +17,27 @@ public class SearchServiceImpl implements SearchService{
     MovieRepository movieRepository;
 
     // @TODO: tokenize the keyword
-    // @TODO: celebrity search
     @Override
     public List<Movie> getMoviesFromKeyword(String keyword) {
         // LinkedHashSet: no duplicates and allow ordering
-        LinkedHashSet<Movie> movieSet = new LinkedHashSet<>();
-        movieSet.addAll(getExactMatch(keyword));
+        Set<Movie> movieSet = new LinkedHashSet<>();
+//        movieSet.addAll(getExactMatch(keyword));
         movieSet.addAll(getPhraseMatch(keyword));
 
         List<Movie> movieList = new ArrayList<>(new LinkedHashSet<Movie>());
         movieList.addAll(movieSet);
 
         return movieList;
+    }
+
+    @Override
+    public List<Celebrity> getCelebritiesFromKeyword(String keyword) {
+        return null;
+    }
+
+    @Override
+    public List<TV> getTVsFromKeyword(String keyword) {
+        return null;
     }
 
     private List<Movie> getExactMatch(String keyword) {
@@ -37,12 +48,9 @@ public class SearchServiceImpl implements SearchService{
         return movieRepository.findMoviesByTitleContains(keyword);
     }
 
-
-
-    private ArrayList<String> getBasicWords() {
-        ArrayList wordsToBeFiltered = new ArrayList();
+    private List<String> getBasicWords() {
+        List<String> wordsToBeFiltered = new ArrayList<>();
         wordsToBeFiltered.addAll(Arrays.asList("a", "an", "of", "for", "the"));
-
         return wordsToBeFiltered;
     }
 
