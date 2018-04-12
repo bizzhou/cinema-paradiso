@@ -44,9 +44,11 @@ application:
     userExists: "USER EXISTS"
     movieExists: "MOVIE EXISTS"
     movieNotFound: "MOVIE NOT FOUND"
+    movieDoesNotExist: "MOVIE DOES NOT FOUND"
     resourceNotFound: "RESOURCE NOT FOUND"
     reviewNotFound: "REVIEW NOT FOUND"
-
+    celebritySaveFail: "CANNOT ADD CELEBRITY"
+    celebrityNotFound: "CANNOT FOUND CELEBRITY"
 
 
 

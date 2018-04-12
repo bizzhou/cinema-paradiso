@@ -14,6 +14,33 @@ public class ExceptionConstants {
     private String movieNotFound;
     private String resourceNotFound;
     private String reviewNotFound;
+    private String movieDoesNotExist;
+    private String celebritySaveFail;
+    private String celebrityNotFound;
+
+    public String getCelebrityNotFound() {
+        return celebrityNotFound;
+    }
+
+    public void setCelebrityNotFound(String celebrityNotFound) {
+        this.celebrityNotFound = celebrityNotFound;
+    }
+
+    public String getCelebritySaveFail() {
+        return celebritySaveFail;
+    }
+
+    public void setCelebritySaveFail(String celebritySaveFail) {
+        this.celebritySaveFail = celebritySaveFail;
+    }
+
+    public String getMovieDoesNotExist() {
+        return movieDoesNotExist;
+    }
+
+    public void setMovieDoesNotExist(String movieDoesNotExist) {
+        this.movieDoesNotExist = movieDoesNotExist;
+    }
 
     public String getUserNotFound() {
         return userNotFound;

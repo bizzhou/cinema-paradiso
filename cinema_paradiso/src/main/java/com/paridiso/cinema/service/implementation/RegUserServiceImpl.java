@@ -101,7 +101,7 @@ public class RegUserServiceImpl extends UserService {
                 .orElseThrow(() -> new RuntimeException(exceptionConstants.getProfileNotFound()));
 
         profile.setPrivate(true);
-        return userProfileRepository.save(profile).getPrivate() == true ? true : false;
+        return userProfileRepository.save(profile).getPrivate();
     }
 
     @Transactional
@@ -127,24 +127,24 @@ public class RegUserServiceImpl extends UserService {
     @Transactional
     public boolean updatePassword(Integer userId, String oldPassword, String newPassword) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, "USER NOT FOUND"));
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserNotFound()));
         String hashedPassword = utilityService.getHashedPassword(oldPassword, salt);
         if (!hashedPassword.equals(user.getPassword())) {
             return false;
         } else {
             user.setPassword(utilityService.getHashedPassword(newPassword, salt));
-            return userRepository.save(user).getPassword() != null ? true : false;
+            return userRepository.save(user).getPassword() != null;
         }
     }
 
     @Transactional
     public boolean checkUserNameTaken(String userName) {
-        return userRepository.findUserByUsername(userName) != null ? true : false;
+        return userRepository.findUserByUsername(userName) != null;
     }
 
     @Transactional
     public boolean checkEmailTaken(String email) {
-        return userRepository.findUserByEmail(email) != null ? true : false;
+        return userRepository.findUserByEmail(email) != null;
     }
 
     @Transactional
@@ -156,7 +156,7 @@ public class RegUserServiceImpl extends UserService {
         System.out.println(validatedUser.getUserProfile().getId());
 
         return userProfileRepository.findById(validatedUser.getUserProfile().getId())
-                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, "PROFILE NOT FOUND"));
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getProfileNotFound()));
     }
 }
 

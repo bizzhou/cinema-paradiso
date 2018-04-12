@@ -1,5 +1,6 @@
 package com.paridiso.cinema.service.implementation;
 
+import com.paridiso.cinema.constants.ExceptionConstants;
 import com.paridiso.cinema.entity.Film;
 import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.entity.Trailer;
@@ -15,6 +16,9 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
+
 @Service
 @Qualifier(value = "MovieServiceImpl")
 public class MovieServiceImpl implements FilmService {
@@ -22,17 +26,22 @@ public class MovieServiceImpl implements FilmService {
     @Autowired
     MovieRepository movieRepository;
 
+    @Autowired
+    ExceptionConstants exceptionConstants;
+
     @Override
     public Optional<Movie> addMovie(Movie movie) {
         if (movieRepository.findMovieByImdbId(movie.getImdbId()) != null)
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "MOVIE EXISTS");
+            throw new ResponseStatusException(BAD_REQUEST, exceptionConstants.getMovieExists());
         return Optional.ofNullable(movieRepository.save(movie));
     }
 
     @Transactional
     @Override
     public Film getFilm(String filmId) {
-        return movieRepository.findMovieByImdbId(filmId);
+        return movieRepository
+                .findMovieByImdbId(filmId)
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieDoesNotExist()));
     }
 
     @Transactional
@@ -59,7 +68,7 @@ public class MovieServiceImpl implements FilmService {
     @Override
     public void deleteFilm(String filmId) {
         if (movieRepository.findMovieByImdbId(filmId) == null)
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "MOVIE DOES NOT EXIST");
+            throw new ResponseStatusException(BAD_REQUEST, exceptionConstants.getMovieDoesNotExist());
         movieRepository.deleteById(filmId);
     }
 
@@ -129,8 +138,8 @@ public class MovieServiceImpl implements FilmService {
     @Transactional
     @Override
     public Movie updateMovie(Movie movie) {
-        if (movieRepository.findMovieByImdbId(movie.getImdbId()) == null)
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "MOVIE DOES NOT EXIST");
+        movieRepository.findMovieByImdbId(movie.getImdbId())
+                .orElseThrow(() -> new ResponseStatusException(BAD_REQUEST, exceptionConstants.getMovieDoesNotExist()));
         return movieRepository.save(movie);
     }
 
