@@ -1,9 +1,12 @@
 package com.paridiso.cinema.security;
 
+import com.paridiso.cinema.constants.JwtConstants;
 import com.paridiso.cinema.entity.User;
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -12,8 +15,9 @@ import java.util.Date;
 @Component
 public class JwtTokenGenerator {
 
-    @Value("${jwt.secret}")
-    private String secret;
+    @Autowired
+    JwtConstants jwtConstants;
+
     // 60 Minutes expiration time
     private static final long expirationInMills = 3600000;
 
@@ -30,7 +34,7 @@ public class JwtTokenGenerator {
         claims.put("profileImage", jwtUser.getUserProfile().getProfileImage());
         return Jwts.builder()
                 .setClaims(claims)
-                .signWith(SignatureAlgorithm.HS256, this.secret)
+                .signWith(SignatureAlgorithm.HS256, jwtConstants.getSecret())
                 .compact();
     }
 
