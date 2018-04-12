@@ -1,5 +1,6 @@
 package com.paridiso.cinema.controller;
 
+import com.paridiso.cinema.constants.ExceptionConstants;
 import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.service.JwtTokenService;
 import com.paridiso.cinema.service.UserService;
@@ -35,6 +36,9 @@ public class MovieController {
     @Autowired
     RegUserServiceImpl userService;
 
+    @Autowired
+    ExceptionConstants exceptionConstants;
+
     @RequestMapping(value = "/all", method = GET)
     public ResponseEntity<List> getAllMovies() {
         return ResponseEntity.ok(filmService.getMovies());
@@ -59,7 +63,7 @@ public class MovieController {
     @RequestMapping(value = "/add", method = POST)
     public ResponseEntity<Boolean> addMovie(@RequestBody Movie movie) {
         Movie optionalMovie = filmService.addMovie(movie).orElseThrow(() ->
-                new ResponseStatusException(BAD_REQUEST, "Unable to add movie"));
+                new ResponseStatusException(BAD_REQUEST, exceptionConstants.getMovieExists()));
         return ResponseEntity.ok(true);
     }
 

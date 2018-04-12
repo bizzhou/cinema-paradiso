@@ -1,5 +1,6 @@
 package com.paridiso.cinema.service.implementation;
 
+import com.paridiso.cinema.constants.ExceptionConstants;
 import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.entity.Review;
 import com.paridiso.cinema.entity.User;
@@ -34,6 +35,9 @@ public class ReviewServiceImpl implements ReviewService {
     @Autowired
     ReviewRepository reviewRepository;
 
+    @Autowired
+    ExceptionConstants exceptionConstants;
+
     @Override
     public List<Review> getAudienceReviews(Long filmId) {
         return null;
@@ -47,24 +51,18 @@ public class ReviewServiceImpl implements ReviewService {
     @Transactional
     @Override
     public void addReview(Integer userId, String movieId, Review review) {
-        // find movie
-        Movie movie = movieRepository.findMovieByImdbId(movieId);
-
-        // find user
+        Movie movie = movieRepository.findMovieByImdbId(movieId)
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieDoesNotExist()));
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, "USER NOT FOUND"));
-
-        //setMovie to review
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserNotFound()));
         review.setMovie(movie);
-
-        // add to user's review list
         List<Review> reviews = user.getUserProfile().getReviews();
+
         if (reviews == null)
             reviews = new ArrayList<>();
+
         reviews.add(review);
-
         user.getUserProfile().setReviews(reviews);
-
         reviewRepository.save(review);
         userProfileRepository.save(user.getUserProfile());
     }
@@ -76,17 +74,14 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Review removeReview(Integer userId, String filmId, Long reviewId) {
-        // find user
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, "USER NOT FOUND"));
-
-        // find review and remove
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserNotFound()));
         Review reviewToBeRemoved = reviewRepository.findReviewByReviewId(reviewId)
-                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, "REVIEW NOT FOUND"));
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getReviewNotFound()));
 
         List<Review> reviews = user.getUserProfile().getReviews();
         // if id equal, remove review
-        for (Review review: reviews) {
+        for (Review review : reviews) {
             if (review.getReviewId().equals(reviewToBeRemoved.getReviewId())) {
                 reviews.remove(reviewToBeRemoved);
                 break;

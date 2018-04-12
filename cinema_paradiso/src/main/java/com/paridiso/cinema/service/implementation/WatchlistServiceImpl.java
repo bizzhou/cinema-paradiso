@@ -1,5 +1,6 @@
 package com.paridiso.cinema.service.implementation;
 
+import com.paridiso.cinema.constants.ExceptionConstants;
 import com.paridiso.cinema.entity.Film;
 import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.entity.User;
@@ -33,6 +34,9 @@ public class WatchlistServiceImpl implements ListService {
     @Autowired
     UtilityService utilityService;
 
+    @Autowired
+    ExceptionConstants exceptionConstants;
+
     @Override
     public Integer getSize() {
         return null;
@@ -40,16 +44,13 @@ public class WatchlistServiceImpl implements ListService {
 
     @Override
     public boolean addToList(Integer userId, String filmId) {
-        // find movie
-        Movie movie = movieRepository.findMovieByImdbId(filmId);
-
-        // find user
+        Movie movie = movieRepository.findMovieByImdbId(filmId)
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieDoesNotExist()));
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, "USER NOT FOUND"));
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserNotFound()));
 
         // check movie existence and size limit
         List<Movie> movies = user.getUserProfile().getWatchList().getMovies();
-
 
         if (utilityService.containsMovie(movies, filmId) || movies.size() >= user.getUserProfile().getWatchList().getSizeLimit())
             return false;

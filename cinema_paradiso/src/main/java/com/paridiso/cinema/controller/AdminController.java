@@ -3,6 +3,7 @@ package com.paridiso.cinema.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.paridiso.cinema.constants.ExceptionConstants;
 import com.paridiso.cinema.entity.CriticApplication;
 import com.paridiso.cinema.security.JwtTokenGenerator;
 import com.paridiso.cinema.security.JwtUser;
@@ -34,11 +35,14 @@ public class AdminController {
     @Autowired
     private ObjectMapper objectMapper;
 
+    @Autowired
+    ExceptionConstants exceptionConstants;
+
     @RequestMapping(value = "/login", method = POST)
     public ResponseEntity<JwtUser> adminLogin(@RequestParam(value = "email", required = true) String email,
                                               @RequestParam(value = "password", required = true) String password) {
         User user = userService.login(email, password).orElseThrow(() ->
-                new ResponseStatusException(BAD_REQUEST, "USER NOT FOUND"));
+                new ResponseStatusException(BAD_REQUEST, exceptionConstants.getUserNotFound()));
         JwtUser jwtUser = new JwtUser(user.getUsername(), generator.generate(user), user.getUserID(), user.getRole());
 
         return ResponseEntity.ok(jwtUser);
