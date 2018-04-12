@@ -47,7 +47,6 @@ public class MovieController {
     @RequestMapping(value = "/carousel", method = GET)
     public ResponseEntity<List<Movie>> getCarousel() {
         System.out.println("Movie Controller: Get carousel ... ");
-
         return ResponseEntity.ok(filmService.getCarouselMovies());
     }
 
@@ -56,7 +55,6 @@ public class MovieController {
         Movie movie = (Movie) filmService.getFilm(filmId);
         if (movie != null)
             return new ResponseEntity<>(movie, HttpStatus.OK);
-
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
@@ -79,9 +77,7 @@ public class MovieController {
     public ResponseEntity<Boolean> rateMovie(@RequestHeader(value = "Authorization") String jwtToken,
                                              @PathVariable String filmId,
                                              @PathVariable Double rating) {
-
         return null;
-
 //        System.out.println(jwtToken);
 //        System.out.println(filmId);
 //        System.out.println(rating);

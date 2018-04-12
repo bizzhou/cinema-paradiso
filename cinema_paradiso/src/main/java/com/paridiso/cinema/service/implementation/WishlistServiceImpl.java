@@ -53,17 +53,15 @@ public class WishlistServiceImpl implements ListService, WishlistService {
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieDoesNotExist()));
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserNotFound()));
-
         // check movie existence and size limit
         List<Movie> movies = user.getUserProfile().getWishList().getMovies();
 
+        System.out.println("wish list id: " + user.getUserProfile().getWishList().getWishlistId());
         if (utilityService.containsMovie(movies, filmImdbId) || movies.size() >= user.getUserProfile().getWishList().getSizeLimit())
             return false;
-
         // add to list
         movies.add(movie);
         user.getUserProfile().getWishList().setMovies(movies);
-
         wishListRepository.save(user.getUserProfile().getWishList());
         return true;
     }

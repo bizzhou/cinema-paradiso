@@ -105,26 +105,18 @@ public class RegUserController {
 
     @GetMapping(value = "/get/profile")
     public ResponseEntity<?> getProfile(@RequestHeader(value = "Authorization") String jwtToken) {
-
         UserProfile profile = userService.getProfile(jwtToken);
-
         ObjectNode objectNode = objectMapper.createObjectNode();
         objectNode.put("name", profile.getName());
         objectNode.put("id", profile.getId());
-
         if (profile.getProfileImage() == null) {
             objectNode.put("profileImage", "default.jpeg");
         } else {
             objectNode.put("profileImage", profile.getProfileImage());
         }
-
         objectNode.put("biography", profile.getBiography());
         objectNode.put("isCritic", profile.getCritic());
-
-        System.out.println(objectNode);
-
         return ResponseEntity.ok(objectNode);
-
     }
 
 
@@ -132,7 +124,6 @@ public class RegUserController {
     public ResponseEntity<byte[]> getAvatar(@PathVariable String fileName) throws IOException {
         String fileLocation = Paths.get("avatars/" + fileName).toAbsolutePath().toString();
         logger.info(fileLocation);
-
         try {
             File file = new File(fileLocation);
             InputStream inputStream = new FileInputStream(file);

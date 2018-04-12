@@ -57,10 +57,8 @@ public class ReviewServiceImpl implements ReviewService {
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserNotFound()));
         review.setMovie(movie);
         List<Review> reviews = user.getUserProfile().getReviews();
-
         if (reviews == null)
             reviews = new ArrayList<>();
-
         reviews.add(review);
         user.getUserProfile().setReviews(reviews);
         reviewRepository.save(review);
@@ -78,7 +76,6 @@ public class ReviewServiceImpl implements ReviewService {
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserNotFound()));
         Review reviewToBeRemoved = reviewRepository.findReviewByReviewId(reviewId)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getReviewNotFound()));
-
         List<Review> reviews = user.getUserProfile().getReviews();
         // if id equal, remove review
         for (Review review : reviews) {
@@ -87,10 +84,8 @@ public class ReviewServiceImpl implements ReviewService {
                 break;
             }
         }
-
         user.getUserProfile().setReviews(reviews);
         userProfileRepository.save(user.getUserProfile());
-
         return reviewToBeRemoved;
     }
 
