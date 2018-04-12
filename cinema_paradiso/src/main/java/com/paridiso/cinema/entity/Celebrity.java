@@ -34,7 +34,7 @@ public class Celebrity {
     private String birthCountry;
 
     @ElementCollection
-    @CollectionTable(name = "CelebrityPhotos", joinColumns = @JoinColumn(name = "imdbId"))
+    @CollectionTable(name = "celebrityPhotos", joinColumns = @JoinColumn(name = "imdbId"))
     @Column(name = "photo")
     private List<String> photos;
 
