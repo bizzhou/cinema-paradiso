@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
-public class SearchServiceImpl implements SearchService{
+public class SearchServiceImpl implements SearchService {
 
     @Autowired
     MovieRepository movieRepository;
@@ -23,10 +23,8 @@ public class SearchServiceImpl implements SearchService{
         Set<Movie> movieSet = new LinkedHashSet<>();
 //        movieSet.addAll(getExactMatch(keyword));
         movieSet.addAll(getPhraseMatch(keyword));
-
         List<Movie> movieList = new ArrayList<>(new LinkedHashSet<Movie>());
         movieList.addAll(movieSet);
-
         return movieList;
     }
 

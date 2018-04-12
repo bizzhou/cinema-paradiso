@@ -47,7 +47,6 @@ public class MovieServiceImpl implements FilmService {
     @Transactional
     @Override
     public List<Movie> getMovies() {
-
         return movieRepository.findAll();
 
     }
@@ -59,7 +58,6 @@ public class MovieServiceImpl implements FilmService {
         Movie movie1 = (Movie) this.getFilm("tt2380307");
         Movie movie2 = (Movie) this.getFilm("tt5052448");
         Movie movie3 = (Movie) this.getFilm("tt1856101");
-
         movieList.addAll(Arrays.asList(movie1, movie2, movie3));
         return movieList;
     }
@@ -76,7 +74,6 @@ public class MovieServiceImpl implements FilmService {
     @Override
     public void rateFilm(String filmId, Double rating) {
         // add the rating to total rating, then get average
-
         System.out.println(filmId);
         System.out.println(rating);
         Movie movie = (Movie) this.getFilm(filmId);

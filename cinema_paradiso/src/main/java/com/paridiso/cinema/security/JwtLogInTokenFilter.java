@@ -25,18 +25,14 @@ public class JwtLogInTokenFilter extends AbstractAuthenticationProcessingFilter 
     public Authentication attemptAuthentication(HttpServletRequest httpServletRequest,
                                                 HttpServletResponse httpServletResponse)
             throws org.springframework.security.core.AuthenticationException {
-
         String tokenHeader = env.getProperty("token.header");
         String tokenType = env.getProperty("token.type");
         String header = httpServletRequest.getHeader(tokenHeader);
-
         if (header == null || !header.startsWith(tokenType)) {
             throw new RuntimeException("JWT token is missing");
         }
-
         String authToken = header.substring(tokenType.length());
         JwtToken token = new JwtToken(authToken);
-
         return getAuthenticationManager().authenticate(token);
 
     }

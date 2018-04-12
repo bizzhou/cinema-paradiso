@@ -48,17 +48,13 @@ public class WatchlistServiceImpl implements ListService {
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieDoesNotExist()));
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserNotFound()));
-
         // check movie existence and size limit
         List<Movie> movies = user.getUserProfile().getWatchList().getMovies();
-
         if (utilityService.containsMovie(movies, filmId) || movies.size() >= user.getUserProfile().getWatchList().getSizeLimit())
             return false;
-
         // add to list
         movies.add(movie);
         user.getUserProfile().getWatchList().setMovies(movies);
-
         watchListRepository.save(user.getUserProfile().getWatchList());
         return true;
     }

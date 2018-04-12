@@ -57,14 +57,11 @@ public class RegUserServiceImpl extends UserService {
         user.setRole(Role.ROLE_USER);
         user.setAccountSuspended(false);
         user.setPassword(utilityService.getHashedPassword(user.getPassword(), salt));
-
         if (userRepository.findUserByEmail(user.getEmail()) != null) {
             throw new ResponseStatusException(BAD_REQUEST, exceptionConstants.getUserExists());
         }
-
         // first create a user_profile for the user;
         user.setUserProfile(userProfileRepository.save(new UserProfile()));
-
         user.getUserProfile().setWishList(wishListRepository.save(new WishList()));
         user.getUserProfile().setWatchList(watchListRepository.save(new WatchList()));
         return Optional.ofNullable(userRepository.save(user));
@@ -74,7 +71,6 @@ public class RegUserServiceImpl extends UserService {
     public UserProfile updateProfile(UserProfile userProfile) {
         UserProfile profile = userProfileRepository.findById(userProfile.getId())
                 .orElseThrow(() -> new RuntimeException(exceptionConstants.getProfileNotFound() + userProfile.getId()));
-
         profile.setBiography(userProfile.getBiography());
         profile.setWatchList(userProfile.getWatchList());
         profile.setWishList(userProfile.getWishList());
@@ -88,7 +84,6 @@ public class RegUserServiceImpl extends UserService {
     UserProfile makeUserCritic(Integer id) {
         UserProfile profile = userProfileRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException(exceptionConstants.getProfileNotFound() + id));
-
         profile.setCritic(true);
         return userProfileRepository.save(profile);
     }
@@ -99,7 +94,6 @@ public class RegUserServiceImpl extends UserService {
         User validatedUser = validator.validate(jwtToken.substring(typeLength));
         UserProfile profile = userProfileRepository.findById(validatedUser.getUserProfile().getId())
                 .orElseThrow(() -> new RuntimeException(exceptionConstants.getProfileNotFound()));
-
         profile.setPrivate(true);
         return userProfileRepository.save(profile).getPrivate();
     }
@@ -112,7 +106,6 @@ public class RegUserServiceImpl extends UserService {
                 .orElseThrow(() -> new RuntimeException("CANNOT FIND PROFILE"));
         profile.setProfileImage(validatedUser.getUserProfile().getId() + ".jpeg");
         userProfileRepository.save(profile);
-
         if (!file.isEmpty()) {
             byte[] bytes = file.getBytes();
             Path path = Paths.get("avatars/" + profile.getId() + ".jpeg");
@@ -151,10 +144,8 @@ public class RegUserServiceImpl extends UserService {
     public UserProfile getProfile(String jwtToken) {
         int typeLength = tokenConstants.getType().length();
         User validatedUser = validator.validate(jwtToken.substring(typeLength));
-
         System.out.println(validatedUser.getUserID());
         System.out.println(validatedUser.getUserProfile().getId());
-
         return userProfileRepository.findById(validatedUser.getUserProfile().getId())
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getProfileNotFound()));
     }

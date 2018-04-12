@@ -44,7 +44,6 @@ public class AdminController {
         User user = userService.login(email, password).orElseThrow(() ->
                 new ResponseStatusException(BAD_REQUEST, exceptionConstants.getUserNotFound()));
         JwtUser jwtUser = new JwtUser(user.getUsername(), generator.generate(user), user.getUserID(), user.getRole());
-
         return ResponseEntity.ok(jwtUser);
     }
 

@@ -42,6 +42,7 @@ public class WatchlistController {
             return ResponseEntity.ok(true);
         return ResponseEntity.ok(false);
     }
+
     @RequestMapping(value = "/{filmId}", method = DELETE)
     public ResponseEntity<Boolean> removeFromWatchList(@PathVariable Integer filmId) {
         return null;

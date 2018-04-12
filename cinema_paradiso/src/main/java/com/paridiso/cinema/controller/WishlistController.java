@@ -44,7 +44,6 @@ public class WishlistController {
     // http://localhost:8080/wishlist?filmId=1
     @RequestMapping(value = "", method = POST)
     public ResponseEntity<Boolean> addToWishList(@RequestHeader(value = "Authorization") String jwtToken, @RequestParam("filmId") String filmId) {
-
         Boolean result = listService.addToList(jwtTokenService.getUserIdFromToken(jwtToken), filmId);
         if (result)
             return ResponseEntity.ok(true);

@@ -18,14 +18,11 @@ public class EmailServiceImpl {
     private JavaMailSender sender;
 
     public void sendMessage(Mail mail) throws MessagingException {
-
         MimeMessage mimeMessage = sender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
-
         mimeMessageHelper.setTo(mail.getTo());
         mimeMessageHelper.setText(mail.getContent());
         mimeMessageHelper.setSubject(mail.getSubject());
-
         sender.send(mimeMessage);
 
     }
