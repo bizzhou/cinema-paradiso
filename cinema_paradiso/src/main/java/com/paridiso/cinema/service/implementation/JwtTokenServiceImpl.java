@@ -26,6 +26,8 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     @Autowired
     private ObjectMapper objectMapper;
 
+    // TODO: if token is null
+    @Override
     public Integer getUserIdFromToken(String jwtToken) {
         ObjectNode objectNode = objectMapper.createObjectNode();
         int headerLength = environment.getProperty("token.type").length();

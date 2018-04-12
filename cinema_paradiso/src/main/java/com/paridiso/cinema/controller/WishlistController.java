@@ -54,12 +54,19 @@ public class WishlistController {
         return new ResponseEntity<Boolean>(false, HttpStatus.CONFLICT);
     }
 
-    @RequestMapping(value = "/delete", method = DELETE)
-    public ResponseEntity removeFromWishList(@RequestHeader(value = "Authorization") String jwtToken, @RequestParam("filmId") String filmId) {
+    @RequestMapping(value = "/delete/{filmId}", method = DELETE)
+    public ResponseEntity removeFromWishList(@RequestHeader(value = "Authorization") String jwtToken, @PathVariable("filmId") String filmId) {
+        System.out.println("deleting");
         listService.removeFromList(jwtTokenService.getUserIdFromToken(jwtToken), filmId);
         return new ResponseEntity<Boolean>(true, HttpStatus.OK);
     }
 
+    /**
+     * if movie exists in the user's wish list
+     * @param jwtToken
+     * @param filmId
+     * @return
+     */
     @RequestMapping(value = "/exist", method = DELETE)
     public ResponseEntity<Boolean> isMovieInWishList(@RequestHeader(value = "Authorization") String jwtToken, @RequestParam("filmId") String filmId) {
 

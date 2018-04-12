@@ -67,6 +67,9 @@ public class Film {
     @Column(name = "plot")
     private String plot;
 
+    @Column(name = "movieInfo")
+    private String movieInfo;
+
     @Column(name = "language")
     private String language;
 
@@ -256,4 +259,11 @@ public class Film {
         this.numberOfRatings = numberOfRatings;
     }
 
+    public String getMovieInfo() {
+        return movieInfo;
+    }
+
+    public void setMovieInfo(String movieInfo) {
+        this.movieInfo = movieInfo;
+    }
 }
