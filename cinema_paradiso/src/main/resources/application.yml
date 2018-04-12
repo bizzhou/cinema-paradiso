@@ -1,0 +1,52 @@
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/test?useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+#    password: Lin123!@#
+  jpa:
+    show-sql: true
+    hibernate:
+#      ddl-auto: update
+      ddl-auto: create-drop
+      naming-strategy: org.hibernate.cfg.ImprovedNamingStrategy
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5Dialect
+
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username:
+    password:
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: true
+            required: true
+          auth: true
+          connectiontimeout: 5000
+          timeout: 5000
+          writetimeout: 5000
+
+jwt:
+  secret: xia,!#ngk@elila&@^
+  salt: v,@eJ.9zBg9z@!*s
+  token:
+    type: Bearer
+    header: Authorization
+
+application:
+  exception:
+    userNotFound: "CANNOT FOUND USER"
+    profileNotFound: "CANNOT FOUND PROFILE "
+    userExists: "USER EXISTS"
+    movieExists: "MOVIE EXISTS"
+    movieNotFound: "MOVIE NOT FOUND"
+    resourceNotFound: "RESOURCE NOT FOUND"
+    reviewNotFound: "REVIEW NOT FOUND"
+
+
+
+

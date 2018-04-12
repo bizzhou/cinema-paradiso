@@ -76,18 +76,20 @@ public class MovieController {
                                              @PathVariable String filmId,
                                              @PathVariable Double rating) {
 
-        System.out.println(jwtToken);
-        System.out.println(filmId);
-        System.out.println(rating);
-        // add to user
-        boolean result = userService.rateMovie(jwtTokenService.getUserIdFromToken(jwtToken), filmId, rating);
-        if (!result)
-            return ResponseEntity.ok(false);
+        return null;
 
-        // add to film
-        filmService.rateFilm(filmId, rating);
-
-        return ResponseEntity.ok(true);
+//        System.out.println(jwtToken);
+//        System.out.println(filmId);
+//        System.out.println(rating);
+//        // add to user
+//        boolean result = userService.rateMovie(jwtTokenService.getUserIdFromToken(jwtToken), filmId, rating);
+//        if (!result)
+//            return ResponseEntity.ok(false);
+//
+//        // add to film
+//        filmService.rateFilm(filmId, rating);
+//
+//        return ResponseEntity.ok(true);
     }
 
     @RequestMapping(value = "/update", method = POST)
