@@ -27,6 +27,8 @@ public class UserProfile {
 
     private List<Review> likedReviews;
 
+    private List<UserRating> userRatings;
+
     public UserProfile() {
 
     }
@@ -79,6 +81,11 @@ public class UserProfile {
         return likedReviews;
     }
 
+    @OneToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY, mappedBy = "user")
+    public List<UserRating> getUserRatings() {
+        return userRatings;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -117,5 +124,9 @@ public class UserProfile {
 
     public void setLikedReviews(List<Review> likedReviews) {
         this.likedReviews = likedReviews;
+    }
+
+    public void setUserRatings(List<UserRating> userRatings) {
+        this.userRatings = userRatings;
     }
 }
