@@ -76,7 +76,12 @@ public class UserProfile {
         return reviews;
     }
 
-    @OneToMany(cascade = {CascadeType.MERGE},fetch= FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "UserProfileLikedReviews",
+            joinColumns = {@JoinColumn(name = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "reviewId")}
+    )
     public List<Review> getLikedReviews() {
         return likedReviews;
     }
