@@ -7,16 +7,9 @@ import java.net.URI;
 @Table(name = "Trailers")
 public class Trailer {
 
-    public final static String trailerLocation = "/tmp";
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer trailerId;
 
-    // can't be Film film, Film is not an entity --> unknown entity exception
-    @ManyToOne(cascade = {CascadeType.MERGE},fetch= FetchType.EAGER)
-    @JoinColumn(name = "imdbId", nullable = false)          // mapped with Film.imdbId
-    private Movie movie;
+    private Film film;
 
     private String name;
 
@@ -26,43 +19,42 @@ public class Trailer {
 
     }
 
-    public URI getPath() {
-        return path;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    public Integer getTrailerId() {
+        return trailerId;
     }
 
-    public void setPath(URI path) {
-        this.path = path;
-    }
-
-
-    public static String getTrailerLocation() {
-        return trailerLocation;
+    // TODO: temp return type
+    @ManyToOne(cascade = {CascadeType.MERGE},fetch= FetchType.EAGER)
+    @JoinColumn(name = "imdbId", nullable = false)
+    public Movie getFilm() {
+        return (Movie)film;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Integer getTrailerId() {
-        return trailerId;
+    public URI getPath() {
+        return path;
     }
 
     public void setTrailerId(Integer trailerId) {
         this.trailerId = trailerId;
     }
 
-    public Movie getFilm() {
-        return movie;
+    public void setFilm(Film film) {
+        this.film = film;
     }
 
-    public void setFilm(Movie movie) {
-        this.movie = movie;
+    public void setName(String name) {
+        this.name = name;
     }
 
+    public void setPath(URI path) {
+        this.path = path;
+    }
 }
 
 

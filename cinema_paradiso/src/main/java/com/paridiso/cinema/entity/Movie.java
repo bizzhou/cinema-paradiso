@@ -12,10 +12,8 @@ import java.util.Set;
 @Table(name = "Movies",  uniqueConstraints = @UniqueConstraint(columnNames = "imdbId"))
 public class Movie extends Film {
 
-    @Column(name = "runtime")
     private Integer runtime;
 
-    @Column(name = "boxOffice")
     private Long boxOffice;
 
     public Movie() {

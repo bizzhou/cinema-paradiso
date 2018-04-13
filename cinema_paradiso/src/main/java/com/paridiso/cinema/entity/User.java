@@ -12,102 +12,86 @@ import java.util.List;
 @Table(name = "Users", uniqueConstraints = @UniqueConstraint(columnNames = {"username", "email"}))
 public class User {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer userId;
 
-    @Size(max = 100)
-    @Column(name = "username")
     private String username;
 
-    @Email
-    @Size(max = 100)
-    @Column(name = "email")
     private String email;
 
-    @Size(min = 8)
-    @Column(name = "password")
     private String password;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "role")
     private Role role;
 
-    @Column(name = "suspended")
     private Boolean isAccountSuspended;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private UserProfile userProfile;
 
     public User() {
     }
 
-    public void setAccountSuspended(Boolean accountSuspended) {
-        isAccountSuspended = accountSuspended;
-    }
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Integer getUserID() {
         return userId;
     }
 
-    public void setUserID(Integer userID) {
-        this.userId = userID;
-    }
-
+    @Size(max = 100)
     public String getUsername() {
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
+    @Email
+    @Size(max = 100)
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
+    @Size(min = 8)
     public String getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
+    @Column(columnDefinition = "enum('ROLE_ADMIN','ROLE_CRITIC','ROLE_USER')")
+    @Enumerated(EnumType.STRING)
     public Role getRole() {
         return role;
-    }
-
-    public void setRole(Role role) {
-        this.role = role;
     }
 
     public Boolean getAccountSuspended() {
         return isAccountSuspended;
     }
 
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "userProfileId", nullable = false)
     public UserProfile getUserProfile() {
-        return (userProfile != null ? userProfile : new UserProfile());
+        return userProfile;
+    }
+
+    public void setUserID(Integer userId) {
+        this.userId = userId;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public void setAccountSuspended(Boolean accountSuspended) {
+        isAccountSuspended = accountSuspended;
     }
 
     public void setUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", username='" + username + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", role=" + role +
-                ", isAccountSuspended=" + isAccountSuspended +
-                ", userProfile=" + userProfile +
-                '}';
     }
 }

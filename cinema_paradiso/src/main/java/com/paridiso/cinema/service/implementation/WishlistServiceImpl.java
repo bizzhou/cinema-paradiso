@@ -57,7 +57,7 @@ public class WishlistServiceImpl implements ListService, WishlistService {
         List<Movie> movies = user.getUserProfile().getWishList().getMovies();
 
         System.out.println("wish list id: " + user.getUserProfile().getWishList().getWishlistId());
-        if (utilityService.containsMovie(movies, filmImdbId) || movies.size() >= user.getUserProfile().getWishList().getSizeLimit())
+        if (utilityService.containsMovie(movies, filmImdbId) || movies.size() >= 999)
             return false;
         // add to list
         movies.add(movie);

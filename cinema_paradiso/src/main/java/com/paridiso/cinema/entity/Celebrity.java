@@ -10,8 +10,6 @@ import java.util.Set;
 @Table(name = "Celebrities", uniqueConstraints = @UniqueConstraint(columnNames = "celebrityId"))
 public class Celebrity {
 
-    @Id
-    @Column(name = "celebrityId")
     private String celebrityId;
 
     private String name;
@@ -28,11 +26,67 @@ public class Celebrity {
 
     private String birthCountry;
 
-    @ElementCollection
-    @CollectionTable(name = "CelebrityPhotos", joinColumns = @JoinColumn(name = "imdbId"))
     private Set<URI> photos;
 
     private boolean isDirector;
+
+    private List<Movie> filmography;
+
+    public Celebrity() {
+    }
+
+    @Id
+    @Column(name = "celebrityId")
+    public String getCelebrityId() {
+        return celebrityId;
+    }
+
+    @Column(name = "name")
+    public String getName() {
+        return name;
+    }
+
+    @Column(name = "profileImage")
+    public String getProfileImage() {
+        return profileImage;
+    }
+
+    @Column(name = "biography")
+    public String getBiography() {
+        return biography;
+    }
+
+    @Column(name = "birthDate")
+    public Calendar getBirthDate() {
+        return birthDate;
+    }
+
+    @Column(name = "birthCity")
+    public String getBirthCity() {
+        return birthCity;
+    }
+
+    @Column(name = "birthState")
+    public String getBirthState() {
+        return birthState;
+    }
+
+    @Column(name = "birthCountry")
+    public String getBirthCountry() {
+        return birthCountry;
+    }
+
+    @ElementCollection
+    @CollectionTable(name = "CelebrityPhotos", joinColumns = @JoinColumn(name = "celebritityId"))
+    @Column(name = "photos")
+    public Set<URI> getPhotos() {
+        return photos;
+    }
+
+    @Column(name = "isDirector")
+    public boolean isDirector() {
+        return isDirector;
+    }
 
     @ManyToMany(cascade = {CascadeType.MERGE})
     @JoinTable(
@@ -40,51 +94,7 @@ public class Celebrity {
             joinColumns = {@JoinColumn(name = "celebrityId")},
             inverseJoinColumns = {@JoinColumn(name = "imdbId")}
     )
-    private List<Movie> filmography;
-
-    public Celebrity() {
-    }
-
-    public String getCelebrityId() {
-        return celebrityId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getProfileImage() {
-        return profileImage;
-    }
-
-    public String getBiography() {
-        return biography;
-    }
-
-    public Calendar getBirthDate() {
-        return birthDate;
-    }
-
-    public String getBirthCity() {
-        return birthCity;
-    }
-
-    public String getBirthState() {
-        return birthState;
-    }
-
-    public String getBirthCountry() {
-        return birthCountry;
-    }
-
-   public Set<URI> getPhotos() {
-        return photos;
-    }
-
-    public boolean isDirector() {
-        return isDirector;
-    }
-
+    @Column(name = "filmography")
     public List<Movie> getFilmography() {
         return filmography;
     }

@@ -2,6 +2,7 @@ package com.paridiso.cinema.entity;
 
 import com.paridiso.cinema.entity.enumerations.Genre;
 import com.paridiso.cinema.entity.enumerations.Rated;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.net.URI;
@@ -10,45 +11,100 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+// TODO: show have a way to count # of 5-star ratings, 4-star, 3-star...
 @MappedSuperclass
 public class Film {
 
-    public static final String PHOTO_LOCATION = "/tmp";
-
-    @Id
-    @Column(name = "imdbId", unique = true)
     private String imdbId;
 
-    @Column(name = "title")
     private String title;
 
-    @Column(name = "year")
     private String year;
 
-    @Enumerated
-    @Column(name = "rated")
     private Rated rated;
 
-    @Column(name = "releasedDate")
     private Calendar releaseDate;
+
+    private Set<Genre> genres;
+
+    private Set<String> awards;
+
+    private Set<URI> photos;
+
+    private Celebrity director;
+
+    private List<Celebrity> casts;
+
+    private Set<Trailer> trailers;
+
+    private List<Review> reviews;
+
+    private String plot;
+
+    private String movieInfo;
+
+    private String language;
+
+    private String country;
+
+    private String poster;
+
+    private Double rating;
+
+    private Integer numberOfRatings;
+
+    private String production;
+
+    private URI website;
+
+    public Film() {
+    }
+
+    @Id
+    public String getImdbId() {
+        return imdbId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    @Enumerated
+    public Rated getRated() {
+        return rated;
+    }
+
+    public Calendar getReleaseDate() {
+        return releaseDate;
+    }
 
     @ElementCollection(targetClass = Genre.class)
     @CollectionTable(name = "MovieGenres", joinColumns = @JoinColumn(name = "imdbId"))
-    @Column(name = "genre")
-    private List<Genre> genres;
+    public Set<Genre> getGenres() {
+        return genres;
+    }
 
     @ElementCollection
     @CollectionTable(name = "MovieAwards", joinColumns = @JoinColumn(name = "imdbId"))
-    @Column(name = "award")
-    private Set<String> awards;
+    public Set<String> getAwards() {
+        return awards;
+    }
 
     @ElementCollection
     @CollectionTable(name = "MoviePhotos", joinColumns = @JoinColumn(name = "imdbId"))
-    @Column(name = "photo")
-    private List<String> photos;
+    public Set<URI> getPhotos() {
+        return photos;
+    }
 
     @OneToOne(cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
-    private Celebrity director;
+    @JoinColumn(name = "directorId")
+    public Celebrity getDirector() {
+        return director;
+    }
 
     @ManyToMany(cascade = {CascadeType.MERGE})
     @JoinTable(
@@ -56,214 +112,136 @@ public class Film {
             joinColumns = {@JoinColumn(name = "imdbId")},
             inverseJoinColumns = {@JoinColumn(name = "celebrityId")}
     )
-    private List<Celebrity> casts;
-
-    @OneToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER, mappedBy = "movie")
-    private Set<Trailer> trailers;
-
-    @OneToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER, mappedBy = "movie")
-    private List<Review> reviews;
-
-    @Column(name = "plot")
-    private String plot;
-
-    @Column(name = "movieInfo")
-    private String movieInfo;
-
-    @Column(name = "language")
-    private String language;
-
-    @Column(name = "country")
-    private String country;
-
-    @Column(name = "poster")
-    private String poster;
-
-    @Column(name = "rating")
-    private Double rating;
-
-    @Column(name = "numberOfRatings")
-    private Integer numberOfRatings;
-
-    @Column(name = "production")
-    private String production;
-
-    @Column(name = "website")
-    private URI website;
-
-    public Film() {
-    }
-
-    public String getLanguage() {
-        return language;
-    }
-
-
-    public void setLanguage(String language) {
-        this.language = language;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getProduction() {
-        return production;
-    }
-
-    public void setProduction(String production) {
-        this.production = production;
-    }
-
-    public URI getWebsite() {
-        return website;
-    }
-
-    public void setWebsite(URI website) {
-        this.website = website;
-    }
-
-    public static String getPhotoLocation() {
-        return PHOTO_LOCATION;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getYear() {
-        return year;
-    }
-
-    public void setYear(String year) {
-        this.year = year;
-    }
-
-    public Rated getRated() {
-        return rated;
-    }
-
-    public void setRated(Rated rated) {
-        this.rated = rated;
-    }
-
-    public Calendar getReleaseDate() {
-        return releaseDate;
-    }
-
-    public void setReleaseDate(Calendar releaseDate) {
-        this.releaseDate = releaseDate;
-    }
-
-    public Celebrity getDirector() {
-        return director;
-    }
-
-    public void setDirector(Celebrity director) {
-        this.director = director;
-    }
-
-    public List<Celebrity> getCast() {
+    public List<Celebrity> getCasts() {
         return casts;
     }
 
-    public void setCast(List<Celebrity> cast) {
-        this.casts = cast;
+    @OneToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER, mappedBy="film")
+    public Set<Trailer> getTrailers() { return trailers; }
+
+    @OneToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER, mappedBy = "movie")
+    public List<Review> getReviews() {
+        return reviews;
     }
 
     public String getPlot() {
         return plot;
     }
 
-    public void setPlot(String plot) {
-        this.plot = plot;
+    @Type(type="text")
+    public String getMovieInfo() {
+        return movieInfo;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public String getCountry() {
+        return country;
     }
 
     public String getPoster() {
         return poster;
     }
 
-    public void setPoster(String poster) {
-        this.poster = poster;
-    }
-
     public Double getRating() {
         return rating;
-    }
-
-    public void setRating(Double rating) {
-        this.rating = rating;
-    }
-
-    public String getImdbId() {
-        return imdbId;
-    }
-
-    public void setImdbId(String imdbId) {
-        this.imdbId = imdbId;
-    }
-
-    public Set<Trailer> getTrailers() {
-        return trailers;
-    }
-
-    public void setTrailers(Set<Trailer> trailers) {
-        this.trailers = trailers;
-    }
-
-    public List<Review> getReviews() {
-        return reviews;
-    }
-
-    public void setReviews(List<Review> reviews) {
-        this.reviews = reviews;
-    }
-
-    public List<Genre> getGenres() {
-        return genres;
-    }
-
-    public void setGenres(List<Genre> genres) {
-        this.genres = genres;
-    }
-
-    public Set<String> getAwards() {
-        return awards;
-    }
-
-    public void setAwards(Set<String> awards) {
-        this.awards = awards;
-    }
-
-    public List<String> getPhotos() {
-        return photos;
-    }
-
-    public void setPhotos(List<String> photos) {
-        this.photos = photos;
     }
 
     public Integer getNumberOfRatings() {
         return numberOfRatings;
     }
 
-    public void setNumberOfRatings(Integer numberOfRatings) {
-        this.numberOfRatings = numberOfRatings;
+    public String getProduction() {
+        return production;
     }
 
-    public String getMovieInfo() {
-        return movieInfo;
+    public URI getWebsite() {
+        return website;
+    }
+
+    public void setImdbId(String imdbId) {
+        this.imdbId = imdbId;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public void setRated(Rated rated) {
+        this.rated = rated;
+    }
+
+    public void setReleaseDate(Calendar releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public void setGenres(Set<Genre> genres) {
+        this.genres = genres;
+    }
+
+    public void setAwards(Set<String> awards) {
+        this.awards = awards;
+    }
+
+    public void setPhotos(Set<URI> photos) {
+        this.photos = photos;
+    }
+
+    public void setDirector(Celebrity director) {
+        this.director = director;
+    }
+
+    public void setCasts(List<Celebrity> casts) {
+        this.casts = casts;
+    }
+
+    public void setTrailers(Set<Trailer> trailers) {
+        this.trailers = trailers;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
+    public void setPlot(String plot) {
+        this.plot = plot;
     }
 
     public void setMovieInfo(String movieInfo) {
         this.movieInfo = movieInfo;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public void setPoster(String poster) {
+        this.poster = poster;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
+    }
+
+    public void setNumberOfRatings(Integer numberOfRatings) {
+        this.numberOfRatings = numberOfRatings;
+    }
+
+    public void setProduction(String production) {
+        this.production = production;
+    }
+
+    public void setWebsite(URI website) {
+        this.website = website;
     }
 }
