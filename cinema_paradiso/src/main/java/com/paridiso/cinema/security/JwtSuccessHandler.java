@@ -16,7 +16,6 @@ public class JwtSuccessHandler implements AuthenticationSuccessHandler {
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest,
                                         HttpServletResponse httpServletResponse,
                                         Authentication authentication) {
-
 //        (JwtUserDetails) authentication.getPrincipal();
         System.out.println("Successful Authenticated");
         System.out.println("_______________________");

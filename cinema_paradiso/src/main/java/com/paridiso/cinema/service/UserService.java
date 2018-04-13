@@ -20,7 +20,7 @@ public abstract class UserService {
     @Autowired
     EmailServiceImpl emailService;
 
-    @Value("${salt}")
+    @Value("${jwt.salt}")
     protected String salt;
 
     @Autowired

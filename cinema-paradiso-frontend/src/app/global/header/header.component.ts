@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {LoginStatusService} from '../login/login.status.service';
-import {Location} from '@angular/common';
 import {Token} from '../login/token.model';
 import {LoginService} from '../login/login.service';
-import {connectableObservableDescriptor} from 'rxjs/observable/ConnectableObservable';
 import {ToastrService} from 'ngx-toastr';
+import {SearchService} from '../search/search.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -16,8 +16,20 @@ export class HeaderComponent implements OnInit {
   status: boolean;
   user: Token;
   is_admin: boolean;
+  keywords: string;
 
-  constructor(private loginStatusService: LoginStatusService, private loginService: LoginService, private toastrService: ToastrService) {
+  constructor(private loginStatusService: LoginStatusService,
+              private loginService: LoginService,
+              private toastrService: ToastrService,
+              private searchService: SearchService,
+              private router: Router) {
+  }
+
+  keywordSubmit() {
+    this.searchService.search(this.keywords).subscribe(result => {
+      this.searchService.nextResult(result);
+      this.router.navigateByUrl('search');
+    });
   }
 
   ngOnInit() {
@@ -33,7 +45,6 @@ export class HeaderComponent implements OnInit {
     this.loginStatusService.currentStatus.subscribe(state => {
       this.status = state;
       console.log('current login state ', this.status);
-
 
       if (this.status) {
         $('.modal-wrapper').hide();

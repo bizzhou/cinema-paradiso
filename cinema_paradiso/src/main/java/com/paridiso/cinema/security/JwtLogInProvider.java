@@ -27,21 +27,15 @@ public class JwtLogInProvider extends AbstractUserDetailsAuthenticationProvider 
     @Override
     protected UserDetails retrieveUser(String s,
                                        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken) throws AuthenticationException {
-
         JwtToken jwtToken = (JwtToken) usernamePasswordAuthenticationToken;
-
         // validate the token send after user has login
         User jwtUser = validator.validate(jwtToken.getToken());
-
         if (jwtUser == null) {
             throw new RuntimeException(("TOKEN INVALID"));
         }
-
         // Get the role of the user
         List<GrantedAuthority> grantedAuthorityList = AuthorityUtils
                 .commaSeparatedStringToAuthorityList(jwtUser.getRole().name());
-
-
         return new JwtUserDetails(jwtUser.getUsername(), jwtUser.getUserID(), jwtUser.getRole(),
                 jwtToken.getToken(), grantedAuthorityList);
 

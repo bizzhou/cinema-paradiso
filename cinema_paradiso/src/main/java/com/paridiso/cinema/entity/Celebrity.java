@@ -1,11 +1,10 @@
 package com.paridiso.cinema.entity;
 
 import javax.persistence.*;
-import java.net.URISyntaxException;
+import java.net.URI;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
-import java.net.URI;
 
 @Entity
 @Table(name = "Celebrities", uniqueConstraints = @UniqueConstraint(columnNames = "celebrityId"))

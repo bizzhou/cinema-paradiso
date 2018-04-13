@@ -14,16 +14,15 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 @RequestMapping("/carousel")
 @RestController
 public class CarouselController {
-
 //    @Autowired
 //    CarouselService carouselService;
 
-    @RequestMapping(value = "/" , method = GET)
+    @RequestMapping(value = "/", method = GET)
     public ResponseEntity<Carousel> getCarousel() {
         return null;
     }
 
-    @RequestMapping(value = "/" , method = POST)
+    @RequestMapping(value = "/", method = POST)
     public ResponseEntity<Boolean> updateCarousel(@RequestBody final Carousel carousel) {
         return null;
     }

@@ -1,5 +1,6 @@
 package com.paridiso.cinema.controller;
 
+import com.paridiso.cinema.constants.ExceptionConstants;
 import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.service.JwtTokenService;
 import com.paridiso.cinema.service.UserService;
@@ -35,6 +36,9 @@ public class MovieController {
     @Autowired
     RegUserServiceImpl userService;
 
+    @Autowired
+    ExceptionConstants exceptionConstants;
+
     @RequestMapping(value = "/all", method = GET)
     public ResponseEntity<List> getAllMovies() {
         return ResponseEntity.ok(filmService.getMovies());
@@ -43,7 +47,6 @@ public class MovieController {
     @RequestMapping(value = "/carousel", method = GET)
     public ResponseEntity<List<Movie>> getCarousel() {
         System.out.println("Movie Controller: Get carousel ... ");
-
         return ResponseEntity.ok(filmService.getCarouselMovies());
     }
 
@@ -52,14 +55,13 @@ public class MovieController {
         Movie movie = (Movie) filmService.getFilm(filmId);
         if (movie != null)
             return new ResponseEntity<>(movie, HttpStatus.OK);
-
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping(value = "/add", method = POST)
     public ResponseEntity<Boolean> addMovie(@RequestBody Movie movie) {
         Movie optionalMovie = filmService.addMovie(movie).orElseThrow(() ->
-                new ResponseStatusException(BAD_REQUEST, "Unable to add movie"));
+                new ResponseStatusException(BAD_REQUEST, exceptionConstants.getMovieExists()));
         return ResponseEntity.ok(true);
     }
 
@@ -75,19 +77,19 @@ public class MovieController {
     public ResponseEntity<Boolean> rateMovie(@RequestHeader(value = "Authorization") String jwtToken,
                                              @PathVariable String filmId,
                                              @PathVariable Double rating) {
-
-        System.out.println(jwtToken);
-        System.out.println(filmId);
-        System.out.println(rating);
-        // add to user
-        boolean result = userService.rateMovie(jwtTokenService.getUserIdFromToken(jwtToken), filmId, rating);
-        if (!result)
-            return ResponseEntity.ok(false);
-
-        // add to film
-        filmService.rateFilm(filmId, rating);
-
-        return ResponseEntity.ok(true);
+        return null;
+//        System.out.println(jwtToken);
+//        System.out.println(filmId);
+//        System.out.println(rating);
+//        // add to user
+//        boolean result = userService.rateMovie(jwtTokenService.getUserIdFromToken(jwtToken), filmId, rating);
+//        if (!result)
+//            return ResponseEntity.ok(false);
+//
+//        // add to film
+//        filmService.rateFilm(filmId, rating);
+//
+//        return ResponseEntity.ok(true);
     }
 
     @RequestMapping(value = "/update", method = POST)

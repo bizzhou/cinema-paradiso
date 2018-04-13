@@ -90,6 +90,12 @@
             <scope>test</scope>
         </dependency>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-configuration-processor</artifactId>
+            <optional>true</optional>
+        </dependency>
+
         <!--Dependency for Java 9-->
         <!--<dependency>-->
         <!--<groupId>javax.xml.bind</groupId>-->
