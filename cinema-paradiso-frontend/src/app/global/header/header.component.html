@@ -21,12 +21,12 @@
     <ng-template #elseBlock>
         <div *ngIf ="is_admin; else userBlock">
           <a routerLink="admin">{{user.username}}</a>
-          <a class="trigger" (click)="logout()">LogOut</a>
+          <a class="trigger" (click)="logout()">Log out</a>
         </div>
 
         <ng-template #userBlock>
           <a routerLink="user">{{user.username}}</a>
-          <a class="trigger" (click)="logout()">LogOut</a>
+          <a class="trigger" (click)="logout()">Log out</a>
         </ng-template>
     </ng-template>
     <!--<a routerLinkActive="active" class="trigger" href="javascript:;">Sign up</a>-->
