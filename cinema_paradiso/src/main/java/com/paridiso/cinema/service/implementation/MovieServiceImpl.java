@@ -31,9 +31,12 @@ public class MovieServiceImpl implements FilmService {
 
     @Override
     public Optional<Movie> addMovie(Movie movie) {
-        if (movieRepository.findMovieByImdbId(movie.getImdbId()) != null)
-            throw new ResponseStatusException(BAD_REQUEST, exceptionConstants.getMovieExists());
-        return Optional.ofNullable(movieRepository.save(movie));
+//        if (movieRepository.findMovieByImdbId(movie.getImdbId()) !== null) {
+//
+//        }
+//        if (movieRepository.findMovieByImdbId(movie.getImdbId()) != null)
+//            throw new ResponseStatusException(BAD_REQUEST, exceptionConstants.getMovieExists());
+        return Optional.of(movieRepository.save(movie));
     }
 
     @Transactional
