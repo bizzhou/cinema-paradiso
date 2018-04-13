@@ -11,42 +11,29 @@ import java.net.URI;
 @Table(name = "Celebrities", uniqueConstraints = @UniqueConstraint(columnNames = "celebrityId"))
 public class Celebrity {
 
-
-    public URI PHOTO_LOCATION;
-
     @Id
-    @Column(name = "celebrityId", unique = true)
+    @Column(name = "celebrityId")
     private String celebrityId;
 
-    @Column(name = "name")
     private String name;
 
-    @Column(name = "profileImage")
     private String profileImage;
 
-    @Column(name = "biography")
     private String biography;
 
-    @Column(name = "birthDate")
     private Calendar birthDate;
 
-    @Column(name = "birthCity")
     private String birthCity;
 
-    @Column(name = "birthState")
     private String birthState;
 
-    @Column(name = "birthCountry")
     private String birthCountry;
 
     @ElementCollection
     @CollectionTable(name = "CelebrityPhotos", joinColumns = @JoinColumn(name = "imdbId"))
-    @Column(name = "photo")
-    private List<String> photos;
+    private Set<URI> photos;
 
-    @Column(name = "isDirector")
     private boolean isDirector;
-
 
     @ManyToMany(cascade = {CascadeType.MERGE})
     @JoinTable(
@@ -59,123 +46,91 @@ public class Celebrity {
     public Celebrity() {
     }
 
-
-    public URI getPHOTO_LOCATION() {
-        try {
-            PHOTO_LOCATION = new URI("/tmp/celebrity");
-        }
-        catch (URISyntaxException e) {
-            e.printStackTrace();
-        }
-        return PHOTO_LOCATION;
-    }
-
-    public void setPHOTO_LOCATION(URI PHOTO_LOCATION) {
-        this.PHOTO_LOCATION = PHOTO_LOCATION;
-    }
-
     public String getCelebrityId() {
         return celebrityId;
-    }
-
-    public void setCelebrityId(String celebrityId) {
-        this.celebrityId = celebrityId;
-    }
-
-    public String getProfileImage() {
-        return profileImage;
-    }
-
-    public void setProfileImage(String profileImage) {
-        this.profileImage = profileImage;
     }
 
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getProfileImageName() {
+    public String getProfileImage() {
         return profileImage;
-    }
-
-    public void setProfileImageName(String profileImageName) {
-        this.profileImage = profileImageName;
     }
 
     public String getBiography() {
         return biography;
     }
 
-    public void setBiography(String biography) {
-        this.biography = biography;
-    }
-
     public Calendar getBirthDate() {
         return birthDate;
-    }
-
-    public void setBirthDate(Calendar birthDate) {
-        this.birthDate = birthDate;
     }
 
     public String getBirthCity() {
         return birthCity;
     }
 
-    public void setBirthCity(String birthCity) {
-        this.birthCity = birthCity;
+    public String getBirthState() {
+        return birthState;
     }
 
     public String getBirthCountry() {
         return birthCountry;
     }
 
-    public void setBirthCountry(String birthCountry) {
-        this.birthCountry = birthCountry;
+   public Set<URI> getPhotos() {
+        return photos;
     }
-
-//    public List<String> getPhotos() {
-//        return photos;
-//    }
-//
-//    public void setPhotos(List<String> photos) {
-//        this.photos = photos;
-//    }
 
     public boolean isDirector() {
         return isDirector;
     }
 
-    public void setDirector(boolean director) {
-        isDirector = director;
+    public List<Movie> getFilmography() {
+        return filmography;
     }
 
-    public String getBirthState() {
-        return birthState;
+    public void setCelebrityId(String celebrityId) {
+        this.celebrityId = celebrityId;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
+    }
+
+    public void setBiography(String biography) {
+        this.biography = biography;
+    }
+
+    public void setBirthDate(Calendar birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public void setBirthCity(String birthCity) {
+        this.birthCity = birthCity;
     }
 
     public void setBirthState(String birthState) {
         this.birthState = birthState;
     }
 
+    public void setBirthCountry(String birthCountry) {
+        this.birthCountry = birthCountry;
+    }
 
-    public List<Movie> getFilmography() {
-        return filmography;
+    public void setPhotos(Set<URI> photos) {
+        this.photos = photos;
+    }
+
+    public void setDirector(boolean director) {
+        isDirector = director;
     }
 
     public void setFilmography(List<Movie> filmography) {
         this.filmography = filmography;
-    }
-
-    public List<String> getPhotos() {
-        return photos;
-    }
-
-    public void setPhotos(List<String> photos) {
-        this.photos = photos;
     }
 }
