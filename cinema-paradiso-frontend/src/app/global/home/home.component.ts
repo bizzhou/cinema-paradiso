@@ -11,6 +11,7 @@ import {map} from 'rxjs/operators';
 import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
 import {CarouselSlide} from '../models/carouselSlide.model';
 import {MovieService} from '../movie/movie.service';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-home',
@@ -58,13 +59,13 @@ export class HomeComponent implements OnInit {
         data => {
           // assign movies to carousel
           this.carousel = data as Movie[];
-          this.carousel.forEach(function(part, index, theArray) {
-              if (this.isMovieInWishList(part.imdbId)) {
-                part.isInWishlist = true;
-              } else {
-                part.isInWishlist = false;
-              }
-          }.bind(this));
+          // this.carousel.forEach(function(part, index, theArray) {
+          //     if (this.isMovieInWishList(part.imdbId)) {
+          //       part.isInWishlist = true;
+          //     } else {
+          //       part.isInWishlist = false;
+          //     }
+          // }.bind(this));
           console.log(this.carousel);
         },
         error => console.log('Failed to fetch carousel data')

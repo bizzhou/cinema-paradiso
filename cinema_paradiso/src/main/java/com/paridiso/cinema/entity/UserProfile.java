@@ -52,13 +52,13 @@ public class UserProfile {
     }
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "watchListId", nullable = false)
+    @JoinColumn(name = "watchListId")
     public WatchList getWatchList() {
         return watchList;
     }
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "wishListId", nullable = false)
+    @JoinColumn(name = "wishListId")
     public WishList getWishList() {
         return wishList;
     }
