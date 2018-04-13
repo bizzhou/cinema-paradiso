@@ -36,49 +36,40 @@ public class Celebrity {
     }
 
     @Id
-    @Column(name = "celebrityId")
     public String getCelebrityId() {
         return celebrityId;
     }
 
-    @Column(name = "name")
     public String getName() {
         return name;
     }
 
-    @Column(name = "profileImage")
     public String getProfileImage() {
         return profileImage;
     }
 
-    @Column(name = "biography")
     public String getBiography() {
         return biography;
     }
 
-    @Column(name = "birthDate")
     public Calendar getBirthDate() {
         return birthDate;
     }
 
-    @Column(name = "birthCity")
     public String getBirthCity() {
         return birthCity;
     }
 
-    @Column(name = "birthState")
     public String getBirthState() {
         return birthState;
     }
 
-    @Column(name = "birthCountry")
     public String getBirthCountry() {
         return birthCountry;
     }
 
     @ElementCollection
     @CollectionTable(name = "CelebrityPhotos", joinColumns = @JoinColumn(name = "celebritityId"))
-    @Column(name = "photos")
     public Set<URI> getPhotos() {
         return photos;
     }
@@ -94,7 +85,6 @@ public class Celebrity {
             joinColumns = {@JoinColumn(name = "celebrityId")},
             inverseJoinColumns = {@JoinColumn(name = "imdbId")}
     )
-    @Column(name = "filmography")
     public List<Movie> getFilmography() {
         return filmography;
     }

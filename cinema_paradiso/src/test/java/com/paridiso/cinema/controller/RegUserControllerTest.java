@@ -11,7 +11,7 @@ import java.io.File;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 
-//import com.paridiso.cinema.entity.UserProfileBuilder;
+//import com.paridiso.cinema.entity.buider.UserProfileBuilder;
 
 @FixMethodOrder(MethodSorters.DEFAULT)
 public class RegUserControllerTest {
