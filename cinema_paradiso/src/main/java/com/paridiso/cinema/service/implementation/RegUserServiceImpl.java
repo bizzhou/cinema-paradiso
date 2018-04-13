@@ -1,6 +1,7 @@
 package com.paridiso.cinema.service.implementation;
 
 import com.paridiso.cinema.constants.ExceptionConstants;
+import com.paridiso.cinema.constants.JwtConstants;
 import com.paridiso.cinema.constants.TokenConstants;
 import com.paridiso.cinema.entity.*;
 import com.paridiso.cinema.entity.enumerations.Role;
@@ -52,11 +53,14 @@ public class RegUserServiceImpl extends UserService {
     @Autowired
     ExceptionConstants exceptionConstants;
 
+    @Autowired
+    JwtConstants jwtConstants;
+
     @Transactional
     public Optional<User> signup(User user) {
         user.setRole(Role.ROLE_USER);
         user.setAccountSuspended(false);
-        user.setPassword(utilityService.getHashedPassword(user.getPassword(), salt));
+        user.setPassword(utilityService.getHashedPassword(user.getPassword(), jwtConstants.getSalt()));
         if (userRepository.findUserByEmail(user.getEmail()) != null) {
             throw new ResponseStatusException(BAD_REQUEST, exceptionConstants.getUserExists());
         }
@@ -121,11 +125,11 @@ public class RegUserServiceImpl extends UserService {
     public boolean updatePassword(Integer userId, String oldPassword, String newPassword) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserNotFound()));
-        String hashedPassword = utilityService.getHashedPassword(oldPassword, salt);
+        String hashedPassword = utilityService.getHashedPassword(oldPassword, jwtConstants.getSalt());
         if (!hashedPassword.equals(user.getPassword())) {
             return false;
         } else {
-            user.setPassword(utilityService.getHashedPassword(newPassword, salt));
+            user.setPassword(utilityService.getHashedPassword(newPassword, jwtConstants.getSalt()));
             return userRepository.save(user).getPassword() != null;
         }
     }

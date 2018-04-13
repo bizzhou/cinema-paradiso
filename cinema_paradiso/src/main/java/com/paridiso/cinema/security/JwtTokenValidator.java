@@ -1,24 +1,27 @@
 package com.paridiso.cinema.security;
 
+import com.paridiso.cinema.constants.JwtConstants;
 import com.paridiso.cinema.entity.User;
 import com.paridiso.cinema.entity.UserProfile;
 import com.paridiso.cinema.entity.enumerations.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class JwtTokenValidator {
 
-    @Value("${jwt.secret}")
-    private String secret;
+    @Autowired
+    JwtConstants jwtConstants;
+
 
     public User validate(String token) {
         User jwtUser = null;
         try {
             Claims body = Jwts.parser()
-                    .setSigningKey(this.secret)
+                    .setSigningKey(jwtConstants.getSecret())
                     .parseClaimsJws(token)
                     .getBody();
             jwtUser = new User();

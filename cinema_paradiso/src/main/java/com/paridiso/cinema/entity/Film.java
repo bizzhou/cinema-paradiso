@@ -25,7 +25,7 @@ public class Film {
     @Column(name = "year")
     private String year;
 
-    @Enumerated
+    @Enumerated(EnumType.STRING)
     @Column(name = "rated")
     private Rated rated;
 
@@ -64,7 +64,7 @@ public class Film {
     @OneToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER, mappedBy = "movie")
     private List<Review> reviews;
 
-    @Column(name = "plot")
+    @Column(name = "plot", length = 10000)
     private String plot;
 
     @Column(name = "language")
