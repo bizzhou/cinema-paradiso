@@ -35,4 +35,11 @@ public class Movie extends Film {
         this.boxOffice = boxOffice;
     }
 
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "runtime=" + runtime +
+                ", boxOffice=" + boxOffice +
+                '}';
+    }
 }

@@ -3,8 +3,9 @@ package com.paridiso.cinema.controller;
 import com.paridiso.cinema.constants.ExceptionConstants;
 import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.service.JwtTokenService;
-import com.paridiso.cinema.service.UserService;
 import com.paridiso.cinema.service.implementation.RegUserServiceImpl;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.locks.ReentrantLock;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
@@ -39,6 +39,8 @@ public class MovieController {
     @Autowired
     ExceptionConstants exceptionConstants;
 
+    private static Logger logger = LogManager.getLogger(MovieController.class);
+
     @RequestMapping(value = "/all", method = GET)
     public ResponseEntity<List> getAllMovies() {
         return ResponseEntity.ok(filmService.getMovies());
@@ -60,7 +62,10 @@ public class MovieController {
 
     @RequestMapping(value = "/add", method = POST)
     public ResponseEntity<Boolean> addMovie(@RequestBody Movie movie) {
-        Movie optionalMovie = filmService.addMovie(movie).orElseThrow(() ->
+        logger.error(movie);
+        logger.info("This is add movie");
+
+        filmService.addMovie(movie).orElseThrow(() ->
                 new ResponseStatusException(BAD_REQUEST, exceptionConstants.getMovieExists()));
         return ResponseEntity.ok(true);
     }

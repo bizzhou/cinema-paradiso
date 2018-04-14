@@ -1,5 +1,6 @@
 package com.paridiso.cinema.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.paridiso.cinema.entity.enumerations.Genre;
 import com.paridiso.cinema.entity.enumerations.Rated;
 import org.hibernate.annotations.Type;
@@ -14,6 +15,7 @@ import java.util.Set;
 // TODO: show have a way to count # of 5-star ratings, 4-star, 3-star...
 @MappedSuperclass
 public class Film {
+
 
     private String imdbId;
 
@@ -116,8 +118,10 @@ public class Film {
         return casts;
     }
 
-    @OneToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER, mappedBy="film")
-    public Set<Trailer> getTrailers() { return trailers; }
+    @OneToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER, mappedBy = "film")
+    public Set<Trailer> getTrailers() {
+        return trailers;
+    }
 
     @OneToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER, mappedBy = "movie")
     public List<Review> getReviews() {
@@ -128,7 +132,7 @@ public class Film {
         return plot;
     }
 
-    @Type(type="text")
+    @Type(type = "text")
     public String getMovieInfo() {
         return movieInfo;
     }
@@ -243,5 +247,32 @@ public class Film {
 
     public void setWebsite(URI website) {
         this.website = website;
+    }
+
+    @Override
+    public String toString() {
+        return "Film{" +
+                "imdbId='" + imdbId + '\'' +
+                ", title='" + title + '\'' +
+                ", year='" + year + '\'' +
+                ", rated=" + rated +
+                ", releaseDate=" + releaseDate +
+                ", genres=" + genres +
+                ", awards=" + awards +
+                ", photos=" + photos +
+                ", director=" + director +
+                ", casts=" + casts +
+                ", trailers=" + trailers +
+                ", reviews=" + reviews +
+                ", plot='" + plot + '\'' +
+                ", movieInfo='" + movieInfo + '\'' +
+                ", language='" + language + '\'' +
+                ", country='" + country + '\'' +
+                ", poster='" + poster + '\'' +
+                ", rating=" + rating +
+                ", numberOfRatings=" + numberOfRatings +
+                ", production='" + production + '\'' +
+                ", website=" + website +
+                '}';
     }
 }

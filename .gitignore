@@ -21,3 +21,5 @@ target/
 cinema-paradiso-frontend/node_modules
 cinema_paradiso/target/
 backend/
+
+resources/movie_data/new_data/\.vscode/

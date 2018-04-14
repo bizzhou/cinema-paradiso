@@ -3,12 +3,12 @@ spring:
     url: jdbc:mysql://localhost:3306/test?useSSL=false
     driver-class-name: com.mysql.jdbc.Driver
     username: root
-    password: Lin123!@#
+#    password: Lin123!@#
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
-#      ddl-auto: create-drop
+#      ddl-auto: update
+      ddl-auto: create-drop
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
