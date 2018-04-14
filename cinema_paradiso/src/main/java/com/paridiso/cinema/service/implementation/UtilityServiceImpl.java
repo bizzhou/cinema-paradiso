@@ -48,35 +48,5 @@ public class UtilityServiceImpl implements UtilityService {
         return hashedPassword;
     }
 
-    @Override
-    public List<String> tokenizedString(String string) {
-        return Arrays.asList(string.split(" "));
-    }
-
-    @Override
-    public Calendar getTheWeekBefore() {
-        Calendar now = Calendar.getInstance();
-        int yearNow = now.get(Calendar.YEAR);
-        int monthNow = now.get(Calendar.MONTH) + 1;            // zero based
-        int dayNow = now.get(Calendar.DAY_OF_MONTH);
-
-        Calendar weekBeforeNow = new GregorianCalendar(yearNow, monthNow, dayNow - 7);
-
-        return weekBeforeNow;
-    }
-
-    @Override
-    public Calendar getNow() { return Calendar.getInstance(); }
-
-
-    @Override
-    public boolean containsMovie(List<Movie> movies, String filmImdbId) {
-        for (Movie movie : movies) {
-            if (movie.getImdbId().equals(filmImdbId))
-                return true;
-        }
-        return false;
-    }
-
 }
 

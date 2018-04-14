@@ -6,6 +6,7 @@ import com.paridiso.cinema.entity.Film;
 import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.entity.Trailer;
 import com.paridiso.cinema.persistence.MovieRepository;
+import com.paridiso.cinema.utility.MovieUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import com.paridiso.cinema.service.FilmService;
@@ -35,6 +36,9 @@ public class MovieServiceImpl implements FilmService {
 
     @Autowired
     UtilityService utilityService;
+
+    @Autowired
+    MovieUtility movieUtility;
 
     @Transactional
     @Override
@@ -132,23 +136,12 @@ public class MovieServiceImpl implements FilmService {
     @Override
     public Set<Movie> getMoviesPlaying() {
         // get the week before now
-        Calendar oneWeekBefore = utilityService.getTheWeekBefore();
-        Calendar now = utilityService.getNow();
+        Calendar oneWeekBefore = movieUtility.getTheWeekBefore();
+        Calendar now = movieUtility.getNow();
 
         // get movies by release date
-        Set<Movie> moviesPlaying = new HashSet<>();
+        Set<Movie> moviesPlaying;
         moviesPlaying = movieRepository.findMoviesByReleaseDateBetween(oneWeekBefore, now);
-
-//        moviesPlaying = movieRepository.findMoviesByReleaseDateBefore(Calendar.getInstance());
-        //        List<Movie> movieList = new ArrayList<>();
-//        Movie movie1 = (Movie) this.getMovie("tt1856101");
-//        Movie movie2 = (Movie) this.getMovie("tt2380307");
-//        Movie movie3 = (Movie) this.getMovie("tt5726616");
-//        Movie movie4 = (Movie) this.getMovie("tt4925292");
-//        Movie movie5 = (Movie) this.getMovie("tt5052448");
-//        Movie movie6 = (Movie) this.getMovie("tt5723272");
-//        movieList.addAll(Arrays.asList(movie1, movie2, movie3, movie4, movie5, movie6));
-//        return movieList;
 
         return moviesPlaying;
     }
