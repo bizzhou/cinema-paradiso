@@ -1,6 +1,7 @@
 package com.paridiso.cinema.service.implementation;
 
 import com.paridiso.cinema.constants.ExceptionConstants;
+import com.paridiso.cinema.constants.LimitationConstants;
 import com.paridiso.cinema.constants.TokenConstants;
 import com.paridiso.cinema.entity.*;
 import com.paridiso.cinema.entity.enumerations.Role;
@@ -52,6 +53,9 @@ public class RegUserServiceImpl extends UserService {
     @Autowired
     ExceptionConstants exceptionConstants;
 
+    @Autowired
+    LimitationConstants limitationConstants;
+
     @Transactional
     public Optional<User> signup(User user) {
         user.setRole(Role.ROLE_USER);
@@ -62,8 +66,14 @@ public class RegUserServiceImpl extends UserService {
         }
         // first create a user_profile for the user;
         user.setUserProfile(userProfileRepository.save(new UserProfile()));
+
+        // create a new wish list/ watch list
         user.getUserProfile().setWishList(wishListRepository.save(new WishList()));
         user.getUserProfile().setWatchList(watchListRepository.save(new WatchList()));
+
+        // set size limit
+        user.getUserProfile().getWishList().setWishListSize(limitationConstants.getWishListSize());
+        user.getUserProfile().getWatchList().setWishListSize(limitationConstants.getWatchListSize());
         return Optional.ofNullable(userRepository.save(user));
     }
 

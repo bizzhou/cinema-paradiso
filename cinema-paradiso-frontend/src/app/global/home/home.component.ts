@@ -84,7 +84,13 @@ export class HomeComponent implements OnInit {
   }
 
   addToWishList(imdbId: string) {
-    this.movieService.addToWishList(imdbId);
+    this.movieService.addToWishList(imdbId)
+      .subscribe(
+        data => {
+          console.log(data);
+        },
+        error => console.log('Failed to add to wish list')
+      );
   }
 
   removeFromWishList(imdbId: string) {

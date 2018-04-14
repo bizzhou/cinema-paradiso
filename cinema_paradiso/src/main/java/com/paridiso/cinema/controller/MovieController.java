@@ -44,18 +44,10 @@ public class MovieController {
         return ResponseEntity.ok(filmService.getMovies());
     }
 
-    @RequestMapping(value = "/carousel", method = GET)
-    public ResponseEntity<List<Movie>> getCarousel() {
-        System.out.println("Movie Controller: Get carousel ... ");
-        return ResponseEntity.ok(filmService.getCarouselMovies());
-    }
-
     @RequestMapping(value = "/{filmId}", method = GET)
     public ResponseEntity<Movie> getMovie(@PathVariable String filmId) {
-        Movie movie = (Movie) filmService.getFilm(filmId);
-        if (movie != null)
-            return new ResponseEntity<>(movie, HttpStatus.OK);
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        Movie movie = filmService.getMovie(filmId);
+        return new ResponseEntity<>(movie, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/add", method = POST)
@@ -98,7 +90,6 @@ public class MovieController {
         return ResponseEntity.ok(true);
     }
 
-    // TODO how to represent image ?
     @RequestMapping(value = "/{id}/update_poster", method = POST)
     public ResponseEntity<Boolean> updatePoster(@PathVariable Integer id, @RequestBody String poster) {
         return null;
@@ -107,6 +98,11 @@ public class MovieController {
     @RequestMapping(value = "/{id}/update_trailer", method = POST)
     public ResponseEntity<Boolean> updateTrailer(@PathVariable Integer id, @RequestBody String trailer) {
         return null;
+    }
+
+    @RequestMapping(value = "/carousel", method = GET)
+    public ResponseEntity<List<Movie>> getCarousel() {
+        return ResponseEntity.ok(filmService.getCarouselMovies());
     }
 
     @RequestMapping(value = "/{id}/trailer", method = GET)

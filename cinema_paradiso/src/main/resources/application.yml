@@ -50,6 +50,9 @@ application:
     reviewNotFound: "REVIEW NOT FOUND"
     celebritySaveFail: "CANNOT ADD CELEBRITY"
     celebrityNotFound: "CANNOT FOUND CELEBRITY"
+  limitation:
+    wishListSize: 999
+    watchListSize: 999
 
 
 

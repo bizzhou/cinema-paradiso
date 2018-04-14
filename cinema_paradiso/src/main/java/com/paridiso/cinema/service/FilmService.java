@@ -13,7 +13,7 @@ public interface FilmService {
 //    Film addFilm(Film film);
     Optional<Movie> addMovie(Movie movie);
 
-    Film getFilm(String filmId);
+    Movie getMovie(String filmId);
 
     List<Movie> getMovies();
 

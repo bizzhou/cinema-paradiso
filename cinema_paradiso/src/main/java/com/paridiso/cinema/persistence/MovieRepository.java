@@ -13,6 +13,8 @@ public interface MovieRepository extends JpaRepository<Movie, String> {
 
     Optional<Movie> findMovieByImdbId(String filmImdbId);
 
+//    Optional<Movie> findMoviesBy
+
     Movie findMovieByTitle(String filmTitle);
 
     List<Movie> findMoviesByTitle(String filmTitle);
