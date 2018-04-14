@@ -31,7 +31,27 @@ for line in data:
     id = json_data['imdbID']
 
     # get the director string
-    director = link_dict[id]['director']
+    director = celeb_dict[link_dict[id]['director']]
+
+    # try:
+    #     print(celeb_dict[director])
+    # except Exception:
+        # print('OJINOOO')
+
+    new_director = {}
+    # new_director['PHOTO_LOCATION'] = director['poster']
+    new_director['celebrityId'] = director['id']
+    new_director['name'] = director['name']
+    new_director['profileImage'] = director['poster']
+    new_director['biography'] = director['biography'].strip()
+    new_director['birthDate'] = None
+    new_director['birthCity'] = None
+    new_director['birthState'] = None
+    new_director['birthCountry'] = None
+    new_director['filography'] = director['knownFor']
+    new_director['director'] = True
+    new_director['photo_LOCATION'] = None
+    new_director['profileImageName'] = None
 
     # get the actor id array
     actors = link_dict[id]['actors']
@@ -40,9 +60,25 @@ for line in data:
     actors_list = []
     for actor in actors:
         try:
-            actors_list.append(celeb_dict[actor])
+            new_actor = {}
+            new_actor['PHOTO_LOCATION'] = celeb_dict[actor]['poster']
+            new_actor['celebrityId'] = celeb_dict[actor]['id']
+            new_actor['name'] = celeb_dict[actor]['name']
+            new_actor['profileImage'] = celeb_dict[actor]['poster']
+            new_actor['biography'] = celeb_dict[actor]['biography'].strip()
+            new_actor['birthDate'] = None
+            new_actor['birthCity'] = None
+            new_actor['birthState'] = None
+            new_actor['birthCountry'] = None
+            new_actor['filography'] = celeb_dict[actor]['knownFor']
+            new_actor['director'] = False
+            new_actor['photo_LOCATION'] = None
+            new_actor['profileImageName'] = None
+            actors_list.append(new_actor)
+            # actors_list.append(celeb_dict[actor])
         except KeyError:
             continue
+    
 
     if json_data['Released'] == 'N/A':
         release_date = "null"
@@ -91,18 +127,19 @@ for line in data:
     movie_json['boxOffice'] = ''.join(x for x in json_data['BoxOffice'] if x.isdigit())
     movie_json['runTime'] = ''.join(x for x in json_data['Runtime'] if x.isdigit())
     movie_json['numberOfRatings'] = random.randrange(30)
-    # movie_json['casts'] = actors_list
-    # movie_json['director'] = celeb_dict[director]
+    movie_json['casts'] = actors_list
+    movie_json['director'] = new_director
 
 
     # skip difficult situations for now
     if movie_json['rating'] == 'N/A' or movie_json['releaseDate'] == 'N/A' or movie_json['runTime'] == '':
         continue
 
-    print(json.dumps(movie_json))
-    # request = requests.post('http://localhost:8080/movie/add', json=(movie_json))
-    # if(request.status_code == 400):
-    #     print(request.text)
+    # print(json.dumps(movie_json))
+    # break
+    request = requests.post('http://localhost:8080/movie/add', json=(movie_json))
+    if(request.status_code == 400):
+        print(request.text)
 
     
     

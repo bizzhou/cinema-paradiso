@@ -5,7 +5,6 @@ import {HomeService} from './home.service';
 import {Movie} from '../models/movie.model';
 import {Celebrity} from '../models/celebrity.model';
 import {Carousel} from '../models/carousel.model';
-import {log} from 'util';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';

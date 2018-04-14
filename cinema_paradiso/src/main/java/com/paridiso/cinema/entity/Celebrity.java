@@ -48,6 +48,7 @@ public class Celebrity {
         return profileImage;
     }
 
+    @Column(length = 10000)
     public String getBiography() {
         return biography;
     }
