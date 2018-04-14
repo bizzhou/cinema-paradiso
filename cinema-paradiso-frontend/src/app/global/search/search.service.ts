@@ -19,9 +19,11 @@ export class SearchService {
   constructor(private http: HttpClient) {
   }
 
-  search(keywords: string) {
+  search(keywords: string, pageNo: string, pageSize: string) {
     console.log(keywords);
-    const param = new HttpParams().set('keyword', keywords);
+    const param = new HttpParams().set('keyword', keywords)
+                                  .set('pageNo', pageNo)
+                                  .set('pageSize', pageSize);
     return this.http.post(SEARCH_SERVER, param);
   }
 }

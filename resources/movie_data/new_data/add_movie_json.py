@@ -99,10 +99,10 @@ for line in data:
     if movie_json['rating'] == 'N/A' or movie_json['releaseDate'] == 'N/A' or movie_json['runTime'] == '':
         continue
 
-    # print(json.dumps(movie_json))
-    request = requests.post('http://localhost:8080/movie/add', json=(movie_json))
-    if(request.status_code == 400):
-        print(request.text)
+    print(json.dumps(movie_json))
+    # request = requests.post('http://localhost:8080/movie/add', json=(movie_json))
+    # if(request.status_code == 400):
+    #     print(request.text)
 
     
     

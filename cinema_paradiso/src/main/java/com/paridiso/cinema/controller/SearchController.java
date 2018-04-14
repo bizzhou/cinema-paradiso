@@ -20,7 +20,7 @@ public class SearchController {
     @Autowired
     SearchService searchService;
 
-    @PostMapping(value = "/basic")
+    @PostMapping
     public ResponseEntity<?> search(@RequestParam String keyword,
                                     @RequestParam Integer pageNo,
                                     @RequestParam Integer pageSize) {

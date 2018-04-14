@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit {
   }
 
   keywordSubmit() {
-    this.searchService.search(this.keywords).subscribe(result => {
+    this.searchService.search(this.keywords, '0', '20').subscribe(result => {
       this.searchService.nextResult(result);
       this.router.navigateByUrl('search');
     });
