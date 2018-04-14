@@ -3,9 +3,13 @@ import random
 from datetime import datetime
 import requests
 
-celeb = json.load(open('./academy/oscar_celeb.json'))
-data = open('./academy/oscar_data.json')
-link = open('./academy/oscar_movie_celeb_id_link.json')
+# celeb = json.load(open('./academy/oscar_celeb.json'))
+# data = open('./academy/oscar_data.json')
+# link = open('./academy/oscar_movie_celeb_id_link.json')
+
+celeb = json.load(open('./recent_movies/recent_celeb.json'))
+data = open('./recent_movies/recent_data.txt')
+link = open('./recent_movies/recent_movie_celeb_id_link.json')
 
 celeb_dict = {}
 data_dict = {}
@@ -20,6 +24,7 @@ for line in link:
     json_data = json.loads(line)
     link_dict[json_data['imdbID']] = json_data
 # print(len(link_dict))
+i = 0
 
 for line in data:
     json_data = json.loads(line)
@@ -34,24 +39,45 @@ for line in data:
     # put the json data into a cast array
     actors_list = []
     for actor in actors:
-        # print('finding actor')
-        # print(celeb_dict[actor])
-        actors_list.append(celeb_dict[actor])
-        # print('---------------------------')
+        try:
+            actors_list.append(celeb_dict[actor])
+        except KeyError:
+            continue
 
     if json_data['Released'] == 'N/A':
         release_date = "null"
     else:
         release_date = datetime.strptime(json_data['Released'], '%d %b %Y').strftime('%y%m%d')
         
+    result = ''
+    if json_data['Rated'] == 'PG-13':
+        result = 'PG13'
+    elif json_data['Rated'] == 'R':
+        result = 'R'
+    elif json_data['Rated'] == 'P':
+        result = 'P'
+    elif json_data['Rated'] == 'PG':
+        result = 'PG'
+    elif json_data['Rated'] == 'NC-17':
+        result = 'NC17'
+    else:
+        result = 'NOT_RATED'
+
+    list_of_genre = list(map(str.upper, json_data['Genre'].split(",")))
+    for (i, item) in enumerate(list_of_genre):
+        list_of_genre[i] = list_of_genre[i].strip()
+        if item.strip() == 'FILM-NOIR':
+            list_of_genre[i] = 'FILM_NOIR'
+        if item.strip() == 'SCI-FI':
+            list_of_genre[i] = 'SCI_FI'
 
     movie_json = {}
     movie_json['imdbId'] = json_data['imdbID']
     movie_json['title'] = json_data['Title']
     movie_json['year'] = json_data['Year']
-    movie_json['rated'] = json_data['Rated']
+    movie_json['rated'] = result
     movie_json['releaseDate'] = release_date
-    movie_json['genres'] = list(map(str.upper, json_data['Genre'].split(",")))
+    movie_json['genres'] = list_of_genre
     award_list = []
     movie_json['awards'] = award_list.append(json_data['Awards'])
     movie_json['plot'] = json_data['Plot']
@@ -73,10 +99,11 @@ for line in data:
     if movie_json['rating'] == 'N/A' or movie_json['releaseDate'] == 'N/A' or movie_json['runTime'] == '':
         continue
 
-    print(json.dumps(movie_json))
-    # request = requests.post('http://localhost:8080/movie/add', json=json.dumps(movie_json))
-    # print(request.text)
-    break
+    # print(json.dumps(movie_json))
+    request = requests.post('http://localhost:8080/movie/add', json=(movie_json))
+    if(request.status_code == 400):
+        print(request.text)
+
     
     
     

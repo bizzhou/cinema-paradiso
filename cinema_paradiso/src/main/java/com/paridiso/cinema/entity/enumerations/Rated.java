@@ -5,5 +5,6 @@ public enum Rated {
     P,
     PG,
     PG13,
-    NC17
+    NC17,
+    NOT_RATED
 }

@@ -1,9 +1,5 @@
 package com.paridiso.cinema.entity.enumerations;
 
-import javax.persistence.Entity;
-import javax.persistence.Enumerated;
-import javax.persistence.Table;
-
 public enum Genre {
     ACTION,
     ADVENTURE,
@@ -13,9 +9,8 @@ public enum Genre {
     DRAMA,
     DOCUMENTARY,
     FANTASY,
-    HISTORICAL,
+    HISTORY,
     HORROR,
-    MAGICAL_REALISM,
     MYSTERY,
     PARANOID,
     PHILOSOPHICAL,
@@ -23,8 +18,17 @@ public enum Genre {
     ROMANCE,
     SAGA,
     SATIRE,
-    SCIENCE_FICTION,
     THRILLER,
     URBAN,
-    WESTERN
+    WESTERN,
+    FILM_NOIR,
+    BIOGRAPHY,
+    MUSICAL,
+    FAMILY,
+    WAR,
+    MUSIC,
+    SCI_FI,
+    NEWS,
+    SHORT,
+    SPORT
 }
