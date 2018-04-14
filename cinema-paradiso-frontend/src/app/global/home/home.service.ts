@@ -12,7 +12,9 @@ export class HomeService {
   constructor(private http: HttpClient) { }
 
   getCarousel() {
-    return this.http.get('http://localhost:8080/movie/carousel');
+    const httpParams = new HttpParams()
+      .append('filmId', 'tt2380307');
+    return this.http.post('http://localhost:8080/movie/carousel', httpParams);
   }
 
   errorHandler(error): any {

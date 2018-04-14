@@ -25,6 +25,14 @@ export class MovieService {
     return this.http.get(MOVIE_SERVER + 'playing');
   }
 
+  getMoviesTrending() {
+    return this.http.get(MOVIE_SERVER + 'trending');
+  }
+
+  getMoviesComingSoon() {
+    return this.http.get(MOVIE_SERVER + 'comingSoon');
+  }
+
   getMovie(imdbId: string): any {
     return this.http.get(MOVIE_SERVER + imdbId);
   }

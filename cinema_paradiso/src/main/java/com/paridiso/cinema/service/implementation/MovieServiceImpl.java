@@ -93,7 +93,6 @@ public class MovieServiceImpl implements FilmService {
 
     @Override
     public List<Movie> getCarouselMovies(List<String> filmIds) {
-
         List<Movie> carouselMovies = new ArrayList<>();
         for (String filmId: filmIds) {
             carouselMovies.add(this.getMovie(filmId));
@@ -116,58 +115,58 @@ public class MovieServiceImpl implements FilmService {
 
     /**
      * Get movies playing now
-     * Find movies' release dates in between current date and one week before
+     * Find movies' release dates in between current date and two weeks before
      * @return a list of qualified movies
      */
     @Transactional
     @Override
     public Set<Movie> getMoviesPlaying() {
-        // get 7 days before
-        Calendar oneWeekBefore = movieUtility.getOneWeekBefore();
+        // get 14 days before
+        Calendar twoWeeksBefore = movieUtility.getTwoWeeksBefore();
         Calendar now = movieUtility.getNow();
 
         // get movies by release date
-        return movieRepository.findMoviesByReleaseDateBetween(oneWeekBefore, now);
+        return movieRepository.findMoviesByReleaseDateBetween(twoWeeksBefore, now);
     }
 
     /**
      * Get movies coming soon
-     * Find movies' release date within the following week
+     * Find movies' release date within the following 2 weeks
      * @return a list of qualified movies
      */
     @Transactional
     @Override
     public Set<Movie> getMoviesComingSoon() {
         // get one week from now
-        Calendar oneWeekAfter = movieUtility.getOneWeekAfter();
+        Calendar twoWeeksAfter = movieUtility.getTwoWeeksAfter();
         Calendar now = movieUtility.getNow();
 
         // get movies by release date
-        return movieRepository.findMoviesByReleaseDateBetween(now, oneWeekAfter);
+        return movieRepository.findMoviesByReleaseDateBetween(now, twoWeeksAfter);
     }
 
     /**
      * Get movies trending
-     * Find movies' release date within one week && movies rated above 4.5
+     * Find movies' release date within two weeks && movies rated above 4.5
      * @return a list of qualified movies
      */
     @Override
     public Set<Movie> getMoviesTrending() {
         // get the date one week before
-        Calendar oneWeeokBefore = movieUtility.getOneWeekBefore();
+        Calendar twoWeeksBefore = movieUtility.getTwoWeeksBefore();
         Calendar now = movieUtility.getNow();
 
         // get movies with ratings >= 4.5 and released within one week
         Set<Movie> moviesTrending;
         moviesTrending = movieRepository.findMoviesByRatingBetweenAndReleaseDateBetween(
                         limitationConstants.getTrendingRating(), limitationConstants.getRatingLimit(),
-                        oneWeeokBefore, now);
+                        twoWeeksBefore, now);
 
         // if the number of movies returned above < 6, then find movies rated > 4.0
         if (moviesTrending.size() < limitationConstants.getLeastReturns()) {
             moviesTrending.addAll(movieRepository.findMoviesByRatingBetweenAndReleaseDateBetween(
                     limitationConstants.getAcceptableTrendingRating(), limitationConstants.getRatingLimit(),
-                    oneWeeokBefore, now));
+                    twoWeeksBefore, now));
         }
 
         return moviesTrending;

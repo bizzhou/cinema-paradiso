@@ -97,7 +97,7 @@ public class MovieController {
         return null;
     }
 
-    @RequestMapping(value = "/carousel", method = GET)
+    @RequestMapping(value = "/carousel", method = POST)
     public ResponseEntity<List<Movie>> getCarousel(@RequestParam List<String> filmIds) {
         return new ResponseEntity<>(filmService.getCarouselMovies(filmIds), HttpStatus.OK);
     }
