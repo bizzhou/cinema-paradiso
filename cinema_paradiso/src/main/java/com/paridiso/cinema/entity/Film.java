@@ -26,8 +26,8 @@ public class Film {
     protected Set<URI> photos;
     protected Celebrity director;
     protected List<Celebrity> casts;
-    protected Set<Trailer> trailers;
     protected List<Review> reviews;
+    protected Set<Trailer> trailers;
     protected String plot;
     protected String movieInfo;
     protected String language;

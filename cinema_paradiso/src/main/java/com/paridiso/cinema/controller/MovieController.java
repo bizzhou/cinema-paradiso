@@ -52,7 +52,7 @@ public class MovieController {
         return ResponseEntity.ok(filmService.getCarouselMovies());
     }
 
-    @RequestMapping(value = "/{filmId}", method = GET)
+    @GetMapping(value = "/{filmId}")
     public ResponseEntity<Movie> getMovie(@PathVariable String filmId) {
         Movie movie = (Movie) filmService.getFilm(filmId);
         if (movie != null)
@@ -60,7 +60,7 @@ public class MovieController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(value = "/add", method = POST)
+    @PostMapping(value = "/add")
     public ResponseEntity<Boolean> addMovie(@RequestBody Movie movie) {
         filmService.addMovie(movie).orElseThrow(() ->
                 new ResponseStatusException(BAD_REQUEST, exceptionConstants.getMovieExists()));

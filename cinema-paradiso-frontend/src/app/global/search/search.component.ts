@@ -1,6 +1,40 @@
 import { Component, OnInit } from '@angular/core';
 import {SearchService} from './search.service';
 
+class Celebrity {
+  biography: string;
+  birthCity: string;
+  birthCountry: string;
+  birthDate: string;
+  celebrityId: string;
+  filmgraphy: string[];
+  photos: string[];
+  profileImage: string;
+  name: string;
+}
+
+class Movie {
+  awards: string[];
+  boxOffice: number;
+  casts: Celebrity[];
+  director: Celebrity;
+  genres: string[];
+  imdbId: string;
+  language: string;
+  movieInfo: string;
+  numberOfRatings: number;
+  photos: string[];
+  plot: string;
+  poster: string;
+  production: string;
+  rating: string;
+  releaseDate: string;
+  reivew: string[];
+  runtime: number;
+  title: string;
+  trailers: string[];
+  year: string;
+}
 
 @Component({
   selector: 'app-search',
@@ -10,11 +44,13 @@ import {SearchService} from './search.service';
 export class SearchComponent implements OnInit {
   constructor(private searchService: SearchService) { }
 
+  moviesResults: Movie[];
+
+
   ngOnInit() {
 
     this.searchService.currentResult.subscribe(results => {
-      console.log('hello world');
-      console.log(results);
+      this.moviesResults = results as Movie[];
     });
 
     $('.show_movies').click(function (e) {

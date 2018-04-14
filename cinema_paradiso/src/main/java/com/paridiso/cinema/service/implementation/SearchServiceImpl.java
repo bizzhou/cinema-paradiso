@@ -27,6 +27,8 @@ public class SearchServiceImpl implements SearchService {
         Page<Movie> movies = movieRepository.findMoviesByTitleContains(keyword, new PageRequest(pageNo, pageSize));
         Set<Movie> movieSet = new HashSet<>();
         movieSet.addAll(movies.getContent());
+        logger.info("getting search results back");
+        logger.info(movieSet);
         return movieSet;
     }
 
@@ -39,6 +41,5 @@ public class SearchServiceImpl implements SearchService {
     public List<TV> getTVsFromKeyword(String keyword) {
         return null;
     }
-
 
 }
