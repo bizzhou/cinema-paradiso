@@ -27,6 +27,7 @@ for line in link:
 i = 0
 
 for line in data:
+
     json_data = json.loads(line)
     id = json_data['imdbID']
 
@@ -120,6 +121,9 @@ for line in data:
     movie_json['language'] = json_data['Language']
     movie_json['country'] = json_data['Country']
     movie_json['poster'] = json_data['Poster']
+
+    if json_data['imdbRating'] == 'N/A':
+        continue
     movie_json['rating'] = round(float(json_data['imdbRating'])/2 , 1)
     movie_json['production'] = json_data['Production']
     movie_json['website'] = json_data['Website']
@@ -130,10 +134,10 @@ for line in data:
     movie_json['casts'] = actors_list
     movie_json['director'] = new_director
 
-
-    # skip difficult situations for now
     if movie_json['rating'] == 'N/A' or movie_json['releaseDate'] == 'N/A' or movie_json['runTime'] == '':
         continue
+
+    # skip difficult situations for now
 
     # print(json.dumps(movie_json))
     # break
