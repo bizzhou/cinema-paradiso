@@ -5,10 +5,7 @@ import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.entity.Trailer;
 
 import javax.swing.text.html.Option;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 public interface FilmService {
 
@@ -29,11 +26,11 @@ public interface FilmService {
 
     boolean updateTrailer(Long filmId, Integer trailerId);
 
-    Set<Film> getFilmInRage(Date startDate, Date endDate);
+    Set<Film> getFilmInRage(Calendar startDate, Calendar endDate);
 
     Set<Film> getSimilarFilm(Long filmId);
 
-    List<Film> getTrending();
+    Set<Movie> getMoviesTrending();
 
     Set<Movie> getMoviesComingSoon();
 

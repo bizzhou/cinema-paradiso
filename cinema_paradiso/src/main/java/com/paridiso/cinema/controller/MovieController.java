@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import com.paridiso.cinema.service.FilmService;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -107,9 +108,7 @@ public class MovieController {
     }
 
     @RequestMapping(value = "/trending", method = GET)
-    public ResponseEntity<List> getMoviesTrending() {
-        return null;
-    }
+    public ResponseEntity<Set> getMoviesTrending() { return new ResponseEntity<>(filmService.getMoviesTrending(), HttpStatus.OK); }
 
     @RequestMapping(value = "/comingSoon", method = GET)
     public ResponseEntity<Set> getMoviesComingSoon() {
@@ -131,7 +130,7 @@ public class MovieController {
     }
 
     @RequestMapping(value = "/range", method = GET)
-    public ResponseEntity<Set> getMoviesInRange(@RequestParam Date startDate, @RequestParam Date endDate) {
+    public ResponseEntity<Set> getMoviesInRange(@RequestParam Calendar startDate, @RequestParam Calendar endDate) {
         return null;
     }
 

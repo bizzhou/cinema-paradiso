@@ -128,6 +128,11 @@ public class MovieServiceImpl implements FilmService {
         return movieRepository.findMoviesByReleaseDateBetween(oneWeekBefore, now);
     }
 
+    /**
+     * Get movies coming soon
+     * Find movies' release date within the following week
+     * @return a list of qualified movies
+     */
     @Transactional
     @Override
     public Set<Movie> getMoviesComingSoon() {
@@ -139,18 +144,33 @@ public class MovieServiceImpl implements FilmService {
         return movieRepository.findMoviesByReleaseDateBetween(now, oneWeekAfter);
     }
 
+    /**
+     * Get movies trending
+     * Find movies' release date within one week && movies rated above 4.5
+     * @return a list of qualified movies
+     */
     @Override
-    public Set<Film> getFilmInRage(Date startDate, Date endDate) {
+    public Set<Movie> getMoviesTrending() {
+        // get the date one week before
+        Calendar oneWeeokBefore = movieUtility.getOneWeekBefore();
+        Calendar now = movieUtility.getNow();
+
+        // get movies within the date range
+        Set<Movie> moviesWithinOneWeek = movieRepository.findMoviesByReleaseDateBetween(oneWeeokBefore, now);
+
+        // get top 20 movies (ranked by number of reviews)
+        Set<Movie> moviesTrending = movieRepository
+                .findMoviesByRatingGreaterThanAndReleaseDateBetween(4.5, oneWeeokBefore, now);
+        return moviesTrending;
+    }
+
+    @Override
+    public Set<Film> getFilmInRage(Calendar startDate, Calendar endDate) {
         return null;
     }
 
     @Override
     public Set<Film> getSimilarFilm(Long filmId) {
-        return null;
-    }
-
-    @Override
-    public List<Film> getTrending() {
         return null;
     }
 
