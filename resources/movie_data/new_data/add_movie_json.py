@@ -84,7 +84,7 @@ for line in data:
     if json_data['Released'] == 'N/A':
         release_date = "null"
     else:
-        release_date = datetime.strptime(json_data['Released'], '%d %b %Y').strftime('%y%m%d')
+        release_date = datetime.strptime(json_data['Released'], '%d %b %Y').strftime('%Y-%m-%d')
         
     result = ''
     if json_data['Rated'] == 'PG-13':
@@ -123,7 +123,7 @@ for line in data:
     movie_json['poster'] = json_data['Poster']
 
     if json_data['imdbRating'] == 'N/A':
-        continue
+        json_data['imdbRating'] = 0
     movie_json['rating'] = round(float(json_data['imdbRating'])/2 , 1)
     movie_json['production'] = json_data['Production']
     movie_json['website'] = json_data['Website']
