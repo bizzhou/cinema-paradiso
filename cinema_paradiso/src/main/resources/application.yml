@@ -56,6 +56,10 @@ application:
   limitation:
     wishListSize: 999
     watchListSize: 999
+    ratingLimit: 5.0
+    trendingRating: 4.5
+    acceptableTrendingRating: 4.0
+    leastReturns: 6
 
 
 

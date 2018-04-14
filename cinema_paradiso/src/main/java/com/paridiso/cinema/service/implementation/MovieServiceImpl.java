@@ -155,12 +155,19 @@ public class MovieServiceImpl implements FilmService {
         Calendar oneWeeokBefore = movieUtility.getOneWeekBefore();
         Calendar now = movieUtility.getNow();
 
-        // get movies within the date range
-        Set<Movie> moviesWithinOneWeek = movieRepository.findMoviesByReleaseDateBetween(oneWeeokBefore, now);
+        // get movies with ratings >= 4.5 and released within one week
+        Set<Movie> moviesTrending;
+        moviesTrending = movieRepository.findMoviesByRatingBetweenAndReleaseDateBetween(
+                        limitationConstants.getTrendingRating(), limitationConstants.getRatingLimit(),
+                        oneWeeokBefore, now);
 
-        // get top 20 movies (ranked by number of reviews)
-        Set<Movie> moviesTrending = movieRepository
-                .findMoviesByRatingGreaterThanAndReleaseDateBetween(4.5, oneWeeokBefore, now);
+        // if the number of movies returned above < 6, then find movies rated > 4.0
+        if (moviesTrending.size() < limitationConstants.getLeastReturns()) {
+            moviesTrending.addAll(movieRepository.findMoviesByRatingBetweenAndReleaseDateBetween(
+                    limitationConstants.getRatingLimit(), limitationConstants.getAcceptableTrendingRating(),
+                    oneWeeokBefore, now));
+        }
+
         return moviesTrending;
     }
 
