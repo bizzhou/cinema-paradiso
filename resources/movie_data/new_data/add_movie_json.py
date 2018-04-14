@@ -3,13 +3,13 @@ import random
 from datetime import datetime
 import requests
 
-# celeb = json.load(open('./academy/oscar_celeb.json'))
-# data = open('./academy/oscar_data.json')
-# link = open('./academy/oscar_movie_celeb_id_link.json')
+celeb = json.load(open('./academy/oscar_celeb.json'))
+data = open('./academy/oscar_data.json')
+link = open('./academy/oscar_movie_celeb_id_link.json')
 
-celeb = json.load(open('./recent_movies/recent_celeb.json'))
-data = open('./recent_movies/recent_data.txt')
-link = open('./recent_movies/recent_movie_celeb_id_link.json')
+# celeb = json.load(open('./recent_movies/recent_celeb.json'))
+# data = open('./recent_movies/recent_data.txt')
+# link = open('./recent_movies/recent_movie_celeb_id_link.json')
 
 celeb_dict = {}
 data_dict = {}
