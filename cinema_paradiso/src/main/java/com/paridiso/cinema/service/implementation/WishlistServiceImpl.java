@@ -1,6 +1,7 @@
 package com.paridiso.cinema.service.implementation;
 
 import com.paridiso.cinema.constants.ExceptionConstants;
+import com.paridiso.cinema.constants.LimitationConstants;
 import com.paridiso.cinema.entity.*;
 import com.paridiso.cinema.persistence.MovieRepository;
 import com.paridiso.cinema.persistence.UserProfileRepository;
@@ -41,6 +42,9 @@ public class WishlistServiceImpl implements ListService, WishlistService {
     @Autowired
     ExceptionConstants exceptionConstants;
 
+    @Autowired
+    LimitationConstants limitationConstants;
+
     @Override
     public Integer getSize() {
         return null;
@@ -57,7 +61,7 @@ public class WishlistServiceImpl implements ListService, WishlistService {
         List<Movie> movies = user.getUserProfile().getWishList().getMovies();
 
         System.out.println("wish list id: " + user.getUserProfile().getWishList().getWishlistId());
-        if (utilityService.containsMovie(movies, filmImdbId) || movies.size() >= 999)
+        if (utilityService.containsMovie(movies, filmImdbId) || movies.size() >= limitationConstants.getWishListSize())
             return false;
         // add to list
         movies.add(movie);
