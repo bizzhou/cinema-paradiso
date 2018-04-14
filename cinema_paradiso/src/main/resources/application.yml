@@ -5,10 +5,10 @@ spring:
     username: root
 #    password: Lin123!@#
   jpa:
-    show-sql: true
+#    show-sql: true
     hibernate:
-#      ddl-auto: update
-      ddl-auto: create-drop
+      ddl-auto: update
+#      ddl-auto: create-drop
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:

@@ -62,9 +62,6 @@ public class MovieController {
 
     @RequestMapping(value = "/add", method = POST)
     public ResponseEntity<Boolean> addMovie(@RequestBody Movie movie) {
-        logger.error(movie);
-        logger.info("This is add movie");
-
         filmService.addMovie(movie).orElseThrow(() ->
                 new ResponseStatusException(BAD_REQUEST, exceptionConstants.getMovieExists()));
         return ResponseEntity.ok(true);

@@ -9,7 +9,7 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public interface SearchService {
-    List<Movie> getMoviesFromKeyword(String keyword);
+    Set<Movie> getMoviesFromKeyword(String keyword, Integer pageNo, Integer pageSize);
     List<Celebrity> getCelebritiesFromKeyword(String keyword);
     List<TV> getTVsFromKeyword(String keyword);
 }

@@ -9,7 +9,7 @@ import java.util.Calendar;
 import java.util.Set;
 
 @Entity
-@Table(name = "Movies",  uniqueConstraints = @UniqueConstraint(columnNames = "imdbId"))
+@Table(name = "Movies", uniqueConstraints = @UniqueConstraint(columnNames = "imdbId"))
 public class Movie extends Film {
 
     private Integer runtime;
@@ -40,6 +40,27 @@ public class Movie extends Film {
         return "Movie{" +
                 "runtime=" + runtime +
                 ", boxOffice=" + boxOffice +
+                ", imdbId='" + imdbId + '\'' +
+                ", title='" + title + '\'' +
+                ", year='" + year + '\'' +
+                ", rated=" + rated +
+                ", releaseDate=" + releaseDate +
+                ", genres=" + genres +
+                ", awards=" + awards +
+                ", photos=" + photos +
+                ", director=" + director +
+                ", casts=" + casts +
+                ", trailers=" + trailers +
+                ", reviews=" + reviews +
+                ", plot='" + plot + '\'' +
+                ", movieInfo='" + movieInfo + '\'' +
+                ", language='" + language + '\'' +
+                ", country='" + country + '\'' +
+                ", poster='" + poster + '\'' +
+                ", rating=" + rating +
+                ", numberOfRatings=" + numberOfRatings +
+                ", production='" + production + '\'' +
+                ", website=" + website +
                 '}';
     }
 }

@@ -2,6 +2,8 @@ package com.paridiso.cinema.persistence;
 
 import com.paridiso.cinema.entity.Film;
 import com.paridiso.cinema.entity.Movie;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import javax.swing.text.html.Option;
@@ -17,7 +19,10 @@ public interface MovieRepository extends JpaRepository<Movie, String> {
 
     List<Movie> findMoviesByTitle(String filmTitle);
 
-    List<Movie> findMoviesByTitleContains(String filmTitle);
+    List<Movie> findTop50MoviesByTitleContains(String filmTitle);
+
+    Page<Movie> findMoviesByTitleContains(String filmTitle, Pageable pageable);
+
 
 //    List<Movie> findMoviesBy
 

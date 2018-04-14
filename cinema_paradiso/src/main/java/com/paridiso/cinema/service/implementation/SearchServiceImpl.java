@@ -5,7 +5,11 @@ import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.entity.TV;
 import com.paridiso.cinema.persistence.MovieRepository;
 import com.paridiso.cinema.service.SearchService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -16,16 +20,14 @@ public class SearchServiceImpl implements SearchService {
     @Autowired
     MovieRepository movieRepository;
 
-    // @TODO: tokenize the keyword
+    private static Logger logger = LogManager.getLogger(SearchServiceImpl.class);
+
     @Override
-    public List<Movie> getMoviesFromKeyword(String keyword) {
-        // LinkedHashSet: no duplicates and allow ordering
-        Set<Movie> movieSet = new LinkedHashSet<>();
-//        movieSet.addAll(getExactMatch(keyword));
-        movieSet.addAll(getPhraseMatch(keyword));
-        List<Movie> movieList = new ArrayList<>(new LinkedHashSet<Movie>());
-        movieList.addAll(movieSet);
-        return movieList;
+    public Set<Movie> getMoviesFromKeyword(String keyword, Integer pageNo, Integer pageSize) {
+        Page<Movie> movies = movieRepository.findMoviesByTitleContains(keyword, new PageRequest(pageNo, pageSize));
+        Set<Movie> movieSet = new HashSet<>();
+        movieSet.addAll(movies.getContent());
+        return movieSet;
     }
 
     @Override
@@ -38,18 +40,5 @@ public class SearchServiceImpl implements SearchService {
         return null;
     }
 
-    private List<Movie> getExactMatch(String keyword) {
-        return movieRepository.findMoviesByTitle(keyword);
-    }
-
-    private List<Movie> getPhraseMatch(String keyword) {
-        return movieRepository.findMoviesByTitleContains(keyword);
-    }
-
-    private List<String> getBasicWords() {
-        List<String> wordsToBeFiltered = new ArrayList<>();
-        wordsToBeFiltered.addAll(Arrays.asList("a", "an", "of", "for", "the"));
-        return wordsToBeFiltered;
-    }
 
 }

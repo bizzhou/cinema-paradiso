@@ -16,48 +16,27 @@ import java.util.Set;
 @MappedSuperclass
 public class Film {
 
-
-    private String imdbId;
-
-    private String title;
-
-    private String year;
-
-    private Rated rated;
-
-    private Calendar releaseDate;
-
-    private Set<Genre> genres;
-
-    private Set<String> awards;
-
-    private Set<URI> photos;
-
-    private Celebrity director;
-
-    private List<Celebrity> casts;
-
-    private Set<Trailer> trailers;
-
-    private List<Review> reviews;
-
-    private String plot;
-
-    private String movieInfo;
-
-    private String language;
-
-    private String country;
-
-    private String poster;
-
-    private Double rating;
-
-    private Integer numberOfRatings;
-
-    private String production;
-
-    private URI website;
+    protected String imdbId;
+    protected String title;
+    protected String year;
+    protected Rated rated;
+    protected Calendar releaseDate;
+    protected Set<Genre> genres;
+    protected Set<String> awards;
+    protected Set<URI> photos;
+    protected Celebrity director;
+    protected List<Celebrity> casts;
+    protected Set<Trailer> trailers;
+    protected List<Review> reviews;
+    protected String plot;
+    protected String movieInfo;
+    protected String language;
+    protected String country;
+    protected String poster;
+    protected Double rating;
+    protected Integer numberOfRatings;
+    protected String production;
+    protected URI website;
 
     public Film() {
     }
