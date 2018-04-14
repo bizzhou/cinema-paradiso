@@ -42,7 +42,7 @@ public class MovieController {
 
     @RequestMapping(value = "/all", method = GET)
     public ResponseEntity<List> getAllMovies() {
-        return ResponseEntity.ok(filmService.getMovies());
+        return new ResponseEntity<>(filmService.getMovies(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{filmId}", method = GET)
@@ -53,9 +53,8 @@ public class MovieController {
 
     @RequestMapping(value = "/add", method = POST)
     public ResponseEntity<Boolean> addMovie(@RequestBody Movie movie) {
-        Movie optionalMovie = filmService.addMovie(movie).orElseThrow(() ->
-                new ResponseStatusException(BAD_REQUEST, exceptionConstants.getMovieExists()));
-        return ResponseEntity.ok(true);
+        filmService.addMovie(movie);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
@@ -65,15 +64,17 @@ public class MovieController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/update", method = POST)
+    public ResponseEntity<Boolean> updateMovie(@RequestBody Movie movie) {
+        Movie optionalMovie = filmService.updateMovie(movie);
+        return ResponseEntity.ok(true);
+    }
 
     @RequestMapping(value = "/{filmId}/{rating}", method = POST)
     public ResponseEntity<Boolean> rateMovie(@RequestHeader(value = "Authorization") String jwtToken,
                                              @PathVariable String filmId,
                                              @PathVariable Double rating) {
         return null;
-//        System.out.println(jwtToken);
-//        System.out.println(filmId);
-//        System.out.println(rating);
 //        // add to user
 //        boolean result = userService.rateMovie(jwtTokenService.getUserIdFromToken(jwtToken), filmId, rating);
 //        if (!result)
@@ -83,12 +84,6 @@ public class MovieController {
 //        filmService.rateFilm(filmId, rating);
 //
 //        return ResponseEntity.ok(true);
-    }
-
-    @RequestMapping(value = "/update", method = POST)
-    public ResponseEntity<Boolean> updateMovie(@RequestBody Movie movie) {
-        Movie optionalMovie = filmService.updateMovie(movie);
-        return ResponseEntity.ok(true);
     }
 
     @RequestMapping(value = "/{id}/update_poster", method = POST)
@@ -103,7 +98,7 @@ public class MovieController {
 
     @RequestMapping(value = "/carousel", method = GET)
     public ResponseEntity<List<Movie>> getCarousel() {
-        return ResponseEntity.ok(filmService.getCarouselMovies());
+        return new ResponseEntity<>(filmService.getCarouselMovies(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}/trailer", method = GET)
@@ -116,24 +111,27 @@ public class MovieController {
         return null;
     }
 
-    @RequestMapping(value = "/playing", method = GET)
-    public ResponseEntity<Set> getMoviesPlaying() {
-        return new ResponseEntity<>(filmService.getMoviesPlaying(), HttpStatus.OK);
+    @RequestMapping(value = "/comingSoon", method = GET)
+    public ResponseEntity<Set> getMoviesComingSoon() {
+        return new ResponseEntity<Set>(filmService.getMoviesComingSoon(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/top_boxoffice", method = GET)
-    public ResponseEntity<List> getTopBoxOffice() {
+    @RequestMapping(value = "/playing", method = GET)
+    public ResponseEntity<Set> getMoviesPlaying() { return new ResponseEntity<>(filmService.getMoviesPlaying(), HttpStatus.OK); }
+
+    @RequestMapping(value = "/topBoxOffice", method = GET)
+    public ResponseEntity<Set> getTopBoxOffice() {
         return null;
     }
 
 
     @RequestMapping(value = "/{id}/similar", method = GET)
-    public ResponseEntity<List> getSimilarMovies(@PathVariable Integer id) {
+    public ResponseEntity<Set> getSimilarMovies(@PathVariable Integer id) {
         return null;
     }
 
     @RequestMapping(value = "/range", method = GET)
-    public ResponseEntity<List> getMoviesInRange(@RequestParam Date startDate, @RequestParam Date endDate) {
+    public ResponseEntity<Set> getMoviesInRange(@RequestParam Date startDate, @RequestParam Date endDate) {
         return null;
     }
 

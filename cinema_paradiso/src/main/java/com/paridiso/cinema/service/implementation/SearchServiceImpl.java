@@ -38,11 +38,11 @@ public class SearchServiceImpl implements SearchService {
         return null;
     }
 
-    private List<Movie> getExactMatch(String keyword) {
+    private Set<Movie> getExactMatch(String keyword) {
         return movieRepository.findMoviesByTitle(keyword);
     }
 
-    private List<Movie> getPhraseMatch(String keyword) {
+    private Set<Movie> getPhraseMatch(String keyword) {
         return movieRepository.findMoviesByTitleContains(keyword);
     }
 

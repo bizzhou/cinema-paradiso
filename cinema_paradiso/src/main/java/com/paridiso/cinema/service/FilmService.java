@@ -4,6 +4,7 @@ import com.paridiso.cinema.entity.Film;
 import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.entity.Trailer;
 
+import javax.swing.text.html.Option;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -12,7 +13,7 @@ import java.util.Set;
 public interface FilmService {
 
 //    Film addFilm(Film film);
-    Optional<Movie> addMovie(Movie movie);
+    Movie addMovie(Movie movie);
 
     Movie getMovie(String filmId);
 
@@ -28,15 +29,17 @@ public interface FilmService {
 
     boolean updateTrailer(Long filmId, Integer trailerId);
 
-    List<Film> getFilmInRage(Date startDate, Date endDate);
+    Set<Film> getFilmInRage(Date startDate, Date endDate);
 
-    List<Film> getSimilarFilm(Long filmId);
+    Set<Film> getSimilarFilm(Long filmId);
 
     List<Film> getTrending();
 
+    Set<Movie> getMoviesComingSoon();
+
     Set<Movie> getMoviesPlaying();
 
-    List<Film> getTopRating();
+    Set<Film> getTopRating();
 
     Movie updateMovie(Movie movie);
 }

@@ -42,10 +42,10 @@ public class MovieServiceImpl implements FilmService {
 
     @Transactional
     @Override
-    public Optional<Movie> addMovie(Movie movie) {
+    public Movie addMovie(Movie movie) {
 //        if (movieRepository.findMovieByImdbId(movie.getImdbId()) != null)
 //            throw new ResponseStatusException(BAD_REQUEST, exceptionConstants.getMovieExists());
-        return Optional.of(movieRepository.save(movie));
+        return movieRepository.save(movie);
     }
 
     @Transactional
@@ -112,21 +112,6 @@ public class MovieServiceImpl implements FilmService {
         return false;
     }
 
-    @Override
-    public List<Film> getFilmInRage(Date startDate, Date endDate) {
-        return null;
-    }
-
-    @Override
-    public List<Film> getSimilarFilm(Long filmId) {
-        return null;
-    }
-
-    @Override
-    public List<Film> getTrending() {
-        return null;
-    }
-
     /**
      * Get movies playing now
      * Find movies' release dates in between current date and one week before
@@ -135,24 +120,44 @@ public class MovieServiceImpl implements FilmService {
     @Transactional
     @Override
     public Set<Movie> getMoviesPlaying() {
-        // get the week before now
-        Calendar oneWeekBefore = movieUtility.getTheWeekBefore();
+        // get 7 days before
+        Calendar oneWeekBefore = movieUtility.getOneWeekBefore();
         Calendar now = movieUtility.getNow();
 
         // get movies by release date
-        Set<Movie> moviesPlaying;
-        moviesPlaying = movieRepository.findMoviesByReleaseDateBetween(oneWeekBefore, now);
+        return movieRepository.findMoviesByReleaseDateBetween(oneWeekBefore, now);
+    }
 
-        return moviesPlaying;
+    @Transactional
+    @Override
+    public Set<Movie> getMoviesComingSoon() {
+        // get one week from now
+        Calendar oneWeekAfter = movieUtility.getOneWeekAfter();
+        Calendar now = movieUtility.getNow();
+
+        // get movies by release date
+        return movieRepository.findMoviesByReleaseDateBetween(now, oneWeekAfter);
     }
 
     @Override
-    public List<Film> getTopRating() {
+    public Set<Film> getFilmInRage(Date startDate, Date endDate) {
         return null;
     }
 
-    public List<Movie> getTopBoxOffice() {
+    @Override
+    public Set<Film> getSimilarFilm(Long filmId) {
         return null;
     }
+
+    @Override
+    public List<Film> getTrending() {
+        return null;
+    }
+
+    @Override
+    public Set<Film> getTopRating() {
+        return null;
+    }
+
 
 }
