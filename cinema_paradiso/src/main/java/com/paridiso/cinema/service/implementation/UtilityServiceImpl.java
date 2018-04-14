@@ -2,6 +2,8 @@ package com.paridiso.cinema.service.implementation;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.paridiso.cinema.constants.AlgorithmConstants;
+import com.paridiso.cinema.constants.ExceptionConstants;
 import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.entity.User;
 import com.paridiso.cinema.security.JwtTokenGenerator;
@@ -11,23 +13,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
+import java.security.AlgorithmConstraints;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static java.nio.charset.StandardCharsets.*;
 
 @Service
 public class UtilityServiceImpl implements UtilityService {
 
+    @Autowired
+    private AlgorithmConstants algorithmConstants;
+
+    @Autowired
+    private ExceptionConstants exceptionConstants;
+
     @Override
     public String getHashedPassword(String passwordToHash, String salt) {
         String hashedPassword = null;
         try {
-            MessageDigest messageDigest = MessageDigest.getInstance("SHA-512");
+            MessageDigest messageDigest = MessageDigest.getInstance(algorithmConstants.getShaHashing());
             messageDigest.update(salt.getBytes(UTF_8));
             byte[] bytes = messageDigest.digest(passwordToHash.getBytes(UTF_8));
             StringBuilder stringBuilder = new StringBuilder();
@@ -37,7 +43,7 @@ public class UtilityServiceImpl implements UtilityService {
             hashedPassword = stringBuilder.toString();
 
         } catch (NoSuchAlgorithmException e) {
-            System.out.println("PASSWORD HASHING ALGORITHM DOESN'T EXIST");
+            System.out.println(exceptionConstants.getPasswordHashingFailure());
         }
         return hashedPassword;
     }
@@ -46,6 +52,22 @@ public class UtilityServiceImpl implements UtilityService {
     public List<String> tokenizedString(String string) {
         return Arrays.asList(string.split(" "));
     }
+
+    @Override
+    public Calendar getTheWeekBefore() {
+        Calendar now = Calendar.getInstance();
+        int yearNow = now.get(Calendar.YEAR);
+        int monthNow = now.get(Calendar.MONTH) + 1;            // zero based
+        int dayNow = now.get(Calendar.DAY_OF_MONTH);
+
+        Calendar weekBeforeNow = new GregorianCalendar(yearNow, monthNow, dayNow - 7);
+
+        return weekBeforeNow;
+    }
+
+    @Override
+    public Calendar getNow() { return Calendar.getInstance(); }
+
 
     @Override
     public boolean containsMovie(List<Movie> movies, String filmImdbId) {

@@ -15,6 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
@@ -116,7 +117,7 @@ public class MovieController {
     }
 
     @RequestMapping(value = "/playing", method = GET)
-    public ResponseEntity<List> getMoviesPlaying() {
+    public ResponseEntity<Set> getMoviesPlaying() {
         return new ResponseEntity<>(filmService.getMoviesPlaying(), HttpStatus.OK);
     }
 

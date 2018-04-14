@@ -4,6 +4,7 @@ import com.paridiso.cinema.entity.Movie;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public interface UtilityService {
@@ -13,5 +14,9 @@ public interface UtilityService {
     boolean containsMovie(List<Movie> movies, String filmImdbId);
 
     List<String> tokenizedString(String string);
+
+    Calendar getTheWeekBefore();
+
+    Calendar getNow();
 
 }

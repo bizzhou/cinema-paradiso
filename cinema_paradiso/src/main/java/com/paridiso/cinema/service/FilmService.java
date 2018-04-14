@@ -7,6 +7,7 @@ import com.paridiso.cinema.entity.Trailer;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 public interface FilmService {
 
@@ -33,7 +34,7 @@ public interface FilmService {
 
     List<Film> getTrending();
 
-    List<Movie> getMoviesPlaying();
+    Set<Movie> getMoviesPlaying();
 
     List<Film> getTopRating();
 

@@ -39,6 +39,8 @@ jwt:
     header: Authorization
 
 application:
+  algorithm:
+    shaHashing: "SHA-512"
   exception:
     userNotFound: "CANNOT FOUND USER"
     profileNotFound: "CANNOT FOUND PROFILE "
@@ -50,9 +52,11 @@ application:
     reviewNotFound: "REVIEW NOT FOUND"
     celebritySaveFail: "CANNOT ADD CELEBRITY"
     celebrityNotFound: "CANNOT FOUND CELEBRITY"
+    passwordHashingFailure: "PASSWORD HASHING ALGORITHM DOESN'T EXIST"
   limitation:
     wishListSize: 999
     watchListSize: 999
+
 
 
 
