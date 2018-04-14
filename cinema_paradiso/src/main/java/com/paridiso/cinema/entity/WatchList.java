@@ -13,6 +13,8 @@ public class WatchList extends LinkedList {
 
     private List<Movie> movies;
 
+    private Integer wishListSize;
+
     public WatchList() { }
 
     @Id
@@ -31,6 +33,8 @@ public class WatchList extends LinkedList {
         return movies;
     }
 
+    public Integer getWishListSize() { return wishListSize; }
+
     public void setWatchListId(Integer watchListId) {
         this.watchListId = watchListId;
     }
@@ -38,5 +42,7 @@ public class WatchList extends LinkedList {
     public void setMovies(List<Movie> movies) {
         this.movies = movies;
     }
+
+    public void setWishListSize(Integer wishListSize) { this.wishListSize = wishListSize; }
 
 }

@@ -1,10 +1,12 @@
 package com.paridiso.cinema.service.implementation;
 
 import com.paridiso.cinema.constants.ExceptionConstants;
+import com.paridiso.cinema.constants.LimitationConstants;
 import com.paridiso.cinema.entity.Film;
 import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.entity.Trailer;
 import com.paridiso.cinema.persistence.MovieRepository;
+import com.paridiso.cinema.utility.MovieUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import com.paridiso.cinema.service.FilmService;
@@ -29,41 +31,34 @@ public class MovieServiceImpl implements FilmService {
     @Autowired
     ExceptionConstants exceptionConstants;
 
+    @Autowired
+    LimitationConstants limitationConstants;
+
+    @Autowired
+    UtilityService utilityService;
+
+    @Autowired
+    MovieUtility movieUtility;
+
+    @Transactional
     @Override
-    public Optional<Movie> addMovie(Movie movie) {
-//        if (movieRepository.findMovieByImdbId(movie.getImdbId()) !== null) {
-//
-//        }
+    public Movie addMovie(Movie movie) {
 //        if (movieRepository.findMovieByImdbId(movie.getImdbId()) != null)
 //            throw new ResponseStatusException(BAD_REQUEST, exceptionConstants.getMovieExists());
-        return Optional.of(movieRepository.save(movie));
+        return movieRepository.save(movie);
     }
 
     @Transactional
     @Override
-    public Film getFilm(String filmId) {
+    public Movie getMovie(String filmId) {
         return movieRepository
                 .findMovieByImdbId(filmId)
-                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieDoesNotExist()));
+                .orElseThrow(() -> new ResponseStatusException(BAD_REQUEST, exceptionConstants.getMovieDoesNotExist()));
     }
 
     @Transactional
     @Override
-    public List<Movie> getMovies() {
-        return movieRepository.findAll();
-
-    }
-
-    // TODO: movies
-    @Override
-    public List<Movie> getCarouselMovies() {
-        List<Movie> movieList = new ArrayList<>();
-        Movie movie1 = (Movie) this.getFilm("tt2380307");
-        Movie movie2 = (Movie) this.getFilm("tt5052448");
-        Movie movie3 = (Movie) this.getFilm("tt1856101");
-        movieList.addAll(Arrays.asList(movie1, movie2, movie3));
-        return movieList;
-    }
+    public List<Movie> getMovies() { return movieRepository.findAll(); }
 
     @Transactional
     @Override
@@ -75,11 +70,17 @@ public class MovieServiceImpl implements FilmService {
 
     @Transactional
     @Override
+    public Movie updateMovie(Movie movie) {
+        movieRepository.findMovieByImdbId(movie.getImdbId())
+                .orElseThrow(() -> new ResponseStatusException(BAD_REQUEST, exceptionConstants.getMovieDoesNotExist()));
+        return movieRepository.save(movie);
+    }
+
+    @Transactional
+    @Override
     public void rateFilm(String filmId, Double rating) {
         // add the rating to total rating, then get average
-        System.out.println(filmId);
-        System.out.println(rating);
-        Movie movie = (Movie) this.getFilm(filmId);
+        Movie movie = (Movie) this.getMovie(filmId);
         if (movie.getNumberOfRatings() == null) {
             movie.setNumberOfRatings(1);
         } else {
@@ -88,6 +89,15 @@ public class MovieServiceImpl implements FilmService {
         Double newRatings = (movie.getRating() + rating) / movie.getNumberOfRatings();
         movie.setRating(newRatings);
         movieRepository.save(movie);
+    }
+
+    @Override
+    public List<Movie> getCarouselMovies(List<String> filmIds) {
+        List<Movie> carouselMovies = new ArrayList<>();
+        Movie movie1 = (Movie) this.getMovie("tt2380307");
+        Movie movie2 = (Movie) this.getMovie("tt5052448");
+        Movie movie3 = (Movie) this.getMovie("tt1856101");
+        return carouselMovies;
     }
 
     @Override
@@ -100,51 +110,79 @@ public class MovieServiceImpl implements FilmService {
         return false;
     }
 
-    @Override
-    public List<Film> getFilmInRage(Date startDate, Date endDate) {
-        return null;
-    }
-
-    @Override
-    public List<Film> getSimilarFilm(Long filmId) {
-        return null;
-    }
-
-    @Override
-    public List<Film> getTrending() {
-        return null;
-    }
-
-    // TODO: find proper movies
+    /**
+     * Get movies playing now
+     * Find movies' release dates in between current date and two weeks before
+     * @return a list of qualified movies
+     */
     @Transactional
     @Override
-    public List<Movie> getMoviesPlaying() {
-        List<Movie> movieList = new ArrayList<>();
-        Movie movie1 = (Movie) this.getFilm("tt1856101");
-        Movie movie2 = (Movie) this.getFilm("tt2380307");
-        Movie movie3 = (Movie) this.getFilm("tt5726616");
-        Movie movie4 = (Movie) this.getFilm("tt4925292");
-        Movie movie5 = (Movie) this.getFilm("tt5052448");
-        Movie movie6 = (Movie) this.getFilm("tt5723272");
-        movieList.addAll(Arrays.asList(movie1, movie2, movie3, movie4, movie5, movie6));
-        return movieList;
+    public Set<Movie> getMoviesPlaying() {
+        // get 14 days before
+        Calendar twoWeeksBefore = movieUtility.getDaysBeforeNow(limitationConstants.getThreeWeeksRange());
+        Calendar now = movieUtility.getNow();
+
+        // get movies by release date
+        return movieRepository.findMoviesByReleaseDateBetween(twoWeeksBefore, now);
     }
 
-    @Override
-    public List<Film> getTopRating() {
-        return null;
-    }
-
+    /**
+     * Get movies coming soon
+     * Find movies' release date within the following 2 weeks
+     * @return a list of qualified movies
+     */
     @Transactional
     @Override
-    public Movie updateMovie(Movie movie) {
-        movieRepository.findMovieByImdbId(movie.getImdbId())
-                .orElseThrow(() -> new ResponseStatusException(BAD_REQUEST, exceptionConstants.getMovieDoesNotExist()));
-        return movieRepository.save(movie);
+    public Set<Movie> getMoviesComingSoon() {
+        // get one week from now
+        Calendar daysAfter = movieUtility.getDaysAfterNow(limitationConstants.getThreeWeeksRange());
+        Calendar now = movieUtility.getNow();
+
+        // get movies by release date
+        return movieRepository.findMoviesByReleaseDateBetween(now, daysAfter);
     }
 
-    public List<Movie> getTopBoxOffice() {
+    /**
+     * Get movies trending
+     * Find movies' release date within two weeks && movies rated above 4.5
+     * @return a list of qualified movies
+     */
+    @Override
+    public Set<Movie> getMoviesTrending() {
+        // get the date one week before
+        Calendar daysBeforeNow = movieUtility.getDaysBeforeNow(limitationConstants.getThreeWeeksRange());
+        Calendar now = movieUtility.getNow();
+
+        // get movies with ratings >= 4.0 and released within one week
+        Set<Movie> moviesTrending;
+        moviesTrending = movieRepository.findMoviesByRatingBetweenAndReleaseDateBetween(
+                        limitationConstants.getTrendingRating(), limitationConstants.getRatingLimit(),
+                        daysBeforeNow, now);
+
+        // if the number of movies returned above < 6, then find movies rated > 2.5
+        if (moviesTrending.size() < limitationConstants.getLeastReturns()) {
+            moviesTrending.addAll(movieRepository.findMoviesByRatingBetweenAndReleaseDateBetween(
+                    limitationConstants.getAcceptableTrendingRating(), limitationConstants.getRatingLimit(),
+                    daysBeforeNow, now));
+        }
+
+        return moviesTrending;
+    }
+
+    @Override
+    public Set<Film> getFilmInRage(Calendar startDate, Calendar endDate) {
         return null;
     }
+
+    @Override
+    public Set<Film> getSimilarFilm(Long filmId) {
+        return null;
+    }
+
+    @Override
+    public Set<Film> getTopRating() {
+        return null;
+    }
+
 
 }

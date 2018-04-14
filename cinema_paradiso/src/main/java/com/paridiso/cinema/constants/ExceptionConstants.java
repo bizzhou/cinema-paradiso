@@ -17,6 +17,7 @@ public class ExceptionConstants {
     private String movieDoesNotExist;
     private String celebritySaveFail;
     private String celebrityNotFound;
+    private String passwordHashingFailure;
 
     public String getCelebrityNotFound() {
         return celebrityNotFound;
@@ -96,5 +97,13 @@ public class ExceptionConstants {
 
     public void setReviewNotFound(String reviewNotFound) {
         this.reviewNotFound = reviewNotFound;
+    }
+
+    public String getPasswordHashingFailure() {
+        return passwordHashingFailure;
+    }
+
+    public void setPasswordHashingFailure(String passwordHashingFailure) {
+        this.passwordHashingFailure = passwordHashingFailure;
     }
 }

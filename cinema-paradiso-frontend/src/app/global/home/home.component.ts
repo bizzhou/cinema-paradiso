@@ -19,11 +19,10 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 })
 export class HomeComponent implements OnInit {
 
-  currentRate = 3.14;
-
-  // TODO:should create Slide[]
   carousel: Movie[];
   moviesPlaying: Movie[];
+  moviesTrending: Movie[];
+  moviesComingSoon: Movie[];
   selectedMovieId: string;
 
   isMovieExistInWishList: boolean;              // button changes accordingly
@@ -44,6 +43,12 @@ export class HomeComponent implements OnInit {
     // load movies playing
     this.getMoviesPlaying();
 
+    // load movies trending
+    this.getMoviesTrending();
+
+    // load movies coming soon
+    this.getMoviesComingSoon();
+
     // this.checkMoviesInWishList(this.carousel);
 
     if (this.loginStatusService.getTokenDetails() !== null) {
@@ -58,13 +63,6 @@ export class HomeComponent implements OnInit {
         data => {
           // assign movies to carousel
           this.carousel = data as Movie[];
-          // this.carousel.forEach(function(part, index, theArray) {
-          //     if (this.isMovieInWishList(part.imdbId)) {
-          //       part.isInWishlist = true;
-          //     } else {
-          //       part.isInWishlist = false;
-          //     }
-          // }.bind(this));
           console.log(this.carousel);
         },
         error => console.log('Failed to fetch carousel data')
@@ -82,8 +80,36 @@ export class HomeComponent implements OnInit {
       );
   }
 
+  getMoviesTrending(): any {
+    this.movieService.getMoviesTrending()
+      .subscribe(
+        data => {
+          this.moviesTrending = data as Movie[];
+          console.log(this.moviesTrending);
+        },
+        error => console.log('Failed to fetch movies trending')
+      );
+  }
+
+  getMoviesComingSoon(): any {
+    this.movieService.getMoviesComingSoon()
+      .subscribe(
+        data => {
+          this.moviesComingSoon = data as Movie[];
+          console.log(this.moviesComingSoon);
+        },
+        error => console.log('Failed to fetch movies coming soon')
+      );
+  }
+
   addToWishList(imdbId: string) {
-    this.movieService.addToWishList(imdbId);
+    this.movieService.addToWishList(imdbId)
+      .subscribe(
+        data => {
+          console.log(data);
+        },
+        error => console.log('Failed to add to wish list')
+      );
   }
 
   removeFromWishList(imdbId: string) {

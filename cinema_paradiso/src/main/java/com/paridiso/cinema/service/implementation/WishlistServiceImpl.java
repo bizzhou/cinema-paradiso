@@ -1,6 +1,7 @@
 package com.paridiso.cinema.service.implementation;
 
 import com.paridiso.cinema.constants.ExceptionConstants;
+import com.paridiso.cinema.constants.LimitationConstants;
 import com.paridiso.cinema.entity.*;
 import com.paridiso.cinema.persistence.MovieRepository;
 import com.paridiso.cinema.persistence.UserProfileRepository;
@@ -9,6 +10,7 @@ import com.paridiso.cinema.persistence.WishListRepository;
 import com.paridiso.cinema.service.ListService;
 import com.paridiso.cinema.service.UtilityService;
 import com.paridiso.cinema.service.WishlistService;
+import com.paridiso.cinema.utility.MovieUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -39,7 +41,13 @@ public class WishlistServiceImpl implements ListService, WishlistService {
     UtilityService utilityService;
 
     @Autowired
+    MovieUtility movieUtility;
+
+    @Autowired
     ExceptionConstants exceptionConstants;
+
+    @Autowired
+    LimitationConstants limitationConstants;
 
     @Override
     public Integer getSize() {
@@ -57,7 +65,7 @@ public class WishlistServiceImpl implements ListService, WishlistService {
         List<Movie> movies = user.getUserProfile().getWishList().getMovies();
 
         System.out.println("wish list id: " + user.getUserProfile().getWishList().getWishlistId());
-        if (utilityService.containsMovie(movies, filmImdbId) || movies.size() >= 999)
+        if (movieUtility.containsMovie(movies, filmImdbId) || movies.size() >= limitationConstants.getWishListSize())
             return false;
         // add to list
         movies.add(movie);
@@ -107,7 +115,7 @@ public class WishlistServiceImpl implements ListService, WishlistService {
 
         // check movie existence and size limit
         List<Movie> movies = user.getUserProfile().getWishList().getMovies();
-        return utilityService.containsMovie(movies, filmId);
+        return movieUtility.containsMovie(movies, filmId);
     }
 
 

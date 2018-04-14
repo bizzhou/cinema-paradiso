@@ -16,4 +16,5 @@ export class MovieDetailService {
   rateMovie(hovered: number, imdbId: string) {
     return this.http.post(MOVIE_SERVER + imdbId + '/' + hovered, null);
   }
+
 }
