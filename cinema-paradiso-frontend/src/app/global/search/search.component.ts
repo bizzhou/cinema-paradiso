@@ -46,9 +46,7 @@ export class SearchComponent implements OnInit {
 
   moviesResults: Movie[];
 
-
   ngOnInit() {
-
     this.searchService.currentResult.subscribe(results => {
       this.moviesResults = results as Movie[];
     });

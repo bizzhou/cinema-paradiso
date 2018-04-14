@@ -120,7 +120,7 @@ for line in data:
     movie_json['language'] = json_data['Language']
     movie_json['country'] = json_data['Country']
     movie_json['poster'] = json_data['Poster']
-    movie_json['rating'] = json_data['imdbRating']
+    movie_json['rating'] = round(float(json_data['imdbRating'])/2 , 1)
     movie_json['production'] = json_data['Production']
     movie_json['website'] = json_data['Website']
     movie_json['boxOffice'] = json_data['BoxOffice']
