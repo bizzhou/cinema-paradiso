@@ -17,11 +17,7 @@ public interface MovieRepository extends JpaRepository<Movie, String> {
 
     Set<Movie> findMoviesByReleaseDateBetween(Calendar startDate, Calendar currentDate);
 
-//    Set<Movie> findMoviesByRatingGreaterThanEqualAndReleaseDateBetween(Double rating, Calendar startDate, Calendar endDate);
-
     Set<Movie> findMoviesByRatingBetweenAndReleaseDateBetween(Double startRating, Double endRating, Calendar startDate, Calendar endDate);
-
-    Set<Movie> findMoviesByReleaseDateBefore(Calendar date);
 
     Movie findMovieByTitle(String filmTitle);
 

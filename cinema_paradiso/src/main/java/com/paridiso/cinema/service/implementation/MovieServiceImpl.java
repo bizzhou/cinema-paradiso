@@ -91,15 +91,17 @@ public class MovieServiceImpl implements FilmService {
         movieRepository.save(movie);
     }
 
-    // TODO: movies
     @Override
-    public List<Movie> getCarouselMovies() {
-        List<Movie> movieList = new ArrayList<>();
-        Movie movie1 = (Movie) this.getMovie("tt2380307");
-        Movie movie2 = (Movie) this.getMovie("tt5052448");
-        Movie movie3 = (Movie) this.getMovie("tt1856101");
-        movieList.addAll(Arrays.asList(movie1, movie2, movie3));
-        return movieList;
+    public List<Movie> getCarouselMovies(List<String> filmIds) {
+
+        List<Movie> carouselMovies = new ArrayList<>();
+        for (String filmId: filmIds) {
+            carouselMovies.add(this.getMovie(filmId));
+        }
+//        Movie movie1 = (Movie) this.getMovie("tt2380307");
+//        Movie movie2 = (Movie) this.getMovie("tt5052448");
+//        Movie movie3 = (Movie) this.getMovie("tt1856101");
+        return carouselMovies;
     }
 
     @Override
@@ -164,7 +166,7 @@ public class MovieServiceImpl implements FilmService {
         // if the number of movies returned above < 6, then find movies rated > 4.0
         if (moviesTrending.size() < limitationConstants.getLeastReturns()) {
             moviesTrending.addAll(movieRepository.findMoviesByRatingBetweenAndReleaseDateBetween(
-                    limitationConstants.getRatingLimit(), limitationConstants.getAcceptableTrendingRating(),
+                    limitationConstants.getAcceptableTrendingRating(), limitationConstants.getRatingLimit(),
                     oneWeeokBefore, now));
         }
 
