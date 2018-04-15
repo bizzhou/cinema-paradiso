@@ -10,15 +10,22 @@ import requests
 celeb = json.load(open('./recent_movies/recent_celeb.json'))
 data = open('./recent_movies/recent_data.txt')
 link = open('./recent_movies/recent_movie_celeb_id_link.json')
+images = json.load(open('./recent_movies/recent_images.json'))
+
+
+    
 
 celeb_dict = {}
 data_dict = {}
 link_dict = {}
+image_dict = {}
 
 # put celec into memory
 for line in celeb:
     celeb_dict[line['id']] = line
 # print(len(celeb_dict))
+for image in images:
+    image_dict[image['id']] = image['images']
 
 for line in link:
     json_data = json.loads(line)
@@ -133,6 +140,7 @@ for line in data:
     movie_json['numberOfRatings'] = random.randrange(30)
     movie_json['casts'] = actors_list
     movie_json['director'] = new_director
+    movie_json['photos'] = image_dict[json_data['imdbID']]
 
     if movie_json['rating'] == 'N/A' or movie_json['releaseDate'] == 'N/A' or movie_json['runTime'] == '':
         continue
