@@ -54,6 +54,7 @@ application:
     celebrityNotFound: "CANNOT FOUND CELEBRITY"
     passwordHashingFailure: "PASSWORD HASHING ALGORITHM DOESN'T EXIST"
     carouselNotFound: "CANNOT FIND CAROUSEL"
+    slideNotFound: "CANNOT FIND SLIDE
   limitation:
     wishListSize: 999
     watchListSize: 999
