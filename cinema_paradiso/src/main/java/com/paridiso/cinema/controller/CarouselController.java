@@ -1,7 +1,5 @@
 package com.paridiso.cinema.controller;
 
-import com.paridiso.cinema.entity.Carousel;
-import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.entity.Slide;
 import com.paridiso.cinema.service.CarouselService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +20,7 @@ public class CarouselController {
     CarouselService carouselService;
 
     @RequestMapping(value = "/get", method = GET)
-    public ResponseEntity<Carousel> getCarousel() {
+    public ResponseEntity<List<Slide>> getCarousel() {
         return new ResponseEntity<>(carouselService.getCarousel(), HttpStatus.OK);
     }
 
@@ -30,7 +28,7 @@ public class CarouselController {
     public ResponseEntity<Slide> setCarousel(@RequestBody Slide slide) {
         return new ResponseEntity<>(carouselService.addSlide(slide), HttpStatus.OK);
     }
-    
+
     @RequestMapping(value = "/updateSlide", method = POST)
     public ResponseEntity<Slide> updateSlide(@RequestBody Slide slide) {
         return new ResponseEntity<Slide>(carouselService.updateSlide(slide), HttpStatus.OK);

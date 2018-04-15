@@ -4,13 +4,13 @@ import {LoginStatusService} from '../login/login.status.service';
 import {HomeService} from './home.service';
 import {Movie} from '../models/movie.model';
 import {Celebrity} from '../models/celebrity.model';
-import {Carousel} from '../models/carousel.model';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
 import {CarouselSlide} from '../models/carouselSlide.model';
 import {MovieService} from '../movie/movie.service';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {Slide} from '../models/slide.model';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +19,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 })
 export class HomeComponent implements OnInit {
 
-  carousel: Movie[];
+  carousel: Slide[];
   moviesPlaying: Movie[];
   moviesTrending: Movie[];
   moviesComingSoon: Movie[];
@@ -60,7 +60,7 @@ export class HomeComponent implements OnInit {
       .subscribe(
         data => {
           // assign movies to carousel
-          this.carousel = data as Movie[];
+          this.carousel = data as Slide[];
           console.log(this.carousel);
         },
         error => console.log('Failed to fetch carousel data')
