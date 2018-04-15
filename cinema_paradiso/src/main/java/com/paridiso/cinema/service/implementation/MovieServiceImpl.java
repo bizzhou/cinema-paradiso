@@ -138,9 +138,10 @@ public class MovieServiceImpl implements FilmService {
      * Find movies' release date within two weeks && movies rated above 4.5
      * @return a list of qualified movies
      */
+    @Transactional
     @Override
     public Set<Movie> getMoviesTrending() {
-        // get the date 3 week before
+        // get date 3 week before and now
         Calendar daysBeforeNow = movieUtility.getDaysBeforeNow(limitationConstants.getThreeWeeksRange());
         Calendar now = movieUtility.getNow();
 
@@ -158,6 +159,16 @@ public class MovieServiceImpl implements FilmService {
         }
 
         return moviesTrending;
+    }
+
+    @Transactional
+    @Override
+    public Set<Movie> getMoviesTopBoxOffice() {
+        // get dates 3 week before and now
+        Calendar daysBeforeNow = movieUtility.getDaysBeforeNow(limitationConstants.getThreeWeeksRange());
+        Calendar now = movieUtility.getNow();
+
+       return movieRepository.findTop6ByReleaseDateBetweenOrderByBoxOfficeDesc(daysBeforeNow, now);
     }
 
     @Override

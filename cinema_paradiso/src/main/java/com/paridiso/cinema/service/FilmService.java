@@ -34,6 +34,8 @@ public interface FilmService {
 
     Set<Movie> getMoviesPlaying();
 
+    Set<Movie> getMoviesTopBoxOffice();
+
     Set<Film> getTopRating();
 
     Movie updateMovie(Movie movie);

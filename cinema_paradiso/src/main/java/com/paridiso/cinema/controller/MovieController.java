@@ -117,7 +117,7 @@ public class MovieController {
 
     @RequestMapping(value = "/topBoxOffice", method = GET)
     public ResponseEntity<Set> getTopBoxOffice() {
-        return null;
+        return new ResponseEntity<Set>(filmService.getMoviesTopBoxOffice(), HttpStatus.OK);
     }
 
 
