@@ -17,6 +17,7 @@ public interface MovieRepository extends JpaRepository<Movie, String> {
 
     Optional<Movie> findMovieByImdbId(String filmImdbId);
 
+
     Set<Movie> findMoviesByReleaseDateBetween(Calendar startDate, Calendar currentDate);
 
     Set<Movie> findMoviesByRatingBetweenAndReleaseDateBetween(Double startRating, Double endRating, Calendar startDate, Calendar endDate);
