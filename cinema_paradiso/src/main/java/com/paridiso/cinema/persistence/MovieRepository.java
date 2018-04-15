@@ -30,7 +30,7 @@ public interface MovieRepository extends JpaRepository<Movie, String> {
 
     Set<Movie> findMoviesByTitleContains(String filmTitle);
 
-    Set<Movie> findTop6ByReleaseDateBetweenOrderByBoxOfficeDesc(Calendar startDate, Calendar endDate );
+    List<Movie> findTop6ByReleaseDateBetweenOrderByBoxOfficeDesc(Calendar startDate, Calendar endDate );
 
 
 }

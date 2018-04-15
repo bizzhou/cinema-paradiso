@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
   moviesPlaying: Movie[];
   moviesTrending: Movie[];
   moviesComingSoon: Movie[];
+  moviesTopBoxOffice: Movie[];
   selectedMovieId: string;
 
   isMovieExistInWishList: boolean;              // button changes accordingly
@@ -48,6 +49,9 @@ export class HomeComponent implements OnInit {
 
     // load movies coming soon
     this.getMoviesComingSoon();
+
+    // load top box office
+    this.getTopBoxOffice();
 
     if (this.loginStatusService.getTokenDetails() !== null) {
       this.loginStatusService.changeStatus(true);
@@ -97,6 +101,17 @@ export class HomeComponent implements OnInit {
           console.log(this.moviesComingSoon);
         },
         error => console.log('Failed to fetch movies coming soon')
+      );
+  }
+
+  getTopBoxOffice(): any {
+    this.movieService.getTopBoxOffice()
+      .subscribe(
+        data => {
+          this.moviesTopBoxOffice = data as Movie[];
+          console.log(this.moviesTopBoxOffice);
+        },
+        error => console.log('Failed to fetch top box office')
       );
   }
 

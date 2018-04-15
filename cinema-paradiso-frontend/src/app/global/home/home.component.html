@@ -132,27 +132,7 @@
     </section>
     <!-- end movies trending -->
 
-    <!--<section class="l-cards">-->
-      <!--<div class="l-cards__title-wrap">-->
-        <!--<h2 class="l-cards__title">TV Trending Now</h2>-->
-        <!--<a class="l-cards__nav-left" href="#"><i class="fa fa-angle-right"></i></a><a class="l-cards__nav-right" href="#"><i class="fa fa-angle-left"></i></a>-->
-      <!--</div>-->
-      <!--<ul class="l-cards__list">-->
-
-        <!--<li class="l-cards__item" *ngFor="let movie of moviesPlaying">-->
-          <!--<a routerLink="/movie/{{movie.imdbId}}" (click)="setImdbId(carouselSlide.imdbId)" routerLinkActive="active" class="l-cards__image fill">-->
-            <!--<img [src]="movie.poster" [alt]="movie.title">-->
-          <!--</a>-->
-          <!--<a routerLink="/movie/{{movie.imdbId}}" (click)="setImdbId(carouselSlide.imdbId)" routerLinkActive="active"  class="l-cards__text">-->
-            <!--{{movie.title}}-->
-            <!--<p>{{movie.rating}}/5.0</p>-->
-          <!--</a>-->
-        <!--</li>-->
-
-      <!--</ul>-->
-    <!--</section>-->
-    <!-- end -->
-
+    <!-- top box office -->
     <section class="l-cards">
       <div class="l-cards__title-wrap">
         <h2 class="l-cards__title">Top Box Office</h2>
@@ -160,11 +140,11 @@
       </div>
       <ul class="l-cards__list">
 
-        <li class="l-cards__item" *ngFor="let movie of moviesPlaying | slice:0:6">
-          <a routerLink="/movie/{{movie.imdbId}}" (click)="setImdbId(carouselSlide.imdbId)" routerLinkActive="active" class="l-cards__image fill">
+        <li class="l-cards__item" *ngFor="let movie of moviesTopBoxOffice | slice:0:6">
+          <a routerLink="/movie/{{movie.imdbId}}" routerLinkActive="active" class="l-cards__image fill">
             <img [src]="movie.poster" [alt]="movie.title">
           </a>
-          <a routerLink="/movie/{{movie.imdbId}}" (click)="setImdbId(carouselSlide.imdbId)" routerLinkActive="active"  class="l-cards__text">
+          <a routerLink="/movie/{{movie.imdbId}}" routerLinkActive="active"  class="l-cards__text">
             {{movie.title}}
             <p>{{movie.rating}}/5.0</p>
           </a>
@@ -172,6 +152,7 @@
 
       </ul>
     </section>
+    <!-- end top box office-->
 
 
     <section class="l-cards">

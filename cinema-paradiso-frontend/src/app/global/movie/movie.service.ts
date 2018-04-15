@@ -33,6 +33,10 @@ export class MovieService {
     return this.http.get(MOVIE_SERVER + 'comingSoon');
   }
 
+  getTopBoxOffice() {
+    return this.http.get(MOVIE_SERVER + 'topBoxOffice');
+  }
+
   getMovie(imdbId: string): any {
     return this.http.get(MOVIE_SERVER + imdbId);
   }
