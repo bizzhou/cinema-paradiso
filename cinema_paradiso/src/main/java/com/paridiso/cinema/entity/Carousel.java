@@ -10,7 +10,7 @@ public class Carousel {
 
     private Integer id;
 
-    private List<Movie> carouselMovies;
+    private List<Slide> carouselSlides;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,20 +20,20 @@ public class Carousel {
 
     @OneToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinTable(
-            name = "CarouselMovies",
+            name = "CarouselSlides",
             joinColumns = {@JoinColumn(name = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "imdbId")}
+            inverseJoinColumns = {@JoinColumn(name = "slideId")}
     )
-    public List<Movie> getCarouselMovies() {
-        return carouselMovies;
+    public List<Slide> getCarouselSlides() {
+        return carouselSlides;
     }
 
     public void setId(Integer id) {
         this.id = id;
     }
 
-    public void setCarouselMovies(List<Movie> carouselMovies) {
-        this.carouselMovies = carouselMovies;
+    public void setCarouselSlides(List<Slide> carouselSlides) {
+        this.carouselSlides = carouselSlides;
     }
 
 }
