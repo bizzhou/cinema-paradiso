@@ -1,15 +1,16 @@
 package com.paridiso.cinema.service;
 
 import com.paridiso.cinema.entity.Carousel;
+import com.paridiso.cinema.entity.Movie;
+
+import java.util.List;
 
 public interface CarouselService {
 
     Carousel getCarousel();
 
-    boolean updateSlide(Slide slide);
-
     boolean updateCarousel(Carousel carousel);
 
-    // Carousel buildCarousel();
+    void setCarousel(Carousel carousel);
 
 }

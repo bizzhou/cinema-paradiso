@@ -16,8 +16,6 @@ public interface FilmService {
 
     List<Movie> getMovies();
 
-    List<Movie> getCarouselMovies(List<String> filmIds);
-
     void deleteFilm(String filmId);
 
     void rateFilm(String filmId, Double rating);

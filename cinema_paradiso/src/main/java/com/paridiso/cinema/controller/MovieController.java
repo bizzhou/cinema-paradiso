@@ -99,11 +99,6 @@ public class MovieController {
         return null;
     }
 
-    @RequestMapping(value = "/carousel", method = POST)
-    public ResponseEntity<List<Movie>> getCarousel(@RequestParam List<String> filmIds) {
-        return new ResponseEntity<>(filmService.getCarouselMovies(filmIds), HttpStatus.OK);
-    }
-
     @RequestMapping(value = "/{id}/trailer", method = GET)
     public ResponseEntity<Boolean> getTrailers(@PathVariable Integer id) {
         return null;

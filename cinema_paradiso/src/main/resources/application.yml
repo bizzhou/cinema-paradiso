@@ -53,6 +53,7 @@ application:
     celebritySaveFail: "CANNOT ADD CELEBRITY"
     celebrityNotFound: "CANNOT FOUND CELEBRITY"
     passwordHashingFailure: "PASSWORD HASHING ALGORITHM DOESN'T EXIST"
+    carouselNotFound: "CANNOT FIND CAROUSEL"
   limitation:
     wishListSize: 999
     watchListSize: 999

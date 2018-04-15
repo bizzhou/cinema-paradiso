@@ -18,6 +18,7 @@ public class ExceptionConstants {
     private String celebritySaveFail;
     private String celebrityNotFound;
     private String passwordHashingFailure;
+    private String carouselNotFound;
 
     public String getCelebrityNotFound() {
         return celebrityNotFound;
@@ -105,5 +106,13 @@ public class ExceptionConstants {
 
     public void setPasswordHashingFailure(String passwordHashingFailure) {
         this.passwordHashingFailure = passwordHashingFailure;
+    }
+
+    public String getCarouselNotFound() {
+        return carouselNotFound;
+    }
+
+    public void setCarouselNotFound(String carouselNotFound) {
+        this.carouselNotFound = carouselNotFound;
     }
 }

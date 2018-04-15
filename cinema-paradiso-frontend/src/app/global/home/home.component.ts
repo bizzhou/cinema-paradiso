@@ -49,8 +49,6 @@ export class HomeComponent implements OnInit {
     // load movies coming soon
     this.getMoviesComingSoon();
 
-    // this.checkMoviesInWishList(this.carousel);
-
     if (this.loginStatusService.getTokenDetails() !== null) {
       this.loginStatusService.changeStatus(true);
     }

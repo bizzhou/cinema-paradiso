@@ -4,6 +4,8 @@ import {Observable} from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+const CAROUSEL_SERVER = 'http://localhost:8080/carousel/';
+
 @Injectable()
 export class HomeService {
 
@@ -13,8 +15,7 @@ export class HomeService {
 
   getCarousel() {
     const httpParams = new HttpParams()
-      .append('filmId', 'tt2380307');
-    return this.http.post('http://localhost:8080/movie/carousel', httpParams);
+    return this.http.get(CAROUSEL_SERVER + 'get');
   }
 
   errorHandler(error): any {

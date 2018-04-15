@@ -92,15 +92,6 @@ public class MovieServiceImpl implements FilmService {
     }
 
     @Override
-    public List<Movie> getCarouselMovies(List<String> filmIds) {
-        List<Movie> carouselMovies = new ArrayList<>();
-        Movie movie1 = (Movie) this.getMovie("tt2380307");
-        Movie movie2 = (Movie) this.getMovie("tt5052448");
-        Movie movie3 = (Movie) this.getMovie("tt1856101");
-        return carouselMovies;
-    }
-
-    @Override
     public List<Trailer> getTrailers(Long filmId) {
         return null;
     }
@@ -118,12 +109,12 @@ public class MovieServiceImpl implements FilmService {
     @Transactional
     @Override
     public Set<Movie> getMoviesPlaying() {
-        // get 14 days before
-        Calendar twoWeeksBefore = movieUtility.getDaysBeforeNow(limitationConstants.getThreeWeeksRange());
+        // get 21 days before
+        Calendar daysBefore = movieUtility.getDaysBeforeNow(limitationConstants.getThreeWeeksRange());
         Calendar now = movieUtility.getNow();
 
         // get movies by release date
-        return movieRepository.findMoviesByReleaseDateBetween(twoWeeksBefore, now);
+        return movieRepository.findMoviesByReleaseDateBetween(daysBefore, now);
     }
 
     /**
@@ -134,7 +125,7 @@ public class MovieServiceImpl implements FilmService {
     @Transactional
     @Override
     public Set<Movie> getMoviesComingSoon() {
-        // get one week from now
+        // get 3 week from now
         Calendar daysAfter = movieUtility.getDaysAfterNow(limitationConstants.getThreeWeeksRange());
         Calendar now = movieUtility.getNow();
 
@@ -149,7 +140,7 @@ public class MovieServiceImpl implements FilmService {
      */
     @Override
     public Set<Movie> getMoviesTrending() {
-        // get the date one week before
+        // get the date 3 week before
         Calendar daysBeforeNow = movieUtility.getDaysBeforeNow(limitationConstants.getThreeWeeksRange());
         Calendar now = movieUtility.getNow();
 
