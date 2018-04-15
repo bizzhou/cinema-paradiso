@@ -44,22 +44,13 @@ public class WishlistController {
     }
 
     // http://localhost:8080/wishlist?filmId=1
-//    @RequestMapping(value = "/add", method = POST)
-//    public ResponseEntity<Boolean> addToWishList(@RequestHeader(value = "Authorization") String jwtToken, @RequestParam("filmId") String filmId) {
-//        System.out.println(filmId);
-//        Boolean result = listService.addToList(jwtTokenService.getUserIdFromToken(jwtToken), filmId);
-//        if (result)
-//            return ResponseEntity.ok(true);
-//        return ResponseEntity.ok(false);
-//    }
-
     @RequestMapping(value = "/add", method = POST)
-    public ResponseEntity<Boolean> addToWishList(@RequestParam(value = "filmId") String filmId) {
+    public ResponseEntity<Boolean> addToWishList(@RequestHeader(value = "Authorization") String jwtToken, @RequestParam("filmId") String filmId) {
         System.out.println(filmId);
-        Boolean result = listService.addToList(1, filmId);
+        Boolean result = listService.addToList(jwtTokenService.getUserIdFromToken(jwtToken), filmId);
         if (result)
-            return ResponseEntity.ok(true);
-        return ResponseEntity.ok(false);
+            return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
     @RequestMapping(value = "/delete/{filmId}", method = DELETE)

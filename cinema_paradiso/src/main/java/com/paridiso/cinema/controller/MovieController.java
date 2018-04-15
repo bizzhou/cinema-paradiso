@@ -14,9 +14,11 @@ import org.springframework.web.bind.annotation.*;
 import com.paridiso.cinema.service.FilmService;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
+import java.util.Set;
+import java.util.concurrent.locks.ReentrantLock;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
@@ -43,28 +45,19 @@ public class MovieController {
 
     @RequestMapping(value = "/all", method = GET)
     public ResponseEntity<List> getAllMovies() {
-        return ResponseEntity.ok(filmService.getMovies());
-    }
-
-    @RequestMapping(value = "/carousel", method = GET)
-    public ResponseEntity<List<Movie>> getCarousel() {
-        System.out.println("Movie Controller: Get carousel ... ");
-        return ResponseEntity.ok(filmService.getCarouselMovies());
+        return new ResponseEntity<>(filmService.getMovies(), HttpStatus.OK);
     }
 
     @GetMapping(value = "/{filmId}")
     public ResponseEntity<Movie> getMovie(@PathVariable String filmId) {
-        Movie movie = (Movie) filmService.getFilm(filmId);
-        if (movie != null)
-            return new ResponseEntity<>(movie, HttpStatus.OK);
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        Movie movie = filmService.getMovie(filmId);
+        return new ResponseEntity<>(movie, HttpStatus.OK);
     }
 
     @PostMapping(value = "/add")
     public ResponseEntity<Boolean> addMovie(@RequestBody Movie movie) {
-        filmService.addMovie(movie).orElseThrow(() ->
-                new ResponseStatusException(BAD_REQUEST, exceptionConstants.getMovieExists()));
-        return ResponseEntity.ok(true);
+        filmService.addMovie(movie);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
@@ -74,15 +67,17 @@ public class MovieController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/update", method = POST)
+    public ResponseEntity<Boolean> updateMovie(@RequestBody Movie movie) {
+        Movie optionalMovie = filmService.updateMovie(movie);
+        return ResponseEntity.ok(true);
+    }
 
     @RequestMapping(value = "/{filmId}/{rating}", method = POST)
     public ResponseEntity<Boolean> rateMovie(@RequestHeader(value = "Authorization") String jwtToken,
                                              @PathVariable String filmId,
                                              @PathVariable Double rating) {
         return null;
-//        System.out.println(jwtToken);
-//        System.out.println(filmId);
-//        System.out.println(rating);
 //        // add to user
 //        boolean result = userService.rateMovie(jwtTokenService.getUserIdFromToken(jwtToken), filmId, rating);
 //        if (!result)
@@ -94,13 +89,6 @@ public class MovieController {
 //        return ResponseEntity.ok(true);
     }
 
-    @RequestMapping(value = "/update", method = POST)
-    public ResponseEntity<Boolean> updateMovie(@RequestBody Movie movie) {
-        Movie optionalMovie = filmService.updateMovie(movie);
-        return ResponseEntity.ok(true);
-    }
-
-    // TODO how to represent image ?
     @RequestMapping(value = "/{id}/update_poster", method = POST)
     public ResponseEntity<Boolean> updatePoster(@PathVariable Integer id, @RequestBody String poster) {
         return null;
@@ -117,28 +105,29 @@ public class MovieController {
     }
 
     @RequestMapping(value = "/trending", method = GET)
-    public ResponseEntity<List> getMoviesTrending() {
-        return null;
+    public ResponseEntity<Set> getMoviesTrending() { return new ResponseEntity<>(filmService.getMoviesTrending(), HttpStatus.OK); }
+
+    @RequestMapping(value = "/comingSoon", method = GET)
+    public ResponseEntity<Set> getMoviesComingSoon() {
+        return new ResponseEntity<Set>(filmService.getMoviesComingSoon(), HttpStatus.OK);
     }
 
     @RequestMapping(value = "/playing", method = GET)
-    public ResponseEntity<List> getMoviesPlaying() {
-        return new ResponseEntity<>(filmService.getMoviesPlaying(), HttpStatus.OK);
-    }
+    public ResponseEntity<Set> getMoviesPlaying() { return new ResponseEntity<>(filmService.getMoviesPlaying(), HttpStatus.OK); }
 
-    @RequestMapping(value = "/top_boxoffice", method = GET)
+    @RequestMapping(value = "/topBoxOffice", method = GET)
     public ResponseEntity<List> getTopBoxOffice() {
-        return null;
+        return new ResponseEntity<List>(filmService.getMoviesTopBoxOffice(), HttpStatus.OK);
     }
 
 
     @RequestMapping(value = "/{id}/similar", method = GET)
-    public ResponseEntity<List> getSimilarMovies(@PathVariable Integer id) {
+    public ResponseEntity<Set> getSimilarMovies(@PathVariable Integer id) {
         return null;
     }
 
     @RequestMapping(value = "/range", method = GET)
-    public ResponseEntity<List> getMoviesInRange(@RequestParam Date startDate, @RequestParam Date endDate) {
+    public ResponseEntity<Set> getMoviesInRange(@RequestParam Calendar startDate, @RequestParam Calendar endDate) {
         return null;
     }
 

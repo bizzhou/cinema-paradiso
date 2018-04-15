@@ -25,6 +25,18 @@ export class MovieService {
     return this.http.get(MOVIE_SERVER + 'playing');
   }
 
+  getMoviesTrending() {
+    return this.http.get(MOVIE_SERVER + 'trending');
+  }
+
+  getMoviesComingSoon() {
+    return this.http.get(MOVIE_SERVER + 'comingSoon');
+  }
+
+  getTopBoxOffice() {
+    return this.http.get(MOVIE_SERVER + 'topBoxOffice');
+  }
+
   getMovie(imdbId: string): any {
     return this.http.get(MOVIE_SERVER + imdbId);
   }
@@ -34,7 +46,6 @@ export class MovieService {
     return this.http.post('http://localhost:8080/wishlist/add', params);
   }
 
-  // TODO: something wrong with the url
   removeFromWishList(imdbId: string) {
     // const params = new HttpParams().set('filmId', imdbId);
     return this.http.delete(WISH_LIST_SERVER + 'delete/' + imdbId);

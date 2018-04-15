@@ -1,5 +1,7 @@
 package com.paridiso.cinema.entity;
 
+import org.springframework.beans.factory.annotation.Value;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -12,6 +14,8 @@ public class WishList extends LinkedList {
     private Integer wishlistId;
 
     private List<Movie> movies;
+
+    private Integer wishListSize;
 
     public WishList() { }
 
@@ -31,6 +35,8 @@ public class WishList extends LinkedList {
         return movies;
     }
 
+    public Integer getWishListSize() { return wishListSize; }
+
     public void setMovies(List<Movie> movies) {
         this.movies = movies;
     }
@@ -39,4 +45,5 @@ public class WishList extends LinkedList {
         this.wishlistId = wishlistId;
     }
 
+    public void setWishListSize(Integer wishListSize) { this.wishListSize = wishListSize; }
 }

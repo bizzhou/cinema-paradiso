@@ -4,13 +4,13 @@ import {LoginStatusService} from '../login/login.status.service';
 import {HomeService} from './home.service';
 import {Movie} from '../models/movie.model';
 import {Celebrity} from '../models/celebrity.model';
-import {Carousel} from '../models/carousel.model';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
 import {CarouselSlide} from '../models/carouselSlide.model';
 import {MovieService} from '../movie/movie.service';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {Slide} from '../models/slide.model';
 
 @Component({
   selector: 'app-home',
@@ -19,11 +19,11 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 })
 export class HomeComponent implements OnInit {
 
-  currentRate = 3.14;
-
-  // TODO:should create Slide[]
-  carousel: Movie[];
+  carousel: Slide[];
   moviesPlaying: Movie[];
+  moviesTrending: Movie[];
+  moviesComingSoon: Movie[];
+  moviesTopBoxOffice: Movie[];
   selectedMovieId: string;
 
   isMovieExistInWishList: boolean;              // button changes accordingly
@@ -44,7 +44,14 @@ export class HomeComponent implements OnInit {
     // load movies playing
     this.getMoviesPlaying();
 
-    // this.checkMoviesInWishList(this.carousel);
+    // load movies trending
+    this.getMoviesTrending();
+
+    // load movies coming soon
+    this.getMoviesComingSoon();
+
+    // load top box office
+    this.getTopBoxOffice();
 
     if (this.loginStatusService.getTokenDetails() !== null) {
       this.loginStatusService.changeStatus(true);
@@ -57,14 +64,7 @@ export class HomeComponent implements OnInit {
       .subscribe(
         data => {
           // assign movies to carousel
-          this.carousel = data as Movie[];
-          // this.carousel.forEach(function(part, index, theArray) {
-          //     if (this.isMovieInWishList(part.imdbId)) {
-          //       part.isInWishlist = true;
-          //     } else {
-          //       part.isInWishlist = false;
-          //     }
-          // }.bind(this));
+          this.carousel = data as Slide[];
           console.log(this.carousel);
         },
         error => console.log('Failed to fetch carousel data')
@@ -82,8 +82,47 @@ export class HomeComponent implements OnInit {
       );
   }
 
+  getMoviesTrending(): any {
+    this.movieService.getMoviesTrending()
+      .subscribe(
+        data => {
+          this.moviesTrending = data as Movie[];
+          console.log(this.moviesTrending);
+        },
+        error => console.log('Failed to fetch movies trending')
+      );
+  }
+
+  getMoviesComingSoon(): any {
+    this.movieService.getMoviesComingSoon()
+      .subscribe(
+        data => {
+          this.moviesComingSoon = data as Movie[];
+          console.log(this.moviesComingSoon);
+        },
+        error => console.log('Failed to fetch movies coming soon')
+      );
+  }
+
+  getTopBoxOffice(): any {
+    this.movieService.getTopBoxOffice()
+      .subscribe(
+        data => {
+          this.moviesTopBoxOffice = data as Movie[];
+          console.log(this.moviesTopBoxOffice);
+        },
+        error => console.log('Failed to fetch top box office')
+      );
+  }
+
   addToWishList(imdbId: string) {
-    this.movieService.addToWishList(imdbId);
+    this.movieService.addToWishList(imdbId)
+      .subscribe(
+        data => {
+          console.log(data);
+        },
+        error => console.log('Failed to add to wish list')
+      );
   }
 
   removeFromWishList(imdbId: string) {

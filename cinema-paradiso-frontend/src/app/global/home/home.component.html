@@ -8,15 +8,15 @@
       <ngb-carousel>
 
         <ng-template ngbSlide *ngFor="let carouselSlide of carousel" >
-          <img [src]=carouselSlide.photos[0] alt="slide" class="l-hero__img" >
+          <img [src]=carouselSlide.backgroundImage alt="slide" class="l-hero__img" >
           <div class="l-hero__text-wrapper">
             <div class="l-hero__text">
 
-              <a routerLink="/{{carouselSlide.imdbId}}">
+              <a routerLink="/movie/{{carouselSlide.movie.imdbId}}">
 
                 <div class="c-title">
-                  <span class="c-title__category"><strong>{{carouselSlide.awards}}</strong> </span>
-                  <span class="c-title__name">{{carouselSlide.title}} <br></span>
+                  <span class="c-title__category"><strong>{{carouselSlide.movie.awards}}</strong> </span>
+                  <span class="c-title__name">{{carouselSlide.movie.title}} <br></span>
                   <div class="absolute">
                     <div class="flex">
                       <i class="fa fa-star "></i>
@@ -24,34 +24,34 @@
                       <i class="fa fa-star"></i>
                       <i class="fa fa-star"></i>
                       <i class="fa fa-star"></i>
-                      <p>{{carouselSlide.rating}}/5.0</p>
-                      <p>{{carouselSlide.rated}}</p>
+                      <p>{{carouselSlide.movie.rating}}/5.0</p>
+                      <p>{{carouselSlide.movie.rated}}</p>
                     </div><!--flex end-->
                   </div>
                 </div>
               </a>
 
-              <p class="c-plot">{{carouselSlide.plot}}</p>
+              <p class="c-plot">{{carouselSlide.movie.plot}}</p>
 
-              <p *ngIf="carouselSlide.casts.length != 0">
+              <p>
                 Starring
-                <span *ngFor="let cast of carouselSlide.casts">
+                <span *ngFor="let cast of carouselSlide.movie.casts | slice:0:5" >
                   {{cast.name}},
                 </span>
               </p>
 
               <p>
-                Director <span>{{carouselSlide.director.name}}</span>
+                Director <span>{{carouselSlide.movie.director.name}}</span>
               </p>
               <p>
-                Genres <span class="c-genres" style="text-transform: lowercase">{{carouselSlide.genres}}</span>
+                Genres <span class="c-genres" style="text-transform: lowercase">{{carouselSlide.movie.genres}}</span>
               </p>
               <div class="l-hero__buttons">
                 <button class="o-button color-gray">
                   + Watchlist
                 </button>
-                <button *ngIf="!carouselSlide.isInWishlist" class="o-button color-red"
-                        (click)="addToWishList(carouselSlide.imdbId)">
+                <button *ngIf="!carouselSlide.movie.isInWishlist" class="o-button color-red"
+                        (click)="addToWishList(carouselSlide.movie.imdbId)">
                   + Wishlist
                 </button>
                 <!--<button *ngIf="carouselSlide.isInWishlist" class="o-button color-gray"-->
@@ -66,7 +66,7 @@
       </ngb-carousel>
     </div>
 
-    <!-- 	1st section	 -->
+    <!-- 	movies now playing	 -->
     <section class="l-cards">
       <div class="l-cards__title-wrap">
         <h2 class="l-cards__title">Now Playing</h2>
@@ -75,7 +75,7 @@
       </div>
 
       <ul class="l-cards__list">
-        <li class="l-cards__item" *ngFor="let movie of moviesPlaying">
+        <li class="l-cards__item" *ngFor="let movie of moviesPlaying  | slice:0:6">
           <a routerLink="/movie/{{movie.imdbId}}" (click)="setImdbId(carouselSlide.imdbId)" routerLinkActive="active" class="l-cards__image fill">
             <img [src]="movie.poster" [alt]="movie.title">
           </a>
@@ -86,20 +86,21 @@
         </li>
       </ul>
     </section>
-    <!-- 	end 1st section	 -->
+    <!-- 	end movies now playing	 -->
 
+    <!-- movies coming soon -->
     <section class="l-cards">
       <div class="l-cards__title-wrap">
-        <h2 class="l-cards__title">Movies Trending Now</h2>
+        <h2 class="l-cards__title">Coming Soon</h2>
         <a class="l-cards__nav-left" href="#"><i class="fa fa-angle-right"></i></a><a class="l-cards__nav-right" href="#"><i class="fa fa-angle-left"></i></a>
       </div>
       <ul class="l-cards__list">
 
-        <li class="l-cards__item" *ngFor="let movie of moviesPlaying">
-          <a routerLink="/movie/{{movie.imdbId}}" (click)="setImdbId(carouselSlide.imdbId)" routerLinkActive="active" class="l-cards__image fill">
+        <li class="l-cards__item" *ngFor="let movie of moviesComingSoon | slice:0:6">
+          <a routerLink="/movie/{{movie.imdbId}}" routerLinkActive="active" class="l-cards__image fill">
             <img [src]="movie.poster" [alt]="movie.title">
           </a>
-          <a routerLink="/movie/{{movie.imdbId}}" (click)="setImdbId(carouselSlide.imdbId)" routerLinkActive="active"  class="l-cards__text">
+          <a routerLink="/movie/{{movie.imdbId}}" routerLinkActive="active"  class="l-cards__text">
             {{movie.title}}
             <p>{{movie.rating}}/5.0</p>
           </a>
@@ -107,20 +108,21 @@
 
       </ul>
     </section>
-    <!-- end 2nd section -->
+    <!-- end coming soon -->
 
+    <!-- movies trending -->
     <section class="l-cards">
       <div class="l-cards__title-wrap">
-        <h2 class="l-cards__title">TV Trending Now</h2>
+        <h2 class="l-cards__title">Trending Now</h2>
         <a class="l-cards__nav-left" href="#"><i class="fa fa-angle-right"></i></a><a class="l-cards__nav-right" href="#"><i class="fa fa-angle-left"></i></a>
       </div>
       <ul class="l-cards__list">
 
-        <li class="l-cards__item" *ngFor="let movie of moviesPlaying">
-          <a routerLink="/movie/{{movie.imdbId}}" (click)="setImdbId(carouselSlide.imdbId)" routerLinkActive="active" class="l-cards__image fill">
+        <li class="l-cards__item" *ngFor="let movie of moviesTrending | slice:0:6">
+          <a routerLink="/movie/{{movie.imdbId}}" routerLinkActive="active" class="l-cards__image fill">
             <img [src]="movie.poster" [alt]="movie.title">
           </a>
-          <a routerLink="/movie/{{movie.imdbId}}" (click)="setImdbId(carouselSlide.imdbId)" routerLinkActive="active"  class="l-cards__text">
+          <a routerLink="/movie/{{movie.imdbId}}" routerLinkActive="active"  class="l-cards__text">
             {{movie.title}}
             <p>{{movie.rating}}/5.0</p>
           </a>
@@ -128,8 +130,9 @@
 
       </ul>
     </section>
-    <!-- end -->
+    <!-- end movies trending -->
 
+    <!-- top box office -->
     <section class="l-cards">
       <div class="l-cards__title-wrap">
         <h2 class="l-cards__title">Top Box Office</h2>
@@ -137,11 +140,11 @@
       </div>
       <ul class="l-cards__list">
 
-        <li class="l-cards__item" *ngFor="let movie of moviesPlaying">
-          <a routerLink="/movie/{{movie.imdbId}}" (click)="setImdbId(carouselSlide.imdbId)" routerLinkActive="active" class="l-cards__image fill">
+        <li class="l-cards__item" *ngFor="let movie of moviesTopBoxOffice | slice:0:6">
+          <a routerLink="/movie/{{movie.imdbId}}" routerLinkActive="active" class="l-cards__image fill">
             <img [src]="movie.poster" [alt]="movie.title">
           </a>
-          <a routerLink="/movie/{{movie.imdbId}}" (click)="setImdbId(carouselSlide.imdbId)" routerLinkActive="active"  class="l-cards__text">
+          <a routerLink="/movie/{{movie.imdbId}}" routerLinkActive="active"  class="l-cards__text">
             {{movie.title}}
             <p>{{movie.rating}}/5.0</p>
           </a>
@@ -149,6 +152,7 @@
 
       </ul>
     </section>
+    <!-- end top box office-->
 
 
     <section class="l-cards">
@@ -158,7 +162,7 @@
       </div>
       <ul class="l-cards__list">
 
-        <li class="l-cards__item" *ngFor="let movie of moviesPlaying">
+        <li class="l-cards__item" *ngFor="let movie of moviesPlaying | slice:0:6">
           <a routerLink="/movie/{{movie.imdbId}}" routerLinkActive="active" class="l-cards__image fill">
             <img [src]="movie.poster" [alt]="movie.title">
           </a>

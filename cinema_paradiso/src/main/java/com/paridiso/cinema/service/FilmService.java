@@ -4,20 +4,17 @@ import com.paridiso.cinema.entity.Film;
 import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.entity.Trailer;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import javax.swing.text.html.Option;
+import java.util.*;
 
 public interface FilmService {
 
 //    Film addFilm(Film film);
-    Optional<Movie> addMovie(Movie movie);
+    Movie addMovie(Movie movie);
 
-    Film getFilm(String filmId);
+    Movie getMovie(String filmId);
 
     List<Movie> getMovies();
-
-    List<Movie> getCarouselMovies();
 
     void deleteFilm(String filmId);
 
@@ -27,15 +24,39 @@ public interface FilmService {
 
     boolean updateTrailer(Long filmId, Integer trailerId);
 
-    List<Film> getFilmInRage(Date startDate, Date endDate);
+    Set<Film> getFilmInRage(Calendar startDate, Calendar endDate);
 
-    List<Film> getSimilarFilm(Long filmId);
+    Set<Film> getSimilarFilm(Long filmId);
 
-    List<Film> getTrending();
+    /**
+     * Get movies trending
+     * Find movies' release date within two weeks && movies rated above 4.5
+     * @return a set of qualified movies
+     */
+    Set<Movie> getMoviesTrending();
 
-    List<Movie> getMoviesPlaying();
+    /**
+     * Get movies coming soon
+     * Find movies' release date within the following 3 weeks
+     * @return a set of qualified movies
+     */
+    Set<Movie> getMoviesComingSoon();
 
-    List<Film> getTopRating();
+    /**
+     * Get movies playing now
+     * Find movies' release dates in between current date and 3 weeks before
+     * @return a set of qualified movies
+     */
+    Set<Movie> getMoviesPlaying();
+
+    /**
+     * Get movies with the top box office
+     * Find movies' release date within 3 weeks and order by box office
+     * @return a list of qualified movies
+     */
+    List<Movie> getMoviesTopBoxOffice();
+
+    Set<Film> getTopRating();
 
     Movie updateMovie(Movie movie);
 }

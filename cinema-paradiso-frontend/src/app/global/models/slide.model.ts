@@ -1,10 +1,12 @@
 import {Movie} from './movie.model';
-import {CarouselSlide} from './carouselSlide.model';
 
-export class Carousel {
-  slides: CarouselSlide[];
+export class Slide {
+  slideId: number;
+  backgroundImage: string;
+  movie: Movie;
 
   constructor(values: Object = {}) {
     Object.assign(this, values);
   }
+
 }
