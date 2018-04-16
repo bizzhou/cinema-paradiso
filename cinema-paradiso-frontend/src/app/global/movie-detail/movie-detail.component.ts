@@ -70,8 +70,9 @@ export class MovieDetailComponent implements OnInit {
       .subscribe(
         data => {
           this.movie = data as Movie;
-          console.log(this.movie.casts);
-          console.log(this.movie.imdbId);
+          console.log(this.movie);
+          console.log('casts ', this.movie.casts);
+          console.log('imdbId ', this.movie.imdbId);
           console.log(this.movie.photos);
         },
         error => console.log('Failed to fetch movie with id')

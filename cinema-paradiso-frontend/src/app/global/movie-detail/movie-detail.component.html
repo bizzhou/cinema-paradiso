@@ -406,13 +406,13 @@
             <p>
               Director
               <span>
-                <a href="people.html">{{movie.director.name}}</a>
+                <a routerLink="/celebrity/{{movie.director.celebrityId}}">{{movie.director.name}}</a>
               </span>
             </p>
             <p>
               Starring
               <span *ngFor="let cast of movie.casts">
-                <a href="">{{cast.name}},</a>
+                <a routerLink="/celebrity/{{cast.celebrityId}}">{{cast.name}},</a>
               </span>
 
             </p>
@@ -436,16 +436,13 @@
             <ul class="container md-list__videos">
               <li class="row md-list__item">
                 <!-- YOUTUBE VIDEOS -->
-                <!-- <object class="col-video item__detail"
-                      data="https://www.youtube.com/embed/uiA4B5Y63IQ?hd=1&rel=0&autohide=1&showinfo=0">
-              </object>
+                <object class="col-video item__detail" data="https://www.youtube.com/embed/uiA4B5Y63IQ?hd=1&rel=0&autohide=1&showinfo=0">
+                </object>
 
-              <object class="col-video item__detail"
-                      data="https://www.youtube.com/embed/zwmTb-aAdJg?hd=1&rel=0&autohide=1&showinfo=0">
-              </object>
-              <object class="col-video item__detail"
-                      data="https://www.youtube.com/embed/T6pk194roPI?hd=1&rel=0&autohide=1&showinfo=0">
-              </object> -->
+                <object class="col-video item__detail" data="https://www.youtube.com/embed/zwmTb-aAdJg?hd=1&rel=0&autohide=1&showinfo=0">
+                </object>
+                <object class="col-video item__detail" data="https://www.youtube.com/embed/T6pk194roPI?hd=1&rel=0&autohide=1&showinfo=0">
+                </object>
               </li>
             </ul>
           </section>
@@ -460,7 +457,7 @@
 
             <ul class="container md-list__photos">
               <!--<li class="row md-list__item" *ngFor="let photo of movie.photos">-->
-              <li class="row md-list__item" >
+              <li class="row md-list__item">
                 <a class="col-photos item__detail" href="" *ngFor="let photo of movie.photos; let i=index">
                   <img src="{{photo}}">
                 </a>
@@ -476,9 +473,9 @@
               <span>cast</span>
             </h2>
             <!--<a class="l-cards__more" href="#">more <i class="fa fa-angle-double-right"></i></a>-->
-            <ul class="container md-list__casts" >
+            <ul class="container md-list__casts">
               <li class="row md-list__item">
-                <a class="col-casts item__detail" routerlink="/celebrity" *ngFor="let actor of movie.casts">
+                <a class="col-casts item__detail" *ngFor="let actor of movie.casts" routerLink="/celebrity/{{actor.celebrityId}}">
                   <img src="{{actor.profileImage}}">
                   <span>{{actor.name}}</span>
                 </a>

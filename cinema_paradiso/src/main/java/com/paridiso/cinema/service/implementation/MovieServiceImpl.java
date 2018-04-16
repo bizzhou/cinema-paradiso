@@ -15,12 +15,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @Service
 @Qualifier(value = "MovieServiceImpl")
@@ -44,8 +42,8 @@ public class MovieServiceImpl implements FilmService {
     @Transactional
     @Override
     public Movie addMovie(Movie movie) {
-//        if (movieRepository.findMovieByImdbId(movie.getImdbId()) != null)
-//            throw new ResponseStatusException(BAD_REQUEST, exceptionConstants.getMovieExists());
+//        if (movieRepository.findMovieByImdbId(movie.getImdbId()).get() != null)
+//            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieExists());
         return movieRepository.save(movie);
     }
 
@@ -54,7 +52,7 @@ public class MovieServiceImpl implements FilmService {
     public Movie getMovie(String filmId) {
         return movieRepository
                 .findMovieByImdbId(filmId)
-                .orElseThrow(() -> new ResponseStatusException(BAD_REQUEST, exceptionConstants.getMovieDoesNotExist()));
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieDoesNotExist()));
     }
 
     @Transactional
@@ -66,8 +64,8 @@ public class MovieServiceImpl implements FilmService {
     @Transactional
     @Override
     public void deleteFilm(String filmId) {
-        if (movieRepository.findMovieByImdbId(filmId) == null)
-            throw new ResponseStatusException(BAD_REQUEST, exceptionConstants.getMovieDoesNotExist());
+        if (movieRepository.findMovieByImdbId(filmId).get() == null)
+            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieDoesNotExist());
         movieRepository.deleteById(filmId);
     }
 
@@ -75,7 +73,7 @@ public class MovieServiceImpl implements FilmService {
     @Override
     public Movie updateMovie(Movie movie) {
         movieRepository.findMovieByImdbId(movie.getImdbId())
-                .orElseThrow(() -> new ResponseStatusException(BAD_REQUEST, exceptionConstants.getMovieDoesNotExist()));
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieDoesNotExist()));
         return movieRepository.save(movie);
     }
 
@@ -84,11 +82,6 @@ public class MovieServiceImpl implements FilmService {
     public void rateFilm(String jwtToken, String filmId, Double rating) {
         // add the rating to total rating, then get average
         Movie movie = (Movie) this.getMovie(filmId);
-        if (movie.getNumberOfRatings() == null) {
-            movie.setNumberOfRatings(1);
-        } else {
-            movie.setNumberOfRatings(movie.getNumberOfRatings() + 1);
-        }
         Double newRatings = (movie.getRating() + rating) / movie.getNumberOfRatings();
         movie.setRating(newRatings);
         movieRepository.save(movie);
