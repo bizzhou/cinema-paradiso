@@ -1,5 +1,6 @@
 package com.paridiso.cinema.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.paridiso.cinema.constants.ExceptionConstants;
@@ -21,11 +22,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
+import java.util.HashMap;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
@@ -55,10 +58,12 @@ public class RegUserController {
 
     @PostMapping(value = "/login")
     public ResponseEntity<JwtUser> userLogin(@RequestParam(value = "email") String email,
-                                             @RequestParam(value = "password") String password) {
+                                             @RequestParam(value = "password") String password, HttpSession session) {
         User user = userService.login(email, password).orElseThrow(() ->
                 new ResponseStatusException(BAD_REQUEST, exceptionConstants.getUserNotFound()));
         JwtUser jwtUser = new JwtUser(user.getUsername(), generator.generate(user), user.getUserID(), user.getRole());
+        session.setAttribute("user", user);
+        System.out.println(session.getAttribute("user"));
         return ResponseEntity.ok(jwtUser);
     }
 
@@ -68,11 +73,12 @@ public class RegUserController {
     }
 
     @PostMapping(value = "/signup")
-    public ResponseEntity<JwtUser> userSignup(@RequestBody User user) {
+    public ResponseEntity<JwtUser> userSignup(@RequestBody User user, HttpSession session) {
         User optionalUser = userService.signup(user).orElseThrow(() ->
                 new ResponseStatusException(BAD_REQUEST, exceptionConstants.getUserExists()));
         JwtUser jwtUser = new JwtUser(optionalUser.getUsername(),
                 generator.generate(optionalUser), optionalUser.getUserID(), optionalUser.getRole());
+        session.setAttribute("user", user);
         return ResponseEntity.ok(jwtUser);
     }
 
@@ -104,19 +110,24 @@ public class RegUserController {
     }
 
     @GetMapping(value = "/get/profile")
-    public ResponseEntity<?> getProfile(@RequestHeader(value = "Authorization") String jwtToken) {
+    public ResponseEntity<?> getProfile(@RequestHeader(value = "Authorization") String jwtToken, HttpSession session) throws JsonProcessingException {
+        System.out.println((User) session.getAttribute("user"));
         UserProfile profile = userService.getProfile(jwtToken);
-        ObjectNode objectNode = objectMapper.createObjectNode();
-        objectNode.put("name", profile.getName());
-        objectNode.put("id", profile.getId());
+
+        HashMap<Object, Object> objectObjectHashMap = new HashMap<>();
+
+        objectObjectHashMap.put("name", profile.getName());
+        objectObjectHashMap.put("id", profile.getId());
         if (profile.getProfileImage() == null) {
-            objectNode.put("profileImage", "default.jpeg");
+            objectObjectHashMap.put("profileImage", "default.jpeg");
         } else {
-            objectNode.put("profileImage", profile.getProfileImage());
+            objectObjectHashMap.put("profileImage", profile.getProfileImage());
         }
-        objectNode.put("biography", profile.getBiography());
-        objectNode.put("isCritic", profile.getCritic());
-        return ResponseEntity.ok(objectNode);
+        objectObjectHashMap.put("biography", profile.getBiography());
+        objectObjectHashMap.put("isCritic", profile.getCritic());
+        objectObjectHashMap.put("wishList", profile.getWishList().getMovies());
+
+        return ResponseEntity.ok(objectObjectHashMap);
     }
 
 

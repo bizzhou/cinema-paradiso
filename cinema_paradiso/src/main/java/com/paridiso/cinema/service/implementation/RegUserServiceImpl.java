@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -82,8 +83,7 @@ public class RegUserServiceImpl extends UserService {
 
     @Transactional
     public UserProfile updateProfile(UserProfile userProfile) {
-        UserProfile profile = userProfileRepository.findById(userProfile.getId())
-                .orElseThrow(() -> new RuntimeException(exceptionConstants.getProfileNotFound() + userProfile.getId()));
+        UserProfile profile = getUserProfile(userProfile.getId());
         profile.setBiography(userProfile.getBiography());
         profile.setWatchList(userProfile.getWatchList());
         profile.setWishList(userProfile.getWishList());
@@ -157,10 +157,24 @@ public class RegUserServiceImpl extends UserService {
     public UserProfile getProfile(String jwtToken) {
         int typeLength = tokenConstants.getType().length();
         User validatedUser = validator.validate(jwtToken.substring(typeLength));
-        UserProfile userProfile = userProfileRepository.findById(validatedUser.getUserProfile().getId())
-                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getProfileNotFound()));
+        UserProfile userProfile = getUserProfile(validatedUser.getUserProfile().getId());
         System.out.println(userProfile.getWishList().getMovies().size());
         return userProfile;
     }
+
+
+    public User getUser(Integer id) {
+
+
+        return userRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR ,exceptionConstants.getProfileNotFound() + id));
+    }
+
+    public UserProfile getUserProfile(Integer id) {
+        return userProfileRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserNotFound() + id));
+    }
+
+
 }
 

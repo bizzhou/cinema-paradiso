@@ -7,6 +7,7 @@ import {JwtHelperService} from '@auth0/angular-jwt';
 import {ToastrService} from 'ngx-toastr';
 import {NgForm} from '@angular/forms';
 import {LoginService} from '../../global/login/login.service';
+import {Movie} from '../../global/models/movie.model';
 
 import {Router} from '@angular/router';
 
@@ -18,6 +19,8 @@ class Profile {
   isCritic: boolean;
   username: string;
   email: string;
+  wishList: Movie[];
+  watchList: Object[];
 }
 
 @Component({
@@ -36,8 +39,10 @@ export class RegUserComponent implements OnInit {
   newPassword: string;
   changePasswordSuccess: boolean;
   changePasswordFailure: boolean;
+  
 
-  constructor(private router: Router, private loginService: LoginService, private modalService: NgbModal, private regUserService: RegUserService, private loginStatusService: LoginStatusService, private toastr: ToastrService) {
+  constructor(private router: Router, private loginService: LoginService, private modalService: NgbModal, 
+    private regUserService: RegUserService, private loginStatusService: LoginStatusService, private toastr: ToastrService) {
   }
 
   showDiv(index) {
@@ -50,22 +55,26 @@ export class RegUserComponent implements OnInit {
 
     if (this.loginStatusService.getTokenDetails() !== null) {
       this.loginStatusService.changeStatus(true);
-      // this.regUserService.getProfile().subscribe(profileDetails => {
-      //   console.log(profileDetails);
-      //
-      //   this.profile = profileDetails as Profile;
-      //   const decodedToken = this.tokenHelper.decodeToken(localStorage.getItem('token'));
-      //   this.profile.email = decodedToken['email'];
-      //   this.profile.id = decodedToken['profileId'];
-      //   this.profile.username = decodedToken['username'];
-      //   this.profile.profileImage = profileDetails['profileImage'];
-      //
-      //   if (this.profile.profileImage === undefined) {
-      //     this.profile_url = 'http://localhost:8080/user/avatar/default.jpeg';
-      //   } else {
-      //     this.profile_url = 'http://localhost:8080/user/avatar/' + profileDetails['profileImage'];
-      //   }
-      // });
+      this.regUserService.getProfile().subscribe(profileDetails => {
+        console.log(profileDetails);
+      
+        this.profile = profileDetails as Profile;
+        const decodedToken = this.tokenHelper.decodeToken(localStorage.getItem('token'));
+        this.profile.email = decodedToken['email'];
+        this.profile.id = decodedToken['profileId'];
+        this.profile.username = decodedToken['username'];
+        this.profile.profileImage = profileDetails['profileImage'];
+        this.profile.wishList = profileDetails['wishList'] as Movie[];
+
+        console.log(this.profile.wishList[0].poster);
+        console.log(profileDetails);
+      
+        if (this.profile.profileImage === undefined) {
+          this.profile_url = 'http://localhost:8080/user/avatar/default.jpeg';
+        } else {
+          this.profile_url = 'http://localhost:8080/user/avatar/' + profileDetails['profileImage'];
+        }
+      });
     }
   }
 
