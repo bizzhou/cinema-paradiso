@@ -26,9 +26,8 @@
 
     <div class="container movie_results">
 
-
       <div *ngFor="let movie of moviesResults">
-        <div class="row s-item">
+        <div class="row s-item" routerLink="/movie/{{movie.imdbId}}">
           <div class="col-4 s_img-wrap">
             <img src={{movie.poster}} alt="">
           </div>
