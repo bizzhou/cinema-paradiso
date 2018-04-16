@@ -1,24 +1,15 @@
 package com.paridiso.cinema.service.implementation;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.paridiso.cinema.constants.AlgorithmConstants;
 import com.paridiso.cinema.constants.ExceptionConstants;
-import com.paridiso.cinema.entity.Movie;
-import com.paridiso.cinema.entity.User;
-import com.paridiso.cinema.security.JwtTokenGenerator;
-import com.paridiso.cinema.security.JwtTokenValidator;
 import com.paridiso.cinema.service.UtilityService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
-import java.security.AlgorithmConstraints;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.*;
 
-import static java.nio.charset.StandardCharsets.*;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 @Service
 public class UtilityServiceImpl implements UtilityService {

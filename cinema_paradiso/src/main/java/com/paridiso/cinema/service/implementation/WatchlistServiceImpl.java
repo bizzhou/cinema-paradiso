@@ -2,10 +2,12 @@ package com.paridiso.cinema.service.implementation;
 
 import com.paridiso.cinema.constants.ExceptionConstants;
 import com.paridiso.cinema.constants.LimitationConstants;
-import com.paridiso.cinema.entity.Film;
 import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.entity.User;
-import com.paridiso.cinema.persistence.*;
+import com.paridiso.cinema.persistence.MovieRepository;
+import com.paridiso.cinema.persistence.UserProfileRepository;
+import com.paridiso.cinema.persistence.UserRepository;
+import com.paridiso.cinema.persistence.WatchListRepository;
 import com.paridiso.cinema.service.ListService;
 import com.paridiso.cinema.service.UtilityService;
 import com.paridiso.cinema.utility.MovieUtility;

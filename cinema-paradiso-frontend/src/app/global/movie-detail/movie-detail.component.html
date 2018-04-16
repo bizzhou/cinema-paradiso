@@ -382,7 +382,7 @@
                 alt="user" />
               <div class="col-add-ratings">
                 <button class="o-button o-button--gray">+ Watchlist</button>
-                <button class="o-button">+ Wishlist</button>
+                <button class="o-button" (click)='addToWishList(selectedMovieId)'>+ Wishlist</button>
                 <ngb-rating [(rate)]="selected" (hover)="hovered=$event" (leave)="hovered=0" [readonly]="readonly" (click)="rateMovie()">
                   <span class="star"></span>
                 </ngb-rating>

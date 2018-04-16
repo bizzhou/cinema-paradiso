@@ -3,13 +3,15 @@ package com.paridiso.cinema.service.implementation;
 import com.paridiso.cinema.constants.ExceptionConstants;
 import com.paridiso.cinema.constants.LimitationConstants;
 import com.paridiso.cinema.constants.TokenConstants;
-import com.paridiso.cinema.entity.*;
+import com.paridiso.cinema.entity.User;
+import com.paridiso.cinema.entity.UserProfile;
+import com.paridiso.cinema.entity.WatchList;
+import com.paridiso.cinema.entity.WishList;
 import com.paridiso.cinema.entity.enumerations.Role;
 import com.paridiso.cinema.persistence.*;
-
 import com.paridiso.cinema.security.JwtTokenValidator;
-import org.springframework.beans.factory.annotation.Autowired;
 import com.paridiso.cinema.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
@@ -21,7 +23,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
-import static org.springframework.http.HttpStatus.*;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @Service
 public class RegUserServiceImpl extends UserService {
@@ -154,10 +157,10 @@ public class RegUserServiceImpl extends UserService {
     public UserProfile getProfile(String jwtToken) {
         int typeLength = tokenConstants.getType().length();
         User validatedUser = validator.validate(jwtToken.substring(typeLength));
-        System.out.println(validatedUser.getUserID());
-        System.out.println(validatedUser.getUserProfile().getId());
-        return userProfileRepository.findById(validatedUser.getUserProfile().getId())
+        UserProfile userProfile = userProfileRepository.findById(validatedUser.getUserProfile().getId())
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getProfileNotFound()));
+        System.out.println(userProfile.getWishList().getMovies().size());
+        return userProfile;
     }
 }
 

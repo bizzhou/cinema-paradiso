@@ -8,29 +8,18 @@ import java.util.List;
 public class UserProfile {
 
     private Integer id;
-
     private String name;
-
     private String profileImage;
-
     private String biography;
-
     private WatchList watchList;
-
     private WishList wishList;
-
     private Boolean isCritic;
-
     private Boolean isPrivate;
-
     private List<Review> reviews;
-
     private List<Review> likedReviews;
-
     private List<UserRating> userRatings;
 
     public UserProfile() {
-
     }
 
     @Id
@@ -133,5 +122,22 @@ public class UserProfile {
 
     public void setUserRatings(List<UserRating> userRatings) {
         this.userRatings = userRatings;
+    }
+
+    @Override
+    public String toString() {
+        return "UserProfile{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", profileImage='" + profileImage + '\'' +
+                ", biography='" + biography + '\'' +
+                ", watchList=" + watchList +
+                ", wishList=" + wishList +
+                ", isCritic=" + isCritic +
+                ", isPrivate=" + isPrivate +
+                ", reviews=" + reviews +
+                ", likedReviews=" + likedReviews +
+                ", userRatings=" + userRatings +
+                '}';
     }
 }

@@ -6,20 +6,20 @@ import com.paridiso.cinema.entity.Film;
 import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.entity.Trailer;
 import com.paridiso.cinema.persistence.MovieRepository;
+import com.paridiso.cinema.service.FilmService;
+import com.paridiso.cinema.service.UtilityService;
 import com.paridiso.cinema.utility.MovieUtility;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import com.paridiso.cinema.service.FilmService;
-import com.paridiso.cinema.service.UtilityService;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Set;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @Service
 @Qualifier(value = "MovieServiceImpl")
@@ -78,7 +78,8 @@ public class MovieServiceImpl implements FilmService {
 
     @Transactional
     @Override
-    public void rateFilm(String filmId, Double rating) {
+    public void rateFilm(String jwtToken, String filmId, Double rating) {
+
         // add the rating to total rating, then get average
         Movie movie = (Movie) this.getMovie(filmId);
         if (movie.getNumberOfRatings() == null) {

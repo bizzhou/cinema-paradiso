@@ -1,25 +1,21 @@
 package com.paridiso.cinema.controller;
 
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.paridiso.cinema.constants.ExceptionConstants;
 import com.paridiso.cinema.entity.CriticApplication;
+import com.paridiso.cinema.entity.User;
 import com.paridiso.cinema.security.JwtTokenGenerator;
 import com.paridiso.cinema.security.JwtUser;
-import com.paridiso.cinema.entity.User;
 import com.paridiso.cinema.service.implementation.AdminServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-
 import java.util.List;
 
-import static org.springframework.http.HttpStatus.*;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RequestMapping("/admin")
@@ -39,8 +35,8 @@ public class AdminController {
     ExceptionConstants exceptionConstants;
 
     @RequestMapping(value = "/login", method = POST)
-    public ResponseEntity<JwtUser> adminLogin(@RequestParam(value = "email", required = true) String email,
-                                              @RequestParam(value = "password", required = true) String password) {
+    public ResponseEntity<JwtUser> adminLogin(@RequestParam(value = "email") String email,
+                                              @RequestParam(value = "password") String password) {
         User user = userService.login(email, password).orElseThrow(() ->
                 new ResponseStatusException(BAD_REQUEST, exceptionConstants.getUserNotFound()));
         JwtUser jwtUser = new JwtUser(user.getUsername(), generator.generate(user), user.getUserID(), user.getRole());
@@ -52,7 +48,6 @@ public class AdminController {
         return null;
     }
 
-    //    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping(value = "/suspend/{id}")
     public ResponseEntity<?> suspendUser(@PathVariable Integer id) {
         ObjectNode objectNode = objectMapper.createObjectNode();

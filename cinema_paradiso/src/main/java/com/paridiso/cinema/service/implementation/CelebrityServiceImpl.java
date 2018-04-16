@@ -33,12 +33,12 @@ public class CelebrityServiceImpl implements CelebrityService {
     }
 
     @Override
-    public boolean deleteCelebrity(Integer celebrityId) {
+    public Boolean deleteCelebrity(Integer celebrityId) {
         return false;
     }
 
     @Override
-    public boolean updateCelebrity(Celebrity celebrity) {
+    public Boolean updateCelebrity(Celebrity celebrity) {
         return false;
     }
 

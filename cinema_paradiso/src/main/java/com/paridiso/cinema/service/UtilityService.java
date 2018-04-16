@@ -1,11 +1,6 @@
 package com.paridiso.cinema.service;
 
-import com.paridiso.cinema.entity.Movie;
-
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
 
 public interface UtilityService {
 

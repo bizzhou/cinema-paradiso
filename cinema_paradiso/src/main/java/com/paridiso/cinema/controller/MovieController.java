@@ -2,6 +2,7 @@ package com.paridiso.cinema.controller;
 
 import com.paridiso.cinema.constants.ExceptionConstants;
 import com.paridiso.cinema.entity.Movie;
+import com.paridiso.cinema.service.FilmService;
 import com.paridiso.cinema.service.JwtTokenService;
 import com.paridiso.cinema.service.implementation.RegUserServiceImpl;
 import org.apache.logging.log4j.LogManager;
@@ -11,15 +12,11 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.paridiso.cinema.service.FilmService;
-import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.locks.ReentrantLock;
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
+
 import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 

@@ -1,12 +1,10 @@
 package com.paridiso.cinema.entity;
 
 import com.paridiso.cinema.entity.enumerations.Role;
-import com.paridiso.cinema.service.WishlistService;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 @Entity
 @Table(name = "Users", uniqueConstraints = @UniqueConstraint(columnNames = {"username", "email"}))

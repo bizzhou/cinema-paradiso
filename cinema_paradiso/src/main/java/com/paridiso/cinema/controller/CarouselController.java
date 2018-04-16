@@ -9,8 +9,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-import static org.springframework.web.bind.annotation.RequestMethod.*;
-
 @RequestMapping("/carousel")
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
@@ -19,17 +17,17 @@ public class CarouselController {
     @Autowired
     CarouselService carouselService;
 
-    @RequestMapping(value = "/get", method = GET)
+    @GetMapping(value = "/get")
     public ResponseEntity<List<Slide>> getCarousel() {
         return new ResponseEntity<>(carouselService.getCarousel(), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/addSlide", method = POST)
+    @PostMapping(value = "/add/slide")
     public ResponseEntity<Slide> setCarousel(@RequestBody Slide slide) {
         return new ResponseEntity<>(carouselService.addSlide(slide), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/updateSlide", method = POST)
+    @PostMapping(value = "/update/slide")
     public ResponseEntity<Slide> updateSlide(@RequestBody Slide slide) {
         return new ResponseEntity<Slide>(carouselService.updateSlide(slide), HttpStatus.OK);
     }

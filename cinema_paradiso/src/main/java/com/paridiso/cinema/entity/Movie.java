@@ -1,12 +1,8 @@
 package com.paridiso.cinema.entity;
 
-import com.paridiso.cinema.entity.enumerations.Genre;
-import com.paridiso.cinema.entity.enumerations.Rated;
-
-import javax.persistence.*;
-import java.net.URI;
-import java.util.Calendar;
-import java.util.Set;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
 @Table(name = "Movies", uniqueConstraints = @UniqueConstraint(columnNames = "imdbId"))

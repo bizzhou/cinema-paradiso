@@ -1,13 +1,11 @@
 package com.paridiso.cinema.entity;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 @Entity
 @Table(name = "WatchLists")
-public class WatchList extends LinkedList {
+public class WatchList {
 
     private Integer watchListId;
 

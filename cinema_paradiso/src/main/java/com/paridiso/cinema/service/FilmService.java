@@ -9,7 +9,6 @@ import java.util.*;
 
 public interface FilmService {
 
-//    Film addFilm(Film film);
     Movie addMovie(Movie movie);
 
     Movie getMovie(String filmId);
@@ -18,7 +17,7 @@ public interface FilmService {
 
     void deleteFilm(String filmId);
 
-    void rateFilm(String filmId, Double rating);
+    void rateFilm(String jwtToken, String filmId, Double rating);
 
     List<Trailer> getTrailers(Long filmId);
 
