@@ -11,11 +11,8 @@ import javax.persistence.*;
 public class UserRating {
 
     private Integer id;
-
     private UserProfile user;
-
     private Movie ratedMovie;
-
     private Double userRating;
 
     public UserRating() {
@@ -57,5 +54,15 @@ public class UserRating {
 
     public void setUser(UserProfile user) {
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "UserRating{" +
+                "id=" + id +
+                ", user=" + user +
+                ", ratedMovie=" + ratedMovie +
+                ", userRating=" + userRating +
+                '}';
     }
 }

@@ -10,9 +10,7 @@ import javax.persistence.*;
 public class Slide {
 
     private Integer slideId;
-
     private String backgroundImage;
-
     private Movie movie;
 
     @Id
@@ -46,5 +44,14 @@ public class Slide {
 
     public void setMovie(Movie selectedMovie) {
         this.movie = selectedMovie;
+    }
+
+    @Override
+    public String toString() {
+        return "Slide{" +
+                "slideId=" + slideId +
+                ", backgroundImage='" + backgroundImage + '\'' +
+                ", movie=" + movie +
+                '}';
     }
 }

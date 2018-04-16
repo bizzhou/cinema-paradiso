@@ -8,9 +8,7 @@ import java.util.List;
 public class WatchList {
 
     private Integer watchListId;
-
     private List<Movie> movies;
-
     private Integer wishListSize;
 
     public WatchList() { }
@@ -43,4 +41,12 @@ public class WatchList {
 
     public void setWishListSize(Integer wishListSize) { this.wishListSize = wishListSize; }
 
+    @Override
+    public String toString() {
+        return "WatchList{" +
+                "watchListId=" + watchListId +
+                ", movies=" + movies +
+                ", wishListSize=" + wishListSize +
+                '}';
+    }
 }

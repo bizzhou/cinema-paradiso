@@ -8,19 +8,12 @@ import java.util.Calendar;
 public class Review {
 
     private Long reviewId;
-
     private UserProfile author;
-
     private Movie movie;
-
     private String title;
-
     private Calendar postedDate;
-
     private Integer likeCount;
-
     private boolean isCriticReview;
-
     private String reviewContent;
 
     @Id
@@ -91,5 +84,19 @@ public class Review {
 
     public void setReviewContent(String reviewContent) {
         this.reviewContent = reviewContent;
+    }
+
+    @Override
+    public String toString() {
+        return "Review{" +
+                "reviewId=" + reviewId +
+                ", author=" + author +
+                ", movie=" + movie +
+                ", title='" + title + '\'' +
+                ", postedDate=" + postedDate +
+                ", likeCount=" + likeCount +
+                ", isCriticReview=" + isCriticReview +
+                ", reviewContent='" + reviewContent + '\'' +
+                '}';
     }
 }

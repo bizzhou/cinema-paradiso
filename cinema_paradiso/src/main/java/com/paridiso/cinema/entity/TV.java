@@ -9,7 +9,6 @@ import javax.persistence.UniqueConstraint;
 public class TV extends Film {
 
     private Integer duration;
-
     private Double autdienceRating;
 
     public Integer getDuration() {
@@ -26,5 +25,34 @@ public class TV extends Film {
 
     public void setAutdienceRating(Double autdienceRating) {
         this.autdienceRating = autdienceRating;
+    }
+
+    @Override
+    public String toString() {
+        return "TV{" +
+                "duration=" + duration +
+                ", autdienceRating=" + autdienceRating +
+                ", imdbId='" + imdbId + '\'' +
+                ", title='" + title + '\'' +
+                ", year='" + year + '\'' +
+                ", rated=" + rated +
+                ", releaseDate=" + releaseDate +
+                ", genres=" + genres +
+                ", awards=" + awards +
+                ", photos=" + photos +
+                ", director=" + director +
+                ", casts=" + casts +
+                ", reviews=" + reviews +
+                ", trailers=" + trailers +
+                ", plot='" + plot + '\'' +
+                ", movieInfo='" + movieInfo + '\'' +
+                ", language='" + language + '\'' +
+                ", country='" + country + '\'' +
+                ", poster='" + poster + '\'' +
+                ", rating=" + rating +
+                ", numberOfRatings=" + numberOfRatings +
+                ", production='" + production + '\'' +
+                ", website=" + website +
+                '}';
     }
 }

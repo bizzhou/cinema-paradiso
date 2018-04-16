@@ -9,7 +9,6 @@ import javax.persistence.UniqueConstraint;
 public class Movie extends Film {
 
     private Integer runtime;
-
     private Long boxOffice;
 
     public Movie() {

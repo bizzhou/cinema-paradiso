@@ -10,19 +10,13 @@ import javax.validation.constraints.Size;
 @Table(name = "Users", uniqueConstraints = @UniqueConstraint(columnNames = {"username", "email"}))
 public class User {
 
-    private Integer userId;
-
-    private String username;
-
-    private String email;
-
-    private String password;
-
-    private Role role;
-
-    private Boolean isAccountSuspended;
-
-    private UserProfile userProfile;
+    protected Integer userId;
+    protected String username;
+    protected String email;
+    protected String password;
+    protected Role role;
+    protected Boolean isAccountSuspended;
+    protected UserProfile userProfile;
 
     public User() {
     }
@@ -91,5 +85,18 @@ public class User {
 
     public void setUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", isAccountSuspended=" + isAccountSuspended +
+                ", userProfile=" + userProfile +
+                '}';
     }
 }

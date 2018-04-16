@@ -45,4 +45,13 @@ public class WishList {
     public void setWishListSize(Integer wishListSize) {
         this.wishListSize = wishListSize;
     }
+
+    @Override
+    public String toString() {
+        return "WishList{" +
+                "wishlistId=" + wishlistId +
+                ", movies=" + movies +
+                ", wishListSize=" + wishListSize +
+                '}';
+    }
 }
