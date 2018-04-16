@@ -3,10 +3,7 @@ package com.paridiso.cinema.service.implementation;
 import com.paridiso.cinema.constants.ExceptionConstants;
 import com.paridiso.cinema.constants.LimitationConstants;
 import com.paridiso.cinema.constants.TokenConstants;
-import com.paridiso.cinema.entity.User;
-import com.paridiso.cinema.entity.UserProfile;
-import com.paridiso.cinema.entity.WatchList;
-import com.paridiso.cinema.entity.WishList;
+import com.paridiso.cinema.entity.*;
 import com.paridiso.cinema.entity.enumerations.Role;
 import com.paridiso.cinema.persistence.*;
 import com.paridiso.cinema.security.JwtTokenValidator;
@@ -22,6 +19,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
@@ -70,11 +69,9 @@ public class RegUserServiceImpl extends UserService {
         }
         // first create a user_profile for the user;
         user.setUserProfile(userProfileRepository.save(new UserProfile()));
-
         // create a new wish list/ watch list
         user.getUserProfile().setWishList(wishListRepository.save(new WishList()));
         user.getUserProfile().setWatchList(watchListRepository.save(new WatchList()));
-
         // set size limit
         user.getUserProfile().getWishList().setWishListSize(limitationConstants.getWishListSize());
         user.getUserProfile().getWatchList().setWishListSize(limitationConstants.getWatchListSize());
@@ -158,16 +155,15 @@ public class RegUserServiceImpl extends UserService {
         int typeLength = tokenConstants.getType().length();
         User validatedUser = validator.validate(jwtToken.substring(typeLength));
         UserProfile userProfile = getUserProfile(validatedUser.getUserProfile().getId());
-        System.out.println(userProfile.getWishList().getMovies().size());
+        List<Movie> movies = (List<Movie>) utilityService.shrinkMovieSize(userProfile.getWishList().getMovies());
+        userProfile.getWishList().setMovies(movies);
         return userProfile;
     }
 
 
     public User getUser(Integer id) {
-
-
         return userRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR ,exceptionConstants.getProfileNotFound() + id));
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getProfileNotFound() + id));
     }
 
     public UserProfile getUserProfile(Integer id) {

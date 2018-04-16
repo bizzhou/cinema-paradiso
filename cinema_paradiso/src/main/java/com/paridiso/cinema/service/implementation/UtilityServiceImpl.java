@@ -2,12 +2,14 @@ package com.paridiso.cinema.service.implementation;
 
 import com.paridiso.cinema.constants.AlgorithmConstants;
 import com.paridiso.cinema.constants.ExceptionConstants;
+import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.service.UtilityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Collection;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 
@@ -37,6 +39,17 @@ public class UtilityServiceImpl implements UtilityService {
             System.out.println(exceptionConstants.getPasswordHashingFailure());
         }
         return hashedPassword;
+    }
+
+    @Override
+    public Collection<Movie> shrinkMovieSize(Collection<Movie> movies) {
+        movies.forEach(movie -> {
+            movie.setCasts(null);
+            movie.setPhotos(null);
+            movie.setDirector(null);
+            movie.setReviews(null);
+        });
+        return movies;
     }
 
 }

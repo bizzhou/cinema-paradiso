@@ -79,6 +79,7 @@ public class RegUserController {
         JwtUser jwtUser = new JwtUser(optionalUser.getUsername(),
                 generator.generate(optionalUser), optionalUser.getUserID(), optionalUser.getRole());
         session.setAttribute("user", user);
+        System.out.println(session.getAttribute("user"));
         return ResponseEntity.ok(jwtUser);
     }
 

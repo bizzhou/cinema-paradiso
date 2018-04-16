@@ -39,7 +39,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return filter;
     }
 
-
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable()
@@ -47,7 +46,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling().authenticationEntryPoint(entryPoint)
                 .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.ALWAYS);
         http.addFilterBefore(authTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         http.headers().cacheControl();
 

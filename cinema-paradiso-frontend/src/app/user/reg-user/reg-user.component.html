@@ -237,29 +237,8 @@
           </a>
 
           <ul class="l-cards__list">
-            <li class="l-cards__item">
-              <a href="detail_movie.html" class="l-cards__image fill"></a>
-              <a href="#" class="l-cards__text"></a>
-            </li>
-
-            <li class="l-cards__item">
-              <a href="#" class="l-cards__image fill"></a>
-              <a href="#" class="l-cards__text"></a>
-            </li>
-
-            <li class="l-cards__item">
-              <a href="#" class="l-cards__image fill"></a>
-              <a href="#" class="l-cards__text"></a>
-            </li>
-
-            <li class="l-cards__item">
-              <a href="#" class="l-cards__image fill"></a>
-              <a href="#" class="l-cards__text"></a>
-            </li>
-
-            <li class="l-cards__item">
-              <a href="#" class="l-cards__image fill"></a>
-              <a href="#" class="l-cards__text"></a>
+            <li class="l-cards__item" *ngFor="let movie of profile.wishList">
+              <img src="{{movie.poster}}" alt="" routerLink="/movie/{{movie.imdbId}}">
             </li>
 
           </ul>
