@@ -2,7 +2,6 @@ package com.paridiso.cinema.service.implementation;
 
 import com.paridiso.cinema.constants.AlgorithmConstants;
 import com.paridiso.cinema.constants.ExceptionConstants;
-import com.paridiso.cinema.entity.Film;
 import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.service.UtilityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 

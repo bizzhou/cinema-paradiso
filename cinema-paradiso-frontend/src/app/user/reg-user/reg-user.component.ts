@@ -66,7 +66,6 @@ export class RegUserComponent implements OnInit {
         this.profile.profileImage = profileDetails['profileImage'];
         this.profile.wishList = profileDetails['wishList'] as Movie[];
 
-        console.log(this.profile.wishList[0].poster);
         console.log(profileDetails);
       
         if (this.profile.profileImage === undefined) {
