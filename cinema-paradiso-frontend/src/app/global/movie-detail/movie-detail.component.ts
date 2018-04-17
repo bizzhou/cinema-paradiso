@@ -58,6 +58,7 @@ export class MovieDetailComponent implements OnInit {
     console.log('user token ', this.loginStatusService.getTokenDetails());
   }
 
+
   getMovie(imdbId: string): any {
     this.movieService.getMovieDetails(imdbId)
       .subscribe(
