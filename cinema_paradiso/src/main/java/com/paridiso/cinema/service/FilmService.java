@@ -55,7 +55,7 @@ public interface FilmService {
      */
     List<Movie> getMoviesTopBoxOffice();
 
-    Set<Film> getTopRating();
+    Set<? extends Film> getTopRating();
 
     Movie updateMovie(Movie movie);
 }

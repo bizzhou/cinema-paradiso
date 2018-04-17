@@ -15,9 +15,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @Service
@@ -116,7 +118,6 @@ public class MovieServiceImpl implements FilmService {
         // get movies by release date
         Collection<Movie> movies =
                 utilityService.shrinkMovieSize(movieRepository.findMoviesByReleaseDateBetween(now, daysAfter));
-
         return (Set<Movie>) movies;
     }
 
@@ -138,7 +139,6 @@ public class MovieServiceImpl implements FilmService {
                     limitationConstants.getAcceptableTrendingRating(), limitationConstants.getRatingLimit(),
                     daysBeforeNow, now));
         }
-
         return (Set<Movie>) movies;
     }
 
@@ -164,9 +164,10 @@ public class MovieServiceImpl implements FilmService {
     }
 
     @Override
-    public Set<Film> getTopRating() {
+    public Set<? extends Film> getTopRating() {
+//        Set<Movie> top50ByRatingOrderByRating = movieRepository.findTop50ByRatingOrderByRating();
+//        return top50ByRatingOrderByRating;
         return null;
     }
-
 
 }
