@@ -23,3 +23,7 @@ cinema_paradiso/target/
 backend/
 
 resources/movie_data/new_data/\.vscode/
+
+resources/movie_data/new_data/venv/Scripts/
+
+resources/movie_data/new_data/venv/

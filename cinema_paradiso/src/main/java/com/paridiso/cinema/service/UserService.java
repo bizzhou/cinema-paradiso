@@ -48,9 +48,4 @@ public abstract class UserService {
 
     }
 
-//    User logout(Integer userId);
-//
-//    boolean changePassword(Integer userId, String oldPassword, String newPassword);
-//
-//    void forgotPassword(String email);
 }

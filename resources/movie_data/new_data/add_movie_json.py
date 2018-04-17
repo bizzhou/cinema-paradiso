@@ -3,17 +3,14 @@ import random
 from datetime import datetime
 import requests
 
-celeb = json.load(open('./academy/oscar_celeb.json'))
-data = open('./academy/oscar_data.json')
-link = open('./academy/oscar_movie_celeb_id_link.json')
+# celeb = json.load(open('./academy/oscar_celeb.json'))
+# data = open('./academy/oscar_data.json')
+# link = open('./academy/oscar_movie_celeb_id_link.json')
 
-celeb = json.load(open('./recent_movies/recent_celeb.json'))
-data = open('./recent_movies/recent_data.txt')
-link = open('./recent_movies/recent_movie_celeb_id_link.json')
-images = json.load(open('./recent_movies/recent_images.json'))
-
-
-    
+celeb = json.load(open('./recent_movies/recent_celeb.json', encoding='utf8'))
+data = open('./recent_movies/recent_data.txt', encoding='utf8')
+link = open('./recent_movies/recent_movie_celeb_id_link.json', encoding='utf8')
+images = json.load(open('./recent_movies/recent_images.json', encoding='utf8'))
 
 celeb_dict = {}
 data_dict = {}
@@ -31,7 +28,6 @@ for line in link:
     json_data = json.loads(line)
     link_dict[json_data['imdbID']] = json_data
 # print(len(link_dict))
-i = 0
 
 for line in data:
 
@@ -44,7 +40,7 @@ for line in data:
     # try:
     #     print(celeb_dict[director])
     # except Exception:
-        # print('OJINOOO')
+    # print('OJINOOO')
 
     new_director = {}
     # new_director['PHOTO_LOCATION'] = director['poster']
@@ -86,13 +82,12 @@ for line in data:
             # actors_list.append(celeb_dict[actor])
         except KeyError:
             continue
-    
 
     if json_data['Released'] == 'N/A':
         release_date = "null"
     else:
         release_date = datetime.strptime(json_data['Released'], '%d %b %Y').strftime('%Y-%m-%d')
-        
+
     result = ''
     if json_data['Rated'] == 'PG-13':
         result = 'PG13'
@@ -131,7 +126,7 @@ for line in data:
 
     if json_data['imdbRating'] == 'N/A':
         json_data['imdbRating'] = 0
-    movie_json['rating'] = round(float(json_data['imdbRating'])/2 , 1)
+    movie_json['rating'] = round(float(json_data['imdbRating']) / 2, 1)
     movie_json['production'] = json_data['Production']
     movie_json['website'] = json_data['Website']
     movie_json['boxOffice'] = json_data['BoxOffice']
@@ -150,11 +145,5 @@ for line in data:
     # print(json.dumps(movie_json))
     # break
     request = requests.post('http://localhost:8080/movie/add', json=(movie_json))
-    if(request.status_code == 400):
+    if (request.status_code == 400):
         print(request.text)
-
-    
-    
-    
-
-
