@@ -2,6 +2,7 @@ package com.paridiso.cinema.service.implementation;
 
 import com.paridiso.cinema.constants.ExceptionConstants;
 import com.paridiso.cinema.entity.User;
+import com.paridiso.cinema.entity.UserProfile;
 import com.paridiso.cinema.entity.enumerations.Role;
 import com.paridiso.cinema.persistence.UserProfileRepository;
 import com.paridiso.cinema.persistence.UserRepository;
@@ -35,11 +36,22 @@ public class AdminServiceImpl extends UserService {
                 .collect(Collectors.toList());
     }
 
-    public boolean suspendUser(Integer id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserNotFound()));
+    public Boolean suspendUser(Integer id) {
+        User user = getUser(id);
         user.setAccountSuspended(true);
         return userRepository.save(user).getUserID() == null;
     }
 
+    private User getUser(Integer id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserNotFound()));
+    }
+
+    public Boolean makeCritic(Integer userID) {
+        UserProfile userProfile = userProfileRepository.findById(getUser(userID).getUserProfile().getId())
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getProfileNotFound()));
+        userProfile.setCritic(true);
+        userProfileRepository.save(userProfile);
+        return true;
+    }
 }

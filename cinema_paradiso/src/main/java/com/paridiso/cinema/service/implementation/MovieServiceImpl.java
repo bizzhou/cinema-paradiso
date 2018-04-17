@@ -87,10 +87,13 @@ public class MovieServiceImpl implements FilmService {
     @Override
     public void rateFilm(String jwtToken, String filmId, Double rating) {
         // add the rating to total rating, then get average
-        Movie movie = (Movie) this.getMovie(filmId);
-        Double newRatings = (movie.getRating() + rating) / movie.getNumberOfRatings();
-        movie.setRating(newRatings);
-        movieRepository.save(movie);
+
+
+//        Movie movie = (Movie) this.getMovie(filmId);
+//        Double newRatings = (movie.getRating() + rating) / movie.getNumberOfRatings();
+//        movie.setRating(newRatings);
+//        movieRepository.save(movie);
+//        return true;
     }
 
     @Override

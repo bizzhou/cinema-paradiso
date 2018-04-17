@@ -4,8 +4,9 @@ import com.paridiso.cinema.entity.Film;
 import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.entity.Trailer;
 
-import javax.swing.text.html.Option;
-import java.util.*;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Set;
 
 public interface FilmService {
 

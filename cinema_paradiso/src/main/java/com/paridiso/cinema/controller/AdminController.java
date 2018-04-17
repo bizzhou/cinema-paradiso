@@ -3,7 +3,6 @@ package com.paridiso.cinema.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.paridiso.cinema.constants.ExceptionConstants;
-import com.paridiso.cinema.entity.CriticApplication;
 import com.paridiso.cinema.entity.User;
 import com.paridiso.cinema.security.JwtTokenGenerator;
 import com.paridiso.cinema.security.JwtUser;
@@ -15,7 +14,6 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -65,9 +63,9 @@ public class AdminController {
         return ResponseEntity.ok(userMap);
     }
 
-    @PostMapping(value = "/verify/critic")
+    @PostMapping(value = "/post/critic")
     public ResponseEntity<Boolean> verifyCritic(@RequestParam Integer userID) {
-        return null;
+        return ResponseEntity.ok(userService.makeCritic(userID));
     }
 
 }

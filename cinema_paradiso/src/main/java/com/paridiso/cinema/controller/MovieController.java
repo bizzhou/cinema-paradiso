@@ -74,6 +74,7 @@ public class MovieController {
     public ResponseEntity<Boolean> rateMovie(@RequestHeader(value = "Authorization") String jwtToken,
                                              @PathVariable String filmId,
                                              @PathVariable Double rating) {
+        filmService.rateFilm(jwtToken, filmId, rating);
         return null;
 //        // add to user
 //        boolean result = userService.rateMovie(jwtTokenService.getUserIdFromToken(jwtToken), filmId, rating);
