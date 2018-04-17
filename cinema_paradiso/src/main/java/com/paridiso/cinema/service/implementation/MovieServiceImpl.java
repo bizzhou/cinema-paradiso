@@ -53,7 +53,6 @@ public class MovieServiceImpl implements FilmService {
         return movieRepository.save(movie);
     }
 
-    //    @Transactional
     @Override
     public Movie getMovie(String filmId) {
         return movieRepository
@@ -85,13 +84,22 @@ public class MovieServiceImpl implements FilmService {
 
     @Transactional
     @Override
-    public void rateFilm(String jwtToken, String filmId, Double rating) {
-        // add the rating to total rating, then get average
-//        Movie movie = (Movie) this.getMovie(filmId);
-//        Double newRatings = (movie.getRating() + rating) / movie.getNumberOfRatings();
-//        movie.setRating(newRatings);
-//        movieRepository.save(movie);
-//        return true;
+    public void addRating(Integer userId, String filmId, Double rating) {
+        Movie movie = getMovie(filmId);
+        logger.info(movie.getNumberOfRatings());
+        movie.setNumberOfRatings(movie.getNumberOfRatings() + 1);
+        logger.info(movie.getNumberOfRatings());
+        Double newRating = (movie.getRating() + rating) / movie.getNumberOfRatings();
+        movie.setRating(newRating);
+        movieRepository.save(movie);
+    }
+
+    @Override
+    public void deleteRating(Integer userId, String filmId) {
+    }
+
+    @Override
+    public void updateRating(Integer userId, String filmId, Double rating) {
     }
 
     @Override

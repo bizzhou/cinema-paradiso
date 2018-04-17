@@ -30,10 +30,12 @@ public class AdminServiceImpl extends UserService {
     }
 
     public List<User> getAllUsers() {
-        return userRepository.findAll()
+        List<User> users = userRepository.findAll()
                 .stream()
                 .filter(user -> user.getRole().equals(Role.ROLE_CRITIC) || user.getRole().equals(Role.ROLE_USER))
                 .collect(Collectors.toList());
+        users.forEach(user -> user.setPassword(null));
+        return users;
     }
 
     public Boolean suspendUser(Integer id) {

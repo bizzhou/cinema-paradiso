@@ -1,6 +1,7 @@
 package com.paridiso.cinema.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.paridiso.cinema.entity.enumerations.Role;
 import org.hibernate.validator.constraints.Email;
 
@@ -34,15 +35,16 @@ public class User {
         return username;
     }
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Size(min = 8)
+    public String getPassword() {
+        return password;
+    }
+
     @Email
     @Size(max = 100)
     public String getEmail() {
         return email;
-    }
-
-    @Size(min = 8)
-    public String getPassword() {
-        return password;
     }
 
     @Column(columnDefinition = "enum('ROLE_ADMIN','ROLE_CRITIC','ROLE_USER')")

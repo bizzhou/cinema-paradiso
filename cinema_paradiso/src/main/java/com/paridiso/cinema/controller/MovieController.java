@@ -63,17 +63,36 @@ public class MovieController {
 
     @PostMapping(value = "/update")
     public ResponseEntity<Boolean> updateMovie(@RequestBody Movie movie) {
-        Movie optionalMovie = filmService.updateMovie(movie);
+        filmService.updateMovie(movie);
         return ResponseEntity.ok(true);
     }
 
-    @PostMapping(value = "/rate/{filmId}/{rating}")
-    public ResponseEntity<Boolean> rateMovie(@RequestHeader(value = "Authorization") String jwtToken,
+    @PostMapping(value = "add/rate/{filmId}/{rating}")
+    public ResponseEntity<Boolean> addRating(@RequestHeader(value = "Authorization") String jwtToken,
                                              @PathVariable String filmId,
                                              @PathVariable Double rating) {
-        filmService.rateFilm(jwtToken, filmId, rating);
+        Integer id = jwtTokenService.getUserIdFromToken(jwtToken);
+        filmService.addRating(id, filmId, rating);
         return null;
     }
+
+    @DeleteMapping(value = "delete/rate/{filmId}/{rating}")
+    public ResponseEntity<Boolean> deleteRating(@RequestHeader(value = "Authorization") String jwtToken,
+                                                @PathVariable String filmId) {
+        Integer id = jwtTokenService.getUserIdFromToken(jwtToken);
+        filmService.deleteRating(id, filmId);
+        return null;
+    }
+
+    @PostMapping(value = "edit/rate/filmId}/{rating}")
+    public ResponseEntity<Boolean> editRating(@RequestHeader(value = "Authorization") String jwtToken,
+                                              @PathVariable String filmId,
+                                              @PathVariable Double rating) {
+        Integer id = jwtTokenService.getUserIdFromToken(jwtToken);
+        filmService.updateRating(id, filmId, rating);
+        return null;
+    }
+
 
     @PostMapping(value = "/update/poster/{id}")
     public ResponseEntity<Boolean> updatePoster(@PathVariable Integer id, @RequestBody String poster) {
