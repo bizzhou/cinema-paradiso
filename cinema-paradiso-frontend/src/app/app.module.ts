@@ -28,7 +28,6 @@ import {StarsComponent} from './global/stars/stars.component';
 import {SearchService} from './global/search/search.service';
 
 @NgModule({
-  // entryComponents: [MessageComponent],
   declarations: [
     AppComponent,
     HomeComponent,
@@ -48,10 +47,10 @@ import {SearchService} from './global/search/search.service';
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
-    NgbModule.forRoot(),
     CommonModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
+    NgbModule.forRoot(),
+    ToastrModule.forRoot()
   ],
   providers: [
     LoginStatusService,

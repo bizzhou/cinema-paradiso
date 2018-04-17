@@ -49,6 +49,11 @@ public class UtilityServiceImpl implements UtilityService {
             movie.setPhotos(null);
             movie.setDirector(null);
             movie.setReviews(null);
+            movie.setAwards(null);
+            movie.setGenres(null);
+            movie.setLanguage(null);
+            movie.setPlot(null);
+            movie.setWebsite(null);
         });
         return films;
     }

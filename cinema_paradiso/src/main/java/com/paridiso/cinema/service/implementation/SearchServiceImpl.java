@@ -1,7 +1,6 @@
 package com.paridiso.cinema.service.implementation;
 
 import com.paridiso.cinema.entity.Celebrity;
-import com.paridiso.cinema.entity.Film;
 import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.entity.TV;
 import com.paridiso.cinema.persistence.CelebrityRepository;
@@ -15,7 +14,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Service
 public class SearchServiceImpl implements SearchService {

@@ -1,6 +1,3 @@
-<html>
-
-<body>
 <main>
 
   <div class="search-tab">
@@ -45,11 +42,6 @@
           </div>
 
           <p class="s-plot">{{movie?.plot}}</p>
-
-          <!-- <p>
-            Starring
-            <span> Sally Hawkins, Octavia Spencer, Michael Shannon</span>
-          </p> -->
 
           <div>
             <p>
@@ -113,17 +105,16 @@
     </div>
   </div>
 
-
   <div class="container people_results" style="display:none">
 
     <div *ngFor="let celeb of celebrityResults">
       <div class="row">
         <div class="col-4 s_img-wrap">
-          <img
-            src="{{celeb?.profileImage}}"
-            alt="">
+          <img routerLink="/celebrity/{{celeb?.celebrityId}}"
+               src="{{celeb?.profileImage}}"
+               alt="">
         </div>
-        <div class="col-7">
+        <div class="col-7" routerLink="/celebrity/{{celeb?.celebrityId}}">
           <p class="s-item__title">{{celeb?.name}}</p>
           <p class="s-item__bio">{{celeb?.biography}}</p>
           <p class="s-item__birth">
@@ -138,6 +129,3 @@
 
 </main>
 
-</body>
-
-</html>
