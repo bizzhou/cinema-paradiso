@@ -1,40 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SearchService} from './search.service';
-
-class Celebrity {
-  biography: string;
-  birthCity: string;
-  birthCountry: string;
-  birthDate: string;
-  celebrityId: string;
-  filmgraphy: string[];
-  photos: string[];
-  profileImage: string;
-  name: string;
-}
-
-class Movie {
-  awards: string[];
-  boxOffice: number;
-  casts: Celebrity[];
-  director: Celebrity;
-  genres: string[];
-  imdbId: string;
-  language: string;
-  movieInfo: string;
-  numberOfRatings: number;
-  photos: string[];
-  plot: string;
-  poster: string;
-  production: string;
-  rating: string;
-  releaseDate: string;
-  reivew: string[];
-  runtime: number;
-  title: string;
-  trailers: string[];
-  year: string;
-}
+import {Movie} from '../models/movie.model';
+import {Celebrity} from '../models/celebrity.model';
 
 @Component({
   selector: 'app-search',
@@ -42,13 +9,20 @@ class Movie {
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-  constructor(private searchService: SearchService) { }
+  constructor(private searchService: SearchService) {
+  }
 
   moviesResults: Movie[];
+  celebrityResults: Celebrity[];
 
   ngOnInit() {
     this.searchService.currentResult.subscribe(results => {
-      this.moviesResults = results as Movie[];
+      this.moviesResults = results['movie'] as Movie[];
+      this.celebrityResults = results['celebrity'] as Celebrity[];
+
+      console.log('celebrity results ', this.celebrityResults);
+      console.log('movie results ', this.moviesResults);
+
     });
 
     $('.show_movies').click(function (e) {

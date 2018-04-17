@@ -40,9 +40,7 @@ public class SearchServiceImpl implements SearchService {
         Set<Movie> movieSet = new HashSet<>();
         movieSet.addAll(movies.getContent());
         logger.info(movieSet);
-//        Collection<Movie> movies1 = utilityService.shrinkMovieSize(movieSet);
-        Collection<? extends Film> films = utilityService.shrinkMovieSize(movieSet);
-        return (Set<Movie>) films;
+        return movieSet;
     }
 
     @Override
@@ -50,8 +48,7 @@ public class SearchServiceImpl implements SearchService {
         Page<Celebrity> celebrityPages = celebrityRepository
                 .findCelebritiesByNameContains(keyword, new PageRequest(pageNo, pageSize));
         List<Celebrity> celebrities = new ArrayList<>(celebrityPages.getContent());
-        Collection<Celebrity> celebrityCollection = utilityService.shrinkCelebritySize(celebrities);
-        return (List<Celebrity>) celebrityCollection;
+        return celebrities;
     }
 
     @Override

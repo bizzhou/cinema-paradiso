@@ -143,7 +143,7 @@ public class MovieServiceImpl implements FilmService {
         }
         return (Set<Movie>) films;
     }
-    
+
     @Override
     public List<Movie> getMoviesTopBoxOffice() {
         // get dates 3 week before and now

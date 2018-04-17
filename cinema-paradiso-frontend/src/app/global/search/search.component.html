@@ -1,89 +1,38 @@
 <html>
 
 <body>
-  <main>
+<main>
 
-    <div class="search-tab">
+  <div class="search-tab">
 
-      <ul>
-        <li>
-          <a class="show_movies" href="">
-            <i class="fa fa-film"></i> Movies</a>
-        </li>
-        <li>
-          <a class="show_tv" href="">
-            <i class="fa fa-tv"></i> TV-Series</a>
-        </li>
-        <li>
-          <a class="show_people" href="">
-            <i class="fa fa-user"></i> People</a>
-        </li>
-      </ul>
+    <ul>
+      <li>
+        <a class="show_movies" href="">
+          <i class="fa fa-film"></i> Movies</a>
+      </li>
+      <li>
+        <a class="show_tv" href="">
+          <i class="fa fa-tv"></i> TV-Series</a>
+      </li>
+      <li>
+        <a class="show_people" href="">
+          <i class="fa fa-user"></i> People</a>
+      </li>
+    </ul>
 
-    </div>
+  </div>
 
-    <br>
+  <br>
 
-    <div class="container movie_results">
+  <div class="container movie_results">
 
-      <div *ngFor="let movie of moviesResults">
-        <div class="row s-item" routerLink="/movie/{{movie.imdbId}}">
-          <div class="col-4 s_img-wrap">
-            <img src={{movie.poster}} alt="">
-          </div>
-          <div class="col-7">
-            <a routerLink="/movie-detail" class="s-item__title">{{movie.title}}</a>
-
-            <div class="flex">
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <p>{{movie.rating}}/5.0</p>
-              <p>{{movie.rated}}</p>
-            </div>
-
-            <p class="s-plot">{{movie.plot}}</p>
-
-            <!-- <p>
-              Starring
-              <span> Sally Hawkins, Octavia Spencer, Michael Shannon</span>
-            </p> -->
-
-            <div>
-              <p>
-                Starring
-                <span *ngFor="let actor of movie.casts" routerLink="/celebrity/{{actor.celebrityId}}">
-                  {{actor.name}} ,
-                </span>
-              </p>
-            </div>
-
-            <p>
-              Director
-              <span routerLink="/celebrity/{{movie.director.celebrityId}}">{{movie.director.name}}</span>
-            </p>
-            <p>
-              Genres
-              <span>{{movie.genres}}</span>
-            </p>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-
-    <div class="container tv_results" style="display:none">
-
-      <div class="row">
+    <div *ngFor="let movie of moviesResults">
+      <div class="row s-item" routerLink="/movie/{{movie?.imdbId}}">
         <div class="col-4 s_img-wrap">
-          <img src="https://images-na.ssl-images-amazon.com/images/M/MV5BMjE3NTQ1NDg1Ml5BMl5BanBnXkFtZTgwNzY2NDA0MjI@._V1_UX182_CR0,0,182,268_AL_.jpg"
-            alt="">
+          <img src={{movie?.poster}} alt="">
         </div>
         <div class="col-7">
-          <p class="s-item__title">Game of Throne</p>
+          <a routerLink="/movie-detail" class="s-item__title">{{movie?.title}}</a>
 
           <div class="flex">
             <i class="fa fa-star"></i>
@@ -91,41 +40,92 @@
             <i class="fa fa-star"></i>
             <i class="fa fa-star"></i>
             <i class="fa fa-star"></i>
-            <p>5.0/5.0</p>
-            <p>RR</p>
+            <p>{{movie?.rating}}/5.0</p>
+            <p>{{movie?.rated}}</p>
           </div>
 
-          <p class="s-plot">Nine noble families fight for control over the mythical lands of Westeros, while an ancient enemy returns after
-            being dormant for thousands of years. </p>
-          <p>
+          <p class="s-plot">{{movie?.plot}}</p>
+
+          <!-- <p>
             Starring
-            <span> Emilia Clarke, Peter Dinklage, Kit Harington </span>
-          </p>
+            <span> Sally Hawkins, Octavia Spencer, Michael Shannon</span>
+          </p> -->
+
+          <div>
+            <p>
+              Starring
+              <span *ngFor="let actor of movie.casts" routerLink="/celebrity/{{actor?.celebrityId}}">
+                  {{actor?.name}} ,
+                </span>
+            </p>
+          </div>
+
           <p>
             Director
-            <span> David Benioff, D.B. Weiss </span>
+            <span routerLink="/celebrity/{{movie?.director.celebrityId}}">{{movie?.director.name}}</span>
           </p>
           <p>
             Genres
-            <span> Action | Adventure | Drama | Fantasy | Romance </span>
+            <span>{{movie?.genres}}</span>
           </p>
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="container tv_results" style="display:none">
+
+    <div class="row">
+      <div class="col-4 s_img-wrap">
+        <img
+          src="https://images-na.ssl-images-amazon.com/images/M/MV5BMjE3NTQ1NDg1Ml5BMl5BanBnXkFtZTgwNzY2NDA0MjI@._V1_UX182_CR0,0,182,268_AL_.jpg"
+          alt="">
+      </div>
+      <div class="col-7">
+        <p class="s-item__title">Game of Throne</p>
+
+        <div class="flex">
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <i class="fa fa-star"></i>
+          <p>5.0/5.0</p>
+          <p>RR</p>
+        </div>
+
+        <p class="s-plot">Nine noble families fight for control over the mythical lands of Westeros, while an ancient
+          enemy returns after
+          being dormant for thousands of years. </p>
+        <p>
+          Starring
+          <span> Emilia Clarke, Peter Dinklage, Kit Harington </span>
+        </p>
+        <p>
+          Director
+          <span> David Benioff, D.B. Weiss </span>
+        </p>
+        <p>
+          Genres
+          <span> Action | Adventure | Drama | Fantasy | Romance </span>
+        </p>
+      </div>
+    </div>
+  </div>
 
 
-    <div class="container people_results" style="display:none">
+  <div class="container people_results" style="display:none">
+
+    <div *ngFor="let celeb of celebrityResults">
       <div class="row">
         <div class="col-4 s_img-wrap">
-          <img src="https://images-na.ssl-images-amazon.com/images/M/MV5BODE4MDE0MDEzMl5BMl5BanBnXkFtZTgwNjI1NTU5MDE@._V1_UY317_CR14,0,214,317_AL_.jpg"
+          <img
+            src="{{celeb?.profileImage}}"
             alt="">
         </div>
         <div class="col-7">
-          <p class="s-item__title">Sally Hawkins</p>
-          <p class="s-item__bio">Sally Cecilia Hawkins was born in 1976 in Lewisham hospital, London, England, to Jacqui and Colin Hawkins, authors
-            and illustrators of children\s books. She is of English and Irish descent. Hawkins was brought up in Greenwich,
-            in southeast London. She attended James Allen\'s Girls\' School in Dulwich. She graduated from the Royal Academy
-            of ...</p>
+          <p class="s-item__title">{{celeb?.name}}</p>
+          <p class="s-item__bio">{{celeb?.biography}}</p>
           <p class="s-item__birth">
             Born in:
             <span class="actor_birth_date">April 27, 1976 in Dulwich, London, England, UK</span>
@@ -134,8 +134,9 @@
         </div>
       </div>
     </div>
+  </div>
 
-  </main>
+</main>
 
 </body>
 
