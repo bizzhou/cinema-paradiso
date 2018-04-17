@@ -43,14 +43,12 @@ public class UtilityServiceImpl implements UtilityService {
 
     @Override
     public Collection<Movie> shrinkMovieSize(Collection<Movie> movies) {
-//        movieList.addAll(movies);
-//        movieList.forEach(movie -> {
-//            movie.setCasts(null);
-//            movie.setPhotos(null);
-//            movie.setDirector(null);
-//            movie.setReviews(null);
-//        });
-//        return movieList;
+        movies.forEach(movie -> {
+            movie.setCasts(null);
+            movie.setPhotos(null);
+            movie.setDirector(null);
+            movie.setReviews(null);
+        });
         return movies;
     }
 

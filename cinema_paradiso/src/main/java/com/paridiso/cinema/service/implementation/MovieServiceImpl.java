@@ -53,7 +53,7 @@ public class MovieServiceImpl implements FilmService {
         return movieRepository.save(movie);
     }
 
-    @Transactional
+//    @Transactional
     @Override
     public Movie getMovie(String filmId) {
         return movieRepository
@@ -106,7 +106,7 @@ public class MovieServiceImpl implements FilmService {
         return false;
     }
 
-    @Transactional
+//    @Transactional
     @Override
     public Set<Movie> getMoviesPlaying() {
         // get 21 days before
@@ -116,7 +116,7 @@ public class MovieServiceImpl implements FilmService {
         return movieRepository.findMoviesByReleaseDateBetween(daysBefore, now);
     }
 
-    @Transactional
+//    @Transactional
     @Override
     public Set<Movie> getMoviesComingSoon() {
         // get 3 week from now
@@ -128,7 +128,7 @@ public class MovieServiceImpl implements FilmService {
         return (Set<Movie>) movies;
     }
 
-    @Transactional
+//    @Transactional
     @Override
     public Set<Movie> getMoviesTrending() {
         // get date 3 week before and now
@@ -149,7 +149,7 @@ public class MovieServiceImpl implements FilmService {
         return (Set<Movie>) movies;
     }
 
-    @Transactional
+//    @Transactional
     @Override
     public List<Movie> getMoviesTopBoxOffice() {
         // get dates 3 week before and now
