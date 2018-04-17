@@ -53,7 +53,7 @@ public class MovieServiceImpl implements FilmService {
         return movieRepository.save(movie);
     }
 
-//    @Transactional
+    //    @Transactional
     @Override
     public Movie getMovie(String filmId) {
         return movieRepository
@@ -87,8 +87,6 @@ public class MovieServiceImpl implements FilmService {
     @Override
     public void rateFilm(String jwtToken, String filmId, Double rating) {
         // add the rating to total rating, then get average
-
-
 //        Movie movie = (Movie) this.getMovie(filmId);
 //        Double newRatings = (movie.getRating() + rating) / movie.getNumberOfRatings();
 //        movie.setRating(newRatings);
@@ -106,7 +104,6 @@ public class MovieServiceImpl implements FilmService {
         return false;
     }
 
-//    @Transactional
     @Override
     public Set<Movie> getMoviesPlaying() {
         // get 21 days before
@@ -116,19 +113,17 @@ public class MovieServiceImpl implements FilmService {
         return movieRepository.findMoviesByReleaseDateBetween(daysBefore, now);
     }
 
-//    @Transactional
     @Override
     public Set<Movie> getMoviesComingSoon() {
         // get 3 week from now
         Calendar daysAfter = movieUtility.getDaysAfterNow(limitationConstants.getThreeWeeksRange());
         Calendar now = movieUtility.getNow();
         // get movies by release date
-        Collection<Movie> movies =
+        Collection<? extends Film> films =
                 utilityService.shrinkMovieSize(movieRepository.findMoviesByReleaseDateBetween(now, daysAfter));
-        return (Set<Movie>) movies;
+        return (Set<Movie>) films;
     }
 
-//    @Transactional
     @Override
     public Set<Movie> getMoviesTrending() {
         // get date 3 week before and now
@@ -139,25 +134,24 @@ public class MovieServiceImpl implements FilmService {
         moviesTrending = movieRepository.findMoviesByRatingBetweenAndReleaseDateBetween(
                 limitationConstants.getTrendingRating(), limitationConstants.getRatingLimit(),
                 daysBeforeNow, now);
-        Collection<Movie> movies = utilityService.shrinkMovieSize(moviesTrending);
+        Collection<? extends Film> films = utilityService.shrinkMovieSize(moviesTrending);
         // if the number of movies returned above < 6, then find movies rated > 2.5
         if (moviesTrending.size() < limitationConstants.getLeastReturns()) {
             moviesTrending.addAll(movieRepository.findMoviesByRatingBetweenAndReleaseDateBetween(
                     limitationConstants.getAcceptableTrendingRating(), limitationConstants.getRatingLimit(),
                     daysBeforeNow, now));
         }
-        return (Set<Movie>) movies;
+        return (Set<Movie>) films;
     }
-
-//    @Transactional
+    
     @Override
     public List<Movie> getMoviesTopBoxOffice() {
         // get dates 3 week before and now
         Calendar daysBeforeNow = movieUtility.getDaysBeforeNow(limitationConstants.getThreeWeeksRange());
         Calendar now = movieUtility.getNow();
-        Collection<Movie> movies = utilityService.shrinkMovieSize(
+        Collection<? extends Film> films = utilityService.shrinkMovieSize(
                 movieRepository.findTop6ByReleaseDateBetweenOrderByBoxOfficeDesc(daysBeforeNow, now));
-        return (List<Movie>) movies;
+        return (List<Movie>) films;
     }
 
     @Override

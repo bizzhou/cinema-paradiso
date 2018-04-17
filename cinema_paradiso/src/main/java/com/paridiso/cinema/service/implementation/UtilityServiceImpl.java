@@ -2,7 +2,8 @@ package com.paridiso.cinema.service.implementation;
 
 import com.paridiso.cinema.constants.AlgorithmConstants;
 import com.paridiso.cinema.constants.ExceptionConstants;
-import com.paridiso.cinema.entity.Movie;
+import com.paridiso.cinema.entity.Celebrity;
+import com.paridiso.cinema.entity.Film;
 import com.paridiso.cinema.service.UtilityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,14 +43,23 @@ public class UtilityServiceImpl implements UtilityService {
     }
 
     @Override
-    public Collection<Movie> shrinkMovieSize(Collection<Movie> movies) {
-        movies.forEach(movie -> {
+    public Collection<? extends Film> shrinkMovieSize(Collection<? extends Film> films) {
+        films.forEach(movie -> {
             movie.setCasts(null);
             movie.setPhotos(null);
             movie.setDirector(null);
             movie.setReviews(null);
         });
-        return movies;
+        return films;
+    }
+
+    @Override
+    public Collection<Celebrity> shrinkCelebritySize(Collection<Celebrity> celebrities) {
+        celebrities.forEach(celebrity -> {
+            celebrity.setBiography(null);
+            celebrity.setFilmography(null);
+        });
+        return celebrities;
     }
 
 }
