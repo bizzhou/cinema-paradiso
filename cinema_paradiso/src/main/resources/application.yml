@@ -42,19 +42,20 @@ application:
   algorithm:
     shaHashing: "SHA-512"
   exception:
-    userNotFound: "CANNOT FOUND USER"
-    profileNotFound: "CANNOT FOUND PROFILE "
+    userNotFound: "CANNOT FIND USER"
+    profileNotFound: "CANNOT FIND PROFILE "
     userExists: "USER EXISTS"
     movieExists: "MOVIE EXISTS"
-    movieNotFound: "MOVIE NOT FOUND"
-    movieDoesNotExist: "MOVIE DOES NOT FOUND"
-    resourceNotFound: "RESOURCE NOT FOUND"
-    reviewNotFound: "REVIEW NOT FOUND"
+    movieNotFound: "MOVIE NOT FIND"
+    movieDoesNotExist: "MOVIE DOES NOT FIND"
+    resourceNotFound: "RESOURCE NOT FIND"
+    reviewNotFound: "REVIEW NOT FIND"
     celebritySaveFail: "CANNOT ADD CELEBRITY"
-    celebrityNotFound: "CANNOT FOUND CELEBRITY"
+    celebrityNotFound: "CANNOT FIND CELEBRITY"
     passwordHashingFailure: "PASSWORD HASHING ALGORITHM DOESN'T EXIST"
     carouselNotFound: "CANNOT FIND CAROUSEL"
     slideNotFound: "CANNOT FIND SLIDE"
+
   limitation:
     wishListSize: 999
     watchListSize: 999
