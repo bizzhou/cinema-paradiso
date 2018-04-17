@@ -1,17 +1,19 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs/Observable';
 
 const MOVIE_SERVER = 'http://localhost:8080/movie/';
 const WISH_LIST_SERVER = 'http://localhost:8080/wishlist/';
+
 @Injectable()
 export class MovieService {
 
   private movieIdSource = new BehaviorSubject<string>('');
   movieIdObservable = this.movieIdSource.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
 
   setSelectedMovieId(movieId: string) {
     this.movieIdSource.next(movieId);
@@ -22,19 +24,19 @@ export class MovieService {
   }
 
   getMoviesPlaying() {
-    return this.http.get(MOVIE_SERVER + 'playing');
+    return this.http.get(MOVIE_SERVER + 'get/playing');
   }
 
   getMoviesTrending() {
-    return this.http.get(MOVIE_SERVER + 'trending');
+    return this.http.get(MOVIE_SERVER + 'get/trending');
   }
 
   getMoviesComingSoon() {
-    return this.http.get(MOVIE_SERVER + 'comingSoon');
+    return this.http.get(MOVIE_SERVER + 'get/comingSoon');
   }
 
   getTopBoxOffice() {
-    return this.http.get(MOVIE_SERVER + 'topBoxOffice');
+    return this.http.get(MOVIE_SERVER + 'get/topBoxOffice');
   }
 
   getMovie(imdbId: string): any {
@@ -55,6 +57,14 @@ export class MovieService {
     const params = new HttpParams().set('filmId', imdbId);
     console.log('Check movie existence: ' + WISH_LIST_SERVER + 'exist');
     return this.http.post(WISH_LIST_SERVER + 'exist', params);
+  }
+
+  getMovieDetails(imdbId: string): any {
+    return this.http.get(MOVIE_SERVER + `get/${imdbId}`);
+  }
+
+  rateMovie(hovered: number, imdbId: string) {
+    return this.http.post(MOVIE_SERVER + `rate/${imdbId}/${hovered}`, null);
   }
 
 }

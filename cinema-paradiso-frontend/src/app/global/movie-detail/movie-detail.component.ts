@@ -1,10 +1,9 @@
 import {Component, OnInit, Input} from '@angular/core';
 import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
 import {Movie} from '../models/movie.model';
-import {MovieService} from '../movie/movie.service';
+import {MovieService} from './movie.service';
 import {ActivatedRoute} from '@angular/router';
 import {LoginStatusService} from '../login/login.status.service';
-import {MovieDetailService} from './movie-detail.service';
 
 
 @Component({
@@ -15,7 +14,6 @@ import {MovieDetailService} from './movie-detail.service';
 export class MovieDetailComponent implements OnInit {
 
   movie: Movie;
-  sub: any;
   selectedMovieId: string;
   selected = 0;
   hovered = 0;
@@ -25,7 +23,6 @@ export class MovieDetailComponent implements OnInit {
 
   constructor(config: NgbRatingConfig,
               private movieService: MovieService,
-              private movieDetailService: MovieDetailService,
               private loginStatusService: LoginStatusService,
               route: ActivatedRoute) {
 
@@ -37,22 +34,18 @@ export class MovieDetailComponent implements OnInit {
   }
 
   addReview() {
-    //TODO: add review code goes here
     console.log('reviews');
   }
 
 
   rateMovie() {
-    this.movieDetailService.rateMovie(this.hovered, this.selectedMovieId).subscribe(result => {
+    this.movieService.rateMovie(this.hovered, this.selectedMovieId).subscribe(result => {
       console.log(result);
     });
   }
 
 
   ngOnInit() {
-
-    //TODO check if user has rate the movie...
-
 
     if (this.loginStatusService.getTokenDetails() !== null) {
       this.loginStatusService.changeStatus(true);
@@ -66,7 +59,7 @@ export class MovieDetailComponent implements OnInit {
   }
 
   getMovie(imdbId: string): any {
-    this.movieDetailService.getMovieDetails(imdbId)
+    this.movieService.getMovieDetails(imdbId)
       .subscribe(
         data => {
           this.movie = data as Movie;
@@ -133,7 +126,6 @@ export class MovieDetailComponent implements OnInit {
     }, 500);
 
   }
-
 
 
 }

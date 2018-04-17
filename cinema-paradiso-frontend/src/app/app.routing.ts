@@ -1,4 +1,4 @@
-import {Router, RouterModule, Routes} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from './global/home/home.component';
 import {NgModule} from '@angular/core';
 import {CategoriesComponent} from './global/categories/categories.component';

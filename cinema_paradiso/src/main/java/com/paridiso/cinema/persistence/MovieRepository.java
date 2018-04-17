@@ -21,9 +21,7 @@ public interface MovieRepository extends JpaRepository<Movie, String> {
 
     Page<Movie> findMoviesByTitleContains(String filmTitle, Pageable pageable);
 
-    Set<Movie> findMoviesByTitleContains(String filmTitle);
+    List<Movie> findTop6ByReleaseDateBetweenOrderByBoxOfficeDesc(Calendar startDate, Calendar endDate);
 
-    List<Movie> findTop6ByReleaseDateBetweenOrderByBoxOfficeDesc(Calendar startDate, Calendar endDate );
-
-
+    Set<Movie> findTop50ByOrderByNumberOfRatingsDescRatingDesc();
 }

@@ -9,15 +9,19 @@ import com.paridiso.cinema.persistence.MovieRepository;
 import com.paridiso.cinema.service.FilmService;
 import com.paridiso.cinema.service.UtilityService;
 import com.paridiso.cinema.utility.MovieUtility;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @Service
@@ -39,6 +43,8 @@ public class MovieServiceImpl implements FilmService {
     @Autowired
     MovieUtility movieUtility;
 
+    private static Logger logger = LogManager.getLogger(MovieServiceImpl.class);
+
     @Transactional
     @Override
     public Movie addMovie(Movie movie) {
@@ -47,7 +53,6 @@ public class MovieServiceImpl implements FilmService {
         return movieRepository.save(movie);
     }
 
-    @Transactional
     @Override
     public Movie getMovie(String filmId) {
         return movieRepository
@@ -79,12 +84,22 @@ public class MovieServiceImpl implements FilmService {
 
     @Transactional
     @Override
-    public void rateFilm(String jwtToken, String filmId, Double rating) {
-        // add the rating to total rating, then get average
-        Movie movie = (Movie) this.getMovie(filmId);
-        Double newRatings = (movie.getRating() + rating) / movie.getNumberOfRatings();
-        movie.setRating(newRatings);
+    public void addRating(Integer userId, String filmId, Double rating) {
+        Movie movie = getMovie(filmId);
+        logger.info(movie.getNumberOfRatings());
+        movie.setNumberOfRatings(movie.getNumberOfRatings() + 1);
+        logger.info(movie.getNumberOfRatings());
+        Double newRating = (movie.getRating() + rating) / movie.getNumberOfRatings();
+        movie.setRating(newRating);
         movieRepository.save(movie);
+    }
+
+    @Override
+    public void deleteRating(Integer userId, String filmId) {
+    }
+
+    @Override
+    public void updateRating(Integer userId, String filmId, Double rating) {
     }
 
     @Override
@@ -97,7 +112,6 @@ public class MovieServiceImpl implements FilmService {
         return false;
     }
 
-    @Transactional
     @Override
     public Set<Movie> getMoviesPlaying() {
         // get 21 days before
@@ -107,20 +121,17 @@ public class MovieServiceImpl implements FilmService {
         return movieRepository.findMoviesByReleaseDateBetween(daysBefore, now);
     }
 
-    @Transactional
     @Override
     public Set<Movie> getMoviesComingSoon() {
         // get 3 week from now
         Calendar daysAfter = movieUtility.getDaysAfterNow(limitationConstants.getThreeWeeksRange());
         Calendar now = movieUtility.getNow();
         // get movies by release date
-        Collection<Movie> movies =
+        Collection<? extends Film> films =
                 utilityService.shrinkMovieSize(movieRepository.findMoviesByReleaseDateBetween(now, daysAfter));
-
-        return (Set<Movie>) movies;
+        return (Set<Movie>) films;
     }
 
-    @Transactional
     @Override
     public Set<Movie> getMoviesTrending() {
         // get date 3 week before and now
@@ -131,26 +142,24 @@ public class MovieServiceImpl implements FilmService {
         moviesTrending = movieRepository.findMoviesByRatingBetweenAndReleaseDateBetween(
                 limitationConstants.getTrendingRating(), limitationConstants.getRatingLimit(),
                 daysBeforeNow, now);
-        Collection<Movie> movies = utilityService.shrinkMovieSize(moviesTrending);
+        Collection<? extends Film> films = utilityService.shrinkMovieSize(moviesTrending);
         // if the number of movies returned above < 6, then find movies rated > 2.5
         if (moviesTrending.size() < limitationConstants.getLeastReturns()) {
             moviesTrending.addAll(movieRepository.findMoviesByRatingBetweenAndReleaseDateBetween(
                     limitationConstants.getAcceptableTrendingRating(), limitationConstants.getRatingLimit(),
                     daysBeforeNow, now));
         }
-
-        return (Set<Movie>) movies;
+        return (Set<Movie>) films;
     }
 
-    @Transactional
     @Override
     public List<Movie> getMoviesTopBoxOffice() {
         // get dates 3 week before and now
         Calendar daysBeforeNow = movieUtility.getDaysBeforeNow(limitationConstants.getThreeWeeksRange());
         Calendar now = movieUtility.getNow();
-        Collection<Movie> movies = utilityService.shrinkMovieSize(
+        Collection<? extends Film> films = utilityService.shrinkMovieSize(
                 movieRepository.findTop6ByReleaseDateBetweenOrderByBoxOfficeDesc(daysBeforeNow, now));
-        return (List<Movie>) movies;
+        return (List<Movie>) films;
     }
 
     @Override
@@ -164,9 +173,11 @@ public class MovieServiceImpl implements FilmService {
     }
 
     @Override
-    public Set<Film> getTopRating() {
-        return null;
+    public Set<? extends Film> getTopRating() {
+        // TODO Generate proper number of rating in the database, not just random....
+        Set<Movie> top50ByRatingOrderByRating = movieRepository.findTop50ByOrderByNumberOfRatingsDescRatingDesc();
+        logger.info(top50ByRatingOrderByRating);
+        return top50ByRatingOrderByRating;
     }
-
 
 }

@@ -2,24 +2,20 @@ package com.paridiso.cinema.service.implementation;
 
 import com.paridiso.cinema.constants.ExceptionConstants;
 import com.paridiso.cinema.constants.LimitationConstants;
-import com.paridiso.cinema.constants.TokenConstants;
 import com.paridiso.cinema.entity.*;
 import com.paridiso.cinema.entity.enumerations.Role;
 import com.paridiso.cinema.persistence.*;
-import com.paridiso.cinema.security.JwtTokenValidator;
 import com.paridiso.cinema.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
-import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,9 +35,6 @@ public class RegUserServiceImpl extends UserService {
     private UserProfileRepository userProfileRepository;
 
     @Autowired
-    private JwtTokenValidator validator;
-
-    @Autowired
     WishListRepository wishListRepository;
 
     @Autowired
@@ -49,9 +42,6 @@ public class RegUserServiceImpl extends UserService {
 
     @Autowired
     MovieRepository movieRepository;
-
-    @Autowired
-    private TokenConstants tokenConstants;
 
     @Autowired
     ExceptionConstants exceptionConstants;
@@ -91,30 +81,18 @@ public class RegUserServiceImpl extends UserService {
     }
 
     @Transactional
-    UserProfile makeUserCritic(Integer id) {
-        UserProfile profile = userProfileRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException(exceptionConstants.getProfileNotFound() + id));
-        profile.setCritic(true);
-        return userProfileRepository.save(profile);
-    }
-
-    @Transactional
-    public boolean makeSummaryPrivate(String jwtToken) {
-        int typeLength = tokenConstants.getType().length();
-        User validatedUser = validator.validate(jwtToken.substring(typeLength));
-        UserProfile profile = userProfileRepository.findById(validatedUser.getUserProfile().getId())
+    public boolean makeSummaryPrivate(Integer profileId) {
+        UserProfile profile = userProfileRepository.findById(profileId)
                 .orElseThrow(() -> new RuntimeException(exceptionConstants.getProfileNotFound()));
         profile.setPrivate(true);
         return userProfileRepository.save(profile).getPrivate();
     }
 
     @Transactional
-    public boolean chagneProfilePicture(String jwtToken, MultipartFile file) throws IOException {
-        int typeLength = tokenConstants.getType().length();
-        User validatedUser = validator.validate(jwtToken.substring(typeLength));
-        UserProfile profile = userProfileRepository.findById(validatedUser.getUserProfile().getId())
+    public boolean chagneProfilePicture(Integer profileId, MultipartFile file) throws IOException {
+        UserProfile profile = userProfileRepository.findById(profileId)
                 .orElseThrow(() -> new RuntimeException("CANNOT FIND PROFILE"));
-        profile.setProfileImage(validatedUser.getUserProfile().getId() + ".jpeg");
+        profile.setProfileImage(profileId + ".jpeg");
         userProfileRepository.save(profile);
         if (!file.isEmpty()) {
             byte[] bytes = file.getBytes();
@@ -140,21 +118,16 @@ public class RegUserServiceImpl extends UserService {
         }
     }
 
-    @Transactional
     public boolean checkUserNameTaken(String userName) {
         return userRepository.findUserByUsername(userName) != null;
     }
 
-    @Transactional
     public boolean checkEmailTaken(String email) {
         return userRepository.findUserByEmail(email) != null;
     }
 
-    @Transactional
-    public UserProfile getProfile(String jwtToken) {
-        int typeLength = tokenConstants.getType().length();
-        User validatedUser = validator.validate(jwtToken.substring(typeLength));
-        UserProfile userProfile = getUserProfile(validatedUser.getUserProfile().getId());
+    public UserProfile getProfile(Integer profileId) {
+        UserProfile userProfile = getUserProfile(profileId);
         List<Movie> movies = (List<Movie>) utilityService.shrinkMovieSize(userProfile.getWishList().getMovies());
         userProfile.getWishList().setMovies(movies);
         return userProfile;

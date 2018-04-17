@@ -9,6 +9,6 @@ import java.util.Set;
 
 public interface SearchService {
     Set<Movie> getMoviesFromKeyword(String keyword, Integer pageNo, Integer pageSize);
-    List<Celebrity> getCelebritiesFromKeyword(String keyword);
-    List<TV> getTVsFromKeyword(String keyword);
+    List<Celebrity> getCelebritiesFromKeyword(String keyword, Integer pageNo, Integer pageSize);
+    List<TV> getTVsFromKeyword(String keyword, Integer pageNo, Integer pageSize);
 }

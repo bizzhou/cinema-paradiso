@@ -4,12 +4,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.paridiso.cinema.constants.ExceptionConstants;
-import com.paridiso.cinema.constants.TokenConstants;
 import com.paridiso.cinema.entity.User;
 import com.paridiso.cinema.entity.UserProfile;
 import com.paridiso.cinema.security.JwtTokenGenerator;
-import com.paridiso.cinema.security.JwtTokenValidator;
 import com.paridiso.cinema.security.JwtUser;
+import com.paridiso.cinema.service.JwtTokenService;
 import com.paridiso.cinema.service.implementation.RegUserServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -43,10 +42,7 @@ public class RegUserController {
     private JwtTokenGenerator generator;
 
     @Autowired
-    private JwtTokenValidator validator;
-
-    @Autowired
-    private TokenConstants tokenConstants;
+    private JwtTokenService jwtTokenService;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -103,20 +99,16 @@ public class RegUserController {
     public ResponseEntity<?> changePassword(@RequestHeader(value = "Authorization") String jwtToken,
                                             @RequestParam(value = "old_password") String oldPass,
                                             @RequestParam(value = "new_password") String newPass) {
-        ObjectNode objectNode = objectMapper.createObjectNode();
-        int typeLength = tokenConstants.getType().length();
-        User validatedUser = validator.validate(jwtToken.substring(typeLength));
-        objectNode.put("success", userService.updatePassword(validatedUser.getUserID(), oldPass, newPass));
-        return ResponseEntity.ok(objectNode);
+        Integer profileId = jwtTokenService.getUserProfileIdFromToken(jwtToken);
+        boolean result = userService.updatePassword(profileId, oldPass, newPass);
+        return result ? ResponseEntity.ok(result) : ResponseEntity.badRequest().body(result);
     }
 
     @GetMapping(value = "/get/profile")
     public ResponseEntity<?> getProfile(@RequestHeader(value = "Authorization") String jwtToken, HttpSession session) throws JsonProcessingException {
         System.out.println((User) session.getAttribute("user"));
-        UserProfile profile = userService.getProfile(jwtToken);
-
+        UserProfile profile = userService.getProfile(jwtTokenService.getUserProfileIdFromToken(jwtToken));
         HashMap<Object, Object> objectObjectHashMap = new HashMap<>();
-
         objectObjectHashMap.put("name", profile.getName());
         objectObjectHashMap.put("id", profile.getId());
         if (profile.getProfileImage() == null) {
@@ -127,7 +119,6 @@ public class RegUserController {
         objectObjectHashMap.put("biography", profile.getBiography());
         objectObjectHashMap.put("isCritic", profile.getCritic());
         objectObjectHashMap.put("wishList", profile.getWishList().getMovies());
-
         return ResponseEntity.ok(objectObjectHashMap);
     }
 
@@ -151,7 +142,8 @@ public class RegUserController {
     @PostMapping(value = "/update/avatar")
     public ResponseEntity<?> changeAvatar(@RequestParam MultipartFile file,
                                           @RequestHeader(value = "Authorization") String jwtToken) throws IOException {
-        return ResponseEntity.ok(userService.chagneProfilePicture(jwtToken, file));
+        Integer id = jwtTokenService.getUserProfileIdFromToken(jwtToken);
+        return ResponseEntity.ok(userService.chagneProfilePicture(id, file));
     }
 
 
@@ -169,9 +161,8 @@ public class RegUserController {
 
     @PostMapping(value = "/set/private")
     public ResponseEntity<?> makeSummaryPrivate(@RequestHeader(value = "Authorization") String jwtToken) {
-        ObjectNode objectNode = objectMapper.createObjectNode();
-        objectNode.put("success", userService.makeSummaryPrivate(jwtToken));
-        return ResponseEntity.ok(objectNode);
+        boolean result = userService.makeSummaryPrivate(jwtTokenService.getUserProfileIdFromToken(jwtToken));
+        return result ? ResponseEntity.ok(result) : ResponseEntity.badRequest().body(result);
     }
 }
 

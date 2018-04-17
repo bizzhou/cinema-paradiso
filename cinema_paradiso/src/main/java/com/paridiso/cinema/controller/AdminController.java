@@ -3,7 +3,6 @@ package com.paridiso.cinema.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.paridiso.cinema.constants.ExceptionConstants;
-import com.paridiso.cinema.entity.CriticApplication;
 import com.paridiso.cinema.entity.User;
 import com.paridiso.cinema.security.JwtTokenGenerator;
 import com.paridiso.cinema.security.JwtUser;
@@ -13,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.HashMap;
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
@@ -57,13 +57,15 @@ public class AdminController {
 
     //    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/get/users")
-    public ResponseEntity<List> getUsers() {
-        return ResponseEntity.ok(userService.getAllUsers());
+    public ResponseEntity<?> getUsers() {
+        HashMap<String, List<User>> userMap = new HashMap<>();
+        userMap.put("users", userService.getAllUsers());
+        return ResponseEntity.ok(userMap);
     }
 
-    @PostMapping(value = "/verify/critic")
-    public ResponseEntity<Boolean> verifyCritic(@RequestBody CriticApplication application) {
-        return null;
+    @PostMapping(value = "/post/critic")
+    public ResponseEntity<Boolean> verifyCritic(@RequestParam Integer userID) {
+        return ResponseEntity.ok(userService.makeCritic(userID));
     }
 
 }

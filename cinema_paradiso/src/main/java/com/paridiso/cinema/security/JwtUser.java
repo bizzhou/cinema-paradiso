@@ -9,6 +9,9 @@ public class JwtUser {
     protected Integer id;
     protected Role role;
 
+    public JwtUser() {
+    }
+
     public JwtUser(String username, String token, Integer id, Role role) {
         this.username = username;
         this.token = token;

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {RegUserService} from './reg-user.service';
-import {Token} from '../../global/login/token.model';
+import {Token} from '../../global/models/token.model';
 import {LoginStatusService} from '../../global/login/login.status.service';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {ToastrService} from 'ngx-toastr';
@@ -20,7 +20,7 @@ class Profile {
   username: string;
   email: string;
   wishList: Movie[];
-  watchList: Object[];
+  watchList: Movie[];
 }
 
 @Component({
@@ -39,10 +39,10 @@ export class RegUserComponent implements OnInit {
   newPassword: string;
   changePasswordSuccess: boolean;
   changePasswordFailure: boolean;
-  
 
-  constructor(private router: Router, private loginService: LoginService, private modalService: NgbModal, 
-    private regUserService: RegUserService, private loginStatusService: LoginStatusService, private toastr: ToastrService) {
+
+  constructor(private router: Router, private loginService: LoginService, private modalService: NgbModal,
+              private regUserService: RegUserService, private loginStatusService: LoginStatusService, private toastr: ToastrService) {
   }
 
   showDiv(index) {
@@ -51,13 +51,13 @@ export class RegUserComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.loadPosters();
+    // this.loadPosters();
 
     if (this.loginStatusService.getTokenDetails() !== null) {
       this.loginStatusService.changeStatus(true);
       this.regUserService.getProfile().subscribe(profileDetails => {
         console.log(profileDetails);
-      
+
         this.profile = profileDetails as Profile;
         const decodedToken = this.tokenHelper.decodeToken(localStorage.getItem('token'));
         this.profile.email = decodedToken['email'];
@@ -67,7 +67,7 @@ export class RegUserComponent implements OnInit {
         this.profile.wishList = profileDetails['wishList'] as Movie[];
 
         console.log(profileDetails);
-      
+
         if (this.profile.profileImage === undefined) {
           this.profile_url = 'http://localhost:8080/user/avatar/default.jpeg';
         } else {
@@ -138,44 +138,44 @@ export class RegUserComponent implements OnInit {
     });
   }
 
-  loadPosters(): void {
-    let movieNames = ['Blade Runner 2049', 'Coco', 'Call Me By Your Name', 'Lady Bird', 'Get Out', 'Dunkirk', 'In the Fade', 'Phantom Thread'];
-
-    let images = ['https://images-na.ssl-images-amazon.com/images/M/MV5BNzA1Njg4NzYxOV5BMl5BanBnXkFtZTgwODk5NjU3MzI@._V1_SX300.jpg',
-      'https://images-na.ssl-images-amazon.com/images/M/MV5BYjQ5NjM0Y2YtNjZkNC00ZDhkLWJjMWItN2QyNzFkMDE3ZjAxXkEyXkFqcGdeQXVyODIxMzk5NjA@._V1_SX300.jpg',
-      'https://images-na.ssl-images-amazon.com/images/M/MV5BNDk3NTEwNjc0MV5BMl5BanBnXkFtZTgwNzYxNTMwMzI@._V1_SX300.jpg',
-      'https://images-na.ssl-images-amazon.com/images/M/MV5BODhkZGE0NDQtZDc0Zi00YmQ4LWJiNmUtYTY1OGM1ODRmNGVkXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg',
-      'https://images-na.ssl-images-amazon.com/images/M/MV5BMTUxMjEzNzE1NF5BMl5BanBnXkFtZTgwNDYwNjUzMTI@.jpg',
-      'https://images-na.ssl-images-amazon.com/images/M/MV5BNjA4MzEzOTc0N15BMl5BanBnXkFtZTgwOTcyNDY4MjI@.jpg',
-      'https://images-na.ssl-images-amazon.com/images/M/MV5BMTYwNDI5Njg2M15BMl5BanBnXkFtZTgwMzIyNTYxNDM@.jpg',
-      'https://images-na.ssl-images-amazon.com/images/M/MV5BOTE5MzkwMjM0NV5BMl5BanBnXkFtZTgwMTQ0Mjk0NDM@.jpg',
-    ];
-
-    let imageContainers: NodeListOf<Element> = document.getElementsByClassName('l-cards__image');
-    let movieTitles: NodeListOf<Element> = document.getElementsByClassName('l-cards__text');
-
-    var i = 0, y = 0;
-    while (i < movieTitles.length) {
-      // create img element and append to container
-      var img = document.createElement('img');
-      img.setAttribute('src', images[y]);
-      img.setAttribute('alt', movieNames[y]);
-      img.style.height = '16em';
-      imageContainers[i].appendChild(img);
-
-      // create span and append movie names and ratings
-      var ratings = document.createElement('p');
-      ratings.style.color = 'rgb(229, 9, 20)';
-      ratings.innerHTML = '4.9/5.0';
-
-      movieTitles[i].innerHTML = movieNames[y];
-      movieTitles[i].appendChild(ratings);
-      // movieTitles[i].style.fontSize = '2em';
-
-      i++;
-      y++;
-      if (y == 4) y = 0;
-    }
-
-  }
+  // loadPosters(): void {
+  //   let movieNames = ['Blade Runner 2049', 'Coco', 'Call Me By Your Name', 'Lady Bird', 'Get Out', 'Dunkirk', 'In the Fade', 'Phantom Thread'];
+  //
+  //   let images = ['https://images-na.ssl-images-amazon.com/images/M/MV5BNzA1Njg4NzYxOV5BMl5BanBnXkFtZTgwODk5NjU3MzI@._V1_SX300.jpg',
+  //     'https://images-na.ssl-images-amazon.com/images/M/MV5BYjQ5NjM0Y2YtNjZkNC00ZDhkLWJjMWItN2QyNzFkMDE3ZjAxXkEyXkFqcGdeQXVyODIxMzk5NjA@._V1_SX300.jpg',
+  //     'https://images-na.ssl-images-amazon.com/images/M/MV5BNDk3NTEwNjc0MV5BMl5BanBnXkFtZTgwNzYxNTMwMzI@._V1_SX300.jpg',
+  //     'https://images-na.ssl-images-amazon.com/images/M/MV5BODhkZGE0NDQtZDc0Zi00YmQ4LWJiNmUtYTY1OGM1ODRmNGVkXkEyXkFqcGdeQXVyMTMxODk2OTU@._V1_SX300.jpg',
+  //     'https://images-na.ssl-images-amazon.com/images/M/MV5BMTUxMjEzNzE1NF5BMl5BanBnXkFtZTgwNDYwNjUzMTI@.jpg',
+  //     'https://images-na.ssl-images-amazon.com/images/M/MV5BNjA4MzEzOTc0N15BMl5BanBnXkFtZTgwOTcyNDY4MjI@.jpg',
+  //     'https://images-na.ssl-images-amazon.com/images/M/MV5BMTYwNDI5Njg2M15BMl5BanBnXkFtZTgwMzIyNTYxNDM@.jpg',
+  //     'https://images-na.ssl-images-amazon.com/images/M/MV5BOTE5MzkwMjM0NV5BMl5BanBnXkFtZTgwMTQ0Mjk0NDM@.jpg',
+  //   ];
+  //
+  //   let imageContainers: NodeListOf<Element> = document.getElementsByClassName('l-cards__image');
+  //   let movieTitles: NodeListOf<Element> = document.getElementsByClassName('l-cards__text');
+  //
+  //   var i = 0, y = 0;
+  //   while (i < movieTitles.length) {
+  //     // create img element and append to container
+  //     var img = document.createElement('img');
+  //     img.setAttribute('src', images[y]);
+  //     img.setAttribute('alt', movieNames[y]);
+  //     img.style.height = '16em';
+  //     imageContainers[i].appendChild(img);
+  //
+  //     // create span and append movie names and ratings
+  //     var ratings = document.createElement('p');
+  //     ratings.style.color = 'rgb(229, 9, 20)';
+  //     ratings.innerHTML = '4.9/5.0';
+  //
+  //     movieTitles[i].innerHTML = movieNames[y];
+  //     movieTitles[i].appendChild(ratings);
+  //     // movieTitles[i].style.fontSize = '2em';
+  //
+  //     i++;
+  //     y++;
+  //     if (y == 4) y = 0;
+  //   }
+  //
+  // }
 }

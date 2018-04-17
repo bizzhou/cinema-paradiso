@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {MovieDetailService} from '../movie-detail/movie-detail.service';
-import {MovieService} from '../movie/movie.service';
+import {MovieService} from '../movie-detail/movie.service';
 import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
 import {ActivatedRoute} from '@angular/router';
 
