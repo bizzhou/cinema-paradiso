@@ -23,5 +23,5 @@ public interface MovieRepository extends JpaRepository<Movie, String> {
 
     List<Movie> findTop6ByReleaseDateBetweenOrderByBoxOfficeDesc(Calendar startDate, Calendar endDate);
 
-    Set<Movie> findTop50ByRatingOrderByRating();
+    Set<Movie> findTop50ByOrderByRatingDesc();
 }

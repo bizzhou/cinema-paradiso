@@ -9,6 +9,8 @@ import com.paridiso.cinema.persistence.MovieRepository;
 import com.paridiso.cinema.service.FilmService;
 import com.paridiso.cinema.service.UtilityService;
 import com.paridiso.cinema.utility.MovieUtility;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -40,6 +42,8 @@ public class MovieServiceImpl implements FilmService {
 
     @Autowired
     MovieUtility movieUtility;
+
+    private static Logger logger = LogManager.getLogger(MovieServiceImpl.class);
 
     @Transactional
     @Override
@@ -165,9 +169,10 @@ public class MovieServiceImpl implements FilmService {
 
     @Override
     public Set<? extends Film> getTopRating() {
-//        Set<Movie> top50ByRatingOrderByRating = movieRepository.findTop50ByRatingOrderByRating();
-//        return top50ByRatingOrderByRating;
-        return null;
+        // TODO temporary solution, need to sort based on number also.
+        Set<Movie> top50ByRatingOrderByRating = movieRepository.findTop50ByOrderByRatingDesc();
+        logger.info(top50ByRatingOrderByRating);
+        return top50ByRatingOrderByRating;
     }
 
 }

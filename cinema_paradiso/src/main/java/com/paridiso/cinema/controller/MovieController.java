@@ -102,7 +102,9 @@ public class MovieController {
     }
 
     @RequestMapping(value = "/trending", method = GET)
-    public ResponseEntity<Set> getMoviesTrending() { return new ResponseEntity<>(filmService.getMoviesTrending(), HttpStatus.OK); }
+    public ResponseEntity<Set> getMoviesTrending() {
+        return new ResponseEntity<>(filmService.getMoviesTrending(), HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/comingSoon", method = GET)
     public ResponseEntity<Set> getMoviesComingSoon() {
@@ -110,7 +112,9 @@ public class MovieController {
     }
 
     @RequestMapping(value = "/playing", method = GET)
-    public ResponseEntity<Set> getMoviesPlaying() { return new ResponseEntity<>(filmService.getMoviesPlaying(), HttpStatus.OK); }
+    public ResponseEntity<Set> getMoviesPlaying() {
+        return new ResponseEntity<>(filmService.getMoviesPlaying(), HttpStatus.OK);
+    }
 
     @RequestMapping(value = "/topBoxOffice", method = GET)
     public ResponseEntity<List> getTopBoxOffice() {
@@ -128,5 +132,9 @@ public class MovieController {
         return null;
     }
 
+    @GetMapping(value = "get/top_rating")
+    public ResponseEntity<?> getTopRatingMovies() {
+        return ResponseEntity.ok(filmService.getTopRating());
+    }
 
 }
