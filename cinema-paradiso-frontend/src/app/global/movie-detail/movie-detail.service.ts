@@ -10,11 +10,12 @@ export class MovieDetailService {
   }
 
   getMovieDetails(imdbId: string): any {
-    return this.http.get(MOVIE_SERVER + imdbId);
+    console.log(MOVIE_SERVER + `get/${imdbId}`);
+    return this.http.get(MOVIE_SERVER + `get/${imdbId}`);
   }
 
   rateMovie(hovered: number, imdbId: string) {
-    return this.http.post(MOVIE_SERVER + imdbId + '/' + hovered, null);
+    return this.http.post(MOVIE_SERVER + `rate/${imdbId}/${hovered}`, null);
   }
 
 }

@@ -37,7 +37,6 @@ export class MovieDetailComponent implements OnInit {
   }
 
   addReview() {
-    //TODO: add review code goes here
     console.log('reviews');
   }
 
@@ -133,7 +132,6 @@ export class MovieDetailComponent implements OnInit {
     }, 500);
 
   }
-
 
 
 }
