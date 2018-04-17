@@ -1,5 +1,6 @@
 package com.paridiso.cinema.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.paridiso.cinema.entity.enumerations.Role;
 import org.hibernate.validator.constraints.Email;
 
@@ -54,6 +55,7 @@ public class User {
         return isAccountSuspended;
     }
 
+    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "userProfileId", nullable = false)
     public UserProfile getUserProfile() {

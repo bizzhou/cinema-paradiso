@@ -13,7 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -57,12 +59,14 @@ public class AdminController {
 
     //    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping(value = "/get/users")
-    public ResponseEntity<List> getUsers() {
-        return ResponseEntity.ok(userService.getAllUsers());
+    public ResponseEntity<?> getUsers() {
+        HashMap<String, List<User>> userMap = new HashMap<>();
+        userMap.put("users", userService.getAllUsers());
+        return ResponseEntity.ok(userMap);
     }
 
     @PostMapping(value = "/verify/critic")
-    public ResponseEntity<Boolean> verifyCritic(@RequestBody CriticApplication application) {
+    public ResponseEntity<Boolean> verifyCritic(@RequestParam Integer userID) {
         return null;
     }
 

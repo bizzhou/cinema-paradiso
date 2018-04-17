@@ -169,8 +169,8 @@ public class MovieServiceImpl implements FilmService {
 
     @Override
     public Set<? extends Film> getTopRating() {
-        // TODO temporary solution, need to sort based on number also.
-        Set<Movie> top50ByRatingOrderByRating = movieRepository.findTop50ByOrderByRatingDesc();
+        // TODO Generate proper number of rating in the database, not just random....
+        Set<Movie> top50ByRatingOrderByRating = movieRepository.findTop50ByOrderByNumberOfRatingsDescRatingDesc();
         logger.info(top50ByRatingOrderByRating);
         return top50ByRatingOrderByRating;
     }

@@ -37,11 +37,6 @@ for line in data:
     # get the director string
     director = celeb_dict[link_dict[id]['director']]
 
-    # try:
-    #     print(celeb_dict[director])
-    # except Exception:
-    # print('OJINOOO')
-
     new_director = {}
     # new_director['PHOTO_LOCATION'] = director['poster']
     new_director['celebrityId'] = director['id']
@@ -140,7 +135,7 @@ for line in data:
     if movie_json['rating'] == 'N/A' or movie_json['releaseDate'] == 'N/A' or movie_json['runTime'] == '':
         continue
 
-    # skip difficult situations for now
+    # skip difficult cases for now
 
     # print(json.dumps(movie_json))
     # break
