@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
 import {RegUserService} from './reg-user.service';
-import {Token} from '../../global/login/token.model';
+import {Token} from '../../global/models/token.model';
 import {LoginStatusService} from '../../global/login/login.status.service';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {ToastrService} from 'ngx-toastr';

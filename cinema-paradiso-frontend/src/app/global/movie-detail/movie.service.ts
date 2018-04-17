@@ -59,4 +59,12 @@ export class MovieService {
     return this.http.post(WISH_LIST_SERVER + 'exist', params);
   }
 
+  getMovieDetails(imdbId: string): any {
+    return this.http.get(MOVIE_SERVER + `get/${imdbId}`);
+  }
+
+  rateMovie(hovered: number, imdbId: string) {
+    return this.http.post(MOVIE_SERVER + `rate/${imdbId}/${hovered}`, null);
+  }
+
 }
