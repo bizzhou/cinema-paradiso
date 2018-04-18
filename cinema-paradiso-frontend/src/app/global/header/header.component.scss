@@ -2,18 +2,6 @@ $color-red: rgb(229, 9, 20);
 $padding-hrz: 2.5rem;
 $shadow: lighten(black, 10%);
 
-//@mixin box_shadow($top, $left, $blur, $color, $inset: false) {
-//  @if $inset {
-//    -webkit-box-shadow:inset $top $left $blur $color;
-//    -moz-box-shadow:inset $top $left $blur $color;
-//    box-shadow:inset $top $left $blur $color;
-//  } @else {
-//    -webkit-box-shadow: $top $left $blur $color;
-//    -moz-box-shadow: $top $left $blur $color;
-//    box-shadow: $top $left $blur $color;
-//  }
-//}
-
 @mixin border_radius($radius) {
   -webkit-border-radius: $radius;
   -moz-border-radius: $radius;
@@ -33,11 +21,11 @@ input::-webkit-search-cancel-button {
 }
 
 input[type=search] {
-  background: transparent url(https://static.tumblr.com/ftv85bp/MIXmud4tx/search-icon.png) no-repeat 9px center;
+  color: white;
+  background: transparent;
   border: solid 1px #ccc;
-  padding: 6px 10px 6px 32px;
-  width: 55px;
-  margin-top: -10px;
+  padding: 6px 10px 6px 20px;
+  width: 70px;
   @include border_radius(5em);
 
   -webkit-transition: all .5s;
@@ -45,7 +33,7 @@ input[type=search] {
   transition: all .5s;
 }
 input[type=search]:focus {
-  width: 200px;
+  width: 250px;
   background-color: transparent;
   border-color: #ccc;
 
@@ -66,6 +54,7 @@ input::-webkit-input-placeholder {
   justify-content: space-between;
   align-items: center;
   //@include box_shadow(0, 5px, 5px, $shadow);
+  position: relative;
 
   > *{
     padding-top: 10px;
@@ -76,6 +65,22 @@ input::-webkit-input-placeholder {
     -moz-box-shadow: 0px 1px 5px 6px #1a1a1a;
     -webkit-box-shadow: 0px 1px 5px 6px #1a1a1a;
     box-shadow: 0px 1px 5px 6px #1a1a1a;
+
+  // search icon
+  a:nth-child(1) {
+    button {
+      border:none;
+      background-color: transparent;
+      position: absolute;
+      margin-left: -35px;
+      margin-top: -3px;
+      cursor: pointer;
+    }
+    #search-icon {
+      font-size: 1.4em;
+      color: white;
+    }
+  }
 
 }
 
@@ -105,3 +110,4 @@ input::-webkit-input-placeholder {
     margin-left: 32px;
   }
 }
+

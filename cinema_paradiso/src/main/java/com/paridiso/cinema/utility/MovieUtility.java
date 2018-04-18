@@ -49,6 +49,12 @@ public class MovieUtility {
         return oneWeekAfter;
     }
 
+    /**
+     * .equals() method
+     * @param movies
+     * @param filmImdbId
+     * @return
+     */
     public boolean containsMovie(List<Movie> movies, String filmImdbId) {
         for (Movie movie : movies) {
             if (movie.getImdbId().equals(filmImdbId))

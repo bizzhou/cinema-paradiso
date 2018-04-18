@@ -1,5 +1,13 @@
 package com.paridiso.cinema.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.paridiso.cinema.entity.Movie;
+import com.paridiso.cinema.entity.User;
+import com.paridiso.cinema.entity.WatchList;
+import com.paridiso.cinema.entity.WishList;
+import com.paridiso.cinema.security.JwtTokenGenerator;
+import com.paridiso.cinema.security.JwtTokenValidator;
 import com.paridiso.cinema.service.JwtTokenService;
 import com.paridiso.cinema.service.ListService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,13 +15,12 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
+import static org.springframework.web.bind.annotation.RequestMethod.GET;
+import static org.springframework.web.bind.annotation.RequestMethod.POST;
 import static org.springframework.web.bind.annotation.RequestMethod.*;
-
-/**
- * You can get the userId from jwt token, no need here.
- */
-
 
 @RequestMapping("/wishlist")
 @RestController
@@ -27,18 +34,20 @@ public class WishlistController {
     @Autowired
     JwtTokenService jwtTokenService;
 
-    @RequestMapping(value = "/get", method = GET)
-    public ResponseEntity<?> getWishList(@RequestHeader(value = "Authorization") String jwtToken) {
-        return ResponseEntity.ok("hello world");
+//    @RequestMapping(value = "/get", method = GET)
+    @GetMapping(value = "/get")
+    public ResponseEntity<List<Movie>> getWishList(@RequestHeader(value = "Authorization") String jwtToken) {
+        List<Movie> wishListMovies = listService.getListFromUserId(jwtTokenService.getUserIdFromToken(jwtToken));
+        return new ResponseEntity<>(wishListMovies, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/add", method = POST)
     public ResponseEntity<Boolean> addToWishList(@RequestHeader(value = "Authorization") String jwtToken,
                                                  @RequestParam("filmId") String filmId) {
-        System.out.println(filmId);
         Boolean result = listService.addToList(jwtTokenService.getUserIdFromToken(jwtToken), filmId);
-        if (result)
+        if (result) {
             return new ResponseEntity<>(HttpStatus.OK);
+        }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
