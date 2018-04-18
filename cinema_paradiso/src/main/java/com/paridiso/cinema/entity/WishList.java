@@ -1,23 +1,18 @@
 package com.paridiso.cinema.entity;
 
-import org.springframework.beans.factory.annotation.Value;
-
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 @Entity
 @Table(name = "WishLists", uniqueConstraints = @UniqueConstraint(columnNames = {"wishlistId"}))
-public class WishList extends LinkedList {
+public class WishList {
 
     private Integer wishlistId;
-
     private List<Movie> movies;
-
     private Integer wishListSize;
 
-    public WishList() { }
+    public WishList() {
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +20,7 @@ public class WishList extends LinkedList {
         return wishlistId;
     }
 
-    @ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinTable(
             name = "WishListsMovies",
             joinColumns = {@JoinColumn(name = "wishListId")},
@@ -35,7 +30,9 @@ public class WishList extends LinkedList {
         return movies;
     }
 
-    public Integer getWishListSize() { return wishListSize; }
+    public Integer getWishListSize() {
+        return wishListSize;
+    }
 
     public void setMovies(List<Movie> movies) {
         this.movies = movies;
@@ -45,5 +42,16 @@ public class WishList extends LinkedList {
         this.wishlistId = wishlistId;
     }
 
-    public void setWishListSize(Integer wishListSize) { this.wishListSize = wishListSize; }
+    public void setWishListSize(Integer wishListSize) {
+        this.wishListSize = wishListSize;
+    }
+
+    @Override
+    public String toString() {
+        return "WishList{" +
+                "wishlistId=" + wishlistId +
+                ", movies=" + movies +
+                ", wishListSize=" + wishListSize +
+                '}';
+    }
 }

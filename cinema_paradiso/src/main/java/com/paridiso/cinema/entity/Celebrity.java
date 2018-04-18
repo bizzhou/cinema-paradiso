@@ -11,25 +11,15 @@ import java.util.Set;
 public class Celebrity {
 
     private String celebrityId;
-
     private String name;
-
     private String profileImage;
-
     private String biography;
-
     private Calendar birthDate;
-
     private String birthCity;
-
     private String birthState;
-
     private String birthCountry;
-
     private Set<URI> photos;
-
     private boolean isDirector;
-
     private List<Movie> filmography;
 
     public Celebrity() {
@@ -132,5 +122,22 @@ public class Celebrity {
 
     public void setFilmography(List<Movie> filmography) {
         this.filmography = filmography;
+    }
+
+    @Override
+    public String toString() {
+        return "Celebrity{" +
+                "celebrityId='" + celebrityId + '\'' +
+                ", name='" + name + '\'' +
+                ", profileImage='" + profileImage + '\'' +
+                ", biography='" + biography + '\'' +
+                ", birthDate=" + birthDate +
+                ", birthCity='" + birthCity + '\'' +
+                ", birthState='" + birthState + '\'' +
+                ", birthCountry='" + birthCountry + '\'' +
+                ", photos=" + photos +
+                ", isDirector=" + isDirector +
+                ", filmography=" + filmography +
+                '}';
     }
 }

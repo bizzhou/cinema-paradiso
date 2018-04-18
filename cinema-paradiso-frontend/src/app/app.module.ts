@@ -21,14 +21,12 @@ import {AdminComponent} from './user/admin/admin.component';
 import {LoginStatusService} from './global/login/login.status.service';
 import {AuthInterceptor} from './http.interceptor';
 import {HomeService} from './global/home/home.service';
-import {MovieService} from './global/movie/movie.service';
-import {MovieDetailService} from './global/movie-detail/movie-detail.service';
+import {MovieService} from './global/movie-detail/movie.service';
 import {ToastrModule} from 'ngx-toastr';
 import {StarsComponent} from './global/stars/stars.component';
 import {SearchService} from './global/search/search.service';
 
 @NgModule({
-  // entryComponents: [MessageComponent],
   declarations: [
     AppComponent,
     HomeComponent,
@@ -48,17 +46,16 @@ import {SearchService} from './global/search/search.service';
     HttpClientModule,
     FormsModule,
     AppRoutingModule,
-    NgbModule.forRoot(),
     CommonModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
+    NgbModule.forRoot(),
+    ToastrModule.forRoot()
   ],
   providers: [
     LoginStatusService,
     SearchService,
     HomeService,
     MovieService,
-    MovieDetailService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

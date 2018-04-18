@@ -1,31 +1,18 @@
 package com.paridiso.cinema.constants;
 
-import org.hibernate.annotations.ColumnDefault;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
-
-import javax.persistence.Column;
-import javax.validation.constraints.NotNull;
 
 @Component
 @ConfigurationProperties(prefix = "application.limitation")
 public class LimitationConstants {
 
     private Integer wishListSize;
-
     private Integer watchListSize;
-
     private Double trendingRating;
-
     private Double acceptableTrendingRating;
-
     private Integer leastReturns;
-
     private Double ratingLimit;
-
     private Integer threeWeeksRange;
 
     public LimitationConstants() { }

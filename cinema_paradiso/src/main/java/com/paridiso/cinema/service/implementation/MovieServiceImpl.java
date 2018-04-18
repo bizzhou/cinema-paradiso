@@ -6,19 +6,22 @@ import com.paridiso.cinema.entity.Film;
 import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.entity.Trailer;
 import com.paridiso.cinema.persistence.MovieRepository;
-import com.paridiso.cinema.utility.MovieUtility;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import com.paridiso.cinema.service.FilmService;
 import com.paridiso.cinema.service.UtilityService;
-import org.springframework.http.HttpStatus;
+import com.paridiso.cinema.utility.MovieUtility;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.*;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.List;
+import java.util.Set;
 
-import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @Service
@@ -40,31 +43,34 @@ public class MovieServiceImpl implements FilmService {
     @Autowired
     MovieUtility movieUtility;
 
+    private static Logger logger = LogManager.getLogger(MovieServiceImpl.class);
+
     @Transactional
     @Override
     public Movie addMovie(Movie movie) {
-//        if (movieRepository.findMovieByImdbId(movie.getImdbId()) != null)
-//            throw new ResponseStatusException(BAD_REQUEST, exceptionConstants.getMovieExists());
+//        if (movieRepository.findMovieByImdbId(movie.getImdbId()).get() != null)
+//            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieExists());
         return movieRepository.save(movie);
     }
 
-    @Transactional
     @Override
     public Movie getMovie(String filmId) {
         return movieRepository
                 .findMovieByImdbId(filmId)
-                .orElseThrow(() -> new ResponseStatusException(BAD_REQUEST, exceptionConstants.getMovieDoesNotExist()));
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieDoesNotExist()));
     }
 
     @Transactional
     @Override
-    public List<Movie> getMovies() { return movieRepository.findAll(); }
+    public List<Movie> getMovies() {
+        return movieRepository.findAll();
+    }
 
     @Transactional
     @Override
     public void deleteFilm(String filmId) {
-        if (movieRepository.findMovieByImdbId(filmId) == null)
-            throw new ResponseStatusException(BAD_REQUEST, exceptionConstants.getMovieDoesNotExist());
+        if (movieRepository.findMovieByImdbId(filmId).get() == null)
+            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieDoesNotExist());
         movieRepository.deleteById(filmId);
     }
 
@@ -72,23 +78,28 @@ public class MovieServiceImpl implements FilmService {
     @Override
     public Movie updateMovie(Movie movie) {
         movieRepository.findMovieByImdbId(movie.getImdbId())
-                .orElseThrow(() -> new ResponseStatusException(BAD_REQUEST, exceptionConstants.getMovieDoesNotExist()));
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieDoesNotExist()));
         return movieRepository.save(movie);
     }
 
     @Transactional
     @Override
-    public void rateFilm(String filmId, Double rating) {
-        // add the rating to total rating, then get average
-        Movie movie = (Movie) this.getMovie(filmId);
-        if (movie.getNumberOfRatings() == null) {
-            movie.setNumberOfRatings(1);
-        } else {
-            movie.setNumberOfRatings(movie.getNumberOfRatings() + 1);
-        }
-        Double newRatings = (movie.getRating() + rating) / movie.getNumberOfRatings();
-        movie.setRating(newRatings);
+    public void addRating(Integer userId, String filmId, Double rating) {
+        Movie movie = getMovie(filmId);
+        logger.info(movie.getNumberOfRatings());
+        movie.setNumberOfRatings(movie.getNumberOfRatings() + 1);
+        logger.info(movie.getNumberOfRatings());
+        Double newRating = (movie.getRating() + rating) / movie.getNumberOfRatings();
+        movie.setRating(newRating);
         movieRepository.save(movie);
+    }
+
+    @Override
+    public void deleteRating(Integer userId, String filmId) {
+    }
+
+    @Override
+    public void updateRating(Integer userId, String filmId, Double rating) {
     }
 
     @Override
@@ -101,59 +112,54 @@ public class MovieServiceImpl implements FilmService {
         return false;
     }
 
-    @Transactional
     @Override
     public Set<Movie> getMoviesPlaying() {
         // get 21 days before
         Calendar daysBefore = movieUtility.getDaysBeforeNow(limitationConstants.getThreeWeeksRange());
         Calendar now = movieUtility.getNow();
-
         // get movies by release date
         return movieRepository.findMoviesByReleaseDateBetween(daysBefore, now);
     }
 
-    @Transactional
     @Override
     public Set<Movie> getMoviesComingSoon() {
         // get 3 week from now
         Calendar daysAfter = movieUtility.getDaysAfterNow(limitationConstants.getThreeWeeksRange());
         Calendar now = movieUtility.getNow();
-
         // get movies by release date
-        return movieRepository.findMoviesByReleaseDateBetween(now, daysAfter);
+        Collection<? extends Film> films =
+                utilityService.shrinkMovieSize(movieRepository.findMoviesByReleaseDateBetween(now, daysAfter));
+        return (Set<Movie>) films;
     }
 
-    @Transactional
     @Override
     public Set<Movie> getMoviesTrending() {
         // get date 3 week before and now
         Calendar daysBeforeNow = movieUtility.getDaysBeforeNow(limitationConstants.getThreeWeeksRange());
         Calendar now = movieUtility.getNow();
-
         // get movies with ratings >= 4.0 and released within one week
         Set<Movie> moviesTrending;
         moviesTrending = movieRepository.findMoviesByRatingBetweenAndReleaseDateBetween(
-                        limitationConstants.getTrendingRating(), limitationConstants.getRatingLimit(),
-                        daysBeforeNow, now);
-
+                limitationConstants.getTrendingRating(), limitationConstants.getRatingLimit(),
+                daysBeforeNow, now);
+        Collection<? extends Film> films = utilityService.shrinkMovieSize(moviesTrending);
         // if the number of movies returned above < 6, then find movies rated > 2.5
         if (moviesTrending.size() < limitationConstants.getLeastReturns()) {
             moviesTrending.addAll(movieRepository.findMoviesByRatingBetweenAndReleaseDateBetween(
                     limitationConstants.getAcceptableTrendingRating(), limitationConstants.getRatingLimit(),
                     daysBeforeNow, now));
         }
-
-        return moviesTrending;
+        return (Set<Movie>) films;
     }
 
-    @Transactional
     @Override
     public List<Movie> getMoviesTopBoxOffice() {
         // get dates 3 week before and now
         Calendar daysBeforeNow = movieUtility.getDaysBeforeNow(limitationConstants.getThreeWeeksRange());
         Calendar now = movieUtility.getNow();
-
-       return movieRepository.findTop6ByReleaseDateBetweenOrderByBoxOfficeDesc(daysBeforeNow, now);
+        Collection<? extends Film> films = utilityService.shrinkMovieSize(
+                movieRepository.findTop6ByReleaseDateBetweenOrderByBoxOfficeDesc(daysBeforeNow, now));
+        return (List<Movie>) films;
     }
 
     @Override
@@ -167,9 +173,11 @@ public class MovieServiceImpl implements FilmService {
     }
 
     @Override
-    public Set<Film> getTopRating() {
-        return null;
+    public Set<? extends Film> getTopRating() {
+        // TODO Generate proper number of rating in the database, not just random....
+        Set<Movie> top50ByRatingOrderByRating = movieRepository.findTop50ByOrderByNumberOfRatingsDescRatingDesc();
+        logger.info(top50ByRatingOrderByRating);
+        return top50ByRatingOrderByRating;
     }
-
 
 }

@@ -1,30 +1,25 @@
 package com.paridiso.cinema.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.paridiso.cinema.entity.enumerations.Role;
-import com.paridiso.cinema.service.WishlistService;
 import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 @Entity
 @Table(name = "Users", uniqueConstraints = @UniqueConstraint(columnNames = {"username", "email"}))
+@PersistenceContext(type = PersistenceContextType.EXTENDED)
 public class User {
 
-    private Integer userId;
-
-    private String username;
-
-    private String email;
-
-    private String password;
-
-    private Role role;
-
-    private Boolean isAccountSuspended;
-
-    private UserProfile userProfile;
+    protected Integer userId;
+    protected String username;
+    protected String email;
+    protected String password;
+    protected Role role;
+    protected Boolean isAccountSuspended;
+    protected UserProfile userProfile;
 
     public User() {
     }
@@ -40,15 +35,16 @@ public class User {
         return username;
     }
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Size(min = 8)
+    public String getPassword() {
+        return password;
+    }
+
     @Email
     @Size(max = 100)
     public String getEmail() {
         return email;
-    }
-
-    @Size(min = 8)
-    public String getPassword() {
-        return password;
     }
 
     @Column(columnDefinition = "enum('ROLE_ADMIN','ROLE_CRITIC','ROLE_USER')")
@@ -61,6 +57,7 @@ public class User {
         return isAccountSuspended;
     }
 
+    @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "userProfileId", nullable = false)
     public UserProfile getUserProfile() {
@@ -93,5 +90,18 @@ public class User {
 
     public void setUserProfile(UserProfile userProfile) {
         this.userProfile = userProfile;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", isAccountSuspended=" + isAccountSuspended +
+                ", userProfile=" + userProfile +
+                '}';
     }
 }

@@ -11,9 +11,9 @@ public interface CelebrityService {
 
     Optional<Celebrity> getCelebrity(String celebrityId);
 
-    boolean deleteCelebrity(Integer celebrityId);
+    Boolean deleteCelebrity(Integer celebrityId);
 
-    boolean updateCelebrity(Celebrity celebrity);
+    Boolean updateCelebrity(Celebrity celebrity);
 
     Optional<Celebrity> addCelebrity(Celebrity celebrity);
 

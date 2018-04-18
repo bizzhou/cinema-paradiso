@@ -6,19 +6,14 @@ import com.paridiso.cinema.service.CelebrityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
-import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/celebrity")
 @RestController
 public class CelebrityController {
@@ -29,33 +24,33 @@ public class CelebrityController {
     @Autowired
     ExceptionConstants exceptionConstants;
 
-    @RequestMapping(value = "/", method = GET)
+    @GetMapping(value = "/get/all")
     public ResponseEntity<List<Celebrity>> getCelebrities() {
         return null;
     }
 
-    @RequestMapping(value = "/add", method = POST)
+    @PostMapping(value = "/add")
     public ResponseEntity<Boolean> addCelebrity(@RequestBody final Celebrity celebrity) {
         celebrityService.addCelebrity(celebrity)
                 .orElseThrow(() -> new ResponseStatusException(BAD_REQUEST, exceptionConstants.getCelebritySaveFail()));
         return ResponseEntity.ok(true);
     }
 
-    @RequestMapping(value = "/{id}", method = GET)
+    @GetMapping(value = "/get/{id}")
     public ResponseEntity<Celebrity> getCelebrity(@PathVariable String id) {
         Celebrity celebrity = celebrityService.getCelebrity(id)
                 .orElseThrow(() -> new ResponseStatusException(BAD_REQUEST, exceptionConstants.getCelebrityNotFound()));
         return new ResponseEntity<>(celebrity, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{id}", method = DELETE)
+    @DeleteMapping(value = "/delete/{id}")
     public ResponseEntity<Celebrity> deleteCelebrity(@PathVariable Integer id) {
         return null;
     }
 
-    @RequestMapping(value = "/{id}", method = POST)
+    @PostMapping(value = "update/{id{")
     public ResponseEntity<Celebrity> deleteCelebrity(@PathVariable Integer id,
-                                                     @RequestBody final Celebrity celebrity) {
+                                                     @RequestBody Celebrity celebrity) {
         return null;
     }
 

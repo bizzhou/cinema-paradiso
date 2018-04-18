@@ -1,9 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
-// TODO reduce font-awesome.css size
-// @import "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css";
-@import '~bootstrap/scss/bootstrap.scss';
-@import "~ngx-toastr/toastr-bs4-alert";
+@import "~ngx-toastr/toastr.css";
 
 $color-red: rgb(229, 9, 20);
 $color-light-red: #e8716d;

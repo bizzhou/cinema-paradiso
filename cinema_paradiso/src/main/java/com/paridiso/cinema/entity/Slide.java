@@ -3,9 +3,6 @@ package com.paridiso.cinema.entity;
 import com.sun.xml.internal.ws.developer.Serialization;
 
 import javax.persistence.*;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 
 @Entity
 @Table(name = "Slides")
@@ -13,9 +10,7 @@ import java.net.URL;
 public class Slide {
 
     private Integer slideId;
-
     private String backgroundImage;
-
     private Movie movie;
 
     @Id
@@ -49,5 +44,14 @@ public class Slide {
 
     public void setMovie(Movie selectedMovie) {
         this.movie = selectedMovie;
+    }
+
+    @Override
+    public String toString() {
+        return "Slide{" +
+                "slideId=" + slideId +
+                ", backgroundImage='" + backgroundImage + '\'' +
+                ", movie=" + movie +
+                '}';
     }
 }

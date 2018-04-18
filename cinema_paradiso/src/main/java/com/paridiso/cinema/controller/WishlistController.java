@@ -10,20 +10,17 @@ import com.paridiso.cinema.security.JwtTokenGenerator;
 import com.paridiso.cinema.security.JwtTokenValidator;
 import com.paridiso.cinema.service.JwtTokenService;
 import com.paridiso.cinema.service.ListService;
-import com.paridiso.cinema.service.UtilityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.paridiso.cinema.service.WishlistService;
-import org.springframework.core.env.Environment;
-
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RequestMapping("/wishlist")
 @RestController
@@ -37,14 +34,16 @@ public class WishlistController {
     @Autowired
     JwtTokenService jwtTokenService;
 
-    @RequestMapping(value = "/get", method = GET)
+//    @RequestMapping(value = "/get", method = GET)
+    @GetMapping(value = "/get")
     public ResponseEntity<List<Movie>> getWishList(@RequestHeader(value = "Authorization") String jwtToken) {
-        List<Movie> wishListMovies = listService.getWishList(jwtTokenService.getUserIdFromToken(jwtToken));
+        List<Movie> wishListMovies = listService.getListFromUserId(jwtTokenService.getUserIdFromToken(jwtToken));
         return new ResponseEntity<>(wishListMovies, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/add", method = POST)
-    public ResponseEntity<Boolean> addToWishList(@RequestHeader(value = "Authorization") String jwtToken, @RequestParam("filmId") String filmId) {
+    public ResponseEntity<Boolean> addToWishList(@RequestHeader(value = "Authorization") String jwtToken,
+                                                 @RequestParam("filmId") String filmId) {
         Boolean result = listService.addToList(jwtTokenService.getUserIdFromToken(jwtToken), filmId);
         if (result) {
             return new ResponseEntity<>(HttpStatus.OK);
@@ -52,9 +51,9 @@ public class WishlistController {
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
-    @RequestMapping(value = "/delete/{filmId}", method = DELETE)
-    public ResponseEntity removeFromWishList(@RequestHeader(value = "Authorization") String jwtToken, @PathVariable("filmId") String filmId) {
-        System.out.println("deleting");
+    @DeleteMapping(value = "delete/{filmId}")
+    public ResponseEntity removeFromWishList(@RequestHeader(value = "Authorization") String jwtToken,
+                                             @PathVariable("filmId") String filmId) {
         listService.removeFromList(jwtTokenService.getUserIdFromToken(jwtToken), filmId);
         return new ResponseEntity<Boolean>(true, HttpStatus.OK);
     }
@@ -66,7 +65,8 @@ public class WishlistController {
      * @return
      */
     @RequestMapping(value = "/exist", method = DELETE)
-    public ResponseEntity<Boolean> isMovieInWishList(@RequestHeader(value = "Authorization") String jwtToken, @RequestParam("filmId") String filmId) {
+    public ResponseEntity<Boolean> isMovieInWishList(@RequestHeader(value = "Authorization") String jwtToken,
+                                                     @RequestParam("filmId") String filmId) {
         Boolean result = listService.isMovieInWishList(jwtTokenService.getUserIdFromToken(jwtToken), filmId);
         if (result) {
             return new ResponseEntity<Boolean>(true, HttpStatus.OK);

@@ -4,12 +4,12 @@ import com.paridiso.cinema.entity.Film;
 import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.entity.Trailer;
 
-import javax.swing.text.html.Option;
-import java.util.*;
+import java.util.Calendar;
+import java.util.List;
+import java.util.Set;
 
 public interface FilmService {
 
-//    Film addFilm(Film film);
     Movie addMovie(Movie movie);
 
     Movie getMovie(String filmId);
@@ -17,8 +17,6 @@ public interface FilmService {
     List<Movie> getMovies();
 
     void deleteFilm(String filmId);
-
-    void rateFilm(String filmId, Double rating);
 
     List<Trailer> getTrailers(Long filmId);
 
@@ -31,6 +29,7 @@ public interface FilmService {
     /**
      * Get movies trending
      * Find movies' release date within two weeks && movies rated above 4.5
+     *
      * @return a set of qualified movies
      */
     Set<Movie> getMoviesTrending();
@@ -38,6 +37,7 @@ public interface FilmService {
     /**
      * Get movies coming soon
      * Find movies' release date within the following 3 weeks
+     *
      * @return a set of qualified movies
      */
     Set<Movie> getMoviesComingSoon();
@@ -45,6 +45,7 @@ public interface FilmService {
     /**
      * Get movies playing now
      * Find movies' release dates in between current date and 3 weeks before
+     *
      * @return a set of qualified movies
      */
     Set<Movie> getMoviesPlaying();
@@ -52,11 +53,18 @@ public interface FilmService {
     /**
      * Get movies with the top box office
      * Find movies' release date within 3 weeks and order by box office
+     *
      * @return a list of qualified movies
      */
     List<Movie> getMoviesTopBoxOffice();
 
-    Set<Film> getTopRating();
+    Set<? extends Film> getTopRating();
 
     Movie updateMovie(Movie movie);
+
+    void addRating(Integer userId, String filmId, Double rating);
+
+    void deleteRating(Integer userId, String filmId);
+
+    void updateRating(Integer userId, String filmId, Double rating);
 }

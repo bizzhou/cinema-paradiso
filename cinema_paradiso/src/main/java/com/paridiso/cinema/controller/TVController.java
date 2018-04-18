@@ -1,25 +1,22 @@
 package com.paridiso.cinema.controller;
 
 import com.paridiso.cinema.entity.TV;
+import com.paridiso.cinema.service.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import com.paridiso.cinema.service.FilmService;
 
 import java.util.Date;
 import java.util.List;
 
-import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
-import static org.springframework.web.bind.annotation.RequestMethod.GET;
-import static org.springframework.web.bind.annotation.RequestMethod.POST;
+import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RequestMapping("/tv")
 @RestController
 public class TVController {
-//    @Autowired
-//    @Qualifier("TVServiceImpl")
-//    FilmService filmService;
+
+    @Autowired
+    FilmService filmService;
 
     @RequestMapping(value = "/all", method = GET)
     public ResponseEntity<List> getAllTV() {

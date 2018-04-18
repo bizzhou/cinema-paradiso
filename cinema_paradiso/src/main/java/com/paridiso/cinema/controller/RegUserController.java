@@ -1,14 +1,14 @@
 package com.paridiso.cinema.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.paridiso.cinema.constants.ExceptionConstants;
-import com.paridiso.cinema.constants.TokenConstants;
 import com.paridiso.cinema.entity.User;
 import com.paridiso.cinema.entity.UserProfile;
 import com.paridiso.cinema.security.JwtTokenGenerator;
-import com.paridiso.cinema.security.JwtTokenValidator;
 import com.paridiso.cinema.security.JwtUser;
+import com.paridiso.cinema.service.JwtTokenService;
 import com.paridiso.cinema.service.implementation.RegUserServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,11 +21,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
+import java.util.HashMap;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
@@ -40,10 +42,7 @@ public class RegUserController {
     private JwtTokenGenerator generator;
 
     @Autowired
-    private JwtTokenValidator validator;
-
-    @Autowired
-    private TokenConstants tokenConstants;
+    private JwtTokenService jwtTokenService;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -55,10 +54,12 @@ public class RegUserController {
 
     @PostMapping(value = "/login")
     public ResponseEntity<JwtUser> userLogin(@RequestParam(value = "email") String email,
-                                             @RequestParam(value = "password") String password) {
+                                             @RequestParam(value = "password") String password, HttpSession session) {
         User user = userService.login(email, password).orElseThrow(() ->
                 new ResponseStatusException(BAD_REQUEST, exceptionConstants.getUserNotFound()));
         JwtUser jwtUser = new JwtUser(user.getUsername(), generator.generate(user), user.getUserID(), user.getRole());
+        session.setAttribute("user", user);
+        System.out.println(session.getAttribute("user"));
         return ResponseEntity.ok(jwtUser);
     }
 
@@ -68,11 +69,13 @@ public class RegUserController {
     }
 
     @PostMapping(value = "/signup")
-    public ResponseEntity<JwtUser> userSignup(@RequestBody User user) {
+    public ResponseEntity<JwtUser> userSignup(@RequestBody User user, HttpSession session) {
         User optionalUser = userService.signup(user).orElseThrow(() ->
                 new ResponseStatusException(BAD_REQUEST, exceptionConstants.getUserExists()));
         JwtUser jwtUser = new JwtUser(optionalUser.getUsername(),
                 generator.generate(optionalUser), optionalUser.getUserID(), optionalUser.getRole());
+        session.setAttribute("user", user);
+        System.out.println(session.getAttribute("user"));
         return ResponseEntity.ok(jwtUser);
     }
 
@@ -96,27 +99,27 @@ public class RegUserController {
     public ResponseEntity<?> changePassword(@RequestHeader(value = "Authorization") String jwtToken,
                                             @RequestParam(value = "old_password") String oldPass,
                                             @RequestParam(value = "new_password") String newPass) {
-        ObjectNode objectNode = objectMapper.createObjectNode();
-        int typeLength = tokenConstants.getType().length();
-        User validatedUser = validator.validate(jwtToken.substring(typeLength));
-        objectNode.put("success", userService.updatePassword(validatedUser.getUserID(), oldPass, newPass));
-        return ResponseEntity.ok(objectNode);
+        Integer profileId = jwtTokenService.getUserProfileIdFromToken(jwtToken);
+        boolean result = userService.updatePassword(profileId, oldPass, newPass);
+        return result ? ResponseEntity.ok(result) : ResponseEntity.badRequest().body(result);
     }
 
     @GetMapping(value = "/get/profile")
-    public ResponseEntity<?> getProfile(@RequestHeader(value = "Authorization") String jwtToken) {
-        UserProfile profile = userService.getProfile(jwtToken);
-        ObjectNode objectNode = objectMapper.createObjectNode();
-        objectNode.put("name", profile.getName());
-        objectNode.put("id", profile.getId());
+    public ResponseEntity<?> getProfile(@RequestHeader(value = "Authorization") String jwtToken, HttpSession session) throws JsonProcessingException {
+        System.out.println((User) session.getAttribute("user"));
+        UserProfile profile = userService.getProfile(jwtTokenService.getUserProfileIdFromToken(jwtToken));
+        HashMap<Object, Object> objectObjectHashMap = new HashMap<>();
+        objectObjectHashMap.put("name", profile.getName());
+        objectObjectHashMap.put("id", profile.getId());
         if (profile.getProfileImage() == null) {
-            objectNode.put("profileImage", "default.jpeg");
+            objectObjectHashMap.put("profileImage", "default.jpeg");
         } else {
-            objectNode.put("profileImage", profile.getProfileImage());
+            objectObjectHashMap.put("profileImage", profile.getProfileImage());
         }
-        objectNode.put("biography", profile.getBiography());
-        objectNode.put("isCritic", profile.getCritic());
-        return ResponseEntity.ok(objectNode);
+        objectObjectHashMap.put("biography", profile.getBiography());
+        objectObjectHashMap.put("isCritic", profile.getCritic());
+        objectObjectHashMap.put("wishList", profile.getWishList().getMovies());
+        return ResponseEntity.ok(objectObjectHashMap);
     }
 
 
@@ -139,7 +142,8 @@ public class RegUserController {
     @PostMapping(value = "/update/avatar")
     public ResponseEntity<?> changeAvatar(@RequestParam MultipartFile file,
                                           @RequestHeader(value = "Authorization") String jwtToken) throws IOException {
-        return ResponseEntity.ok(userService.chagneProfilePicture(jwtToken, file));
+        Integer id = jwtTokenService.getUserProfileIdFromToken(jwtToken);
+        return ResponseEntity.ok(userService.chagneProfilePicture(id, file));
     }
 
 
@@ -158,9 +162,8 @@ public class RegUserController {
 
     @PostMapping(value = "/set/private")
     public ResponseEntity<?> makeSummaryPrivate(@RequestHeader(value = "Authorization") String jwtToken) {
-        ObjectNode objectNode = objectMapper.createObjectNode();
-        objectNode.put("success", userService.makeSummaryPrivate(jwtToken));
-        return ResponseEntity.ok(objectNode);
+        boolean result = userService.makeSummaryPrivate(jwtTokenService.getUserProfileIdFromToken(jwtToken));
+        return result ? ResponseEntity.ok(result) : ResponseEntity.badRequest().body(result);
     }
 }
 

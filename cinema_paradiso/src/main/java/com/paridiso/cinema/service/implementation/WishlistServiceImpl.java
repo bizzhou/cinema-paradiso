@@ -2,7 +2,8 @@ package com.paridiso.cinema.service.implementation;
 
 import com.paridiso.cinema.constants.ExceptionConstants;
 import com.paridiso.cinema.constants.LimitationConstants;
-import com.paridiso.cinema.entity.*;
+import com.paridiso.cinema.entity.Movie;
+import com.paridiso.cinema.entity.User;
 import com.paridiso.cinema.persistence.MovieRepository;
 import com.paridiso.cinema.persistence.UserProfileRepository;
 import com.paridiso.cinema.persistence.UserRepository;
@@ -76,7 +77,7 @@ public class WishlistServiceImpl implements ListService, WishlistService {
     }
 
     @Override
-    public List<Movie> getWishList(Integer userId) {
+    public List<Movie> getListFromUserId(Integer userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserNotFound()));
         return user.getUserProfile().getWishList().getMovies();

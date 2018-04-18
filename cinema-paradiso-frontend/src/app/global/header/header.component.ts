@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {LoginStatusService} from '../login/login.status.service';
-import {Token} from '../login/token.model';
+import {Token} from '../models/token.model';
 import {LoginService} from '../login/login.service';
 import {ToastrService} from 'ngx-toastr';
 import {SearchService} from '../search/search.service';

@@ -8,11 +8,8 @@ import java.net.URI;
 public class Trailer {
 
     private Integer trailerId;
-
     private Film film;
-
     private String name;
-
     private URI path;
 
     public Trailer() {
@@ -54,6 +51,16 @@ public class Trailer {
 
     public void setPath(URI path) {
         this.path = path;
+    }
+
+    @Override
+    public String toString() {
+        return "Trailer{" +
+                "trailerId=" + trailerId +
+                ", film=" + film +
+                ", name='" + name + '\'' +
+                ", path=" + path +
+                '}';
     }
 }
 

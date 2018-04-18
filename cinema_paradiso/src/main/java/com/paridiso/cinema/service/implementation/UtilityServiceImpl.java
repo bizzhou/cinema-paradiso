@@ -1,24 +1,18 @@
 package com.paridiso.cinema.service.implementation;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.paridiso.cinema.constants.AlgorithmConstants;
 import com.paridiso.cinema.constants.ExceptionConstants;
-import com.paridiso.cinema.entity.Movie;
-import com.paridiso.cinema.entity.User;
-import com.paridiso.cinema.security.JwtTokenGenerator;
-import com.paridiso.cinema.security.JwtTokenValidator;
+import com.paridiso.cinema.entity.Celebrity;
+import com.paridiso.cinema.entity.Film;
 import com.paridiso.cinema.service.UtilityService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
-import java.security.AlgorithmConstraints;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.*;
+import java.util.Collection;
 
-import static java.nio.charset.StandardCharsets.*;
+import static java.nio.charset.StandardCharsets.UTF_8;
 
 @Service
 public class UtilityServiceImpl implements UtilityService {
@@ -46,6 +40,31 @@ public class UtilityServiceImpl implements UtilityService {
             System.out.println(exceptionConstants.getPasswordHashingFailure());
         }
         return hashedPassword;
+    }
+
+    @Override
+    public Collection<? extends Film> shrinkMovieSize(Collection<? extends Film> films) {
+        films.forEach(movie -> {
+            movie.setCasts(null);
+            movie.setPhotos(null);
+            movie.setDirector(null);
+            movie.setReviews(null);
+            movie.setAwards(null);
+            movie.setGenres(null);
+            movie.setLanguage(null);
+            movie.setPlot(null);
+            movie.setWebsite(null);
+        });
+        return films;
+    }
+
+    @Override
+    public Collection<Celebrity> shrinkCelebritySize(Collection<Celebrity> celebrities) {
+        celebrities.forEach(celebrity -> {
+            celebrity.setBiography(null);
+            celebrity.setFilmography(null);
+        });
+        return celebrities;
     }
 
 }

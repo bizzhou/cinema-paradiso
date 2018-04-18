@@ -8,7 +8,7 @@ import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
 import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
 import {CarouselSlide} from '../models/carouselSlide.model';
-import {MovieService} from '../movie/movie.service';
+import {MovieService} from '../movie-detail/movie.service';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {Slide} from '../models/slide.model';
 
@@ -41,17 +41,34 @@ export class HomeComponent implements OnInit {
     // load carousel
     this.getCarousel();
 
-    // load movies playing
-    this.getMoviesPlaying();
+    // this.getMoviesPlaying();
+    // this.getMoviesTrending();
+    // this.getMoviesComingSoon();
+    // this.getTopBoxOffice();
 
-    // load movies trending
-    this.getMoviesTrending();
+    if (localStorage.getItem('nowPlaying') !== null) {
+      this.moviesPlaying = JSON.parse(localStorage.getItem('nowPlaying')) as Movie[];
+    } else {
+      this.getMoviesPlaying();
+    }
 
-    // load movies coming soon
-    this.getMoviesComingSoon();
+    if (localStorage.getItem('movieTrending') !== null) {
+      this.moviesTrending = JSON.parse(localStorage.getItem('movieTrending')) as Movie[];
+    } else {
+      this.getMoviesTrending();
+    }
 
-    // load top box office
-    this.getTopBoxOffice();
+    if (localStorage.getItem('comingSoon') !== null) {
+      this.moviesComingSoon = JSON.parse(localStorage.getItem('comingSoon')) as Movie[];
+    } else {
+      this.getMoviesComingSoon();
+    }
+
+    if (localStorage.getItem('topBoxOffice') !== null) {
+      this.moviesTopBoxOffice = JSON.parse(localStorage.getItem('topBoxOffice')) as Movie[];
+    } else {
+      this.getTopBoxOffice();
+    }
 
     if (this.loginStatusService.getTokenDetails() !== null) {
       this.loginStatusService.changeStatus(true);
@@ -77,6 +94,7 @@ export class HomeComponent implements OnInit {
         data => {
           this.moviesPlaying = data as Movie[];
           console.log(this.moviesPlaying);
+          localStorage.setItem('nowPlaying', JSON.stringify(this.moviesPlaying));
         },
         error => console.log('Failed to fetch movies playing')
       );
@@ -88,6 +106,7 @@ export class HomeComponent implements OnInit {
         data => {
           this.moviesTrending = data as Movie[];
           console.log(this.moviesTrending);
+          localStorage.setItem('movieTrending', JSON.stringify(this.moviesTrending));
         },
         error => console.log('Failed to fetch movies trending')
       );
@@ -99,6 +118,7 @@ export class HomeComponent implements OnInit {
         data => {
           this.moviesComingSoon = data as Movie[];
           console.log(this.moviesComingSoon);
+          localStorage.setItem('comingSoon', JSON.stringify(this.moviesComingSoon));
         },
         error => console.log('Failed to fetch movies coming soon')
       );
@@ -110,6 +130,7 @@ export class HomeComponent implements OnInit {
         data => {
           this.moviesTopBoxOffice = data as Movie[];
           console.log(this.moviesTopBoxOffice);
+          localStorage.setItem('topBoxOffice', JSON.stringify(this.moviesTopBoxOffice));
         },
         error => console.log('Failed to fetch top box office')
       );

@@ -4,6 +4,8 @@ public interface JwtTokenService {
 
     Integer getUserIdFromToken(String jwtToken);
 
+    Integer getUserProfileIdFromToken(String jwtToken);
 
+    String getUserEmail(String jwtToken);
 
 }

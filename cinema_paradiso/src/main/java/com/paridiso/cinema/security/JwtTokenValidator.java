@@ -1,7 +1,5 @@
 package com.paridiso.cinema.security;
 
-import com.paridiso.cinema.entity.User;
-import com.paridiso.cinema.entity.UserProfile;
 import com.paridiso.cinema.entity.enumerations.Role;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -14,26 +12,21 @@ public class JwtTokenValidator {
     @Value("${jwt.secret}")
     private String secret;
 
-    public User validate(String token) {
-        User jwtUser = null;
+    public TokenDetail validate(String token) {
+        TokenDetail jwtUser = null;
+        Claims body = Jwts.parser()
+                .setSigningKey(this.secret)
+                .parseClaimsJws(token)
+                .getBody();
         try {
-            Claims body = Jwts.parser()
-                    .setSigningKey(this.secret)
-                    .parseClaimsJws(token)
-                    .getBody();
-            jwtUser = new User();
-            jwtUser.setUserID(Integer.parseInt(body.get("id").toString()));
+            jwtUser = new TokenDetail();
+            jwtUser.setEmail(body.get("email").toString());
             jwtUser.setUsername(body.get("username").toString());
             jwtUser.setRole(Role.valueOf(body.get("role").toString()));
-            jwtUser.setEmail(body.get("email").toString());
-            if (body.get("profileId").toString() != null) {
-                UserProfile userProfile = new UserProfile();
-                userProfile.setId(Integer.parseInt(body.get("profileId").toString()));
-                jwtUser.setUserProfile(userProfile);
-            }
-
+            jwtUser.setUserId(Integer.parseInt(body.get("userId").toString()));
+            jwtUser.setProfileId(Integer.parseInt(body.get("profileId").toString()));
         } catch (Exception e) {
-            System.out.println("Cannot verify the token");
+            System.out.println("CANNOT VERIFY TOKEN");
         }
         return jwtUser;
 

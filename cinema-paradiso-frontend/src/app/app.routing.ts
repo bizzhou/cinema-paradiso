@@ -1,4 +1,4 @@
-import {Router, RouterModule, Routes} from '@angular/router';
+import {RouterModule, Routes} from '@angular/router';
 import {HomeComponent} from './global/home/home.component';
 import {NgModule} from '@angular/core';
 import {CategoriesComponent} from './global/categories/categories.component';
@@ -13,9 +13,8 @@ const appRoutes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'home'},
   {path: 'home', component: HomeComponent},
   {path: 'movies', component: CategoriesComponent},
-  // {path: ':id', component: MovieDetailComponent, data: {imdb_id: this.}},
   {path: 'movie/:id', component: MovieDetailComponent},
-  {path: 'celebrity', component: CelebrityComponent},
+  {path: 'celebrity/:id', component: CelebrityComponent},
   {path: 'user', component: RegUserComponent},
   {path: 'search', component: SearchComponent},
   {path: 'admin', component: AdminComponent},
