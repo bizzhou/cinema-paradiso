@@ -26,10 +26,11 @@ export class HeaderComponent implements OnInit {
   }
 
   keywordSubmit() {
-    this.searchService.search(this.keywords, '0', '20').subscribe(result => {
+    this.searchService.search(this.keywords, '1', '20').subscribe(result => {
       this.searchService.nextResult(result);
+      this.searchService.nextKeyword(this.keywords);
       console.log('current result  ', this.searchService.currentResult);
-      this.router.navigateByUrl('search');
+      this.router.navigateByUrl('/search');
     });
   }
 

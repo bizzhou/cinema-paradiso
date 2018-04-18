@@ -12,15 +12,22 @@ export class SearchService {
   private searchResult = new BehaviorSubject<Object>(null);
   currentResult = this.searchResult.asObservable();
 
+  private searchKeyword = new BehaviorSubject<string>('');
+  currentKeyword = this.searchKeyword.asObservable();
+
   nextResult(result: Object) {
     this.searchResult.next(result);
+  }
+
+  nextKeyword(keyword: string) {
+    this.searchKeyword.next(keyword);
   }
 
   constructor(private http: HttpClient) {
   }
 
   search(keywords: string, pageNo: string, pageSize: string) {
-    console.log(keywords);
+    console.log(keywords, pageNo, pageSize);
     const param = new HttpParams().set('keyword', keywords)
                                   .set('pageNo', pageNo)
                                   .set('pageSize', pageSize);

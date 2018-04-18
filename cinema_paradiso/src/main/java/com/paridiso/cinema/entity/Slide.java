@@ -1,12 +1,11 @@
 package com.paridiso.cinema.entity;
 
-import com.sun.xml.internal.ws.developer.Serialization;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "Slides")
-@Serialization
+//@Serialization
 public class Slide {
 
     private Integer slideId;
