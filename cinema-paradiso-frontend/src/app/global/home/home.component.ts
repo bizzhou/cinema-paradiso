@@ -11,6 +11,7 @@ import {CarouselSlide} from '../models/carouselSlide.model';
 import {MovieService} from '../movie-detail/movie.service';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {Slide} from '../models/slide.model';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -31,6 +32,7 @@ export class HomeComponent implements OnInit {
   constructor(private loginStatusService: LoginStatusService,
               private homeService: HomeService,
               private movieService: MovieService,
+              private toastr: ToastrService,
               config: NgbCarouselConfig) {
     config.interval = 3000;
     config.wrap = true;
@@ -142,7 +144,8 @@ export class HomeComponent implements OnInit {
         data => {
           console.log(data);
         },
-        error => console.log('Failed to add to wish list')
+        // error => console.log('Failed to add to wish list')
+        error => this.toastr.error('Please Login!')
       );
   }
 
