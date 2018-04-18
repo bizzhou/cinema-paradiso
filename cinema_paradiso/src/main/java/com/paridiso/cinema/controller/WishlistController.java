@@ -48,7 +48,7 @@ public class WishlistController {
         if (result) {
             return new ResponseEntity<>(HttpStatus.OK);
         }
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<Boolean>(false, HttpStatus.CONFLICT);
     }
 
     @DeleteMapping(value = "delete/{filmId}")
