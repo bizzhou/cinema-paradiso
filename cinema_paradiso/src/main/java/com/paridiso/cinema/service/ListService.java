@@ -1,5 +1,7 @@
 package com.paridiso.cinema.service;
 
+import com.paridiso.cinema.entity.Movie;
+
 import java.util.List;
 
 public interface ListService {
@@ -8,9 +10,10 @@ public interface ListService {
 
     boolean addToList(Integer userId, String filmId);
 
-    List<?> getList();
+    List<Movie> getListFromUserId(Integer userId);
 
     void removeFromList(Integer userId, String filmId);
 
     Boolean isMovieInWishList(Integer userId, String filmId);
+
 }

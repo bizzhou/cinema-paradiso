@@ -1,11 +1,9 @@
 package com.paridiso.cinema.entity;
 
-
 import javax.persistence.*;
 
 @Entity
 @Table(name = "Slides")
-//@Serialization
 public class Slide {
 
     private Integer slideId;
