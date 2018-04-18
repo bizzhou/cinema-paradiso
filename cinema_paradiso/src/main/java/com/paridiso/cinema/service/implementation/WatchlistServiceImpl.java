@@ -5,6 +5,7 @@ import com.paridiso.cinema.constants.LimitationConstants;
 import com.paridiso.cinema.entity.Film;
 import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.entity.User;
+import com.paridiso.cinema.entity.WishList;
 import com.paridiso.cinema.persistence.*;
 import com.paridiso.cinema.service.ListService;
 import com.paridiso.cinema.service.UtilityService;
@@ -68,7 +69,7 @@ public class WatchlistServiceImpl implements ListService {
     }
 
     @Override
-    public List<?> getList() {
+    public WishList getWishList(Integer userId) {
         return null;
     }
 

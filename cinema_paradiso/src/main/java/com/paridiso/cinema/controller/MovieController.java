@@ -60,7 +60,6 @@ public class MovieController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
     @RequestMapping(value = "/{filmId}", method = DELETE)
     public ResponseEntity<Boolean> deleteMovie(@PathVariable String filmId) {
         filmService.deleteFilm(filmId);

@@ -76,8 +76,10 @@ public class WishlistServiceImpl implements ListService, WishlistService {
     }
 
     @Override
-    public List<?> getList() {
-        return null;
+    public List<Movie> getWishList(Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserNotFound()));
+        return user.getUserProfile().getWishList().getMovies();
     }
 
     @Override

@@ -2,8 +2,10 @@ package com.paridiso.cinema.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.entity.User;
 import com.paridiso.cinema.entity.WatchList;
+import com.paridiso.cinema.entity.WishList;
 import com.paridiso.cinema.security.JwtTokenGenerator;
 import com.paridiso.cinema.security.JwtTokenValidator;
 import com.paridiso.cinema.service.JwtTokenService;
@@ -17,14 +19,11 @@ import org.springframework.web.bind.annotation.*;
 import com.paridiso.cinema.service.WishlistService;
 import org.springframework.core.env.Environment;
 
+import java.util.List;
+
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
-
-/**
- * You can get the userId from jwt token, no need here.
- */
-
 
 @RequestMapping("/wishlist")
 @RestController
@@ -39,17 +38,17 @@ public class WishlistController {
     JwtTokenService jwtTokenService;
 
     @RequestMapping(value = "/get", method = GET)
-    public ResponseEntity<WatchList> getWishList(@RequestHeader(value = "Authorization") String jwtToke) {
-        return null;
+    public ResponseEntity<List<Movie>> getWishList(@RequestHeader(value = "Authorization") String jwtToken) {
+        List<Movie> wishListMovies = listService.getWishList(jwtTokenService.getUserIdFromToken(jwtToken));
+        return new ResponseEntity<>(wishListMovies, HttpStatus.OK);
     }
 
-    // http://localhost:8080/wishlist?filmId=1
     @RequestMapping(value = "/add", method = POST)
     public ResponseEntity<Boolean> addToWishList(@RequestHeader(value = "Authorization") String jwtToken, @RequestParam("filmId") String filmId) {
-        System.out.println(filmId);
         Boolean result = listService.addToList(jwtTokenService.getUserIdFromToken(jwtToken), filmId);
-        if (result)
+        if (result) {
             return new ResponseEntity<>(HttpStatus.OK);
+        }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 
@@ -68,7 +67,6 @@ public class WishlistController {
      */
     @RequestMapping(value = "/exist", method = DELETE)
     public ResponseEntity<Boolean> isMovieInWishList(@RequestHeader(value = "Authorization") String jwtToken, @RequestParam("filmId") String filmId) {
-
         Boolean result = listService.isMovieInWishList(jwtTokenService.getUserIdFromToken(jwtToken), filmId);
         if (result) {
             return new ResponseEntity<Boolean>(true, HttpStatus.OK);

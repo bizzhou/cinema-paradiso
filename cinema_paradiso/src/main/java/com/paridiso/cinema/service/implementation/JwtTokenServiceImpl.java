@@ -20,12 +20,14 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     @Autowired
     private TokenConstants tokenConstants;
 
-    // TODO: if token is null
     @Override
     public Integer getUserIdFromToken(String jwtToken) {
         int headerLength = tokenConstants.getType().length();
         User validatedUser = validator.validate(jwtToken.substring(headerLength));
+
         return validatedUser.getUserID();
     }
+
+
 
 }
