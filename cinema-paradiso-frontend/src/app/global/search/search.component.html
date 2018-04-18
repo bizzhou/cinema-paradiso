@@ -1,131 +1,138 @@
 <main>
+  <ngb-tabset [justify]="currentJustify">
 
-  <div class="search-tab">
+    <ngb-tab>
 
-    <ul>
-      <li>
-        <a class="show_movies" href="">
-          <i class="fa fa-film"></i> Movies</a>
-      </li>
-      <li>
-        <a class="show_tv" href="">
-          <i class="fa fa-tv"></i> TV-Series</a>
-      </li>
-      <li>
-        <a class="show_people" href="">
-          <i class="fa fa-user"></i> People</a>
-      </li>
-    </ul>
+      <ng-template ngbTabTitle>
+        <i class="fa fa-film"></i> Movies
+      </ng-template>
 
-  </div>
+      <ng-template ngbTabContent>
+        <div class="container movie_results">
+          <div *ngFor="let movie of moviesResults">
+            <div class="row s-item" routerLink="/movie/{{movie?.imdbId}}">
+              <div class="col-4 s_img-wrap">
+                <img src={{movie?.poster}} alt="">
+              </div>
+              <div class="col-7">
+                <a routerLink="/movie-detail" class="s-item__title">{{movie?.title}}</a>
 
-  <br>
+                <div class="flex">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <p>{{movie?.rating}}/5.0</p>
+                  <p>{{movie?.rated}}</p>
+                </div>
 
-  <div class="container movie_results">
+                <p class="s-plot">{{movie?.plot}}</p>
 
-    <div *ngFor="let movie of moviesResults">
-      <div class="row s-item" routerLink="/movie/{{movie?.imdbId}}">
-        <div class="col-4 s_img-wrap">
-          <img src={{movie?.poster}} alt="">
-        </div>
-        <div class="col-7">
-          <a routerLink="/movie-detail" class="s-item__title">{{movie?.title}}</a>
+                <div>
+                  <p>
+                    Starring
+                    <span *ngFor="let actor of movie.casts" routerLink="/celebrity/{{actor?.celebrityId}}">
+                      {{actor?.name}} ,
+                    </span>
+                  </p>
+                </div>
 
-          <div class="flex">
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <p>{{movie?.rating}}/5.0</p>
-            <p>{{movie?.rated}}</p>
+                <p>
+                  Director
+                  <span routerLink="/celebrity/{{movie?.director.celebrityId}}">{{movie?.director.name}}</span>
+                </p>
+                <p>
+                  Genres
+                  <span>{{movie?.genres}}</span>
+                </p>
+              </div>
+            </div>
           </div>
+        </div>
 
-          <p class="s-plot">{{movie?.plot}}</p>
+        <ngb-pagination class="d-flex justify-content-center" [collectionSize]="20" [(page)]="moviePage" (click)="getNextPage()"></ngb-pagination>
 
-          <div>
-            <p>
-              Starring
-              <span *ngFor="let actor of movie.casts" routerLink="/celebrity/{{actor?.celebrityId}}">
-                  {{actor?.name}} ,
-                </span>
-            </p>
+      </ng-template>
+    </ngb-tab>
+
+    <ngb-tab>
+      <ng-template ngbTabTitle>
+        <i class="fa fa-user"></i> People</ng-template>
+      <ng-template ngbTabContent>
+        <div class="container people_results">
+
+          <div *ngFor="let celeb of celebrityResults">
+            <div class="row">
+              <div class="col-4 s_img-wrap">
+                <img routerLink="/celebrity/{{celeb?.celebrityId}}" src="{{celeb?.profileImage}}" alt="">
+              </div>
+              <div class="col-7" routerLink="/celebrity/{{celeb?.celebrityId}}">
+                <p class="s-item__title">{{celeb?.name}}</p>
+                <p class="s-item__bio">{{celeb?.biography}}</p>
+                <p class="s-item__birth">
+                  Born in:
+                  <span class="actor_birth_date">April 27, 1976 in Dulwich, London, England, UK</span>
+                </p>
+
+              </div>
+            </div>
           </div>
-
-          <p>
-            Director
-            <span routerLink="/celebrity/{{movie?.director.celebrityId}}">{{movie?.director.name}}</span>
-          </p>
-          <p>
-            Genres
-            <span>{{movie?.genres}}</span>
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="container tv_results" style="display:none">
-
-    <div class="row">
-      <div class="col-4 s_img-wrap">
-        <img
-          src="https://images-na.ssl-images-amazon.com/images/M/MV5BMjE3NTQ1NDg1Ml5BMl5BanBnXkFtZTgwNzY2NDA0MjI@._V1_UX182_CR0,0,182,268_AL_.jpg"
-          alt="">
-      </div>
-      <div class="col-7">
-        <p class="s-item__title">Game of Throne</p>
-
-        <div class="flex">
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <i class="fa fa-star"></i>
-          <p>5.0/5.0</p>
-          <p>RR</p>
         </div>
 
-        <p class="s-plot">Nine noble families fight for control over the mythical lands of Westeros, while an ancient
-          enemy returns after
-          being dormant for thousands of years. </p>
-        <p>
-          Starring
-          <span> Emilia Clarke, Peter Dinklage, Kit Harington </span>
-        </p>
-        <p>
-          Director
-          <span> David Benioff, D.B. Weiss </span>
-        </p>
-        <p>
-          Genres
-          <span> Action | Adventure | Drama | Fantasy | Romance </span>
-        </p>
-      </div>
-    </div>
-  </div>
+        <ngb-pagination class="d-flex justify-content-center" [collectionSize]="20" [(page)]="peoplePage" (click)="getNextPage()"></ngb-pagination>
 
-  <div class="container people_results" style="display:none">
+      </ng-template>
 
-    <div *ngFor="let celeb of celebrityResults">
-      <div class="row">
-        <div class="col-4 s_img-wrap">
-          <img routerLink="/celebrity/{{celeb?.celebrityId}}"
-               src="{{celeb?.profileImage}}"
-               alt="">
+    </ngb-tab>
+
+    <ngb-tab>
+      <ng-template ngbTabTitle>
+        <i class="fa fa-tv"></i> TV-Series</ng-template>
+      <ng-template ngbTabContent>
+        <div class="container tv_results">
+
+          <div class="row">
+            <div class="col-4 s_img-wrap">
+              <img src="https://images-na.ssl-images-amazon.com/images/M/MV5BMjE3NTQ1NDg1Ml5BMl5BanBnXkFtZTgwNzY2NDA0MjI@._V1_UX182_CR0,0,182,268_AL_.jpg"
+                alt="">
+            </div>
+            <div class="col-7">
+              <p class="s-item__title">Game of Throne</p>
+
+              <div class="flex">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <p>5.0/5.0</p>
+                <p>RR</p>
+              </div>
+
+              <p class="s-plot">Nine noble families fight for control over the mythical lands of Westeros, while an ancient enemy returns after
+                being dormant for thousands of years. </p>
+              <p>
+                Starring
+                <span> Emilia Clarke, Peter Dinklage, Kit Harington </span>
+              </p>
+              <p>
+                Director
+                <span> David Benioff, D.B. Weiss </span>
+              </p>
+              <p>
+                Genres
+                <span> Action | Adventure | Drama | Fantasy | Romance </span>
+              </p>
+            </div>
+          </div>
         </div>
-        <div class="col-7" routerLink="/celebrity/{{celeb?.celebrityId}}">
-          <p class="s-item__title">{{celeb?.name}}</p>
-          <p class="s-item__bio">{{celeb?.biography}}</p>
-          <p class="s-item__birth">
-            Born in:
-            <span class="actor_birth_date">April 27, 1976 in Dulwich, London, England, UK</span>
-          </p>
 
-        </div>
-      </div>
-    </div>
-  </div>
+        <ngb-pagination class="d-flex justify-content-center" [collectionSize]="20" [(page)]="tvPage" (click)="getNextPage()"></ngb-pagination>
+
+      </ng-template>
+    </ngb-tab>
+
+  </ngb-tabset>
 
 </main>
-

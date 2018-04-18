@@ -12,8 +12,14 @@ export class SearchComponent implements OnInit {
   constructor(private searchService: SearchService) {
   }
 
+  currentJustify = 'center';
+  moviePage = 1;
+  peoplePage = 1;
+  tvPage = 1;
+
   moviesResults: Movie[];
   celebrityResults: Celebrity[];
+  
 
   ngOnInit() {
     this.searchService.currentResult.subscribe(results => {
@@ -24,26 +30,19 @@ export class SearchComponent implements OnInit {
       console.log('movie results ', this.moviesResults);
 
     });
+  }
 
-    $('.show_movies').click(function (e) {
-      e.preventDefault();
-      $('.movie_results').show();
-      $('.people_results').hide();
-      $('.tv_results').hide();
-    });
+  getNextPage() {
+    this.searchService.currentKeyword.subscribe(currentKeyword => {
+      console.log(this.moviePage);
+      console.log(currentKeyword);
 
-    $('.show_tv').click(function (e) {
-      e.preventDefault();
-      $('.movie_results').hide();
-      $('.people_results').hide();
-      $('.tv_results').show();
-    });
+      this.searchService.search(currentKeyword, this.moviePage.toString(), '20').subscribe(results => {
+        console.log(results['movie']);
+        this.moviesResults = results['movie'] as Movie[];
+        window.scroll(0,0);
+      })
 
-    $('.show_people').click(function (e) {
-      e.preventDefault();
-      $('.movie_results').hide();
-      $('.people_results').show();
-      $('.tv_results').hide();
     });
   }
 
