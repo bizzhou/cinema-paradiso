@@ -57,6 +57,7 @@ application:
     slideNotFound: "CANNOT FIND SLIDE"
     userRatingExists: "USER RATING FOR MOVIE EXISTS"
     userRatingNotExists: "USER RATING FOR MOVIE DOES NOT `EXISTS"
+    reviewExists: "REVIEW EXISTS"
 
   limitation:
     wishListSize: 999

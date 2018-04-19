@@ -1,13 +1,11 @@
 package com.paridiso.cinema.controller;
 
+import com.paridiso.cinema.entity.Review;
 import com.paridiso.cinema.service.JwtTokenService;
 import com.paridiso.cinema.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -15,7 +13,8 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
-@RequestMapping("movie/")
+@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("review/")
 public class ReviewController {
 
     @Autowired
@@ -23,39 +22,35 @@ public class ReviewController {
 
     @Autowired
     JwtTokenService jwtTokenService;
-//
-//    @RequestMapping(value = "/{filmId}/review", method = POST)
-//    public ResponseEntity addReview(@RequestHeader(value = "Authorization") String jwtToken,
-//                                             @PathVariable String filmId,
-//                                             @RequestBody Review review) {
-//        reviewService.addReview(jwtTokenService.getUserIdFromToken(jwtToken), filmId, review);
-//        return new ResponseEntity(HttpStatus.OK);
-//    }
-//
-//    @RequestMapping(value = "/{filmId}", method = GET, params = "reviewId")
-//    public ResponseEntity<Review> getReview(@PathVariable String filmId,
-//                                          @RequestParam Long reviewId) {
-//
-//        Review review = reviewService.getReview(reviewId).orElseThrow(() ->
-//                new ResponseStatusException(BAD_REQUEST, "Unable to get review"));
-//
-//        return new ResponseEntity<>(review, HttpStatus.OK);
-//    }
-//
-//
-//    @RequestMapping(value = "/{filmId}/review", method = DELETE, params = "reviewId")
-//    public ResponseEntity<Review> deleteReview(@RequestHeader(value = "Authorization") String jwtToken,
-//                                                @PathVariable String filmId,
-//                                                @RequestParam Long reviewId) {
-//        Review reviewToBeRemovoed = reviewService.removeReview(jwtTokenService.getUserIdFromToken(jwtToken),filmId, reviewId);
-//        if (reviewToBeRemovoed != null)
-//            return new ResponseEntity<>(reviewToBeRemovoed, HttpStatus.OK);
-//        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-//    }
 
-    @RequestMapping(value = "movie/{movieId}/reviews", method = GET)
-    public ResponseEntity<List> getMovieReviews(@PathVariable Long movieId) {
-        return null;
+    @RequestMapping(value = "add/{filmId}", method = POST)
+    public ResponseEntity addReview(@RequestHeader(value = "Authorization") String jwtToken,
+                                    @PathVariable String filmId,
+                                    @RequestBody Review review) {
+        System.out.println(review);
+        reviewService.addReview(jwtTokenService.getUserIdFromToken(jwtToken), filmId, review);
+        return ResponseEntity.ok(true);
+    }
+
+    @PostMapping(value = "edit/{filmId}")
+    public ResponseEntity editReview(@RequestHeader(value = "Authorization") String jwtToken,
+                                     @RequestBody Review review) {
+        Integer id = jwtTokenService.getUserProfileIdFromToken(jwtToken);
+        Review review1 = reviewService.editReview(id, review);
+        return ResponseEntity.ok(review1);
+    }
+
+    @DeleteMapping(value = "delete/{reviewId}")
+    public ResponseEntity deleteReview(@RequestHeader(value = "Authorization") String jwtToken,
+                                       @PathVariable Long reviewId) {
+        Integer id = jwtTokenService.getUserProfileIdFromToken(jwtToken);
+        reviewService.removeReview(id, reviewId);
+        return ResponseEntity.ok(true);
+    }
+
+    @GetMapping(value = "get/{filmId}")
+    public ResponseEntity<List> getMovieReviews(@PathVariable String filmId) {
+        return ResponseEntity.ok(reviewService.getMovieReviews(filmId));
     }
 
     @RequestMapping(value = "user/reviews", method = GET)
