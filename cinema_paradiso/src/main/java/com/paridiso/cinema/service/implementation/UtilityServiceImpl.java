@@ -2,10 +2,8 @@ package com.paridiso.cinema.service.implementation;
 
 import com.paridiso.cinema.constants.AlgorithmConstants;
 import com.paridiso.cinema.constants.ExceptionConstants;
-import com.paridiso.cinema.entity.Celebrity;
-import com.paridiso.cinema.entity.Film;
-import com.paridiso.cinema.entity.User;
-import com.paridiso.cinema.entity.UserProfile;
+import com.paridiso.cinema.entity.*;
+import com.paridiso.cinema.persistence.MovieRepository;
 import com.paridiso.cinema.persistence.UserProfileRepository;
 import com.paridiso.cinema.persistence.UserRepository;
 import com.paridiso.cinema.service.UtilityService;
@@ -35,6 +33,15 @@ public class UtilityServiceImpl implements UtilityService {
     @Autowired
     private UserProfileRepository userProfileRepository;
 
+    @Autowired
+    MovieRepository movieRepository;
+
+    @Override
+    public Movie getMoive(String movieId) {
+        return movieRepository
+                .findMovieByImdbId(movieId)
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieDoesNotExist()));
+    }
 
     @Override
     public User getUser(Integer id) {

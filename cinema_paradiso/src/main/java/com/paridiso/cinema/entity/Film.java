@@ -1,5 +1,6 @@
 package com.paridiso.cinema.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.paridiso.cinema.entity.enumerations.Genre;
 import com.paridiso.cinema.entity.enumerations.Rated;
@@ -102,6 +103,7 @@ public class Film {
         return trailers;
     }
 
+    @JsonIgnore
     @OneToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER, mappedBy = "movie")
     public List<Review> getReviews() {
         return reviews;

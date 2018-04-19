@@ -1,15 +1,14 @@
 package com.paridiso.cinema.service;
 
-import com.paridiso.cinema.entity.Celebrity;
-import com.paridiso.cinema.entity.Film;
-import com.paridiso.cinema.entity.User;
-import com.paridiso.cinema.entity.UserProfile;
+import com.paridiso.cinema.entity.*;
 
 import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 
 
 public interface UtilityService {
+
+    Movie getMoive(String movieId);
 
     User getUser(Integer id);
 

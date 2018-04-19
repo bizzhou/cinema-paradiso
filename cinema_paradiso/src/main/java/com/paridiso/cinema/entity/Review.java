@@ -1,5 +1,8 @@
 package com.paridiso.cinema.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.Calendar;
 
@@ -12,7 +15,6 @@ public class Review {
     private Movie movie;
     private String title;
     private Calendar postedDate;
-    private Integer likeCount;
     private boolean isCriticReview;
     private String reviewContent;
 
@@ -22,12 +24,14 @@ public class Review {
         return reviewId;
     }
 
-    @ManyToOne(cascade = {CascadeType.MERGE},fetch= FetchType.LAZY)
+    @JsonIgnore
+    @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "authorId", nullable = false)
     public UserProfile getAuthor() {
         return author;
     }
 
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "imdbId", nullable = false)
     public Movie getMovie() {
@@ -40,10 +44,6 @@ public class Review {
 
     public Calendar getPostedDate() {
         return postedDate;
-    }
-
-    public Integer getLikeCount() {
-        return likeCount;
     }
 
     public boolean isCriticReview() {
@@ -74,9 +74,6 @@ public class Review {
         this.postedDate = postedDate;
     }
 
-    public void setLikeCount(Integer likeCount) {
-        this.likeCount = likeCount;
-    }
 
     public void setCriticReview(boolean criticReview) {
         isCriticReview = criticReview;
@@ -94,7 +91,6 @@ public class Review {
                 ", movie=" + movie +
                 ", title='" + title + '\'' +
                 ", postedDate=" + postedDate +
-                ", likeCount=" + likeCount +
                 ", isCriticReview=" + isCriticReview +
                 ", reviewContent='" + reviewContent + '\'' +
                 '}';

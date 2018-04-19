@@ -22,6 +22,15 @@ public class ExceptionConstants {
     private String slideNotFound;
     private String userRatingExists;
     private String userRatingNotExists;
+    private String reviewExists;
+
+    public String getReviewExists() {
+        return reviewExists;
+    }
+
+    public void setReviewExists(String reviewExists) {
+        this.reviewExists = reviewExists;
+    }
 
     public String getUserRatingNotExists() {
         return userRatingNotExists;
