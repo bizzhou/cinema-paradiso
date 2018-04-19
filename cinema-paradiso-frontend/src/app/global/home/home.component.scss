@@ -34,9 +34,12 @@ main {
   background-color: $color-gray;
 }
 
-// carousel
-.carousel-indicators {
-  bottom: 5px;
+// overwrite ng-bootstrap carousel arrows
+.carousel-control-prev-icon{
+  display: none;
+}
+.carousel-control-next-icon{
+  display: none;
 }
 
 .l-hero{
@@ -123,14 +126,14 @@ main {
   margin-bottom: 15px;
 }
 
-c-genres {
+.c-genres {
   text-transform: capitalize;
 }
 p {
   // font-size: 0.8rem;
   font-size: 14px;
   margin-top: 5px;
-  color: darken(white, 45%);
+  color: darken(white, 40%);
   span {
     color: white;
   }
