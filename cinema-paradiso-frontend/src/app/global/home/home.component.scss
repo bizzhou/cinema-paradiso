@@ -4,6 +4,7 @@ $primary-light-blue: #8DB9ED;
 $primary-line-color: #ccc;
 $color-red: rgb(229, 9, 20);
 $color-gray: rgb(100, 100, 100);
+$link-hover: lighten(black, 70%);
 $padding-hrz: 2.5em;
 
 // Objects
@@ -11,7 +12,7 @@ main {
   padding-bottom: 3em;
 }
 a:hover {
-  color: $color-red;
+  color: $link-hover;
 }
 .o-button{
   border: none;
@@ -38,13 +39,11 @@ a:hover {
 }
 
 // overwrite ng-bootstrap carousel arrows
-.carousel-control-prev-icon{
-  display: none;
-  z-index: -100;
+.carousel-control-prev, .carousel-control-next {
+  pointer-events: none;
 }
-.carousel-control-next-icon{
+.carousel-control-prev-icon, .carousel-control-next-icon {
   display: none;
-  z-index: -1;
 }
 
 .l-hero{
@@ -100,9 +99,7 @@ a:hover {
     line-height: 1;
     text-transform: uppercase;
     letter-spacing: 0.03em;
-    a {
-      z-index: 100;
-    }
+
   }
 
   // rating

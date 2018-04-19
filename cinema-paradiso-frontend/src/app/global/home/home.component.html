@@ -22,6 +22,7 @@
                     </a>
                   </div>
                   <div class="absolute">
+                    <a routerLink="/movie/{{carouselSlide.movie.imdbId}}" routerLinkActive="active">
                     <div class="flex">
                       <i class="fa fa-star "></i>
                       <i class="fa fa-star"></i>
@@ -31,6 +32,7 @@
                       <p>{{carouselSlide.movie.rating}}/5.0</p>
                       <p>{{carouselSlide.movie.rated}}</p>
                     </div><!--flex end-->
+                    </a>
                   </div>
                 </div>
 
@@ -49,9 +51,11 @@
               <p>
 
                 Director
-                <a routerLink="/celebrity/{{carouselSlide.movie.director.celebrityId}}" routerLinkActive="active">
-                  <span>{{carouselSlide.movie.director.name}}</span>
-                </a>
+                  <span>
+                    <a routerLink="/celebrity/{{carouselSlide.movie.director.celebrityId}}" routerLinkActive="active">
+                      {{carouselSlide.movie.director.name}}
+                    </a>
+                  </span>
               </p>
               <p>
                 Genres
