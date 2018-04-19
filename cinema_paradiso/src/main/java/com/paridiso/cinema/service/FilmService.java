@@ -62,9 +62,9 @@ public interface FilmService {
 
     Movie updateMovie(Movie movie);
 
-    void addRating(Integer userId, String filmId, Double rating);
+    Double addRating(Integer userId, String filmId, Double rating);
 
-    void deleteRating(Integer userId, String filmId);
+    Double deleteRating(Integer userId, String filmId);
 
-    void updateRating(Integer userId, String filmId, Double rating);
+    Double updateRating(Integer userId, String filmId, Double rating);
 }

@@ -11,7 +11,7 @@ import javax.persistence.*;
 public class UserRating {
 
     private Integer id;
-    private UserProfile user;
+    private UserProfile userProfile;
     private Movie ratedMovie;
     private Double userRating;
 
@@ -24,13 +24,13 @@ public class UserRating {
         return id;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "userId")
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @JoinColumn(name = "userProfileId")
     public UserProfile getUser() {
-        return user;
+        return userProfile;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "imdbId")
     public Movie getRatedMovie() {
         return ratedMovie;
@@ -53,14 +53,14 @@ public class UserRating {
     }
 
     public void setUser(UserProfile user) {
-        this.user = user;
+        this.userProfile = user;
     }
 
     @Override
     public String toString() {
         return "UserRating{" +
                 "id=" + id +
-                ", user=" + user +
+                ", userProfile=" + userProfile +
                 ", ratedMovie=" + ratedMovie +
                 ", userRating=" + userRating +
                 '}';

@@ -2,10 +2,9 @@ package com.paridiso.cinema.service.implementation;
 
 import com.paridiso.cinema.constants.ExceptionConstants;
 import com.paridiso.cinema.constants.LimitationConstants;
-import com.paridiso.cinema.entity.Film;
-import com.paridiso.cinema.entity.Movie;
-import com.paridiso.cinema.entity.Trailer;
+import com.paridiso.cinema.entity.*;
 import com.paridiso.cinema.persistence.MovieRepository;
+import com.paridiso.cinema.persistence.UserRatingRepository;
 import com.paridiso.cinema.service.FilmService;
 import com.paridiso.cinema.service.UtilityService;
 import com.paridiso.cinema.utility.MovieUtility;
@@ -42,6 +41,9 @@ public class MovieServiceImpl implements FilmService {
 
     @Autowired
     MovieUtility movieUtility;
+
+    @Autowired
+    UserRatingRepository userRatingRepository;
 
     private static Logger logger = LogManager.getLogger(MovieServiceImpl.class);
 
@@ -84,22 +86,67 @@ public class MovieServiceImpl implements FilmService {
 
     @Transactional
     @Override
-    public void addRating(Integer userId, String filmId, Double rating) {
+    public Double addRating(Integer userProfileId, String filmId, Double rating) {
         Movie movie = getMovie(filmId);
-        logger.info(movie.getNumberOfRatings());
-        movie.setNumberOfRatings(movie.getNumberOfRatings() + 1);
-        logger.info(movie.getNumberOfRatings());
-        Double newRating = (movie.getRating() + rating) / movie.getNumberOfRatings();
-        movie.setRating(newRating);
+        UserProfile userProfile = utilityService.getUserProfile(userProfileId);
+        if (userRatingRepository.findUserRatingsByUserAndRatedMovie(userProfile, movie).isPresent() == true) {
+            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserRatingExists());
+        }
+        UserRating userRating = new UserRating();
+        userRating.setRatedMovie(movie);
+        userRating.setUserRating(rating);
+        userRating.setUser(userProfile);
+        logger.info("old rating " + movie.getRating());
+        Double newRating = calculateNewRating(rating, movie);
+        logger.info("new rating " + newRating);
+        userRatingRepository.save(userRating);
         movieRepository.save(movie);
+        return newRating;
     }
 
+
+    @Transactional
     @Override
-    public void deleteRating(Integer userId, String filmId) {
+    public Double deleteRating(Integer userProfileId, String filmId) {
+        Movie movie = getMovie(filmId);
+        UserProfile userProfile = utilityService.getUserProfile(userProfileId);
+        UserRating userRating = userRatingRepository.findUserRatingsByUserAndRatedMovie(userProfile, movie)
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserRatingNotExists()));
+        Double oldRating = calculateOldRating(movie, userRating);
+        userRatingRepository.delete(userRating);
+        return oldRating;
     }
 
+    @Transactional
     @Override
-    public void updateRating(Integer userId, String filmId, Double rating) {
+    public Double updateRating(Integer userProfileId, String filmId, Double rating) {
+        Movie movie = getMovie(filmId);
+        UserProfile userProfile = utilityService.getUserProfile(userProfileId);
+        UserRating userRating = userRatingRepository.findUserRatingsByUserAndRatedMovie(userProfile, movie)
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserRatingNotExists()));
+        Double oldRating = calculateOldRating(movie, userRating);
+        Double newRating = calculateNewRating(rating, movie);
+        movie.setRating(newRating);
+        userRating.setUserRating(rating);
+        movieRepository.save(movie);
+        userRatingRepository.save(userRating);
+        return newRating;
+    }
+
+    private Double calculateOldRating(Movie movie, UserRating userRating) {
+        Double oldRating = (movie.getRating() * movie.getNumberOfRatings() - userRating.getUserRating()) /
+                (movie.getNumberOfRatings() - 1);
+        movie.setRating(oldRating);
+        movie.setNumberOfRatings(movie.getNumberOfRatings() - 1);
+        return oldRating;
+    }
+
+    private Double calculateNewRating(Double rating, Movie movie) {
+        Integer oldNumberOfRating = movie.getNumberOfRatings();
+        Double newRating = (movie.getRating() * oldNumberOfRating + rating) / (oldNumberOfRating + 1);
+        movie.setNumberOfRatings(oldNumberOfRating + 1);
+        movie.setRating(newRating);
+        return newRating;
     }
 
     @Override
