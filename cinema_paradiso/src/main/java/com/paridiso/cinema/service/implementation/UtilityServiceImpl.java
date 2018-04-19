@@ -4,15 +4,21 @@ import com.paridiso.cinema.constants.AlgorithmConstants;
 import com.paridiso.cinema.constants.ExceptionConstants;
 import com.paridiso.cinema.entity.Celebrity;
 import com.paridiso.cinema.entity.Film;
+import com.paridiso.cinema.entity.User;
+import com.paridiso.cinema.entity.UserProfile;
+import com.paridiso.cinema.persistence.UserProfileRepository;
+import com.paridiso.cinema.persistence.UserRepository;
 import com.paridiso.cinema.service.UtilityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Collection;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
+import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @Service
 public class UtilityServiceImpl implements UtilityService {
@@ -22,6 +28,26 @@ public class UtilityServiceImpl implements UtilityService {
 
     @Autowired
     private ExceptionConstants exceptionConstants;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private UserProfileRepository userProfileRepository;
+
+
+    @Override
+    public User getUser(Integer id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserNotFound()));
+    }
+
+    @Override
+    public UserProfile getUserProfile(Integer id) {
+        return userProfileRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getProfileNotFound()));
+    }
+
 
     @Override
     public String getHashedPassword(String passwordToHash, String salt) {

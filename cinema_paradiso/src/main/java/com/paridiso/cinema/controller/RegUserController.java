@@ -54,12 +54,10 @@ public class RegUserController {
 
     @PostMapping(value = "/login")
     public ResponseEntity<JwtUser> userLogin(@RequestParam(value = "email") String email,
-                                             @RequestParam(value = "password") String password, HttpSession session) {
+                                             @RequestParam(value = "password") String password) {
         User user = userService.login(email, password).orElseThrow(() ->
                 new ResponseStatusException(BAD_REQUEST, exceptionConstants.getUserNotFound()));
         JwtUser jwtUser = new JwtUser(user.getUsername(), generator.generate(user), user.getUserID(), user.getRole());
-        session.setAttribute("user", user);
-        System.out.println(session.getAttribute("user"));
         return ResponseEntity.ok(jwtUser);
     }
 

@@ -20,6 +20,24 @@ public class ExceptionConstants {
     private String passwordHashingFailure;
     private String carouselNotFound;
     private String slideNotFound;
+    private String userRatingExists;
+    private String userRatingNotExists;
+
+    public String getUserRatingNotExists() {
+        return userRatingNotExists;
+    }
+
+    public void setUserRatingNotExists(String userRatingNotExists) {
+        this.userRatingNotExists = userRatingNotExists;
+    }
+
+    public String getUserRatingExists() {
+        return userRatingExists;
+    }
+
+    public void setUserRatingExists(String userRatingExists) {
+        this.userRatingExists = userRatingExists;
+    }
 
     public String getCelebrityNotFound() {
         return celebrityNotFound;
