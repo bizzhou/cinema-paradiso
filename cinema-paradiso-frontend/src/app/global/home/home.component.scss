@@ -10,6 +10,9 @@ $padding-hrz: 2.5em;
 main {
   padding-bottom: 3em;
 }
+a:hover {
+  color: $color-red;
+}
 .o-button{
   border: none;
   font-size: 0.75em;
@@ -37,9 +40,11 @@ main {
 // overwrite ng-bootstrap carousel arrows
 .carousel-control-prev-icon{
   display: none;
+  z-index: -100;
 }
 .carousel-control-next-icon{
   display: none;
+  z-index: -1;
 }
 
 .l-hero{

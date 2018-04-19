@@ -1,6 +1,8 @@
 $color-red: rgb(229, 9, 20);
 $padding-hrz: 2.5rem;
 $shadow: lighten(black, 10%);
+$link-hover: lighten(black, 60%);
+$dropdown-menu-hover: lighten(black, 20%);
 
 @mixin border_radius($radius) {
   -webkit-border-radius: $radius;
@@ -45,6 +47,46 @@ input::-webkit-input-placeholder {
   color: #999;
 }
 
+// overwrite ng bootstrap
+.header-dropdown {
+  margin: -10px 0 0 0;
+  padding: 0;
+
+  // dropdown button
+  .btn-outline-primary {
+    border: none;
+    font-size: 16px;
+    background-color: transparent !important;
+  }
+  .btn-outline-primary:hover {
+    color: $link-hover !important;
+    background-color: transparent;
+  }
+
+  // dropdown item
+  .dropdown-menu {
+    background-color: lighten(black, 10%);
+    margin-top: 16px;
+
+    .dropdown-item {
+      font-size: 14px;
+      color: white !important;
+    }
+
+    .dropdown-item:hover {
+      background-color: $dropdown-menu-hover;
+      cursor: pointer;
+      color: white !important;
+    }
+
+  }
+
+  .dropdown-menu-right {
+    right: 0;
+    left: auto;
+  }
+}
+
 
 .l-header{
   font-size: 14px;
@@ -66,14 +108,14 @@ input::-webkit-input-placeholder {
     -webkit-box-shadow: 0px 1px 5px 6px #1a1a1a;
     box-shadow: 0px 1px 5px 6px #1a1a1a;
 
+  a:hover{
+    color: $link-hover !important;
+  }
   // search icon
   a:nth-child(1) {
     button {
       border:none;
       background-color: transparent;
-    //  position: absolute;
-    //  margin-left: -35px;
-    //  margin-top: -3px;
       cursor: pointer;
     }
     #search-icon {
@@ -88,21 +130,6 @@ input::-webkit-input-placeholder {
   width: 250px;
 }
 
-.l-header__browse{
-  color: $color-red;
-  font-weight: bold;
-  margin-right: auto;
-  margin-left: 40px;
-  padding-right: 40px;
-}
-.l-header__search{
-  width: 20rem;
-  height: 2rem;
-  border-radius: 5px;
-  border: none;
-  margin-top: -8px;
-  font-size: 0.8rem;
-}
 .l-header__nav{
   display: flex;
   color: white;
@@ -110,4 +137,3 @@ input::-webkit-input-placeholder {
     margin-left: 32px;
   }
 }
-

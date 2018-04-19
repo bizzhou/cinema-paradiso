@@ -12,7 +12,7 @@
           <div class="l-hero__text-wrapper">
             <div class="l-hero__text">
 
-              <!-- TODO: router link not working -->
+              <!-- TODO: carousel arrows make router link not working -->
               <!-- title -->
                 <div class="c-title">
                   <div class="c-title__category"><strong>{{carouselSlide.movie.awards}}</strong> </div>
@@ -54,7 +54,10 @@
                 </a>
               </p>
               <p>
-                Genres <span class="c-genres" style="text-transform: lowercase">{{carouselSlide.movie.genres}}</span>
+                Genres
+                <span *ngFor="let genre of carouselSlide.movie.genres | slice: 0:5" class="c-genres" style="text-transform: lowercase">
+                  {{genre}},
+                </span>
               </p>
               <div class="l-hero__buttons">
                 <button class="o-button color-gray">

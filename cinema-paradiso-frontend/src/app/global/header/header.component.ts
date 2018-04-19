@@ -5,8 +5,10 @@ import {LoginService} from '../login/login.service';
 import {ToastrService} from 'ngx-toastr';
 import {SearchService} from '../search/search.service';
 import {Router} from '@angular/router';
+import { ViewEncapsulation } from '@angular/core';
 
 @Component({
+  encapsulation: ViewEncapsulation.None,
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],

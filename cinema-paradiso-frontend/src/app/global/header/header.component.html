@@ -16,21 +16,40 @@
     <a routerLink="/movies" routerLinkActive="active">Movies</a>
     <a routerLink="/movies" routerLinkActive="active">TV Shows</a>
 
+    <!-- if logged in -->
     <div *ngIf="!status; else elseBlock">
       <a routerLinkActive="active" class="trigger" href="javascript:;">Log in / Sign up</a>
     </div>
+
+    <!-- if not logged in -->
     <ng-template #elseBlock>
+
+      <!-- admin -->
         <div *ngIf ="is_admin; else userBlock">
-          <a routerLink="admin">{{user.username}}</a>
-          <a class="trigger" (click)="logout()">Log out</a>
+          <div ngbDropdown class="header-dropdown">
+            <a class="btn btn-outline-primary" id="admin-menu-dropdown" ngbDropdownToggle>{{user.username}}</a>
+            <div ngbDropdownMenu aria-labelledby="admin-menu-dropdown" class="dropdown-menu ">
+              <a routerLink="user" class="dropdown-item">Management </a>
+              <a class="dropdown-item">Settings </a>
+              <a (click)="logout()" class="trigger dropdown-item">Log Out </a>
+            </div>
+          </div>
         </div>
 
+      <!-- regular user -->
         <ng-template #userBlock>
-          <a routerLink="user">{{user.username}}</a>
-          <a class="trigger" (click)="logout()">Log out</a>
+          <div ngbDropdown class="header-dropdown">
+            <a class="btn btn-outline-primary" id="user-menu-dropdown" ngbDropdownToggle>{{user.username}}</a>
+            <div ngbDropdownMenu aria-labelledby="user-menu-dropdown" class="dropdown-menu ">
+              <a routerLink="user" class="dropdown-item">My Profile </a>
+              <a class="dropdown-item">My Wish List</a>
+              <a class="dropdown-item">Settings </a>
+              <a (click)="logout()" class="trigger dropdown-item">Log Out </a>
+            </div>
+          </div>
         </ng-template>
+
     </ng-template>
-    <!--<a routerLinkActive="active" class="trigger" href="javascript:;">Sign up</a>-->
 
   </nav>
 </header>
