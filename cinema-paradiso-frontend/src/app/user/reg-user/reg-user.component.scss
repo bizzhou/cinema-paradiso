@@ -101,7 +101,6 @@ main {
   label, input, textarea {
     display: block;
   }
-
 }
 
 .c-update-btn {
@@ -134,15 +133,66 @@ main {
     display: block;
   }
 }
-.c-account {
-  form {
-    margin-bottom: 40px;
+
+// wish list
+.w__item {
+  margin-bottom: 1em;
+
+  .w__img-wrap {
+    //padding-left: 4em;
+    img {
+      height: 180px;
+      width: auto;
+    }
+
   }
+  .fa-star{
+    color:$color-red;
+  }
+  // rate
+  .flex {
+    font-size: 12px;
+    p {
+      display: inline-block;
+      font-size: 12px;
+    }
+    // ratings
+    p:nth-of-type(1){
+      margin-left:5px;
+      margin-right:10px;
+      color:white;
+    }
+    // rate
+    p:nth-of-type(2){
+      background:gray;
+      color: #fff;
+      padding: 0 4px;
+    }
+
+  }
+  .s-item__title {
+    font-size: 16px;
+    color: white !important;
+  }
+  .s-item__title:hover {
+    color: $link-hover !important;
+  }
+
+  .s-plot {
+    margin: 5px 0;
+  }
+
 }
 
-
-
-
+p {
+  font-size: 14px;
+  //margin-top: 2px;
+  color: darken(white, 45%);
+  span {
+    color: white;
+  }
+}
+// end wish list
 
 .l-cards__more {
   float: right;

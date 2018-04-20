@@ -25,6 +25,8 @@ import {MovieService} from './global/movie-detail/movie.service';
 import {ToastrModule} from 'ngx-toastr';
 import {StarsComponent} from './global/stars/stars.component';
 import {SearchService} from './global/search/search.service';
+import { AccountComponent } from './user/reg-user/account/account.component';
+import { WishlistComponent } from './user/reg-user/wishlist/wishlist.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,8 @@ import {SearchService} from './global/search/search.service';
     SearchComponent,
     AdminComponent,
     StarsComponent,
+    AccountComponent,
+    WishlistComponent,
   ],
   imports: [
     BrowserModule,
