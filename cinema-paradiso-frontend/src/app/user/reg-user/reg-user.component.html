@@ -14,7 +14,7 @@
         <li class="s-tabs__list"><a (click)="showDiv(3)">My wish list </a></li>
         <li class="s-tabs__list"><a (click)="showDiv(4)">Not interested list </a></li>
         <li class="s-tabs__list"><a (click)="showDiv(5)">My reviews </a></li>
-        <li class="s-tabs__list"><a (click)="showDiv(7)">Settings </a></li>
+        <li class="s-tabs__list"><a (click)="showDiv(7)">Account Settings </a></li>
 
       </ul>
 
@@ -27,13 +27,13 @@
         <h5 class="c-header">Public profile</h5>
 
         <div *ngIf="profile.isCritic" class="c-inputs">
-          <label>Account status: <span>critic</span></label>
+          <label>Account status: <span class="span-title">critic</span></label>
         </div>
         <div *ngIf="!profile.isCritic" class="c-inputs">
-          <label>Account status: <span>regular user</span></label>
+          <label>Account status: <span class="span-title">regular user</span></label>
         </div>
         <div class="c-inputs">
-          <label>Joined on: <span>2017-03-03</span></label>
+          <label>Joined on: <span class="span-title">2017-03-03</span></label>
         </div>
 
         <div class="c-avatar">
@@ -187,72 +187,49 @@
       </div>
 
       <!--account settings-->
-      <div class="w3-container Account" *ngIf="currentIndex === 7">
-        <div class="w3-container w3-padding-large w3-black">
-
-          <form target="_blank">
-            <label>User Name: {{profile.username}}</label>
-            <br>
-            <div *ngIf="profile.isCritic;else notCritic">
-              <label>Level： Critic</label>
-            </div>
-            <ng-template #notCritic>
-              <label>Level: User</label>
-            </ng-template>
-
-            <br>
-            <label>Registered Date：2017-03-08 </label>
-            <br>
-            <label>Email: {{profile.email}}</label>
-
-            <hr class="w3-opacity">
-
-            <div class="w3-section">
-
-              <label></label>
-
-              <label>About me</label>
-              <textarea id="about_me_box" name="mini_bio" class="w3-input" cols="30" rows="10" [(ngModel)]="profile.biography">
-              Hello World
-            </textarea>
-
-              <label>Make Profile Private</label>
-              <input class="w3-input" type="checkbox" name="description" placeholder="A critic user, happy everyday">
-
-            </div>
-
-            <button class="w3-button w3-black w3-margin-bottom" (click)="updateProfile()">
-              <i class="fa fa-paper-plane w3-margin-right"></i>Update
-            </button>
-          </form>
-
-          <!--<hr class="w3-opacity">-->
-
+      <section class="c-account" *ngIf="currentIndex === 7">
+        <h5 class="c-header">Change password</h5>
           <form target="_blank" #changePasswordForm="ngForm" (submit)="changePassword(changePasswordForm)">
-            <hr class="w3-opacity">
 
-            <div class="w3-section">
+            <div class="c-inputs">
               <label>Password</label>
-              <input class="w3-input" type="password" name="oldPassword" placeholder="**********" required [(ngModel)]="oldPassword">
+              <input type="password" name="oldPassword" placeholder="**********" required [(ngModel)]="oldPassword">
             </div>
 
-            <div class="w3-section">
+            <div class="c-inputs">
               <label>New Password</label>
-              <input class="w3-input" type="password" name="newPassword" placeholder="**********" required [(ngModel)]="newPassword">
+              <input type="password" name="newPassword" placeholder="**********" required [(ngModel)]="newPassword">
             </div>
 
-            <button type="submit" class="w3-button w3-black w3-margin-bottom">
-              <i class="fa fa-paper-plane w3-margin-right"></i>Reset Password
-            </button>
+            <button type="submit" class="c-update-btn">Update password</button>
           </form>
 
+        <!-- change username-->
+        <h5 class="c-header">Change username</h5>
+        <form>
+          <div class="c-inputs">
+            <label>Changing your username can have unintended side effects.</label>
+            <input [placeholder]="profile.username">
+            <button class="c-update-btn">Change username</button>
+          </div>
+        </form>
 
-        </div>
-      </div>
+        <h5 class="c-header span-warning">Delete account</h5>
+        <form>
+          <div class="c-inputs">
+            <label>Once you delete your account, there is no going back. Please be certain!</label>
+            <button class="c-update-btn" style="margin-top: 0;">Delete account</button>
+          </div>
+        </form>
+
+      </section>
 
     </div>
+        <!--./right content-->
     </div>
+      <!--./row-->
     </div>
+    <!--./container-->
   </main>
 </body>
 

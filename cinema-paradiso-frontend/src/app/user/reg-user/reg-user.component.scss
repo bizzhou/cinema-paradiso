@@ -79,7 +79,7 @@ main {
   }
 }
 
-// profile summary
+// general for each section
 .c-header {
   color: white;
   border-bottom: 1px solid gray;
@@ -101,18 +101,7 @@ main {
   label, input, textarea {
     display: block;
   }
-  span {
-   color: lighten(black, 40%);
-  }
-}
-.c-avatar {
-  //margin-top: 20px;
-  margin-bottom: 20px;
-  img {
-    width: 150px;
-    height: 150px;
-    display: block;
-  }
+
 }
 
 .c-update-btn {
@@ -125,6 +114,33 @@ main {
   background-color: lighten(black, 20%);
   font-size: 16px;
 }
+.c-update-btn:hover {
+  background-color: lighten(black, 40%);
+}
+.span-title {
+  color: lighten(black, 40%);
+}
+.span-warning {
+  color: $color-red;
+}
+
+// specific
+.c-avatar {
+  //margin-top: 20px;
+  margin-bottom: 20px;
+  img {
+    width: 150px;
+    height: 150px;
+    display: block;
+  }
+}
+.c-account {
+  form {
+    margin-bottom: 40px;
+  }
+}
+
+
 
 
 
