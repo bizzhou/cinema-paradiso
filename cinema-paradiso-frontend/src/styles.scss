@@ -61,3 +61,29 @@ a{
   color:white;
 }
 
+// overwrite ng-bootstrap pagination
+.pagination {
+  margin-top: 5%;
+
+  // previous/next link
+  .page-item:first-of-type, .page-item:nth-of-type(2),
+  .page-item:last-of-type, .page-item:nth-last-of-type(2){
+    a {
+      background-color: transparent;
+    }
+  }
+
+  // a
+  .page-link {
+    font-size: 18px;
+    color: white;
+    border: 1px solid gray;
+    background-color: transparent;
+  }
+  .page-link:visited {
+    //background-color: $color-red;
+    border-color: gray;
+  }
+
+}
+
