@@ -1,50 +1,40 @@
 <html>
-<header>
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-</header>
 
 <body>
   <main>
     <!-- Sidebar/menu -->
-    <nav class="w3-sidebar w3-collapse w3-black w3-animate-left" style="z-index:3;width:300px;" id="mySidebar">
-      <br>
-      <div class="w3-container">
+    <div class="container">
+      <div class="row">
+    <nav class="col-sidebar sidebar">
 
-        <a href="#" onclick="w3_close()" class="w3-hide-large w3-right w3-jumbo w3-padding w3-hover-grey" title="close menu">
-          <i class="fa fa-remove"></i>
-        </a>
+      <img class="s-profile-img" src="{{profile_url}}" id="profile_image">
 
-        <img src="{{profile_url}}" style="width:45%;" id="profile_image" class="w3-round" (click)="open(content)">
+      <h5>{{profile.username}}</h5>
 
-        <br>
-        <br>
-
-        <h4>
-
-          <div *ngIf="profile.isCritic; else userProfile">
-            <p class="w3-text-blue">Critic</p>
-          </div>
-
-          <ng-template #userProfile>
-            <p class="w3-text-blue">User</p>
-          </ng-template>
-
-          <b>{{profile.name}}</b>
-        </h4>
-        <p class="w3-text-gray">A critic user, happy everyday</p>
+      <div *ngIf="profile.isCritic">
+        <p class="s-status">Critic</p>
       </div>
-      <div class="w3-bar-block">
-        <a class="show_Account w3-bar-item w3-button w3-padding w3-text-teal" (click)="showDiv(7)">
-          <i class="fa fa-user fa-fw w3-margin-right"></i>Account</a>
+
+      <div *ngIf="profile.biography">
+        <p class="s-bio">{{profile.biography}}</p>
       </div>
+      <div *ngIf="!profile.biography">
+        <p class="s-bio">A happy user is happy everyday</p>
+      </div>
+
+
+      <ul class="s-tabs">
+        <li class="s-tabs__list"><button disabled>Account management</button></li>
+        <li class="s-tabs__list"><button class="active">Profile summary </button></li>
+        <li class="s-tabs__list"><button>My wish list </button></li>
+        <li class="s-tabs__list"><button>Not interested list </button></li>
+        <li class="s-tabs__list"><button>My reviews </button></li>
+        <li class="s-tabs__list"><button (click)="showDiv(7)">Settings</button></li>
+      </ul>
 
     </nav>
 
-    <!-- Overlay effect when opening sidebar on small screens -->
-    <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu"
-      id="myOverlay"></div>
-    <!-- !PAGE CONTENT! -->
-    <div class="w3-main" style="margin-left:300px">
+    <div class="col-right content">
 
 
       <div class="w3-container">
@@ -453,6 +443,8 @@
       </section>
       <!-- 	end Recommend section	 -->
 
+    </div>
+    </div>
     </div>
   </main>
 </body>
