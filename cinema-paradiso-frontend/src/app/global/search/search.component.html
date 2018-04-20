@@ -16,7 +16,8 @@
                 <img src={{movie?.poster}} alt="{{movie?.title}}">
               </div>
               <div class="col-7">
-                <a routerLink="/movie-detail" class="s-item__title">{{movie?.title}} ({{movie?.releaseDate.toString().substring(0, 4)}})</a>
+                <a routerLink="/movie/{{movie.imdbId}}" class="s-item__title">{{movie?.title}}
+                  ({{movie?.releaseDate.toString().substring(0, 4)}})</a>
 
                 <div class="flex">
                   <i class="fa fa-star"></i>
@@ -45,7 +46,8 @@
                 </p>
                 <p>
                   Genres
-                  <span *ngFor="let genre of movie?.genres | slice: 0:5" class="c-genres" style="text-transform: lowercase">
+                  <span *ngFor="let genre of movie?.genres | slice: 0:5" class="c-genres"
+                        style="text-transform: lowercase">
                   {{genre}},
                 </span>
                 </p>
@@ -54,14 +56,16 @@
           </div>
         </div>
 
-        <ngb-pagination class="d-flex justify-content-center" [collectionSize]="20" [(page)]="moviePage" (click)="getNextPage()"></ngb-pagination>
+        <ngb-pagination class="d-flex justify-content-center" [collectionSize]="movieNumberOfPages" [maxSize]=10
+                        [(page)]="moviePage" (click)="getNextPage()" [boundaryLinks]="true"></ngb-pagination>
 
       </ng-template>
     </ngb-tab>
 
     <ngb-tab>
       <ng-template ngbTabTitle>
-        <i class="fa fa-user"></i> Celebrities</ng-template>
+        <i class="fa fa-user"></i> Celebrities
+      </ng-template>
       <ng-template ngbTabContent>
         <div class="container people_results">
 
@@ -87,7 +91,8 @@
           </div>
         </div>
 
-        <ngb-pagination class="d-flex justify-content-center" [collectionSize]="20" [(page)]="peoplePage" (click)="getNextPage()"></ngb-pagination>
+        <ngb-pagination class="d-flex justify-content-center"
+                        [collectionSize]="peopleNumberOfPages" [(page)]="peoplePage"></ngb-pagination>
 
       </ng-template>
 
@@ -95,14 +100,16 @@
 
     <ngb-tab>
       <ng-template ngbTabTitle>
-        <i class="fa fa-tv"></i> TV-Series</ng-template>
+        <i class="fa fa-tv"></i> TV-Series
+      </ng-template>
       <ng-template ngbTabContent>
         <div class="container tv_results">
 
           <div class="row s-item">
             <div class="col-1"></div>
             <div class="col-3 s_img-wrap">
-              <img src="https://images-na.ssl-images-amazon.com/images/M/MV5BMjE3NTQ1NDg1Ml5BMl5BanBnXkFtZTgwNzY2NDA0MjI@._V1_UX182_CR0,0,182,268_AL_.jpg"
+              <img
+                src="https://images-na.ssl-images-amazon.com/images/M/MV5BMjE3NTQ1NDg1Ml5BMl5BanBnXkFtZTgwNzY2NDA0MjI@._V1_UX182_CR0,0,182,268_AL_.jpg"
                 alt="">
             </div>
             <div class="col-7">
@@ -118,7 +125,8 @@
                 <p>RR</p>
               </div>
 
-              <p class="s-plot">Nine noble families fight for control over the mythical lands of Westeros, while an ancient enemy returns after
+              <p class="s-plot">Nine noble families fight for control over the mythical lands of Westeros, while an
+                ancient enemy returns after
                 being dormant for thousands of years. </p>
               <p>
                 Starring
@@ -136,7 +144,8 @@
           </div>
         </div>
 
-        <ngb-pagination class="d-flex justify-content-center" [collectionSize]="20" [(page)]="tvPage" (click)="getNextPage()"></ngb-pagination>
+        <ngb-pagination class="d-flex justify-content-center" [collectionSize]="tvNumberOfPages" [maxSize]=10 [(page)]="tvPage"
+                        (click)="getNextPage()"></ngb-pagination>
 
       </ng-template>
     </ngb-tab>

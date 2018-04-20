@@ -7,8 +7,8 @@
 
   <nav class="l-header__nav">
     <a>
-      <form (ngSubmit)="keywordSubmit()">
-        <input type="search" placeholder="Coco" [(ngModel)]="keywords" name="keywords">
+      <form (ngSubmit)="search()">
+        <input type="search" placeholder="Coco" [(ngModel)]="keyword" name="keywords">
         <button type="submit"><span class="fa fa-search" id="search-icon"></span></button>
       </form>
     </a>

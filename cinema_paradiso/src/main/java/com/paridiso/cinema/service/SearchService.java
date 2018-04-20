@@ -3,12 +3,10 @@ package com.paridiso.cinema.service;
 import com.paridiso.cinema.entity.Celebrity;
 import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.entity.TV;
-
-import java.util.List;
-import java.util.Set;
+import org.springframework.data.domain.Page;
 
 public interface SearchService {
-    Set<Movie> getMoviesFromKeyword(String keyword, Integer pageNo, Integer pageSize);
-    List<Celebrity> getCelebritiesFromKeyword(String keyword, Integer pageNo, Integer pageSize);
-    List<TV> getTVsFromKeyword(String keyword, Integer pageNo, Integer pageSize);
+    Page<Movie> getMoviesFromKeyword(String keyword, Integer pageNo, Integer pageSize);
+    Page<Celebrity> getCelebritiesFromKeyword(String keyword, Integer pageNo, Integer pageSize);
+    Page<TV> getTVsFromKeyword(String keyword, Integer pageNo, Integer pageSize);
 }

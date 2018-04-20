@@ -23,10 +23,11 @@ import {AuthInterceptor} from './http.interceptor';
 import {HomeService} from './global/home/home.service';
 import {MovieService} from './global/movie-detail/movie.service';
 import {ToastrModule} from 'ngx-toastr';
-import {StarsComponent} from './global/stars/stars.component';
 import {SearchService} from './global/search/search.service';
+
 import { AccountComponent } from './user/reg-user/account/account.component';
 import { WishlistComponent } from './user/reg-user/wishlist/wishlist.component';
+import { AboutComponent } from './global/about/about.component';
 
 @NgModule({
   declarations: [
@@ -41,9 +42,9 @@ import { WishlistComponent } from './user/reg-user/wishlist/wishlist.component';
     RegUserComponent,
     SearchComponent,
     AdminComponent,
-    StarsComponent,
     AccountComponent,
     WishlistComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,
