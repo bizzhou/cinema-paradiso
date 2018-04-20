@@ -36,20 +36,36 @@ export class SearchComponent implements OnInit {
           this.celebrityResults = results['celebrity'] as Celebrity[];
 
           this.movieNumberOfPages = results['movie_page'] * 10 - 10;
-          this.peoplePage = results['celebrities_page'] * 10 - 10;
-          console.log(this.peoplePage);
-          this.tvPage = results['tv_page'] * 10 - 10;
+          this.peopleNumberOfPages = results['celebrities_page'] * 10 - 10;
+          this.tvNumberOfPages = results['tv_page'] * 10 - 10;
+
+          console.log(results);
+
+          console.log(this.movieNumberOfPages);
+          console.log(this.peopleNumberOfPages);
+          console.log(this.tvNumberOfPages);
+
         });
       }
     });
   }
 
-  getNextPage() {
+  getNextMoviePage() {
     this.searchService.search(this.keyword, this.moviePage.toString(), '20').subscribe(results => {
       this.moviesResults = results['movie'] as Movie[];
+      window.scroll(0, 0);
+    });
+  }
+
+  getNextPeoplePage() {
+    this.searchService.search(this.keyword, this.peoplePage.toString(), '20').subscribe(results => {
       this.celebrityResults = results['celebrity'] as Celebrity[];
       window.scroll(0, 0);
     });
+  }
+
+  getNextTVPage() {
+    
   }
 
 
