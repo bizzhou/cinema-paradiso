@@ -7,218 +7,56 @@
       <div class="row">
     <nav class="col-sidebar sidebar">
 
-      <img class="s-profile-img" src="{{profile_url}}" id="profile_image">
-
-      <h5>{{profile.username}}</h5>
-
-      <div *ngIf="profile.isCritic">
-        <p class="s-status">Critic</p>
+      <div class="c-avatar">
+        <img class="s-profile-img" src="{{profile_url}}" id="profile_image">
+        <button class="c-update-btn" id="update-avatar">Update avatar</button>
       </div>
-
-      <div *ngIf="profile.biography">
-        <p class="s-bio">{{profile.biography}}</p>
-      </div>
-      <div *ngIf="!profile.biography">
-        <p class="s-bio">A happy user is happy everyday</p>
-      </div>
-
-
       <ul class="s-tabs">
-        <li class="s-tabs__list"><button disabled>Account management</button></li>
-        <li class="s-tabs__list"><button class="active">Profile summary </button></li>
-        <li class="s-tabs__list"><button>My wish list </button></li>
-        <li class="s-tabs__list"><button>Not interested list </button></li>
-        <li class="s-tabs__list"><button>My reviews </button></li>
-        <li class="s-tabs__list"><button (click)="showDiv(7)">Settings</button></li>
+        <li class="s-tabs__list"><a>Account management</a></li>
+        <li class="s-tabs__list"><a (click)="showDiv(1)" class="active" >Profile summary</a></li>
+        <li class="s-tabs__list"><a >My followings </a></li>
+        <li class="s-tabs__list"><a >My followers </a></li>
+        <li class="s-tabs__list"><a (click)="showDiv(3)">My wish list </a></li>
+        <li class="s-tabs__list"><a (click)="showDiv(4)">Not interested list </a></li>
+        <li class="s-tabs__list"><a (click)="showDiv(5)">My reviews </a></li>
+        <li class="s-tabs__list"><a (click)="showDiv(7)">Settings </a></li>
+
       </ul>
 
     </nav>
 
     <div class="col-right content">
 
+      <!--profile summary-->
+      <section class="c-profile" *ngIf="currentIndex === 1">
+        <h5 class="c-header">Public profile</h5>
 
-      <div class="w3-container">
-        <div class="w3-section w3-bottombar w3-padding-large">
-          <button class="show_Summary w3-button w3-black" (click)="showDiv(1)">
-            <i class="fa fa-home w3-margin-right"></i>Summary
-          </button>
-          <button class="show_Movie_Ratings w3-button w3-white w3-hide-small" aria-hidden="true" (click)="showDiv(2)">
-            <i class="fa fa-film w3-margin-right"></i>Movie Ratings
-          </button>
-
-          <button class="show_Wish_List w3-button w3-white w3-hide-small" aria-hidden="true" (click)="showDiv(3)">
-            <i class="fa fa-heart w3-margin-right"></i>Wishlist
-          </button>
-          <button class="show_Movie_List w3-button w3-white w3-hide-small" aria-hidden="true" (click)="showDiv(4)">
-            <i class="fa fa-list-alt w3-margin-right"></i>Watchlist
-          </button>
-          <button class="show_My_Critics w3-button w3-white w3-hide-small" aria-hidden="true" (click)="showDiv(5)">
-            <i class="fa fa-comment w3-margin-right"></i>My Critics
-          </button>
+        <div *ngIf="profile.isCritic" class="c-inputs">
+          <label>Account status: <span>critic</span></label>
         </div>
-      </div>
-
-      <br>
-
-      <div class="container Summary_results" *ngIf="currentIndex === 1">
-        <div class="w3-container w3-padding-large w3-black">
-          <form target="_blank">
-            <div class="w3-container w3-padding-large" style="margin-bottom:32px">
-              <h4>
-                <b>About Me</b>
-              </h4>
-              <p>{{profile.biography}}</p>
-              <hr>
-            </div>
-          </form>
+        <div *ngIf="!profile.isCritic" class="c-inputs">
+          <label>Account status: <span>regular user</span></label>
         </div>
-        <section class="l-cards">
-          <h2 class="l-cards__title">My Wishlist </h2>
-          <a class="l-cards__more w3-margin-right" href="#">more
-            <i class="fa fa-angle-double-right"></i>
-          </a>
-
-          <ul class="l-cards__list">
-
-            <li class="l-cards__item" *ngFor="let movie of profile.wishList">
-              <img src="{{movie.poster}}" alt="" routerLink="/movie/{{movie.imdbId}}">
-            </li>
-
-          </ul>
-
-        </section>
-
-        <section class="l-cards">
-          <h2 class="l-cards__title">My Watchlist</h2>
-          <a class="l-cards__more w3-margin-right" href="#">more
-            <i class="fa fa-angle-double-right"></i>
-          </a>
-
-          <ul class="l-cards__list">
-            <li class="l-cards__item">
-              <a href="#" class="l-cards__image fill"></a>
-              <a href="#" class="l-cards__text"></a>
-            </li>
-
-            <li class="l-cards__item">
-              <a href="#" class="l-cards__image fill"></a>
-              <a href="#" class="l-cards__text"></a>
-            </li>
-
-            <li class="l-cards__item">
-              <a href="#" class="l-cards__image fill"></a>
-              <a href="#" class="l-cards__text"></a>
-            </li>
-
-            <li class="l-cards__item">
-              <a href="#" class="l-cards__image fill"></a>
-              <a href="#" class="l-cards__text"></a>
-            </li>
-            <li class="l-cards__item">
-              <a href="#" class="l-cards__image fill"></a>
-              <a href="#" class="l-cards__text"></a>
-            </li>
-          </ul>
-        </section>
-
-        <section class="l-cards">
-          <h2 class="l-cards__title">Rating History</h2>
-          <a class="l-cards__more w3-margin-right" href="#">more
-            <i class="fa fa-angle-double-right"></i>
-          </a>
-          <ul class="l-cards__list">
-            <li class="l-cards__item">
-              <a href="#" class="l-cards__image fill"></a>
-              <a href="#" class="l-cards__text"></a>
-            </li>
-            <li class="l-cards__item">
-              <a href="#" class="l-cards__image fill"></a>
-              <a href="#" class="l-cards__text"></a>
-            </li>
-            <li class="l-cards__item">
-              <a href="#" class="l-cards__image fill"></a>
-              <a href="#" class="l-cards__text"></a>
-            </li>
-
-            <li class="l-cards__item">
-              <a href="#" class="l-cards__image fill"></a>
-              <a href="#" class="l-cards__text"></a>
-            </li>
-
-            <li class="l-cards__item">
-              <a href="#" class="l-cards__image fill"></a>
-              <a href="#" class="l-cards__text"></a>
-            </li>
-
-          </ul>
-        </section>
-      </div>
-      <div class="container Movie_Ratings_results" *ngIf="currentIndex === 2">
-        <h2 class="l-cards__title w3-margin-left">Last Rated Movies</h2>
-        <div class="row">
-          <div class="col-4">
-            <img src="https://images-na.ssl-images-amazon.com/images/M/MV5BNGNiNWQ5M2MtNGI0OC00MDA2LWI5NzEtMmZiYjVjMDEyOWYzXkEyXkFqcGdeQXVyMjM4NTM5NDY@._V1_UX182_CR0,0,182,268_AL_.jpg"
-              alt="">
-
-          </div>
-
-          <!--<div class="show_more w3-margin-right">-->
-          <!--</div>-->
-
-          <div class="col-7 testimonial">
-            <p class="film_name">The Shape of Water</p>
-
-            <h2 class="l-cards__title">Your Rate:
-              <span>4.2/5.0</span>
-            </h2>
-
-            <div class="testimonial-content">
-              <div class="testimonial-icon">
-                <i class="fa fa-quote-left"></i>
-              </div>
-              <div class="l_description">
-                <p class="description">
-                  The Shape of Water is an ingenious fantasy romance that utilizes cold war era elements to the advantage of its premise while
-                  subtly challenging our preconceived notions of established archetypes. Del Toro has an innate understanding
-                  of portraying beauty of purity in all it's forms while simultaneously showing us the grotesque underbelly
-                  and brutality of what it is to be human. These skills help him build a boy meets girl
-                </p>
-              </div>
-            </div>
-          </div>
+        <div class="c-inputs">
+          <label>Joined on: <span>2017-03-03</span></label>
         </div>
-        <section class="l-cards">
-          <h2 class="l-cards__title">Rated Movies</h2>
-          <a class="l-cards__more w3-margin-right" href="#">more
-            <i class="fa fa-angle-double-right"></i>
-          </a>
-          <ul class="l-cards__list">
-            <li class="l-cards__item">
-              <a href="#" class="l-cards__image fill"></a>
-              <a href="#" class="l-cards__text"></a>
-            </li>
-            <li class="l-cards__item">
-              <a href="#" class="l-cards__image fill"></a>
-              <a href="#" class="l-cards__text"></a>
-            </li>
-            <li class="l-cards__item">
-              <a href="#" class="l-cards__image fill"></a>
-              <a href="#" class="l-cards__text"></a>
-            </li>
 
-            <li class="l-cards__item">
-              <a href="#" class="l-cards__image fill"></a>
-              <a href="#" class="l-cards__text"></a>
-            </li>
+        <div class="c-inputs">
+          <label>Name</label>
+          <input [placeholder]="profile.username">
+        </div>
+        <div class="c-inputs">
+          <label>Public email</label>
+          <input [placeholder]="profile.email">
+        </div>
+        <div class="c-inputs">
+          <label>Bio</label>
+          <textarea>{{profile.biography}}</textarea>
+        </div>
+        <button class="c-update-btn">Update profile</button>
+      </section>
 
-            <li class="l-cards__item">
-              <a href="#" class="l-cards__image fill"></a>
-              <a href="#" class="l-cards__text"></a>
-            </li>
-
-          </ul>
-        </section>
-      </div>
+      <!--wish list-->
       <div class="container Wish_List_results" *ngIf="currentIndex === 3">
         <section class="l-cards">
           <h2 class="l-cards__title">My Wishlist </h2>
@@ -234,6 +72,8 @@
           </ul>
         </section>
       </div>
+
+      <!--not interested list-->
       <div class="container Movie_List_results" *ngIf="currentIndex === 4">
         <section class="l-cards">
           <h2 class="l-cards__title">My Watchlist</h2>
@@ -268,6 +108,8 @@
           </ul>
         </section>
       </div>
+
+      <!-- reviews -->
       <div class="container My_Critics_results" *ngIf="currentIndex === 5">
         <div class="w3-container w3-padding-large w3-black">
 
@@ -344,6 +186,7 @@
 
       </div>
 
+      <!--account settings-->
       <div class="w3-container Account" *ngIf="currentIndex === 7">
         <div class="w3-container w3-padding-large w3-black">
 
@@ -406,42 +249,6 @@
 
         </div>
       </div>
-
-      <hr class="w3-opacity">
-
-      <!-- 	Recommend section	 -->
-      <section class="l-cards">
-        <h2 class="l-cards__title">Recommended For Me</h2>
-        <a class="l-cards__more w3-margin-right" href="#">more
-          <i class="fa fa-angle-double-right"></i>
-        </a>
-        <ul class="l-cards__list">
-          <li class="l-cards__item">
-            <a href="#" class="l-cards__image fill"></a>
-            <a href="#" class="l-cards__text"></a>
-          </li>
-
-          <li class="l-cards__item">
-            <a href="#" class="l-cards__image fill"></a>
-            <a href="#" class="l-cards__text"></a>
-          </li>
-
-          <li class="l-cards__item">
-            <a href="#" class="l-cards__image fill"></a>
-            <a href="#" class="l-cards__text"></a>
-          </li>
-
-          <li class="l-cards__item">
-            <a href="#" class="l-cards__image fill"></a>
-            <a href="#" class="l-cards__text"></a>
-          </li>
-          <li class="l-cards__item">
-            <a href="#" class="l-cards__image fill"></a>
-            <a href="#" class="l-cards__text"></a>
-          </li>
-        </ul>
-      </section>
-      <!-- 	end Recommend section	 -->
 
     </div>
     </div>
