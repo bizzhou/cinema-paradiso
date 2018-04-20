@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {SearchService} from './search.service';
 import {Movie} from '../models/movie.model';
 import {Celebrity} from '../models/celebrity.model';
+import {ActivatedRoute, Params} from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -9,7 +10,7 @@ import {Celebrity} from '../models/celebrity.model';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent implements OnInit {
-  constructor(private searchService: SearchService) {
+  constructor(private searchService: SearchService, private route: ActivatedRoute) {
   }
 
   currentJustify = 'center';
@@ -19,16 +20,17 @@ export class SearchComponent implements OnInit {
 
   moviesResults: Movie[];
   celebrityResults: Celebrity[];
-  
+
 
   ngOnInit() {
-    this.searchService.currentResult.subscribe(results => {
-      this.moviesResults = results['movie'] as Movie[];
-      this.celebrityResults = results['celebrity'] as Celebrity[];
+    this.route.params.subscribe((params: Params) => {
+      if (params['keyword']) {
 
-      console.log('celebrity results ', this.celebrityResults);
-      console.log('movie results ', this.moviesResults);
-
+        this.searchService.search(params['keyword'], '0', '20').subscribe(results => {
+          this.moviesResults = results['movie'] as Movie[];
+          this.celebrityResults = results['celebrity'] as Celebrity[];
+        });
+      }
     });
   }
 
@@ -40,8 +42,8 @@ export class SearchComponent implements OnInit {
       this.searchService.search(currentKeyword, this.moviePage.toString(), '20').subscribe(results => {
         console.log(results['movie']);
         this.moviesResults = results['movie'] as Movie[];
-        window.scroll(0,0);
-      })
+        window.scroll(0, 0);
+      });
 
     });
   }

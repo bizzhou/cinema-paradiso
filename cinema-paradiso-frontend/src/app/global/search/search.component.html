@@ -16,7 +16,7 @@
                 <img src={{movie?.poster}} alt="{{movie?.title}}">
               </div>
               <div class="col-7">
-                <a routerLink="/movie-detail" class="s-item__title">{{movie?.title}} ({{movie?.releaseDate.toString().substring(0, 4)}})</a>
+                <a routerLink="/movie/{{movie.imdbId}}" class="s-item__title">{{movie?.title}} ({{movie?.releaseDate.toString().substring(0, 4)}})</a>
 
                 <div class="flex">
                   <i class="fa fa-star"></i>

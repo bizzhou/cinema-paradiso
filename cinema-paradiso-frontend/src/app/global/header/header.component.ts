@@ -5,7 +5,7 @@ import {LoginService} from '../login/login.service';
 import {ToastrService} from 'ngx-toastr';
 import {SearchService} from '../search/search.service';
 import {Router} from '@angular/router';
-import { ViewEncapsulation } from '@angular/core';
+import {ViewEncapsulation} from '@angular/core';
 
 @Component({
   encapsulation: ViewEncapsulation.None,
@@ -18,7 +18,7 @@ export class HeaderComponent implements OnInit {
   status: boolean;
   user: Token;
   is_admin: boolean;
-  keywords: string;
+  keyword: string;
 
   constructor(private loginStatusService: LoginStatusService,
               private loginService: LoginService,
@@ -27,14 +27,22 @@ export class HeaderComponent implements OnInit {
               private router: Router) {
   }
 
-  keywordSubmit() {
-    this.searchService.search(this.keywords, '0', '20').subscribe(result => {
-      this.searchService.nextResult(result);
-      this.searchService.nextKeyword(this.keywords);
-      console.log('current result  ', this.searchService.currentResult);
-      this.router.navigateByUrl('/search');
-    });
+  // keywordSubmit() {
+  // this.searchService.search(this.keywords, '0', '20').subscribe(result => {
+  //   this.searchService.nextResult(result);
+  //   this.searchService.nextKeyword(this.keywords);
+  //   console.log('current result  ', this.searchService.currentResult);
+  //   this.router.navigateByUrl('/search');
+  // });
+  // }
+
+  search() {
+    if (this.keyword !== '') {
+      this.router.navigate(['/search', {keyword: this.keyword}]);
+      this.keyword = '';
+    }
   }
+
 
   ngOnInit() {
     $(document).ready(function () {
