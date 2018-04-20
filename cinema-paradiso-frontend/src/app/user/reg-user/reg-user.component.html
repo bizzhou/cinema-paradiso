@@ -6,11 +6,6 @@
     <div class="container">
       <div class="row">
     <nav class="col-sidebar sidebar">
-
-      <div class="c-avatar">
-        <img class="s-profile-img" src="{{profile_url}}" id="profile_image">
-        <button class="c-update-btn" id="update-avatar">Update avatar</button>
-      </div>
       <ul class="s-tabs">
         <li class="s-tabs__list"><a>Account management</a></li>
         <li class="s-tabs__list"><a (click)="showDiv(1)" class="active" >Profile summary</a></li>
@@ -54,6 +49,14 @@
           <textarea>{{profile.biography}}</textarea>
         </div>
         <button class="c-update-btn">Update profile</button>
+
+
+        <div class="c-avatar">
+          <img src="{{profile_url}}" id="profile_image">
+          <button class="c-update-btn" id="update-avatar">Update avatar</button>
+        </div>
+
+
       </section>
 
       <!--wish list-->

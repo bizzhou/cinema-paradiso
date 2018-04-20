@@ -39,14 +39,6 @@ main {
 
 .sidebar {
 
-  .c-avatar {
-    img {
-      width: 150px;
-      height: 150px;
-      display: block;
-    }
-  }
-
 }
 
 
@@ -111,6 +103,14 @@ main {
   }
   span {
    color: lighten(black, 40%);
+  }
+}
+.c-avatar {
+  margin-top: 20px;
+  img {
+    width: 150px;
+    height: 150px;
+    display: block;
   }
 }
 
