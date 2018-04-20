@@ -1,14 +1,14 @@
 <header class="l-header">
   <nav class="l-header__logo">
     <a routerLink="/home" routerLinkActive="active">
-      <img alt="logo" src="../../../assets/images/logo.png">
+      <img alt="logo" src="https://user-images.githubusercontent.com/20979257/39030584-d93782fe-4430-11e8-92ff-12cfebf7a6c8.png">
     </a>
   </nav>
 
   <nav class="l-header__nav">
     <a>
       <form (ngSubmit)="keywordSubmit()">
-        <input type="search" placeholder="Coco" [(ngModel)]="keywords" name="keywords" style="margin-top: -25px">
+        <input type="search" placeholder="Coco" [(ngModel)]="keywords" name="keywords">
         <button type="submit"><span class="fa fa-search" id="search-icon"></span></button>
       </form>
     </a>
@@ -40,7 +40,7 @@
         <ng-template #userBlock>
           <div ngbDropdown class="header-dropdown">
             <a class="btn btn-outline-primary" id="user-menu-dropdown" ngbDropdownToggle>{{user.username}}</a>
-            <div ngbDropdownMenu aria-labelledby="user-menu-dropdown" class="dropdown-menu ">
+            <div ngbDropdownMenu aria-labelledby="user-menu-dropdown" class="dropdown-menu">
               <a routerLink="user" class="dropdown-item">My Profile </a>
               <a class="dropdown-item">My Wish List</a>
               <a class="dropdown-item">Settings </a>

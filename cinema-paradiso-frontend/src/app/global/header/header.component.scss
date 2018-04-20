@@ -23,11 +23,12 @@ input::-webkit-search-cancel-button {
 }
 
 input[type=search] {
+  margin-top: -25px;
   color: white;
   background: transparent;
   border: solid 1px #ccc;
-  padding: 6px 10px 6px 20px;
-  width: 70px;
+  padding: 10px 10px 6px 20px;
+  width: 80px;
   @include border_radius(5em);
 
   -webkit-transition: all .5s;
@@ -80,10 +81,6 @@ input::-webkit-input-placeholder {
     }
   }
 
-  .dropdown-menu-right {
-    right: 0;
-    left: auto;
-  }
 }
 
 
