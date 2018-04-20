@@ -43,7 +43,6 @@ export class HeaderComponent implements OnInit {
     }
   }
 
-
   ngOnInit() {
     $(document).ready(function () {
       $('.trigger').click(function () {

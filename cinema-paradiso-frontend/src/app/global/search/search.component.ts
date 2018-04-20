@@ -18,34 +18,39 @@ export class SearchComponent implements OnInit {
   peoplePage = 1;
   tvPage = 1;
 
+  movieNumberOfPages: number;
+  peopleNumberOfPages: number;
+  tvNumberOfPages: number;
+
   moviesResults: Movie[];
   celebrityResults: Celebrity[];
+  keyword: string;
 
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
       if (params['keyword']) {
-
-        this.searchService.search(params['keyword'], '0', '20').subscribe(results => {
+        this.keyword = params['keyword'];
+        this.searchService.search(this.keyword, '0', '20').subscribe(results => {
           this.moviesResults = results['movie'] as Movie[];
           this.celebrityResults = results['celebrity'] as Celebrity[];
+
+          this.movieNumberOfPages = results['movie_page'] * 10 - 10;
+          this.peoplePage = results['celebrities_page'] * 10 - 10;
+          console.log(this.peoplePage);
+          this.tvPage = results['tv_page'] * 10 - 10;
         });
       }
     });
   }
 
   getNextPage() {
-    this.searchService.currentKeyword.subscribe(currentKeyword => {
-      console.log(this.moviePage);
-      console.log(currentKeyword);
-
-      this.searchService.search(currentKeyword, this.moviePage.toString(), '20').subscribe(results => {
-        console.log(results['movie']);
-        this.moviesResults = results['movie'] as Movie[];
-        window.scroll(0, 0);
-      });
-
+    this.searchService.search(this.keyword, this.moviePage.toString(), '20').subscribe(results => {
+      this.moviesResults = results['movie'] as Movie[];
+      this.celebrityResults = results['celebrity'] as Celebrity[];
+      window.scroll(0, 0);
     });
   }
+
 
 }

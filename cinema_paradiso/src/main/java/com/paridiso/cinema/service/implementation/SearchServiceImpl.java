@@ -37,27 +37,22 @@ public class SearchServiceImpl implements SearchService {
     private static Logger logger = LogManager.getLogger(SearchServiceImpl.class);
 
     @Override
-    public Set<Movie> getMoviesFromKeyword(String keyword, Integer pageNo, Integer pageSize) {
-        Page<Movie> movies = movieRepository.findMoviesByTitleContains(keyword, new PageRequest(pageNo, pageSize));
-        Set<Movie> movieSet = new HashSet<>();
-        movieSet.addAll(movies.getContent());
-        logger.info(movieSet);
-        return movieSet;
+    public Page<Movie> getMoviesFromKeyword(String keyword, Integer pageNo, Integer pageSize) {
+        Page<Movie> moviePage = movieRepository.findMoviesByTitleContains(keyword, new PageRequest(pageNo, pageSize));
+        return moviePage;
     }
 
     @Override
-    public List<Celebrity> getCelebritiesFromKeyword(String keyword, Integer pageNo, Integer pageSize) {
-        Page<Celebrity> celebrityPages = celebrityRepository
+    public Page<Celebrity> getCelebritiesFromKeyword(String keyword, Integer pageNo, Integer pageSize) {
+        Page<Celebrity> celebrityPage = celebrityRepository
                 .findCelebritiesByNameContains(keyword, new PageRequest(pageNo, pageSize));
-        List<Celebrity> celebrities = new ArrayList<>(celebrityPages.getContent());
-        return celebrities;
+        return celebrityPage;
     }
 
     @Override
-    public List<TV> getTVsFromKeyword(String keyword, Integer pageNo, Integer pageSize) {
+    public Page<TV> getTVsFromKeyword(String keyword, Integer pageNo, Integer pageSize) {
         Page<TV> tvPage = tvRepository.findMoviesByTitleContains(keyword, new PageRequest(pageNo, pageSize));
-        List<TV> tvs = new ArrayList<>(tvPage.getContent());
-        return tvs;
+        return tvPage;
     }
 
 
