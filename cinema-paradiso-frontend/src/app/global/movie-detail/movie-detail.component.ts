@@ -1,9 +1,9 @@
-import {Component, OnInit, Input} from '@angular/core';
-import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
-import {Movie} from '../models/movie.model';
-import {MovieService} from './movie.service';
-import {ActivatedRoute} from '@angular/router';
-import {LoginStatusService} from '../login/login.status.service';
+import { Component, OnInit, Input } from '@angular/core';
+import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
+import { Movie } from '../models/movie.model';
+import { MovieService } from './movie.service';
+import { ActivatedRoute } from '@angular/router';
+import { LoginStatusService } from '../login/login.status.service';
 
 
 @Component({
@@ -22,9 +22,9 @@ export class MovieDetailComponent implements OnInit {
   isMovieExistInWishList: boolean;
 
   constructor(config: NgbRatingConfig,
-              private movieService: MovieService,
-              private loginStatusService: LoginStatusService,
-              route: ActivatedRoute) {
+    private movieService: MovieService,
+    private loginStatusService: LoginStatusService,
+    route: ActivatedRoute) {
 
     this.selectedMovieId = route.snapshot.params['id'];
 
@@ -46,6 +46,7 @@ export class MovieDetailComponent implements OnInit {
 
 
   ngOnInit() {
+    window.scroll(0, 0);
 
     if (this.loginStatusService.getTokenDetails() !== null) {
       this.loginStatusService.changeStatus(true);

@@ -1,8 +1,8 @@
-import {Component, OnInit} from '@angular/core';
-import {SearchService} from './search.service';
-import {Movie} from '../models/movie.model';
-import {Celebrity} from '../models/celebrity.model';
-import {ActivatedRoute, Params} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { SearchService } from './search.service';
+import { Movie } from '../models/movie.model';
+import { Celebrity } from '../models/celebrity.model';
+import { ActivatedRoute, Params } from '@angular/router';
 
 @Component({
   selector: 'app-search',
@@ -35,9 +35,9 @@ export class SearchComponent implements OnInit {
           this.moviesResults = results['movie'] as Movie[];
           this.celebrityResults = results['celebrity'] as Celebrity[];
 
-          this.movieNumberOfPages = results['movie_page'] * 10 - 10;
-          this.peopleNumberOfPages = results['celebrities_page'] * 10 - 10;
-          this.tvNumberOfPages = results['tv_page'] * 10 - 10;
+          this.movieNumberOfPages = results['movie_page'] * 10;
+          this.peopleNumberOfPages = results['celebrities_page'] * 10;
+          this.tvNumberOfPages = results['tv_page'] * 10;
 
           console.log(results);
 
@@ -50,23 +50,26 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  getNextMoviePage() {
-    this.searchService.search(this.keyword, this.moviePage.toString(), '20').subscribe(results => {
+  getNextMoviePage(currentPage) {
+    const actualPage = currentPage - 1;
+    this.searchService.search(this.keyword, actualPage.toString(), '20').subscribe(results => {
       this.moviesResults = results['movie'] as Movie[];
       window.scroll(0, 0);
     });
   }
 
-  getNextPeoplePage() {
-    this.searchService.search(this.keyword, this.peoplePage.toString(), '20').subscribe(results => {
+  getNextPeoplePage(currentPage) {
+    const actualPage = currentPage - 1;
+    this.searchService.search(this.keyword, actualPage.toString(), '20').subscribe(results => {
       this.celebrityResults = results['celebrity'] as Celebrity[];
       window.scroll(0, 0);
     });
   }
 
   getNextTVPage() {
-    
+
   }
+
 
 
 }

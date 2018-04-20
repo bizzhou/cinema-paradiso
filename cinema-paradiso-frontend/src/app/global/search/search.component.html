@@ -57,8 +57,7 @@
         </div>
 
         <ngb-pagination class="d-flex justify-content-center" [collectionSize]="movieNumberOfPages" [maxSize]=10
-                        [(page)]="moviePage" (click)="getNextMoviePage()" [boundaryLinks]="true"></ngb-pagination>
-
+        [(page)]="moviePage" [boundaryLinks]="true" (pageChange)="getNextMoviePage($event)"></ngb-pagination>
       </ng-template>
     </ngb-tab>
 
@@ -93,7 +92,7 @@
 
         <ngb-pagination class="d-flex justify-content-center"
                         [collectionSize]="peopleNumberOfPages" [(page)]="peoplePage"
-                        (click)="getNextPeoplePage()" [maxSize]=10 [boundaryLinks]="true"></ngb-pagination>
+                        (pageChange)="getNextPeoplePage($event)" [maxSize]=10 [boundaryLinks]="true"></ngb-pagination>
 
       </ng-template>
 
@@ -146,7 +145,7 @@
         </div>
 
         <ngb-pagination class="d-flex justify-content-center" [collectionSize]="tvNumberOfPages" [maxSize]=10 [(page)]="tvPage"
-                        (click)="getNextTVPage()"></ngb-pagination>
+                        (pageChange)="getNextTVPage($event)"></ngb-pagination>
 
       </ng-template>
     </ngb-tab>
