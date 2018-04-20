@@ -1,6 +1,7 @@
 package com.paridiso.cinema.entity;
 
 import javax.persistence.*;
+import java.util.Calendar;
 
 /**
  * Store a rated movie and its rating (of the user),
@@ -14,6 +15,7 @@ public class UserRating {
     private UserProfile user;
     private Movie ratedMovie;
     private Double userRating;
+    private Calendar ratedDate;
 
     public UserRating() {
     }
@@ -40,6 +42,10 @@ public class UserRating {
         return userRating;
     }
 
+    public Calendar getRatedDate() {
+        return ratedDate;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -56,6 +62,10 @@ public class UserRating {
         this.user = user;
     }
 
+    public void setRatedDate(Calendar ratedDate) {
+        this.ratedDate = ratedDate;
+    }
+
     @Override
     public String toString() {
         return "UserRating{" +
@@ -65,4 +75,5 @@ public class UserRating {
                 ", userRating=" + userRating +
                 '}';
     }
+
 }
