@@ -3,6 +3,7 @@ $link-hover: lighten(black, 60%);
 $link-active: darken(gray, 30%);
 $sidebar-link-hover: white;
 $sidebar-link: darken(white, 20%);
+$main-background: lighten(black, 10%);
 
 @mixin cols ($width, $padding-left, $padding-right){
   width: $width;

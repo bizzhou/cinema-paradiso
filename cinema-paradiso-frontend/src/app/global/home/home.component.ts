@@ -12,10 +12,8 @@ import {MovieService} from '../movie-detail/movie.service';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {Slide} from '../models/slide.model';
 import {ToastrService} from 'ngx-toastr';
-import { ViewEncapsulation } from '@angular/core';
 
 @Component({
-  encapsulation: ViewEncapsulation.None,
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],

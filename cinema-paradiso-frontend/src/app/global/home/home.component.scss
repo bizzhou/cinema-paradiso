@@ -10,6 +10,7 @@ $padding-hrz: 2.5em;
 // Objects
 main {
   padding-bottom: 3em;
+  background-color: black;
 }
 a:hover {
   color: $link-hover;
@@ -36,14 +37,6 @@ a:hover {
 }
 .color-gray {
   background-color: $color-gray;
-}
-
-// overwrite ng-bootstrap carousel arrows
-.carousel-control-prev, .carousel-control-next {
-  pointer-events: none;
-}
-.carousel-control-prev-icon, .carousel-control-next-icon {
-  display: none;
 }
 
 .l-hero{

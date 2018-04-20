@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ViewEncapsulation } from '@angular/core';
 
 @Component({
-  encapsulation: ViewEncapsulation.None,
   selector: 'app-categories',
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss']
