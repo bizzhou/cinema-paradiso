@@ -48,6 +48,10 @@ export class RegUserComponent implements OnInit {
   showDiv(index) {
     this.currentIndex = index;
     console.log(this.currentIndex);
+
+    // style
+
+
   }
 
   ngOnInit() {

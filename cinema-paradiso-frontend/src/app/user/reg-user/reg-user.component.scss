@@ -186,107 +186,129 @@ main {
 
 p {
   font-size: 14px;
-  //margin-top: 2px;
   color: darken(white, 45%);
   span {
     color: white;
   }
 }
-// end wish list
 
-.l-cards__more {
-  float: right;
-  font-size: 14px;
-  margin: 0 0 1em;
-  color: gray;
-}
-
-.l-cards {
-  padding-left: 1.2em;
-  padding-bottom: 12.5em;
-}
-
-.l-cards__title-wrap {
-  padding-bottom: 5px;
-}
-
-// title of each section
-.l-cards__title {
-  font-size: 0.9em;
+.review {
   color: white;
-  display: inline;
-  margin-left: 1.5%;
-  span {
-    color: $color-red;
+  .r-title {
+    font-size: 16px;
   }
-}
+  .r-title__sub {
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
 
-// the more button on the right
-.l-cards__nav-left, .l-cards__nav-right {
-  float: right;
-  color: white;
-  background-color: $color-red;
-  font-size: 0.8em;
-  padding: 1px 8px;
-  border-radius: 50%;
-}
-
-.l-cards__nav-left {
-  margin-right: 3%;
-}
-
-.l-cards__nav-right {
-  margin-right: 0.5em;
-}
-
-// poster list
-.l-cards__list {
-  margin-top: 0.5em;
-  //padding-bottom: 5em;
-  display: flex;
-}
-
-.l-cards__text {
-  text-align: center;
-  font-weight: 500;
-  font-size: 0.6em !important;
-  // ratings
-  p {
-    color: $color-red;
   }
-}
-
-// individual poster
-.l-cards__item {
-  background-color: $color-gray;
-  height: 3em;
-  flex: 0 0 7.57em; // size of each poster
-  margin: 0 1.2em;
-  text-align: center;
-  // text under poster
-  a {
-    color: darken(white, 40%);
-    font-size: 0.7em;
-    // text-decoration: none;
+  .review__content {
+    color: darken(white, 10%);
   }
-  img {
-    //height: 5em !important;
+  .review__buttons {
+    display: inline-block;
+  }
+  .r-update-btn {
+    font-size: 14px;
   }
 
-  & + & {
-    margin-left: 0.25rem;
-  }
 }
 
-.film_name {
-  color: white
-}
-
-p {
-  color: gray;
-}
-
-#about_me_box , .w3-input{
-  color: black;
-}
-
+//
+//.l-cards__more {
+//  float: right;
+//  font-size: 14px;
+//  margin: 0 0 1em;
+//  color: gray;
+//}
+//
+//.l-cards {
+//  padding-left: 1.2em;
+//  padding-bottom: 12.5em;
+//}
+//
+//.l-cards__title-wrap {
+//  padding-bottom: 5px;
+//}
+//
+//// title of each section
+//.l-cards__title {
+//  font-size: 0.9em;
+//  color: white;
+//  display: inline;
+//  margin-left: 1.5%;
+//  span {
+//    color: $color-red;
+//  }
+//}
+//
+//// the more button on the right
+//.l-cards__nav-left, .l-cards__nav-right {
+//  float: right;
+//  color: white;
+//  background-color: $color-red;
+//  font-size: 0.8em;
+//  padding: 1px 8px;
+//  border-radius: 50%;
+//}
+//
+//.l-cards__nav-left {
+//  margin-right: 3%;
+//}
+//
+//.l-cards__nav-right {
+//  margin-right: 0.5em;
+//}
+//
+//// poster list
+//.l-cards__list {
+//  margin-top: 0.5em;
+//  //padding-bottom: 5em;
+//  display: flex;
+//}
+//
+//.l-cards__text {
+//  text-align: center;
+//  font-weight: 500;
+//  font-size: 0.6em !important;
+//  // ratings
+//  p {
+//    color: $color-red;
+//  }
+//}
+//
+//// individual poster
+//.l-cards__item {
+//  background-color: $color-gray;
+//  height: 3em;
+//  flex: 0 0 7.57em; // size of each poster
+//  margin: 0 1.2em;
+//  text-align: center;
+//  // text under poster
+//  a {
+//    color: darken(white, 40%);
+//    font-size: 0.7em;
+//    // text-decoration: none;
+//  }
+//  img {
+//    //height: 5em !important;
+//  }
+//
+//  & + & {
+//    margin-left: 0.25rem;
+//  }
+//}
+//
+//.film_name {
+//  color: white
+//}
+//
+//p {
+//  color: gray;
+//}
+//
+//#about_me_box , .w3-input{
+//  color: black;
+//}
+//
