@@ -23,8 +23,8 @@ import {AuthInterceptor} from './http.interceptor';
 import {HomeService} from './global/home/home.service';
 import {MovieService} from './global/movie-detail/movie.service';
 import {ToastrModule} from 'ngx-toastr';
-import {StarsComponent} from './global/stars/stars.component';
 import {SearchService} from './global/search/search.service';
+import { AboutComponent } from './global/about/about.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +39,7 @@ import {SearchService} from './global/search/search.service';
     RegUserComponent,
     SearchComponent,
     AdminComponent,
-    StarsComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,
