@@ -36,6 +36,11 @@
           <label>Joined on: <span>2017-03-03</span></label>
         </div>
 
+        <div class="c-avatar">
+          <img src="{{profile_url}}" id="profile_image">
+          <button class="c-update-btn" id="update-avatar">Update avatar</button>
+        </div>
+
         <div class="c-inputs">
           <label>Name</label>
           <input [placeholder]="profile.username">
@@ -49,14 +54,6 @@
           <textarea>{{profile.biography}}</textarea>
         </div>
         <button class="c-update-btn">Update profile</button>
-
-
-        <div class="c-avatar">
-          <img src="{{profile_url}}" id="profile_image">
-          <button class="c-update-btn" id="update-avatar">Update avatar</button>
-        </div>
-
-
       </section>
 
       <!--wish list-->
