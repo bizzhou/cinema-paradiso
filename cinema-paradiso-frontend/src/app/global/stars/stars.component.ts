@@ -7,18 +7,17 @@ import {Component, EventEmitter, Input, Output} from '@angular/core';
 })
 export class StarsComponent {
   @Input()
-  currentRate = 3.14;
+  currentRate: number;
 
   @Input()
-  readonly = false;
-
+  readonly: boolean;
 
   @Output()
-  private hoveredNumberEmitter: EventEmitter<number> = new EventEmitter<number>();
+  eventEmitter: EventEmitter<number> = new EventEmitter();
 
   clickedNumber() {
-    console.log(this.currentRate);
-    this.hoveredNumberEmitter.emit(this.currentRate);
+    this.eventEmitter.emit(this.currentRate);
+    console.log('event emitted');
   }
 
 }

@@ -1,15 +1,9 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import * as $ from 'jquery';
+import {Component, OnInit} from '@angular/core';
 import {LoginStatusService} from '../login/login.status.service';
 import {HomeService} from './home.service';
 import {Movie} from '../models/movie.model';
-import {Celebrity} from '../models/celebrity.model';
-import {HttpClient} from '@angular/common/http';
-import {map} from 'rxjs/operators';
 import {NgbCarouselConfig} from '@ng-bootstrap/ng-bootstrap';
-import {CarouselSlide} from '../models/carouselSlide.model';
 import {MovieService} from '../movie-detail/movie.service';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {Slide} from '../models/slide.model';
 import {ToastrService} from 'ngx-toastr';
 
