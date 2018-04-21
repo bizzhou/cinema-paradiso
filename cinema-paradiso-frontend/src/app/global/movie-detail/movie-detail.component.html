@@ -384,9 +384,11 @@
                 <button class="o-button o-button--gray">+ Watchlist</button>
                 <button class="o-button" (click)='addToWishList(selectedMovieId)'>+ Wishlist</button>
 
-                <ngb-rating [(rate)]="selected" (hover)="hovered=$event" (leave)="hovered=0" (click)="rateMovie()">
-                  <span class="star"></span>
-                </ngb-rating>
+                <app-stars [readonly]="ngbRatingReadOnly" [currentRate]="currentRating"></app-stars>
+
+                <!--<ngb-rating [(rate)]="selected" (hover)="hovered=$event" (leave)="hovered=0" [readonly]="false" (click)="rateMovie()">-->
+                  <!--<span class="star"></span>-->
+                <!--</ngb-rating>-->
 
 
                 <textarea placeholder="Add a review..." [(ngModel)]="review" name="review"></textarea>
@@ -626,7 +628,7 @@
       </div>
       <!-- ./row -->
     </div>
-    <!-- ./container-fluid -->
+
   </main>
 </body>
 

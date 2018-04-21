@@ -15,34 +15,30 @@ export class MovieDetailComponent implements OnInit {
 
   movie: Movie;
   selectedMovieId: string;
-  selected = 0;
-  hovered = 0;
   review: string;
 
   isMovieExistInWishList: boolean;
+  currentRating = 0;
+  ngbRatingReadOnly = false;
 
-  constructor(config: NgbRatingConfig,
-    private movieService: MovieService,
-    private loginStatusService: LoginStatusService,
-    route: ActivatedRoute) {
+  constructor(private movieService: MovieService,
+              private loginStatusService: LoginStatusService,
+              route: ActivatedRoute) {
 
     this.selectedMovieId = route.snapshot.params['id'];
-
-    // customize default values carousel slider
-    config.max = 5;
-    config.readonly = true;
   }
+
 
   addReview() {
-    console.log('reviews');
+    console.log('adding review dummy');
   }
 
 
-  rateMovie() {
-    this.movieService.rateMovie(this.hovered, this.selectedMovieId).subscribe(result => {
-      console.log(result);
-    });
-  }
+  // rateMovie() {
+  //   this.movieService.rateMovie(this.hovered, this.selectedMovieId).subscribe(result => {
+  //     console.log(result);
+  //   });
+  // }
 
 
   ngOnInit() {
@@ -65,10 +61,10 @@ export class MovieDetailComponent implements OnInit {
       .subscribe(
         data => {
           this.movie = data as Movie;
-          console.log(this.movie);
-          console.log('casts ', this.movie.casts);
-          console.log('imdbId ', this.movie.imdbId);
-          console.log(this.movie.photos);
+          // console.log(this.movie);
+          // console.log('casts ', this.movie.casts);
+          // console.log('imdbId ', this.movie.imdbId);
+          // console.log(this.movie.photos);
         },
         error => console.log('Failed to fetch movie with id')
       );
