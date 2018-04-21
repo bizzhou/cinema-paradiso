@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
   moviesTopBoxOffice: Movie[];
   selectedMovieId: string;
 
+
   isMovieExistInWishList: boolean;              // button changes accordingly
 
   constructor(private loginStatusService: LoginStatusService,

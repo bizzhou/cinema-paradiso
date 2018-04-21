@@ -1,14 +1,3 @@
-<!--<ngb-rating [(rate)]="selected" (hover)="hovered=$event" (leave)="hovered=0" [readonly]="readonly" (click)="test()"></ngb-rating>-->
-<!--<hr>-->
-<!--<pre>-->
-<!--Selected: <b>{{selected}}</b>-->
-<!--Hovered: <b>{{hovered}}</b>-->
-<!--</pre>-->
-<!--<button class="btn btn-sm btn-outline-{{readonly ? 'danger' : 'success'}}" (click)="readonly = !readonly">-->
-  <!--{{ readonly ? "readonly" : "editable"}}-->
-<!--</button>-->
+<ngb-rating [(rate)]="currentRate" [readonly]="readonly" max="5"
+            (rateChange)="clickedNumber()"></ngb-rating>
 
-
-<ngb-rating [(rate)]="selected" (hover)="hovered=$event" (leave)="hovered=0" [readonly]="readonly" (click)="rateMovie()">
-  <span class="star"></span>
-</ngb-rating>

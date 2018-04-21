@@ -1,8 +1,4 @@
-import {Component, OnInit} from '@angular/core';
-import {MovieService} from '../movie-detail/movie.service';
-import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
-import {ActivatedRoute} from '@angular/router';
-
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'app-stars',
@@ -10,19 +6,19 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./stars.component.scss']
 })
 export class StarsComponent {
-  selected = 0;
-  hovered = 0;
+  @Input()
+  currentRate = 3.14;
+
+  @Input()
   readonly = false;
 
-  constructor(config: NgbRatingConfig) {
-    config.max = 5;
-    config.readonly = true;
-  }
 
-  test() {
-    console.log(this.hovered);
-    console.log(this.selected);
+  @Output()
+  private hoveredNumberEmitter: EventEmitter<number> = new EventEmitter<number>();
 
+  clickedNumber() {
+    console.log(this.currentRate);
+    this.hoveredNumberEmitter.emit(this.currentRate);
   }
 
 }
