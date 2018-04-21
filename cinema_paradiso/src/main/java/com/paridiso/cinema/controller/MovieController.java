@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Calendar;
 import java.util.List;
@@ -71,6 +72,10 @@ public class MovieController {
     public ResponseEntity<?> addRating(@RequestHeader(value = "Authorization") String jwtToken,
                                              @PathVariable String filmId,
                                              @PathVariable Double rating) {
+        if (rating > 5 || rating < 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exceptionConstants.getInvalidRatingNumber());
+        }
+
         Integer id = jwtTokenService.getUserProfileIdFromToken(jwtToken);
         Double newRating = filmService.addRating(id, filmId, rating);
         return ResponseEntity.ok(newRating);
@@ -88,6 +93,10 @@ public class MovieController {
     public ResponseEntity<?> editRating(@RequestHeader(value = "Authorization") String jwtToken,
                                               @PathVariable String filmId,
                                               @PathVariable Double rating) {
+        if (rating > 5 || rating < 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exceptionConstants.getInvalidRatingNumber());
+        }
+
         Integer id = jwtTokenService.getUserProfileIdFromToken(jwtToken);
         Double newRating = filmService.updateRating(id, filmId, rating);
         return ResponseEntity.ok(newRating);

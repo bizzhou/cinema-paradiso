@@ -58,6 +58,7 @@ application:
     userRatingExists: "USER RATING FOR MOVIE EXISTS"
     userRatingNotExists: "USER RATING FOR MOVIE DOES NOT `EXISTS"
     reviewExists: "REVIEW EXISTS"
+    invalidRatingNumber: "INVALID RATING NUMBER"
 
   limitation:
     wishListSize: 999

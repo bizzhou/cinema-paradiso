@@ -23,6 +23,16 @@ public class ExceptionConstants {
     private String userRatingExists;
     private String userRatingNotExists;
     private String reviewExists;
+    private String invalidRatingNumber;
+
+
+    public String getInvalidRatingNumber() {
+        return invalidRatingNumber;
+    }
+
+    public void setInvalidRatingNumber(String invalidRatingNumber) {
+        this.invalidRatingNumber = invalidRatingNumber;
+    }
 
     public String getReviewExists() {
         return reviewExists;
