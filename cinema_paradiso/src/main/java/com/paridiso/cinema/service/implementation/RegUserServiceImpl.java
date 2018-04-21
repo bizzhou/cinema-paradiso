@@ -128,7 +128,8 @@ public class RegUserServiceImpl extends UserService {
 
     public UserProfile getProfile(Integer profileId) {
         UserProfile userProfile = getUserProfile(profileId);
-        List<Movie> movies = (List<Movie>) utilityService.shrinkMovieSize(userProfile.getWishList().getMovies());
+//        List<Movie> movies = (List<Movie>) utilityService.shrinkMovieSize(userProfile.getWishList().getMovies());
+        List<Movie> movies = userProfile.getWishList().getMovies();
         userProfile.getWishList().setMovies(movies);
         return userProfile;
     }

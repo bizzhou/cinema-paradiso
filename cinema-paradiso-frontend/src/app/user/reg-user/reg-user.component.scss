@@ -1,116 +1,318 @@
-//@import "https://www.w3schools.com/w3css/4/w3.css";
-@mixin cols($width, $padding-left, $padding-right) {
+$main-background: lighten(black, 11%);
+$link-hover: lighten(black, 40%);
+$color-red: rgb(229, 9, 20);
+$color-gray: rgb(100, 100, 100);
+$color-input-title: darken(white, 25%);
+
+@mixin cols ($width, $padding-left, $padding-right){
   width: $width;
-  float: left;
+  float:left;
   position: relative;
   min-height: 1px;
   padding-right: $padding-right;
   padding-left: $padding-left;
 }
-
-$color-red: rgb(229, 9, 20);
-$color-gray: rgb(100, 100, 100);
-
+.col-sidebar {
+  @include cols(28%, 1px, 1px);
+}
+.col-right {
+  @include cols(71.5%, 0, 0);
+}
+.col-public-profile {
+  @include cols(71.5%, 0, 0);
+}
+.col-avatar {
+  @include cols(28%, 1px, 1px);
+}
 main {
-  //background-color: lighten(black, 7%);
-  height: 100%;
-  //padding-top: 3%;
-  padding-bottom: 4%;
+  background-color: $main-background;
+  padding-top: 3%;
+  padding-bottom: 5%;
 }
 
-.l-cards__more {
-  float: right;
-  font-size: 14px;
-  margin: 0 0 1em;
-  color: gray;
+.sidebar {
+  padding-left:3%;
+}
+.content {
+  padding-right: 3%;
 }
 
-.l-cards {
-  padding-left: 1.2em;
-  padding-bottom: 12.5em;
+.sidebar {
+
 }
 
-.l-cards__title-wrap {
-  padding-bottom: 5px;
-}
 
-// title of each section
-.l-cards__title {
-  font-size: 0.9em;
-  color: white;
-  display: inline;
-  margin-left: 1.5%;
-  span {
-    color: $color-red;
+.s-tabs {
+  //margin-top: 20px;
+  .s-tabs__list {
+    text-align: left;
+    border: 1px solid lighten(black, 20%);
+    width: 80%;
   }
-}
-
-// the more button on the right
-.l-cards__nav-left, .l-cards__nav-right {
-  float: right;
-  color: white;
-  background-color: $color-red;
-  font-size: 0.8em;
-  padding: 1px 8px;
-  border-radius: 50%;
-}
-
-.l-cards__nav-left {
-  margin-right: 3%;
-}
-
-.l-cards__nav-right {
-  margin-right: 0.5em;
-}
-
-// poster list
-.l-cards__list {
-  margin-top: 0.5em;
-  //padding-bottom: 5em;
-  display: flex;
-}
-
-.l-cards__text {
-  text-align: center;
-  font-weight: 500;
-  font-size: 0.6em !important;
-  // ratings
-  p {
-    color: $color-red;
+  .s-tabs__list:first-of-type {
+    a {
+      background-color: lighten(black, 20%);
+      cursor: default;
+    }
   }
-}
-
-// individual poster
-.l-cards__item {
-  background-color: $color-gray;
-  height: 3em;
-  flex: 0 0 7.57em; // size of each poster
-  margin: 0 1.2em;
-  text-align: center;
-  // text under poster
   a {
-    color: darken(white, 40%);
-    font-size: 0.7em;
-    // text-decoration: none;
+    display: block;
+    width: 100%;
+    text-align: left;
+    color: white;
+    cursor: pointer;
+    background-color: transparent;
+    font-size: 14px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    padding-left: 20px;
+    font-weight: 600;
+    i {
+      padding-right: 10px;
+    }
   }
-  img {
-    //height: 5em !important;
+  a:hover {
+    background-color: $link-hover;
   }
-
-  & + & {
-    margin-left: 0.25rem;
+  .active {
+    border-left: 2px solid $color-red;
   }
 }
 
-.film_name {
-  color: white
+// general for each section
+.c-header {
+  color: white;
+  border-bottom: 1px solid gray;
+  font-weight: 300;
+  padding-bottom: 10px;
+}
+.c-inputs {
+  color: $color-input-title;
+  font-size: 16px;
+  margin-top: 12px;
+
+  input, textarea {
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 2px solid gray;
+    width: 60%;
+    padding: 5px 10px;
+  }
+  label, input, textarea {
+    display: block;
+  }
+}
+
+.c-update-btn {
+  cursor: pointer;
+  border: 1px solid lighten(black, 25%);
+  border-radius: 5px;
+  margin-top: 20px;
+  padding: 5px 10px;
+  color: white;
+  background-color: lighten(black, 20%);
+  font-size: 16px;
+}
+.c-update-btn:hover {
+  background-color: lighten(black, 40%);
+}
+.span-title {
+  color: lighten(black, 40%);
+}
+.span-warning {
+  color: $color-red;
+}
+
+// specific
+.c-avatar {
+  //margin-top: 20px;
+  margin-bottom: 20px;
+  img {
+    width: 150px;
+    height: 150px;
+    display: block;
+  }
+}
+
+// wish list
+.w__item {
+  margin-bottom: 1em;
+
+  .w__img-wrap {
+    //padding-left: 4em;
+    img {
+      height: 180px;
+      width: auto;
+    }
+
+  }
+  .fa-star{
+    color:$color-red;
+  }
+  // rate
+  .flex {
+    font-size: 12px;
+    p {
+      display: inline-block;
+      font-size: 12px;
+    }
+    // ratings
+    p:nth-of-type(1){
+      margin-left:5px;
+      margin-right:10px;
+      color:white;
+    }
+    // rate
+    p:nth-of-type(2){
+      background:gray;
+      color: #fff;
+      padding: 0 4px;
+    }
+
+  }
+  .s-item__title {
+    font-size: 16px;
+    color: white !important;
+  }
+  .s-item__title:hover {
+    color: $link-hover !important;
+  }
+
+  .s-plot {
+    margin: 5px 0;
+  }
+
 }
 
 p {
-  color: gray;
+  font-size: 14px;
+  color: darken(white, 45%);
+  span {
+    color: white;
+  }
+}
+form {
+  margin-bottom: 40px;
 }
 
-#about_me_box , .w3-input{
-  color: black;
+
+.review {
+  color: white;
+  .r-title {
+    font-size: 16px;
+  }
+  .r-title__sub {
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+
+  }
+  .review__content {
+    color: darken(white, 10%);
+  }
+  .review__buttons {
+    display: inline-block;
+  }
+  .r-update-btn {
+    font-size: 14px;
+  }
+
 }
 
+//
+//.l-cards__more {
+//  float: right;
+//  font-size: 14px;
+//  margin: 0 0 1em;
+//  color: gray;
+//}
+//
+//.l-cards {
+//  padding-left: 1.2em;
+//  padding-bottom: 12.5em;
+//}
+//
+//.l-cards__title-wrap {
+//  padding-bottom: 5px;
+//}
+//
+//// title of each section
+//.l-cards__title {
+//  font-size: 0.9em;
+//  color: white;
+//  display: inline;
+//  margin-left: 1.5%;
+//  span {
+//    color: $color-red;
+//  }
+//}
+//
+//// the more button on the right
+//.l-cards__nav-left, .l-cards__nav-right {
+//  float: right;
+//  color: white;
+//  background-color: $color-red;
+//  font-size: 0.8em;
+//  padding: 1px 8px;
+//  border-radius: 50%;
+//}
+//
+//.l-cards__nav-left {
+//  margin-right: 3%;
+//}
+//
+//.l-cards__nav-right {
+//  margin-right: 0.5em;
+//}
+//
+//// poster list
+//.l-cards__list {
+//  margin-top: 0.5em;
+//  //padding-bottom: 5em;
+//  display: flex;
+//}
+//
+//.l-cards__text {
+//  text-align: center;
+//  font-weight: 500;
+//  font-size: 0.6em !important;
+//  // ratings
+//  p {
+//    color: $color-red;
+//  }
+//}
+//
+//// individual poster
+//.l-cards__item {
+//  background-color: $color-gray;
+//  height: 3em;
+//  flex: 0 0 7.57em; // size of each poster
+//  margin: 0 1.2em;
+//  text-align: center;
+//  // text under poster
+//  a {
+//    color: darken(white, 40%);
+//    font-size: 0.7em;
+//    // text-decoration: none;
+//  }
+//  img {
+//    //height: 5em !important;
+//  }
+//
+//  & + & {
+//    margin-left: 0.25rem;
+//  }
+//}
+//
+//.film_name {
+//  color: white
+//}
+//
+//p {
+//  color: gray;
+//}
+//
+//#about_me_box , .w3-input{
+//  color: black;
+//}
+//

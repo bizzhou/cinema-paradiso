@@ -12,12 +12,16 @@
           <div class="l-hero__text-wrapper">
             <div class="l-hero__text">
 
-              <a routerLink="/movie/{{carouselSlide.movie.imdbId}}">
-
+              <!-- title -->
                 <div class="c-title">
-                  <span class="c-title__category"><strong>{{carouselSlide.movie.awards}}</strong> </span>
-                  <span class="c-title__name">{{carouselSlide.movie.title}} <br></span>
+                  <div class="c-title__category"><strong>{{carouselSlide.movie.awards}}</strong> </div>
+                  <div class="c-title__name">
+                    <a routerLink="/movie/{{carouselSlide.movie.imdbId}}" routerLinkActive="active">
+                      {{carouselSlide.movie.title}}
+                    </a>
+                  </div>
                   <div class="absolute">
+                    <a routerLink="/movie/{{carouselSlide.movie.imdbId}}" routerLinkActive="active">
                     <div class="flex">
                       <i class="fa fa-star "></i>
                       <i class="fa fa-star"></i>
@@ -27,24 +31,36 @@
                       <p>{{carouselSlide.movie.rating}}/5.0</p>
                       <p>{{carouselSlide.movie.rated}}</p>
                     </div><!--flex end-->
+                    </a>
                   </div>
                 </div>
-              </a>
+
 
               <p class="c-plot">{{carouselSlide.movie.plot}}</p>
 
               <p>
                 Starring
                 <span *ngFor="let cast of carouselSlide.movie.casts | slice:0:5" >
-                  {{cast.name}},
+                  <a routerLink="/celebrity/{{cast.celebrityId}}" routerLinkActive="active">
+                    {{cast.name}},
+                  </a>
                 </span>
               </p>
 
               <p>
-                Director <span>{{carouselSlide.movie.director.name}}</span>
+
+                Director
+                  <span>
+                    <a routerLink="/celebrity/{{carouselSlide.movie.director.celebrityId}}" routerLinkActive="active">
+                      {{carouselSlide.movie.director.name}}
+                    </a>
+                  </span>
               </p>
               <p>
-                Genres <span class="c-genres" style="text-transform: lowercase">{{carouselSlide.movie.genres}}</span>
+                Genres
+                <span *ngFor="let genre of carouselSlide.movie.genres | slice: 0:5" class="c-genres" style="text-transform: lowercase">
+                  {{genre}},
+                </span>
               </p>
               <div class="l-hero__buttons">
                 <button class="o-button color-gray">
@@ -78,10 +94,10 @@
 
       <ul class="l-cards__list">
         <li class="l-cards__item" *ngFor="let movie of moviesPlaying  | slice:0:6">
-          <a routerLink="/movie/{{movie.imdbId}}" (click)="setImdbId(carouselSlide.imdbId)" routerLinkActive="active" class="l-cards__image fill">
+          <a routerLink="/movie/{{movie.imdbId}}" routerLinkActive="active" class="l-cards__image fill">
             <img [src]="movie.poster" [alt]="movie.title">
           </a>
-          <a routerLink="/movie/{{movie.imdbId}}" (click)="setImdbId(carouselSlide.imdbId)" routerLinkActive="active"  class="l-cards__text">
+          <a routerLink="/movie/{{movie.imdbId}}"  routerLinkActive="active"  class="l-cards__text">
             {{movie.title}}
             <p>{{movie.rating}}/5.0</p>
           </a>

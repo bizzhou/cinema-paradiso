@@ -4,7 +4,7 @@
   <div class="container">
     <div class="row">
       <!--  sidebar: movies category  -->
-  <div class="col-3.5 sidebar">
+    <div class="col-sidebar sidebar">
       <ul class="s-explore">
         <!--     in theaters -->
         <li class="s-explore__title"><h3>In Theaters</h3></li>
@@ -32,8 +32,10 @@
       <ul class="s-explore">
         <!--     in theaters -->
         <li class="s-explore__title"><h3>You may like</h3></li>
-        <li class="s-explore__item"><a href="#">Blade Runner 2049</a><span
-          class="s-explore__rating">4.9/5.0</span></li>
+        <li class="s-explore__item">
+          <a href="#">Blade Runner 2049</a>
+          <span class="s-explore__rating">4.9/5.0</span>
+        </li>
         <li class="s-explore__item"><a href="#">Coco</a><span class="s-explore__rating">4.9/5.0</span></li>
         <li class="s-explore__item"><a href="#">Call Me By Your Name</a><span
           class="s-explore__rating">4.9/5.0</span></li>
@@ -55,13 +57,13 @@
     </div> <!-- ./end left panel -->
 
     <!--  right panel -->
-    <div class="col-5 content-wrap">
+    <div class="col-right content-wrap">
 
       <!-- 	1st section	 -->
       <div class="l-cards">
         <h2 class="l-cards__title">opening this week </h2>
-        <a class="l-cards__more" href="#">By Date</a>
-        <a class="l-cards__more" href="#">By Ratings</a>
+        <a class="l-cards__more" href="#"><i class="fa fa-th-large"></i> </a>
+        <a class="l-cards__more" href="#"><i class="fa fa-list-ul"></i> </a>
         <!-- 			<a class="l-cards__more"href="#"><i class="fa fa-list"></i>
         </a>
               <a class="l-cards__more"href="#">  <i class="fa fa-th-large"></i> -->
@@ -157,7 +159,7 @@
       </div>
 
       <!--   pagination   -->
-      <ngb-pagination [collectionSize]="120" [(page)]="page" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true" class="pagination" ></ngb-pagination>
+      <ngb-pagination [collectionSize]="120" [(page)]="page" [maxSize]="5" [ellipses]="false" [boundaryLinks]="true" ></ngb-pagination>
 
     </div> <!-- ./end right panel -->
 

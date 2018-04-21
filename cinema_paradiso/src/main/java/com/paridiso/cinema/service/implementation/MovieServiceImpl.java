@@ -164,6 +164,7 @@ public class MovieServiceImpl implements FilmService {
         // get 21 days before
         Calendar daysBefore = movieUtility.getDaysBeforeNow(limitationConstants.getThreeWeeksRange());
         Calendar now = movieUtility.getNow();
+
         // get movies by release date
         return movieRepository.findMoviesByReleaseDateBetween(daysBefore, now);
     }
@@ -173,9 +174,11 @@ public class MovieServiceImpl implements FilmService {
         // get 3 week from now
         Calendar daysAfter = movieUtility.getDaysAfterNow(limitationConstants.getThreeWeeksRange());
         Calendar now = movieUtility.getNow();
+
         // get movies by release date
         Collection<? extends Film> films =
                 utilityService.shrinkMovieSize(movieRepository.findMoviesByReleaseDateBetween(now, daysAfter));
+
         return (Set<Movie>) films;
     }
 
@@ -184,11 +187,13 @@ public class MovieServiceImpl implements FilmService {
         // get date 3 week before and now
         Calendar daysBeforeNow = movieUtility.getDaysBeforeNow(limitationConstants.getThreeWeeksRange());
         Calendar now = movieUtility.getNow();
+
         // get movies with ratings >= 4.0 and released within one week
         Set<Movie> moviesTrending;
         moviesTrending = movieRepository.findMoviesByRatingBetweenAndReleaseDateBetween(
                 limitationConstants.getTrendingRating(), limitationConstants.getRatingLimit(),
                 daysBeforeNow, now);
+
         Collection<? extends Film> films = utilityService.shrinkMovieSize(moviesTrending);
         // if the number of movies returned above < 6, then find movies rated > 2.5
         if (moviesTrending.size() < limitationConstants.getLeastReturns()) {

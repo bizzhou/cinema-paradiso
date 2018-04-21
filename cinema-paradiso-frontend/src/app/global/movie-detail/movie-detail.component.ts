@@ -63,6 +63,7 @@ export class MovieDetailComponent implements OnInit {
 
 
   ngOnInit() {
+    window.scroll(0, 0);
 
     if (this.loginStatusService.getTokenDetails() !== null) {
       this.loginStatusService.changeStatus(true);

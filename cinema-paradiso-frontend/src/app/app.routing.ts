@@ -7,7 +7,7 @@ import {CelebrityComponent} from './global/celebrity/celebrity.component';
 import {RegUserComponent} from './user/reg-user/reg-user.component';
 import {SearchComponent} from './global/search/search.component';
 import {AdminComponent} from './user/admin/admin.component';
-import {StarsComponent} from './global/stars/stars.component';
+import { AboutComponent } from './global/about/about.component';
 
 const appRoutes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'home'},
@@ -18,9 +18,7 @@ const appRoutes: Routes = [
   {path: 'user', component: RegUserComponent},
   {path: 'search', component: SearchComponent},
   {path: 'admin', component: AdminComponent},
-  {path: 'star', component: StarsComponent}
-
-
+  {path: 'about', component: AboutComponent}
 ];
 
 @NgModule({
