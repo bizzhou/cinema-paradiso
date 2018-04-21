@@ -17,6 +17,8 @@ data_dict = {}
 link_dict = {}
 image_dict = {}
 
+def make_movie(x): return {"imdbId" : x}
+
 # put celec into memory
 for line in celeb:
     celeb_dict[line['id']] = line
@@ -37,6 +39,10 @@ for line in data:
     # get the director string
     director = celeb_dict[link_dict[id]['director']]
 
+    # print('---------------------')
+    # print(director['knownFor'])
+    # print('---------------------')
+
     new_director = {}
     # new_director['PHOTO_LOCATION'] = director['poster']
     new_director['celebrityId'] = director['id']
@@ -47,7 +53,7 @@ for line in data:
     new_director['birthCity'] = None
     new_director['birthState'] = None
     new_director['birthCountry'] = None
-    new_director['filography'] = director['knownFor']
+    new_director['filmography'] = list(map(make_movie, director['knownFor']))
     new_director['director'] = True
     new_director['photo_LOCATION'] = None
     new_director['profileImageName'] = None
@@ -69,7 +75,8 @@ for line in data:
             new_actor['birthCity'] = None
             new_actor['birthState'] = None
             new_actor['birthCountry'] = None
-            new_actor['filography'] = celeb_dict[actor]['knownFor']
+            # new_actor['filmography'] = celeb_dict[actor]['knownFor'].map(ele)
+            new_actor['filmography'] = list(map(make_movie, celeb_dict[actor]['knownFor']))
             new_actor['director'] = False
             new_actor['photo_LOCATION'] = None
             new_actor['profileImageName'] = None
@@ -137,8 +144,8 @@ for line in data:
 
     # skip difficult cases for now
 
-    # print(json.dumps(movie_json))
-    # break
-    request = requests.post('http://localhost:8080/movie/add', json=(movie_json))
-    if (request.status_code == 400):
-        print(request.text)
+    print(json.dumps(movie_json))
+    break
+    # request = requests.post('http://localhost:8080/movie/add', json=(movie_json))
+    # if (request.status_code == 400):
+    #     print(request.text)

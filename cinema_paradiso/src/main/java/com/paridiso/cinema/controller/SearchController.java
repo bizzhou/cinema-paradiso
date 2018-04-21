@@ -45,4 +45,36 @@ public class SearchController {
         return ResponseEntity.ok(results);
     }
 
+
+    @PostMapping(value = "/movie")
+    public ResponseEntity<?> searchMoive(@RequestParam String keyword,
+                                    @RequestParam Integer pageNo,
+                                    @RequestParam Integer pageSize) {
+        Page<Movie> movies = searchService.getMoviesFromKeyword(keyword, pageNo, pageSize);
+        HashMap<String, Object> results = new HashMap<>();
+        results.put("movie", movies.getContent());
+        return ResponseEntity.ok(results);
+    }
+
+    @PostMapping(value = "/people")
+    public ResponseEntity<?> searchPeople(@RequestParam String keyword,
+                                         @RequestParam Integer pageNo,
+                                         @RequestParam Integer pageSize) {
+        Page<Celebrity> celebritiesFromKeyword = searchService.getCelebritiesFromKeyword(keyword, pageNo, pageSize);
+        HashMap<String, Object> results = new HashMap<>();
+        results.put("celebrity", celebritiesFromKeyword.getContent());
+        return ResponseEntity.ok(results);
+    }
+
+    @PostMapping(value = "/tv")
+    public ResponseEntity<?> searchTV(@RequestParam String keyword,
+                                         @RequestParam Integer pageNo,
+                                         @RequestParam Integer pageSize) {
+        Page<TV> tVsFromKeyword = searchService.getTVsFromKeyword(keyword, pageNo, pageSize);
+        HashMap<String, Object> results = new HashMap<>();
+        results.put("movie", tVsFromKeyword.getContent());
+        return ResponseEntity.ok(results);
+    }
+
+
 }

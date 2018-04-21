@@ -52,7 +52,7 @@ export class SearchComponent implements OnInit {
 
   getNextMoviePage(currentPage) {
     const actualPage = currentPage - 1;
-    this.searchService.search(this.keyword, actualPage.toString(), '20').subscribe(results => {
+    this.searchService.searchDetails("movie" , this.keyword, actualPage.toString(), '20').subscribe(results => {
       this.moviesResults = results['movie'] as Movie[];
       window.scroll(0, 0);
     });
@@ -60,7 +60,7 @@ export class SearchComponent implements OnInit {
 
   getNextPeoplePage(currentPage) {
     const actualPage = currentPage - 1;
-    this.searchService.search(this.keyword, actualPage.toString(), '20').subscribe(results => {
+    this.searchService.searchDetails("people", this.keyword, actualPage.toString(), '20').subscribe(results => {
       this.celebrityResults = results['celebrity'] as Celebrity[];
       window.scroll(0, 0);
     });
