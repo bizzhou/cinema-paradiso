@@ -1,9 +1,9 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { NgbRatingConfig } from '@ng-bootstrap/ng-bootstrap';
-import { Movie } from '../models/movie.model';
-import { MovieService } from './movie.service';
-import { ActivatedRoute } from '@angular/router';
-import { LoginStatusService } from '../login/login.status.service';
+import {Component, OnInit} from '@angular/core';
+import {Movie} from '../models/movie.model';
+import {MovieService} from './movie.service';
+import {ActivatedRoute} from '@angular/router';
+import {LoginStatusService} from '../login/login.status.service';
+import {ToastrService} from 'ngx-toastr';
 
 
 @Component({
@@ -20,10 +20,12 @@ export class MovieDetailComponent implements OnInit {
   isMovieExistInWishList: boolean;
   currentRating = 0;
   ngbRatingReadOnly = false;
+  loggedInFlag: boolean;
 
   constructor(private movieService: MovieService,
               private loginStatusService: LoginStatusService,
-              route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private toastrService: ToastrService) {
 
     this.selectedMovieId = route.snapshot.params['id'];
   }
@@ -31,6 +33,25 @@ export class MovieDetailComponent implements OnInit {
 
   addReview() {
     console.log('adding review dummy');
+  }
+
+  ratingOperations(data: number) {
+
+    if (this.loggedInFlag === true) {
+      console.log('Logged in');
+      console.log(typeof (data), data);
+
+      this.movieService.addRatingToMovie(this.selectedMovieId, data).subscribe(newRating => {
+        console.log(newRating);
+        this.toastrService.success('SUCCESS, new rating:' + newRating);
+      }, error1 => {
+        this.toastrService.error(error1['error']['message']);
+      });
+
+    } else {
+      this.toastrService.error('PLEASE LOGIN TO PERFORM THIS ACTION');
+    }
+
   }
 
 
@@ -46,6 +67,7 @@ export class MovieDetailComponent implements OnInit {
 
     if (this.loginStatusService.getTokenDetails() !== null) {
       this.loginStatusService.changeStatus(true);
+      this.loggedInFlag = true;
     }
 
     console.log('id: ' + this.selectedMovieId);

@@ -384,7 +384,7 @@
                 <button class="o-button o-button--gray">+ Watchlist</button>
                 <button class="o-button" (click)='addToWishList(selectedMovieId)'>+ Wishlist</button>
 
-                <app-stars [readonly]="ngbRatingReadOnly" [currentRate]="currentRating"></app-stars>
+                <app-stars [readonly]="ngbRatingReadOnly" [currentRate]="currentRating" (eventEmitter)="ratingOperations($event)"></app-stars>
 
                 <!--<ngb-rating [(rate)]="selected" (hover)="hovered=$event" (leave)="hovered=0" [readonly]="false" (click)="rateMovie()">-->
                   <!--<span class="star"></span>-->
@@ -439,13 +439,13 @@
             <ul class="container md-list__videos">
               <li class="row md-list__item">
                 <!-- YOUTUBE VIDEOS -->
-                <object class="col-video item__detail" data="https://www.youtube.com/embed/uiA4B5Y63IQ?hd=1&rel=0&autohide=1&showinfo=0">
-                </object>
+                <!--<object class="col-video item__detail" data="https://www.youtube.com/embed/uiA4B5Y63IQ?hd=1&rel=0&autohide=1&showinfo=0">-->
+                <!--</object>-->
 
-                <object class="col-video item__detail" data="https://www.youtube.com/embed/zwmTb-aAdJg?hd=1&rel=0&autohide=1&showinfo=0">
-                </object>
-                <object class="col-video item__detail" data="https://www.youtube.com/embed/T6pk194roPI?hd=1&rel=0&autohide=1&showinfo=0">
-                </object>
+                <!--<object class="col-video item__detail" data="https://www.youtube.com/embed/zwmTb-aAdJg?hd=1&rel=0&autohide=1&showinfo=0">-->
+                <!--</object>-->
+                <!--<object class="col-video item__detail" data="https://www.youtube.com/embed/T6pk194roPI?hd=1&rel=0&autohide=1&showinfo=0">-->
+                <!--</object>-->
               </li>
             </ul>
           </section>
