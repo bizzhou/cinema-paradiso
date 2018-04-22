@@ -73,12 +73,17 @@ main {
     margin: 2.5em 0 1em;
     width: 100%;
     background-color: $color-red;
+    a {
+
+    }
     span {
       margin-left: 1em;
       padding: 10px;
       background-color: $main-background;
     }
+
   }
+
 
 }
 .r_item {
@@ -89,33 +94,37 @@ main {
       width: auto;
     }
   }
-  .review {
-    color: white;
-    .r-title {
-      font-size: 16px;
-      font-weight: 400;
+}
+.review {
+  color: white;
+  .r-title {
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .r-title__sub {
+    font-size: 14px;
+    color: $color-p;
+    margin: 0;
+    padding: 0;
+    i {
+      margin-right: -5px;
+      color: $color-red;
     }
-    .r-title__sub {
-      font-size: 14px;
-      color: $color-p;
-      margin: 0;
-      padding: 0;
-      i {
-        margin-right: -5px;
-        color: $color-red;
-      }
-      span {
-        margin-left: 5px;
-      }
+    span {
+      margin-left: 5px;
     }
-    .review__content {
-      font-size: 14px;
-      color: $p-content !important;
-      a {
-        text-decoration: underline !important;
-        cursor: pointer;
-      }
+  }
+  .review__content {
+    font-size: 14px;
+    color: $p-content !important;
+    a {
+      text-decoration: underline !important;
+      cursor: pointer;
     }
   }
 }
 
+//
+//.r_img-text {
+//  font-size: 12px !important;
+//}

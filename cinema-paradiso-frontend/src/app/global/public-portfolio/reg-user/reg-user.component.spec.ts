@@ -1,20 +1,21 @@
+///<reference path="reg-user.component.ts"/>
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { RegUserComponent } from './reg-user.component';
+import { RegUserPortfolioComponent } from './reg-user.component';
 
 describe('RegUserComponent', () => {
-  let component: RegUserComponent;
-  let fixture: ComponentFixture<RegUserComponent>;
+  let component: RegUserPortfolioComponent;
+  let fixture: ComponentFixture<RegUserPortfolioComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ RegUserComponent ]
+      declarations: [ RegUserPortfolioComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RegUserComponent);
+    fixture = TestBed.createComponent(RegUserPortfolioComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
