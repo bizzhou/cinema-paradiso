@@ -205,7 +205,7 @@
         <div class="col-right content-wrap">
           <!-- poster -->
           <div class="r_poster">
-            <img [src]="movie.photos[0]" [alt]="movie.title">
+            <img [src]="movie?.photos[0]" [alt]="movie?.title">
             <a href="#" class="r_poster--play">
               <i class="fa fa-play fa-2x"></i>
             </a>
@@ -216,7 +216,7 @@
               <div class="col-ratings rating-container">
                 <div class="rating-inner">
                   <div class="rating">
-                    <span class="rating-num">{{movie.rating}}</span>
+                    <span class="rating-num">{{movie?.rating}}</span>
                     <div class="rating-stars">
                       <span>
                         <i class=" fa fa-star icon-star"></i>
@@ -295,7 +295,7 @@
               <div class="col-ratings rating-container">
                 <div class="rating-inner">
                   <div class="rating">
-                    <span class="rating-num">{{movie.rating}}</span>
+                    <span class="rating-num">{{movie?.rating}}</span>
                     <div class="rating-stars">
                       <span>
                         <i class=" fa fa-star icon-star"></i>
@@ -384,9 +384,11 @@
                 <button class="o-button o-button--gray">+ Watchlist</button>
                 <button class="o-button" (click)='addToWishList(selectedMovieId)'>+ Wishlist</button>
 
-                <ngb-rating [(rate)]="selected" (hover)="hovered=$event" (leave)="hovered=0" (click)="rateMovie()">
-                  <span class="star"></span>
-                </ngb-rating>
+                <app-stars [readonly]="ngbRatingReadOnly" [currentRate]="currentRating" (eventEmitter)="ratingOperations($event)"></app-stars>
+
+                <!--<ngb-rating [(rate)]="selected" (hover)="hovered=$event" (leave)="hovered=0" [readonly]="false" (click)="rateMovie()">-->
+                  <!--<span class="star"></span>-->
+                <!--</ngb-rating>-->
 
 
                 <textarea placeholder="Add a review..." [(ngModel)]="review" name="review"></textarea>
@@ -398,28 +400,28 @@
           <!-- movie info -->
           <div class="md_wrap">
             <h4 class="md-title">
-              <span>{{movie.title}}</span>
+              <span>{{movie?.title}}</span>
             </h4>
 
 
-            <p class="md-plot">{{movie.plot}}</p>
+            <p class="md-plot">{{movie?.plot}}</p>
 
             <p>
               Director
               <span>
-                <a routerLink="/celebrity/{{movie.director.celebrityId}}">{{movie.director.name}}</a>
+                <a routerLink="/celebrity/{{movie?.director.celebrityId}}">{{movie?.director.name}}</a>
               </span>
             </p>
             <p>
               Starring
-              <span *ngFor="let cast of movie.casts">
+              <span *ngFor="let cast of movie?.casts">
                 <a routerLink="/celebrity/{{cast.celebrityId}}">{{cast.name}},</a>
               </span>
 
             </p>
             <p>
               Genre
-              <span *ngFor="let genre of movie.genres" style="text-transform: lowercase">
+              <span *ngFor="let genre of movie?.genres" style="text-transform: lowercase">
                 <a href="">{{genre}}</a>
               </span>
             </p>
@@ -437,13 +439,13 @@
             <ul class="container md-list__videos">
               <li class="row md-list__item">
                 <!-- YOUTUBE VIDEOS -->
-                <object class="col-video item__detail" data="https://www.youtube.com/embed/uiA4B5Y63IQ?hd=1&rel=0&autohide=1&showinfo=0">
-                </object>
+                <!--<object class="col-video item__detail" data="https://www.youtube.com/embed/uiA4B5Y63IQ?hd=1&rel=0&autohide=1&showinfo=0">-->
+                <!--</object>-->
 
-                <object class="col-video item__detail" data="https://www.youtube.com/embed/zwmTb-aAdJg?hd=1&rel=0&autohide=1&showinfo=0">
-                </object>
-                <object class="col-video item__detail" data="https://www.youtube.com/embed/T6pk194roPI?hd=1&rel=0&autohide=1&showinfo=0">
-                </object>
+                <!--<object class="col-video item__detail" data="https://www.youtube.com/embed/zwmTb-aAdJg?hd=1&rel=0&autohide=1&showinfo=0">-->
+                <!--</object>-->
+                <!--<object class="col-video item__detail" data="https://www.youtube.com/embed/T6pk194roPI?hd=1&rel=0&autohide=1&showinfo=0">-->
+                <!--</object>-->
               </li>
             </ul>
           </section>
@@ -457,9 +459,9 @@
             <!--<a class="l-cards__more" href="#">more <i class="fa fa-angle-double-right"></i></a>-->
 
             <ul class="container md-list__photos">
-              <!--<li class="row md-list__item" *ngFor="let photo of movie.photos">-->
+              <!--<li class="row md-list__item" *ngFor="let photo of movie?.photos">-->
               <li class="row md-list__item">
-                <a class="col-photos item__detail" href="" *ngFor="let photo of movie.photos; let i=index">
+                <a class="col-photos item__detail" href="" *ngFor="let photo of movie?.photos">
                   <img src="{{photo}}">
                 </a>
               </li>
@@ -476,7 +478,7 @@
             <!--<a class="l-cards__more" href="#">more <i class="fa fa-angle-double-right"></i></a>-->
             <ul class="container md-list__casts">
               <li class="row md-list__item">
-                <a class="col-casts item__detail" *ngFor="let actor of movie.casts" routerLink="/celebrity/{{actor.celebrityId}}">
+                <a class="col-casts item__detail" *ngFor="let actor of movie?.casts" routerLink="/celebrity/{{actor.celebrityId}}">
                   <img src="{{actor.profileImage}}">
                   <span>{{actor.name}}</span>
                 </a>
@@ -626,7 +628,7 @@
       </div>
       <!-- ./row -->
     </div>
-    <!-- ./container-fluid -->
+
   </main>
 </body>
 

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.paridiso.cinema.constants.ExceptionConstants;
 import com.paridiso.cinema.entity.User;
 import com.paridiso.cinema.entity.UserProfile;
+import com.paridiso.cinema.entity.UserRating;
 import com.paridiso.cinema.security.JwtTokenGenerator;
 import com.paridiso.cinema.security.JwtUser;
 import com.paridiso.cinema.service.JwtTokenService;
@@ -28,6 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
 import java.util.HashMap;
+import java.util.List;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
@@ -54,12 +56,10 @@ public class RegUserController {
 
     @PostMapping(value = "/login")
     public ResponseEntity<JwtUser> userLogin(@RequestParam(value = "email") String email,
-                                             @RequestParam(value = "password") String password, HttpSession session) {
+                                             @RequestParam(value = "password") String password) {
         User user = userService.login(email, password).orElseThrow(() ->
                 new ResponseStatusException(BAD_REQUEST, exceptionConstants.getUserNotFound()));
         JwtUser jwtUser = new JwtUser(user.getUsername(), generator.generate(user), user.getUserID(), user.getRole());
-        session.setAttribute("user", user);
-        System.out.println(session.getAttribute("user"));
         return ResponseEntity.ok(jwtUser);
     }
 
@@ -106,7 +106,7 @@ public class RegUserController {
 
     @GetMapping(value = "/get/profile")
     public ResponseEntity<?> getProfile(@RequestHeader(value = "Authorization") String jwtToken, HttpSession session) throws JsonProcessingException {
-        System.out.println((User) session.getAttribute("user"));
+
         UserProfile profile = userService.getProfile(jwtTokenService.getUserProfileIdFromToken(jwtToken));
         HashMap<Object, Object> objectObjectHashMap = new HashMap<>();
         objectObjectHashMap.put("name", profile.getName());
@@ -119,6 +119,7 @@ public class RegUserController {
         objectObjectHashMap.put("biography", profile.getBiography());
         objectObjectHashMap.put("isCritic", profile.getCritic());
         objectObjectHashMap.put("wishList", profile.getWishList().getMovies());
+        objectObjectHashMap.put("userRatings", userService.getUserRatings(jwtTokenService.getUserProfileIdFromToken(jwtToken)));
         return ResponseEntity.ok(objectObjectHashMap);
     }
 
@@ -165,6 +166,14 @@ public class RegUserController {
         boolean result = userService.makeSummaryPrivate(jwtTokenService.getUserProfileIdFromToken(jwtToken));
         return result ? ResponseEntity.ok(result) : ResponseEntity.badRequest().body(result);
     }
+
+    @GetMapping(value = "/get/ratings")
+    public ResponseEntity getRatings(@RequestHeader(value = "Authorization") String jwtToken) {
+        Integer userProfileIdFromToken = jwtTokenService.getUserProfileIdFromToken(jwtToken);
+        List<UserRating> ratingList = userService.getUserRatings(userProfileIdFromToken);
+        return ResponseEntity.ok(ratingList);
+    }
+
 }
 
 

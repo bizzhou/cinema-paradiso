@@ -19,4 +19,15 @@ export class SearchService {
     return this.http.post(SEARCH_SERVER, param);
   }
 
+
+  searchDetails(endpoint: string, keywords: string, pageNo: string, pageSize: string) {
+    console.log(keywords, pageNo, pageSize);
+    const param = new HttpParams().set('keyword', keywords)
+                                  .set('pageNo', pageNo)
+                                  .set('pageSize', pageSize);
+    return this.http.post(SEARCH_SERVER + endpoint, param);
+  }
+
+  
+
 }

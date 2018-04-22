@@ -146,5 +146,16 @@ public class RegUserServiceImpl extends UserService {
     }
 
 
+    public List<UserRating> getUserRatings(Integer userProfileId) {
+        List<UserRating> userRatings = getUserProfile(userProfileId).getUserRatings();
+        userRatings.forEach(userRating -> {
+            userRating.getRatedMovie().setCasts(null);
+            userRating.getRatedMovie().setAwards(null);
+            userRating.getRatedMovie().setPhotos(null);
+            userRating.getRatedMovie().setRunTime(null);
+            userRating.getRatedMovie().setDirector(null);
+        });
+        return userRatings;
+    }
 }
 

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.Calendar;
 import java.util.List;
@@ -43,7 +44,7 @@ public class MovieController {
         return ResponseEntity.ok(filmService.getMovies());
     }
 
-    @GetMapping(value = "get/{filmId}")
+    @GetMapping(value = "/get/{filmId}")
     public ResponseEntity<Movie> getMovie(@PathVariable String filmId) {
         Movie movie = filmService.getMovie(filmId);
         return new ResponseEntity<>(movie, HttpStatus.OK);
@@ -67,30 +68,38 @@ public class MovieController {
         return ResponseEntity.ok(true);
     }
 
-    @PostMapping(value = "add/rate/{filmId}/{rating}")
-    public ResponseEntity<Boolean> addRating(@RequestHeader(value = "Authorization") String jwtToken,
+    @PostMapping(value = "add/rating/{filmId}/{rating}")
+    public ResponseEntity<?> addRating(@RequestHeader(value = "Authorization") String jwtToken,
                                              @PathVariable String filmId,
                                              @PathVariable Double rating) {
-        Integer id = jwtTokenService.getUserIdFromToken(jwtToken);
-        filmService.addRating(id, filmId, rating);
-        return null;
+        if (rating > 5 || rating < 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exceptionConstants.getInvalidRatingNumber());
+        }
+
+        Integer id = jwtTokenService.getUserProfileIdFromToken(jwtToken);
+        Double newRating = filmService.addRating(id, filmId, rating);
+        return ResponseEntity.ok(newRating);
     }
 
-    @DeleteMapping(value = "delete/rate/{filmId}/{rating}")
-    public ResponseEntity<Boolean> deleteRating(@RequestHeader(value = "Authorization") String jwtToken,
+    @DeleteMapping(value = "delete/rating/{filmId}")
+    public ResponseEntity<?> deleteRating(@RequestHeader(value = "Authorization") String jwtToken,
                                                 @PathVariable String filmId) {
-        Integer id = jwtTokenService.getUserIdFromToken(jwtToken);
-        filmService.deleteRating(id, filmId);
-        return null;
+        Integer id = jwtTokenService.getUserProfileIdFromToken(jwtToken);
+        Double newRating = filmService.deleteRating(id, filmId);
+        return ResponseEntity.ok(newRating);
     }
 
-    @PostMapping(value = "edit/rate/filmId}/{rating}")
-    public ResponseEntity<Boolean> editRating(@RequestHeader(value = "Authorization") String jwtToken,
+    @PostMapping(value = "edit/rating/{filmId}/{rating}")
+    public ResponseEntity<?> editRating(@RequestHeader(value = "Authorization") String jwtToken,
                                               @PathVariable String filmId,
                                               @PathVariable Double rating) {
-        Integer id = jwtTokenService.getUserIdFromToken(jwtToken);
-        filmService.updateRating(id, filmId, rating);
-        return null;
+        if (rating > 5 || rating < 0) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exceptionConstants.getInvalidRatingNumber());
+        }
+
+        Integer id = jwtTokenService.getUserProfileIdFromToken(jwtToken);
+        Double newRating = filmService.updateRating(id, filmId, rating);
+        return ResponseEntity.ok(newRating);
     }
 
 

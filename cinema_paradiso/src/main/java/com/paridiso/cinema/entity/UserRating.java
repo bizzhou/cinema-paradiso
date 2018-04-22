@@ -1,5 +1,8 @@
 package com.paridiso.cinema.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.Calendar;
 
@@ -12,7 +15,7 @@ import java.util.Calendar;
 public class UserRating {
 
     private Integer id;
-    private UserProfile user;
+    private UserProfile userProfile;
     private Movie ratedMovie;
     private Double userRating;
     private Calendar ratedDate;
@@ -26,13 +29,16 @@ public class UserRating {
         return id;
     }
 
-    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "userId")
+
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+    @JoinColumn(name = "userProfileId")
     public UserProfile getUser() {
-        return user;
+        return userProfile;
     }
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "imdbId")
     public Movie getRatedMovie() {
         return ratedMovie;
@@ -59,7 +65,7 @@ public class UserRating {
     }
 
     public void setUser(UserProfile user) {
-        this.user = user;
+        this.userProfile = user;
     }
 
     public void setRatedDate(Calendar ratedDate) {
@@ -70,7 +76,7 @@ public class UserRating {
     public String toString() {
         return "UserRating{" +
                 "id=" + id +
-                ", user=" + user +
+                ", userProfile=" + userProfile +
                 ", ratedMovie=" + ratedMovie +
                 ", userRating=" + userRating +
                 '}';

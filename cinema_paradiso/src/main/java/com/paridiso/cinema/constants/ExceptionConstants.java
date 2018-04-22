@@ -20,6 +20,51 @@ public class ExceptionConstants {
     private String passwordHashingFailure;
     private String carouselNotFound;
     private String slideNotFound;
+    private String userRatingExists;
+    private String userRatingNotExists;
+    private String reviewExists;
+    private String invalidRatingNumber;
+    private String alreadyInWishList;
+
+    public String getAlreadyInWishList() {
+        return alreadyInWishList;
+    }
+
+    public void setAlreadyInWishList(String alreadyInWishList) {
+        this.alreadyInWishList = alreadyInWishList;
+    }
+
+    public String getInvalidRatingNumber() {
+        return invalidRatingNumber;
+    }
+
+    public void setInvalidRatingNumber(String invalidRatingNumber) {
+        this.invalidRatingNumber = invalidRatingNumber;
+    }
+
+    public String getReviewExists() {
+        return reviewExists;
+    }
+
+    public void setReviewExists(String reviewExists) {
+        this.reviewExists = reviewExists;
+    }
+
+    public String getUserRatingNotExists() {
+        return userRatingNotExists;
+    }
+
+    public void setUserRatingNotExists(String userRatingNotExists) {
+        this.userRatingNotExists = userRatingNotExists;
+    }
+
+    public String getUserRatingExists() {
+        return userRatingExists;
+    }
+
+    public void setUserRatingExists(String userRatingExists) {
+        this.userRatingExists = userRatingExists;
+    }
 
     public String getCelebrityNotFound() {
         return celebrityNotFound;

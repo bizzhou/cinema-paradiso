@@ -4,11 +4,14 @@ import com.paridiso.cinema.constants.ExceptionConstants;
 import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.entity.Review;
 import com.paridiso.cinema.entity.User;
+import com.paridiso.cinema.entity.UserProfile;
 import com.paridiso.cinema.persistence.MovieRepository;
 import com.paridiso.cinema.persistence.ReviewRepository;
 import com.paridiso.cinema.persistence.UserProfileRepository;
-import com.paridiso.cinema.persistence.UserRepository;
 import com.paridiso.cinema.service.ReviewService;
+import com.paridiso.cinema.service.UtilityService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -18,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @Service
@@ -27,7 +31,7 @@ public class ReviewServiceImpl implements ReviewService {
     MovieRepository movieRepository;
 
     @Autowired
-    UserRepository userRepository;
+    UtilityService utilityService;
 
     @Autowired
     UserProfileRepository userProfileRepository;
@@ -37,6 +41,8 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Autowired
     ExceptionConstants exceptionConstants;
+
+    private static final Logger logger = LogManager.getLogger(ReviewServiceImpl.class);
 
     @Override
     public List<Review> getAudienceReviews(Long filmId) {
@@ -51,52 +57,68 @@ public class ReviewServiceImpl implements ReviewService {
     @Transactional
     @Override
     public void addReview(Integer userId, String movieId, Review review) {
-        Movie movie = movieRepository.findMovieByImdbId(movieId)
-                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieDoesNotExist()));
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserNotFound()));
+        Movie movie = utilityService.getMoive(movieId);
+        User user = utilityService.getUser(userId);
+        if (reviewRepository.findReviewByMovieAndAuthor(movie, user.getUserProfile()).isPresent()) {
+            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getReviewExists());
+        }
+        review.setAuthor(user.getUserProfile());
         review.setMovie(movie);
-        List<Review> reviews = user.getUserProfile().getReviews();
-        if (reviews == null)
-            reviews = new ArrayList<>();
+        List<Review> reviews = user.getUserProfile().getReviews() == null
+                ? new ArrayList<Review>() : user.getUserProfile().getReviews();
         reviews.add(review);
+        logger.info(review.getReviewId());
         user.getUserProfile().setReviews(reviews);
+        movie.getReviews().add(review);
         reviewRepository.save(review);
         userProfileRepository.save(user.getUserProfile());
+        movieRepository.save(movie);
     }
 
     @Override
-    public Optional<Review> getReview(Long reviewId) {
-        return reviewRepository.findById(reviewId);
+    public Review getReview(Long reviewId) {
+        return reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new ResponseStatusException(BAD_REQUEST, exceptionConstants.getReviewNotFound()));
     }
 
     @Override
-    public Review removeReview(Integer userId, String filmId, Long reviewId) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserNotFound()));
-        Review reviewToBeRemoved = reviewRepository.findReviewByReviewId(reviewId)
+    public Review editReview(Integer userProfileId, Review review) {
+        UserProfile userProfile = utilityService.getUserProfile(userProfileId);
+        Review review1 = reviewRepository.findById(review.getReviewId())
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getReviewNotFound()));
-        List<Review> reviews = user.getUserProfile().getReviews();
-        // if id equal, remove review
-        for (Review review : reviews) {
-            if (review.getReviewId().equals(reviewToBeRemoved.getReviewId())) {
-                reviews.remove(reviewToBeRemoved);
-                break;
+        Review newReview = null;
+        // update review in userprofile
+        for (Review tempReview : userProfile.getReviews()) {
+            if (tempReview.getMovie().getImdbId().equals(review1.getMovie().getImdbId())) {
+                tempReview.setReviewContent(review.getReviewContent());
+                tempReview.setPostedDate(review.getPostedDate());
+                tempReview.setTitle(review.getTitle());
+                newReview = review;
             }
         }
-        user.getUserProfile().setReviews(reviews);
-        userProfileRepository.save(user.getUserProfile());
-        return reviewToBeRemoved;
+        userProfileRepository.save(userProfile);
+        return newReview;
     }
 
     @Override
-    public boolean likeReview(Long reviewId) {
-        return false;
+    public void removeReview(Integer profileId, Long reviewId) {
+        logger.info(reviewId);
+        Review review = reviewRepository.findReviewByReviewId(reviewId)
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getReviewNotFound()));
+//        logger.error(review);
+//        boolean remove = review.getMovie().getReviews().remove(review);
+//        movieRepository.save(review.getMovie());
+        reviewRepository.delete(review);
     }
 
     @Override
-    public boolean dislikeReview(Long reviewId) {
-        return false;
+    public List<Review> getMovieReviews(String filmId) {
+        Optional<Movie> movieByImdbId = movieRepository.findMovieByImdbId(filmId);
+        if (movieByImdbId.isPresent()) {
+            return movieByImdbId.get().getReviews();
+        } else {
+            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getReviewNotFound());
+        }
     }
 
     @Override

@@ -1,9 +1,9 @@
-import {Component, OnInit, Input} from '@angular/core';
-import {NgbRatingConfig} from '@ng-bootstrap/ng-bootstrap';
+import {Component, OnInit} from '@angular/core';
 import {Movie} from '../models/movie.model';
 import {MovieService} from './movie.service';
 import {ActivatedRoute} from '@angular/router';
 import {LoginStatusService} from '../login/login.status.service';
+import {ToastrService} from 'ngx-toastr';
 
 
 @Component({
@@ -15,40 +15,74 @@ export class MovieDetailComponent implements OnInit {
 
   movie: Movie;
   selectedMovieId: string;
-  selected = 0;
-  hovered = 0;
   review: string;
 
   isMovieExistInWishList: boolean;
+  currentRating = 0;
+  ngbRatingReadOnly = false;
+  loggedInFlag: boolean;
 
-  constructor(config: NgbRatingConfig,
-              private movieService: MovieService,
+  constructor(private movieService: MovieService,
               private loginStatusService: LoginStatusService,
-              route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private toastrService: ToastrService) {
 
     this.selectedMovieId = route.snapshot.params['id'];
-
-    // customize default values carousel slider
-    config.max = 5;
-    config.readonly = true;
   }
+
 
   addReview() {
-    console.log('reviews');
+    console.log('adding review dummy');
+  }
+
+  ratingOperations(data: number) {
+
+    if (this.loggedInFlag === true) {
+      console.log('Logged in');
+      console.log(typeof (data), data);
+
+      this.movieService.addRatingToMovie(this.selectedMovieId, data).subscribe(newRating => {
+        console.log(newRating);
+        this.toastrService.success('SUCCESS, new rating:' + newRating);
+      }, error1 => {
+
+        const errorMessage = error1['error']['message'];
+
+        if (errorMessage === 'USER RATING FOR MOVIE EXISTS') {
+          this.movieService.editRatingForMovie(this.selectedMovieId, data).subscribe(newRating => {
+            console.log('edited rating ', newRating);
+            this.toastrService.success('You have edited your previous rating, new Rating: ' +
+              newRating);
+          }, error2 => {
+            this.toastrService.error('FAILED TO CHANGE YOUR PREVIOUS RATING');
+          });
+        } else {
+          this.toastrService.error(error1['error']['message']);
+        }
+
+
+      });
+
+    } else {
+      this.toastrService.error('PLEASE LOGIN TO PERFORM THIS ACTION');
+    }
+
   }
 
 
-  rateMovie() {
-    this.movieService.rateMovie(this.hovered, this.selectedMovieId).subscribe(result => {
-      console.log(result);
-    });
-  }
+  // rateMovie() {
+  //   this.movieService.rateMovie(this.hovered, this.selectedMovieId).subscribe(result => {
+  //     console.log(result);
+  //   });
+  // }
 
 
   ngOnInit() {
+    window.scroll(0, 0);
 
     if (this.loginStatusService.getTokenDetails() !== null) {
       this.loginStatusService.changeStatus(true);
+      this.loggedInFlag = true;
     }
 
     console.log('id: ' + this.selectedMovieId);
@@ -65,9 +99,9 @@ export class MovieDetailComponent implements OnInit {
         data => {
           this.movie = data as Movie;
           console.log(this.movie);
-          console.log('casts ', this.movie.casts);
-          console.log('imdbId ', this.movie.imdbId);
-          console.log(this.movie.photos);
+          // console.log('casts ', this.movie.casts);
+          // console.log('imdbId ', this.movie.imdbId);
+          // console.log(this.movie.photos);
         },
         error => console.log('Failed to fetch movie with id')
       );
@@ -77,12 +111,15 @@ export class MovieDetailComponent implements OnInit {
     this.movieService.addToWishList(imdbId)
       .subscribe(
         data => {
-          console.log(data);
+
+          this.toastrService.success('SUCCESSFULLY ADDED TO WISHLIST');
           if (data === false) {
             this.isMovieExistInWishList = false;
           } else {
             this.isMovieExistInWishList = true;
           }
+        }, error1 => {
+          this.toastrService.error(error1['error']['message']);
         }
       );
   }

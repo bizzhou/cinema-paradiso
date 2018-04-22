@@ -6,6 +6,7 @@ import {AppComponent} from './app.component';
 import {CommonModule} from '@angular/common';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
+
 import {HomeComponent} from './global/home/home.component';
 import {FooterComponent} from './global/footer/footer.component';
 import {HeaderComponent} from './global/header/header.component';
@@ -25,6 +26,7 @@ import {MovieService} from './global/movie-detail/movie.service';
 import {ToastrModule} from 'ngx-toastr';
 import {SearchService} from './global/search/search.service';
 
+import {StarsComponent} from './global/stars/stars.component';
 import { AccountComponent } from './user/reg-user/account/account.component';
 import { WishlistComponent } from './user/reg-user/wishlist/wishlist.component';
 import { AboutComponent } from './global/about/about.component';
@@ -45,6 +47,7 @@ import { AboutComponent } from './global/about/about.component';
     AccountComponent,
     WishlistComponent,
     AboutComponent,
+    StarsComponent
   ],
   imports: [
     BrowserModule,

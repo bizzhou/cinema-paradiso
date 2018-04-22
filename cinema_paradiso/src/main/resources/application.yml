@@ -55,6 +55,11 @@ application:
     passwordHashingFailure: "PASSWORD HASHING ALGORITHM DOESN'T EXIST"
     carouselNotFound: "CANNOT FIND CAROUSEL"
     slideNotFound: "CANNOT FIND SLIDE"
+    userRatingExists: "USER RATING FOR MOVIE EXISTS"
+    userRatingNotExists: "USER RATING FOR MOVIE DOES NOT `EXISTS"
+    reviewExists: "REVIEW EXISTS"
+    invalidRatingNumber: "INVALID RATING NUMBER"
+    alreadyInWishList: "MOVIE ALREADY IN WISHLIST"
 
   limitation:
     wishListSize: 999

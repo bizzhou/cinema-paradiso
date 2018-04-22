@@ -27,4 +27,8 @@ export class RegUserService {
     const params = new HttpParams().set('old_password', oldPassword).set('new_password', newPassword);
     return this.http.post('http://localhost:8080/user/change/password', params);
   }
+
+  deleteUserRating(imdbId: string) {
+    return this.http.delete(`http://localhost:8080/movie/delete/rating/${imdbId}`);
+  }
 }
