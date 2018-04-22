@@ -8,13 +8,14 @@ import {RegUserComponent} from './user/reg-user/reg-user.component';
 import {SearchComponent} from './global/search/search.component';
 import {AdminComponent} from './user/admin/admin.component';
 import { AboutComponent } from './global/about/about.component';
-import {AccountComponent} from "./user/reg-user/account/account.component";
+import {ReviewCollectionComponent} from './global/review-collection/review-collection.component';
 
 const appRoutes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'home'},
   {path: 'home', component: HomeComponent},
   {path: 'movies', component: CategoriesComponent},
   {path: 'movie/:id', component: MovieDetailComponent},
+  {path: 'movie/:id/reviews', component: ReviewCollectionComponent},
   {path: 'celebrity/:id', component: CelebrityComponent},
   {path: 'user', component: RegUserComponent},
   {path: 'search', component: SearchComponent},

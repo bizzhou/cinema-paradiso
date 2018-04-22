@@ -31,9 +31,10 @@ import { AccountComponent } from './user/reg-user/account/account.component';
 import { WishlistComponent } from './user/reg-user/wishlist/wishlist.component';
 import { AboutComponent } from './global/about/about.component';
 import { NotInterestedComponent } from './user/reg-user/not-interested/not-interested.component';
-import { ReviewComponent } from './user/reg-user/review/review.component';
-import { RatingComponent } from './user/reg-user/rating/rating.component';
-import {MdReviewComponent} from "./global/movie-detail/md-review/md-review.component";
+import { UserReviewComponent } from './user/reg-user/user-review/user-review.component';
+import { UserRatingComponent } from './user/reg-user/user-rating/user-rating.component';
+import {MdReviewComponent} from './global/movie-detail/md-review/md-review.component';
+import { ReviewCollectionComponent } from './global/review-collection/review-collection.component';
 
 @NgModule({
   declarations: [
@@ -53,9 +54,10 @@ import {MdReviewComponent} from "./global/movie-detail/md-review/md-review.compo
     AboutComponent,
     StarsComponent,
     NotInterestedComponent,
-    ReviewComponent,
-    RatingComponent,
-    MdReviewComponent
+    UserReviewComponent,
+    UserRatingComponent,
+    MdReviewComponent,
+    ReviewCollectionComponent,
   ],
   imports: [
     BrowserModule,
