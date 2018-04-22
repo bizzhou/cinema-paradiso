@@ -10,15 +10,24 @@
     <div class="col-9 rating">
       <p class="r-title__sub">
         Rated: {{rating?.ratedMovie.title}}
-        <i class="fa fa-star" style="margin-left: 15px"></i>
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star"></i>
-        <i>{{rating?.userRating}}/5.0</i>
+
+
+        <span style="margin-left: 15px">
+
+        <span *ngFor="let number of range(5)">
+          <i *ngIf="number < rating.userRating; else elseBlock" class="fa fa-star"></i>
+          <ng-template #elseBlock><i id="un_star" class="fa fa-star"></i></ng-template>
+        </span>
+
+        <i>{{rating?.userRating}}/5</i>
+
+
+      </span>
+
+
       </p>
       <div class="rating__buttons">
-        <button class="c-update-btn r-update-btn" (click)="deleteRating(rating)">Delete</button>
+        <button class="c-update-btn r-update-btn button__warning" (click)="deleteRating(rating)">Delete</button>
       </div>
     </div>
 

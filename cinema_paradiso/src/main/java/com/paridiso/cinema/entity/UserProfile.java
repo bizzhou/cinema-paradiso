@@ -1,5 +1,7 @@
 package com.paridiso.cinema.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -11,7 +13,11 @@ public class UserProfile {
     private String name;
     private String profileImage;
     private String biography;
+
+    @JsonIgnore
     private WatchList watchList;
+
+    @JsonIgnore
     private WishList wishList;
     private Boolean isCritic;
     private Boolean isPrivate;

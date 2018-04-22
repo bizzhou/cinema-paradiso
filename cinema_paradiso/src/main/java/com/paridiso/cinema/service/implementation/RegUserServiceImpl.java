@@ -73,7 +73,6 @@ public class RegUserServiceImpl extends UserService {
         UserProfile profile = getUserProfile(userProfile.getId());
         profile.setBiography(userProfile.getBiography());
         profile.setName(userProfile.getName());
-        profile.setProfileImage(userProfile.getProfileImage());
         profile.setPrivate(userProfile.getPrivate());
         return userProfileRepository.save(profile);
     }
