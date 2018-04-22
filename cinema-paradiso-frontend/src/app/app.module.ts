@@ -33,6 +33,7 @@ import { AboutComponent } from './global/about/about.component';
 import { NotInterestedComponent } from './user/reg-user/not-interested/not-interested.component';
 import { ReviewComponent } from './user/reg-user/review/review.component';
 import { RatingComponent } from './user/reg-user/rating/rating.component';
+import {MdReviewComponent} from "./global/movie-detail/md-review/md-review.component";
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { RatingComponent } from './user/reg-user/rating/rating.component';
     StarsComponent,
     NotInterestedComponent,
     ReviewComponent,
-    RatingComponent
+    RatingComponent,
+    MdReviewComponent
   ],
   imports: [
     BrowserModule,

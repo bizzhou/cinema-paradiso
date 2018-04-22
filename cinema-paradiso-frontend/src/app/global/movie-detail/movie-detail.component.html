@@ -320,16 +320,13 @@
             <div class="row">
               <img class="col-profile-img" src="https://user-images.githubusercontent.com/20979257/36620069-64e71fbe-18bf-11e8-87e8-565e2fc4d6da.jpeg"
                 alt="user" />
-              <div class="col-add-ratings">
+              <div class="col-rate">
                 <button class="o-button o-button--gray">+ Watchlist</button>
                 <button class="o-button" (click)='addToWishList(selectedMovieId)'>+ Wishlist</button>
 
                 <app-stars [readonly]="ngbRatingReadOnly" [currentRate]="currentRating" (eventEmitter)="ratingOperations($event)"></app-stars>
 
-                <!--<ngb-rating [(rate)]="selected" (hover)="hovered=$event" (leave)="hovered=0" [readonly]="false" (click)="rateMovie()">-->
-                  <!--<span class="star"></span>-->
-                <!--</ngb-rating>-->
-
+                <!--TODO: post review here-->
                 <form>
                   <input placeholder="Review title">
                   <textarea placeholder="What do you think about this movie?" [(ngModel)]="review" name="review"></textarea>
@@ -431,138 +428,7 @@
           <!-- end 3rd section -->
 
           <!-- 	4th section	critic reviews -->
-          <section class="md_wrap">
-            <h2 class="md-title">
-              <span>critic reviews</span>
-            </h2>
-            <a class="md-more" href="#">more
-              <i class="fa fa-angle-double-right"></i>
-            </a>
-            <div class="container">
-              <div class="row">
-                <!--<div class="col-md-12">-->
-                <!--<div id="testimonial-slider" class="owl-carousel">-->
-                <div class="col-testimonial testimonial">
-                  <div class="testimonial-content">
-                    <div class="testimonial-icon">
-                      <i class="fa fa-quote-left"></i>
-                    </div>
-                    <p class="t_description">
-                      the movie's worldview is as easy to like as the protagonist and her friends, but del toro lays it on so thick that there's
-                      no room for
-                    </p>
-                  </div>
-                  <h3 class="title">john</h3>
-                  <span class="post">top critics</span>
-                </div>
-
-                <div class="col-testimonial testimonial">
-                  <div class="testimonial-content">
-                    <div class="testimonial-icon">
-                      <i class="fa fa-quote-left"></i>
-                    </div>
-                    <p class="t_description">
-                      "the shape of water" is director guillermo del toro's finest film, a lovely, empathetic tribute to old hollywood
-
-                    </p>
-                  </div>
-                  <h3 class="title">kelle</h3>
-                  <span class="post">top critics</span>
-                </div>
-
-                <div class="col-testimonial testimonial">
-                  <div class="testimonial-content">
-                    <div class="testimonial-icon">
-                      <i class="fa fa-quote-left"></i>
-                    </div>
-                    <p class="t_description">
-                      the more i try to find some kind of justifiable meaning and relevance, the more i find the shape of water a loopy
-                    </p>
-                  </div>
-                  <h3 class="title">steven</h3>
-                  <span class="post">top critics</span>
-                </div>
-
-                <!--<div class="col-testimonial testimonial">-->
-                <!--<div class="testimonial-content">-->
-                <!--<div class="testimonial-icon">-->
-                <!--<i class="fa fa-quote-left"></i>-->
-                <!--</div>-->
-                <!--<div class="l_description">-->
-                <!--<p class="description">-->
-                <!--the visual stylist spins an adult fairy tale that takes elements-->
-                <!--from "beauty and the beast" and recasts them in an alternative-->
-                <!--universe that's a wonderfully rendered twist on our own.-->
-                <!--</p>-->
-                <!--</div>-->
-                <!--</div>-->
-                <!--<h3 class="title">peter</h3>-->
-                <!--<span class="post">top critics</span>-->
-                <!--</div>-->
-              </div>
-            </div>
-            <!--</div>-->
-            <!--</div>-->
-
-          </section>
-
-          <!-- 	4th section	audience reviews -->
-          <section class="md_wrap">
-            <h2 class="md-title">
-              <span>audience reviews</span>
-            </h2>
-            <a class="md-more" href="#">more
-              <i class="fa fa-angle-double-right"></i>
-            </a>
-            <div class="container">
-              <div class="row">
-                <!--<div class="col-md-12">-->
-                <!--<div id="testimonial-slider2" class="owl-carousel">-->
-                <div class="col-testimonial testimonial">
-                  <div class="testimonial-content">
-                    <div class="testimonial-icon">
-                      <i class="fa fa-quote-left"></i>
-                    </div>
-                    <p class="t_description">
-                      the shape of water is an ingenious fantasy romance that utilizes cold war era elements to the advantage of its premise while
-                      subtly
-
-                    </p>
-                  </div>
-                  <h3 class="title">drake tsui</h3>
-                  <span class="post">super reviewer</span>
-                </div>
-                <div class="col-testimonial testimonial">
-                  <div class="testimonial-content">
-                    <div class="testimonial-icon">
-                      <i class="fa fa-quote-left"></i>
-                    </div>
-                    <p class="t_description">
-                      guillermo del toro has found himself to be quite the respected filmmaker over the years but, if i had to be brutally honest,
-                      i'd
-
-                    </p>
-                  </div>
-                  <h3 class="title">mark walker</h3>
-                  <span class="post">super reviewer</span>
-                </div>
-                <div class="col-testimonial testimonial">
-                  <div class="testimonial-content">
-                    <div class="testimonial-icon">
-                      <i class="fa fa-quote-left"></i>
-                    </div>
-                    <p class="t_description">
-                      like many of del toro's movies, i just couldn't buy into it. i found myself not caring about the monster and i didn't buy
-                      the
-                    </p>
-                  </div>
-                  <h3 class="title">sanjay rema</h3>
-                  <span class="post">super reviewer</span>
-                </div>
-
-              </div>
-            </div>
-          </section>
+          <app-md-review></app-md-review>
           <!-- end -->
 
         </div>

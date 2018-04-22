@@ -52,12 +52,15 @@ main{
 .col-profile-img {
   @include cols(23%, 15px, 15px);
 }
-.col-add-ratings {
+.col-rate {
   @include cols(76.5%, 15px, 15px);
 }
+
 //.col-list-btn {
 //  @include cols(23%, 15px, 15px);
 //}
+
+
 
 .sidebar {
   padding-left: 3%;
@@ -240,92 +243,6 @@ main{
   color: gray;
 }
 
-// reviews
-.testimonial{
-  //height: 200px;
-  //overflow: scroll;
-}
-.testimonial .testimonial-content{
-  padding: 20px;
-  margin-bottom: 35px;
-  background: #fff;
-  position: relative;
-}
-.testimonial .testimonial-content:before{
-  content: "";
-  position: absolute;
-  bottom: -30px;
-  left: 0;
-  border-top: 15px solid #718076;
-  border-left: 15px solid transparent;
-  border-bottom: 15px solid transparent;
-}
-.testimonial .testimonial-content:after{
-  content: "";
-  position: absolute;
-  bottom: -30px;
-  right: 0;
-  border-top: 15px solid #718076;
-  border-right: 15px solid transparent;
-  border-bottom: 15px solid transparent;
-}
-.testimonial-content .testimonial-icon{
-  width: 30px;
-  height: 25px;
-  background: #e50914;
-  text-align: center;
-  font-size: 15px;
-  color: #fff;
-  line-height: 30px;
-  position: absolute;
-  top: 37px;
-  left: -19px;
-}
-
-// icon background
-.testimonial-content .testimonial-icon:before{
-  content: "";
-  border-bottom: 16px solid #e50914;
-  border-left: 18px solid transparent;
-  position: absolute;
-  top: -16px;
-  left: 1px;
-}
-.testimonial .t_description{
-  font-size: 13px;
-  font-style: italic;
-  color: #8a8a8a;
-  line-height: 23px;
-  margin: 0;
-
-}
-.testimonial .title{
-  display: block;
-  font-size: 18px;
-  font-weight: 700;
-  color: #525252;
-  text-transform: capitalize;
-  letter-spacing: 1px;
-  margin: 0 0 5px 0;
-}
-.testimonial .post{
-  display: block;
-  font-size: 14px;
-  color: #e50914;
-}
-.owl-theme .owl-controls{
-  margin-top: 20px;
-}
-.owl-theme .owl-controls .owl-page span{
-  background: #ccc;
-  opacity: 1;
-  transition: all 0.4s ease 0s;
-}
-.owl-theme .owl-controls .owl-page.active span,
-.owl-theme .owl-controls.clickable .owl-page:hover span{
-  background: #e50914;
-}
-
 
 // ratings
 
@@ -396,6 +313,12 @@ main{
 }
 .c-update-btn:hover {
   background-color: lighten(black, 40%);
+}
+.button__warning {
+  background-color: $color-red;
+}
+.button__warning:hover {
+  background-color: $color-light-red;
 }
 .ratings-add {
   img {
