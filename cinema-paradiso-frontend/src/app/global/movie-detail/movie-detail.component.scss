@@ -2,6 +2,11 @@
 $color-red: rgb(229, 9, 20);
 $color-gray: rgb(100, 100, 100);
 $color-light-red: #e8716d;
+$link-hover: lighten(black, 60%);
+$link-active: darken(gray, 30%);
+$sidebar-link-hover: white;
+$sidebar-link: darken(white, 20%);
+$main-background: lighten(black, 10%);
 
 @mixin cols ($width, $padding-left, $padding-right){
   width: $width;
@@ -13,7 +18,7 @@ $color-light-red: #e8716d;
 }
 
 main{
-  background-color: lighten(black, 7%);
+  background-color: $main-background;
   height: 100%;
   padding-top: 3%;
   padding-bottom: 4%;
@@ -26,7 +31,7 @@ main{
   @include cols(68.5%, 0, 0);
 }
 .col-avatars {
-  @include cols(33%, 1px, 1px);
+  @include cols(33%, 7px, 7px);
 }
 .col-video {
   @include cols(33%, 0, 0);
@@ -62,68 +67,67 @@ main{
   padding-right: 3%;
 }
 .s-explore {
-  padding: 1em 1em;
+  padding: 0.5em 0;
   border: 1px solid darken(gray, 20%);
   margin-bottom: 3%;
+
+  .active {
+    background-color: $link-active;
+    a {
+      color: white !important;
+    }
+  }
+
+  .s-explore__title {
+    padding: 0.1em 1em;
+    color: white;
+    h3 {
+      text-transform: uppercase;
+      font-size: 14px;
+      font-weight: bold;
+      margin: 0;
+      padding: 5px 0 5px 0;
+    }
+  }
+
+  .s-explore__item {
+    padding: 0 1.5em;
+    a {
+      color: $sidebar-link !important;
+      font-size: 14px;
+      text-transform: capitalize;
+      //padding-left: 10px;
+    }
+    a:hover {
+      color: $sidebar-link-hover !important;
+    }
+
+    // ratings
+    span {
+      //float: right;
+      position: absolute;
+      right: 10px;
+      font-size: 14px;
+      padding-top: 5px;
+      color: $color-red;
+    }
+
+  }
+
+  .s-users__item {
+    //padding: 0 5px;
+    a {
+      color: $sidebar-link !important;
+      font-size: 14px;
+    }
+  }
+
+  .item__more {
+
+  }
+
 }
 
-.s-explore__title {
-  color: white;
-  h3 {
-    text-transform: uppercase;
-    font-size: 14px;
-    font-weight: bold;
-    margin: 0;
-    padding: 5px 0 5px 0;
-  }
-}
-
-.s-explore__item {
-  color: #d9d9d9;
-  a {
-    color: #cccccc !important;
-    font-size: 14px;
-    text-transform: capitalize;
-    padding: 0 0 3px 20px;
-  }
-  a:hover {
-    text-decoration: underline !important;
-  }
-  // ratings
-  span {
-    float: right;
-    font-size: 14px;
-    color: #e50914;
-  }
-}
-
-.active {
-  background-color: darken(gray, 20%);
-  a {
-    color: white !important;
-  }
-}
-
-.s-users-avatars {
-
-}
-.s-users__item {
-  margin-bottom: 0.5em;
-  text-align: center;
-
-  a {
-    color: #cccccc;
-  }
-  img {
-    height: 4em;
-    width: 4em;
-  }
-  span {
-    margin: 0 auto;
-    font-size: 0.7em;
-    display: block;
-  }
-}
 
 // right content
 
