@@ -96,6 +96,7 @@ public class MovieServiceImpl implements FilmService {
         userRating.setRatedMovie(movie);
         userRating.setUserRating(rating);
         userRating.setUser(userProfile);
+        userRating.setRatedDate(Calendar.getInstance());
         logger.info("old rating " + movie.getRating());
         Double newRating = calculateNewRating(rating, movie);
         logger.info("new rating " + newRating);

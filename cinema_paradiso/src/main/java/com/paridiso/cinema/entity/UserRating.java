@@ -1,5 +1,8 @@
 package com.paridiso.cinema.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.Calendar;
 
@@ -26,6 +29,9 @@ public class UserRating {
         return id;
     }
 
+
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "userProfileId")
     public UserProfile getUser() {

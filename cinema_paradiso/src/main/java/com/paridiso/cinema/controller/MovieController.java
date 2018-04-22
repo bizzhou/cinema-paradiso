@@ -44,7 +44,7 @@ public class MovieController {
         return ResponseEntity.ok(filmService.getMovies());
     }
 
-    @GetMapping(value = "get/{filmId}")
+    @GetMapping(value = "/get/{filmId}")
     public ResponseEntity<Movie> getMovie(@PathVariable String filmId) {
         Movie movie = filmService.getMovie(filmId);
         return new ResponseEntity<>(movie, HttpStatus.OK);

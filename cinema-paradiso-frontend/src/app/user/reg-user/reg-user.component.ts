@@ -10,6 +10,7 @@ import {LoginService} from '../../global/login/login.service';
 import {Movie} from '../../global/models/movie.model';
 
 import {Router} from '@angular/router';
+import {Rating} from '../../global/models/rating.model';
 
 class Profile {
   name: string;
@@ -21,6 +22,7 @@ class Profile {
   email: string;
   wishList: Movie[];
   watchList: Movie[];
+  userRatings: Rating[];
 }
 
 @Component({
@@ -69,8 +71,9 @@ export class RegUserComponent implements OnInit {
         this.profile.username = decodedToken['username'];
         this.profile.profileImage = profileDetails['profileImage'];
         this.profile.wishList = profileDetails['wishList'] as Movie[];
+        this.profile.userRatings = profileDetails['userRatings'] as Rating[];
 
-        console.log(profileDetails);
+        console.log(this.profile.userRatings);
 
         if (this.profile.profileImage === undefined) {
           this.profile_url = 'http://localhost:8080/user/avatar/default.jpeg';
@@ -78,8 +81,13 @@ export class RegUserComponent implements OnInit {
           this.profile_url = 'http://localhost:8080/user/avatar/' + profileDetails['profileImage'];
         }
       });
+    } else {
+      this.router.navigateByUrl('home');
     }
+
+
   }
+
 
   updateProfile() {
     this.regUserService.update(this.profile).subscribe(data => {
@@ -142,4 +150,11 @@ export class RegUserComponent implements OnInit {
     });
   }
 
+  deleteRating(rating: Rating) {
+    this.regUserService.deleteUserRating(rating.ratedMovie.imdbId).subscribe(data => {
+      this.toastr.success('SUCCESS');
+      this.profile.userRatings.splice(this.profile.userRatings.indexOf(rating), 1);
+    });
+
+  }
 }

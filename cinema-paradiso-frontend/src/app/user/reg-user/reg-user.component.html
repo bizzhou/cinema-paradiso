@@ -14,6 +14,7 @@
         <li class="s-tabs__list"><a (click)="showDiv(3)">My wish list </a></li>
         <li class="s-tabs__list"><a (click)="showDiv(4)">Not interested list </a></li>
         <li class="s-tabs__list"><a (click)="showDiv(5)">My reviews </a></li>
+        <li class="s-tabs__list"><a (click)="showDiv(6)">My ratings </a></li>
         <li class="s-tabs__list"><a (click)="showDiv(7)">Account Settings </a></li>
 
       </ul>
@@ -55,6 +56,9 @@
         </div>
         <button class="c-update-btn">Update profile</button>
       </section>
+
+
+
 
       <!--wish list-->
       <section class="c-wishlist" *ngIf="currentIndex === 3">
@@ -154,8 +158,9 @@
 
       </div>
 
-      <!-- reviews -->
-      <!--TODO: currently using movies from wish list, should retrieve from reviews-->
+
+
+
       <div class="c-reviews" *ngIf="currentIndex === 5">
         <h5 class="c-header">My reviews </h5>
         <div class="container" *ngFor="let movie of profile.wishList">
@@ -197,7 +202,43 @@
 
       </div>
 
+
+      <div class="c-ratings" *ngIf="currentIndex === 6">
+        <h5 class="c-header">My Ratings </h5>
+        <div class="container" *ngFor="let rating of profile.userRatings">
+          <div class="row w__item">
+            <div class="col-3 w__img-wrap">
+
+              <!--TODO: movie poster here-->
+              <img src={{rating?.ratedMovie.poster}} alt="{{rating?.ratedMovie.title}}">
+            </div>
+
+            <div class="col-9 rating">
+              <p class="r-title__sub">
+                Rated: {{rating?.ratedMovie.title}}
+                <i class="fa fa-star" style="margin-left: 15px"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i>{{rating?.userRating}}/5.0</i>
+              </p>
+              <div class="rating__buttons">
+                <button class="c-update-btn r-update-btn" (click)="deleteRating(rating)">Delete</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <ngb-pagination class="d-flex justify-content-left" [collectionSize]="20" [(page)]="tvPage" (click)="getNextPage()"></ngb-pagination>
+
+
+
+      </div>
+
+      <!-- reviews -->
       <!--account settings-->
+      <!--TODO: currently using movies from wish list, should retrieve from reviews-->
       <section class="c-account" *ngIf="currentIndex === 7">
 
         <h5 class="c-header">Change password</h5>
@@ -235,6 +276,16 @@
         </form>
 
       </section>
+
+
+
+
+
+
+
+
+
+
 
     </div>
         <!--./right content-->
