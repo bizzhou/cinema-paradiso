@@ -270,7 +270,7 @@ main{
 .ratings-header {
   color: gray;
   font-size: 0.8em;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.2em;
 }
 .rating {
   float: left;
@@ -321,9 +321,19 @@ main{
   background-color: $color-light-red;
 }
 .ratings-add {
-  img {
-    margin-top: 5px;
+  .ratings_profile {
+    margin-top: 6px;
+    img {
+      width: 80px;
+    }
+    p {
+      color: white;
+      font-size: 16px;
+      margin-top: 5px;
+      text-align: center;
+    }
   }
+
   textarea, input {
     width: 100%;
     margin-top: 0.5em;
@@ -340,6 +350,7 @@ main{
     border: none;
 
   }
+
 }
 .histo {
   float: left;
