@@ -1,7 +1,5 @@
 package com.paridiso.cinema.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -67,7 +65,7 @@ public class UserProfile {
         return reviews;
     }
 
-    @ManyToMany(cascade = {CascadeType.ALL},fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
     @JoinTable(
             name = "UserProfileLikedReviews",
             joinColumns = {@JoinColumn(name = "id")},
