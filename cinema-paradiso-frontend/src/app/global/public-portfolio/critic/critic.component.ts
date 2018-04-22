@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-critic',
+  selector: 'app-critic-portfolio',
   templateUrl: './critic.component.html',
   styleUrls: ['./critic.component.scss']
 })
-export class CriticComponent implements OnInit {
+export class CriticPortfolioComponent implements OnInit {
 
   constructor() { }
 

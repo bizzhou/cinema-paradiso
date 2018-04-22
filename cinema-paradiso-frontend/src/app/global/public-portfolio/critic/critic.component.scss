@@ -1,0 +1,43 @@
+$color-red: rgb(229, 9, 20);
+$main-background: lighten(black, 11%);
+$color-p: lighten(black, 60%);
+
+@mixin cols ($width, $padding-left, $padding-right){
+  width: $width;
+  float:left;
+  position: relative;
+  min-height: 1px;
+  padding-right: $padding-right;
+  padding-left: $padding-left;
+}
+
+.col-avatar {
+  @include cols(8%, 1px, 1px);
+}
+
+.col-bio {
+  @include cols(91.5%, 20px, 0);
+}
+
+main {
+  background-color: $main-background;
+  padding: 3% 5% 5%;
+  color: white;
+}
+
+.avatar {
+  img {
+    width: 80px;
+    height: auto;
+  }
+}
+.bio {
+  h5 {
+    font-weight: 300;
+  }
+  p {
+    font-size: 14px;
+    color: $color-p;
+    margin: 0;
+  }
+}
