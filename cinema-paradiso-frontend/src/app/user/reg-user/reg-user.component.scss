@@ -103,7 +103,12 @@ main {
     display: block;
   }
 }
-
+.button__group {
+  display: inline-block;
+  button {
+    font-size: 14px;
+  }
+}
 .c-update-btn {
   cursor: pointer;
   border: 1px solid lighten(black, 25%);
@@ -117,7 +122,7 @@ main {
 .c-update-btn:hover {
   background-color: lighten(black, 40%);
 }
-.c-warning-btn {
+.button__warning {
   background-color: $color-red;
 }
 .c-warning-btn:hover {
@@ -217,9 +222,7 @@ form {
   .review__content {
     color: darken(white, 10%);
   }
-  .review__buttons {
-    display: inline-block;
-  }
+
   .r-update-btn {
     font-size: 14px;
   }

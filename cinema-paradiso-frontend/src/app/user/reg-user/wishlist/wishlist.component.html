@@ -19,27 +19,11 @@
         <p>{{movie?.rated}}</p>
       </div>
 
-      <p class="s-plot">{{movie?.plot.substring(0, 100)}}...</p>
+      <p class="s-plot">{{movie?.plot}}</p>
 
-      <!--<div>-->
-      <!--<p>-->
-      <!--Starring-->
-      <!--<span *ngFor="let actor of movie?.casts | slice:0:3" routerLink="/celebrity/{{actor?.celebrityId}}">-->
-      <!--{{actor.name}} ,-->
-      <!--</span>-->
-      <!--</p>-->
-      <!--</div>-->
-
-      <!--<p>-->
-      <!--Director-->
-      <!--<span routerLink="/celebrity/{{movie.director.celebrityId}}">{{movie.director.name}}</span>-->
-      <!--</p>-->
-      <!--<p>-->
-      <!--Genres-->
-      <!--<span *ngFor="let genre of movie.genres | slice: 0:5" class="c-genres" style="text-transform: lowercase">-->
-      <!--{{genre}},-->
-      <!--</span>-->
-      <!--</p>-->
+      <div class="button__group">
+        <button class="c-update-btn r-update-btn button__warning">Remove</button>
+      </div>
     </div>
   </div>
 </div>
