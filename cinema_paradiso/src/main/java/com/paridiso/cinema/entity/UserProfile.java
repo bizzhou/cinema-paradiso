@@ -1,5 +1,7 @@
 package com.paridiso.cinema.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.persistence.*;
 import java.util.List;
 

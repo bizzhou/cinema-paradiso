@@ -73,7 +73,7 @@ export class RegUserComponent implements OnInit {
         this.profile.wishList = profileDetails['wishList'] as Movie[];
         this.profile.userRatings = profileDetails['userRatings'] as Rating[];
 
-        console.log(this.profile.userRatings);
+        console.log(this.profile.wishList);
 
         if (this.profile.profileImage === undefined) {
           this.profile_url = 'http://localhost:8080/user/avatar/default.jpeg';

@@ -44,7 +44,7 @@
 
         <div class="c-inputs">
           <label>Name</label>
-          <input [placeholder]="profile.username">
+          <input [(ngModel)]="profile.username" [placeholder]="profile.username">
         </div>
         <div class="c-inputs">
           <label>Public email</label>
@@ -52,9 +52,9 @@
         </div>
         <div class="c-inputs">
           <label>Bio</label>
-          <textarea>{{profile.biography}}</textarea>
+          <textarea [(ngModel)]="profile.biography" name="biography">{{profile.biography}}</textarea>
         </div>
-        <button class="c-update-btn">Update profile</button>
+        <button class="c-update-btn" (click)="updateProfile()">Update profile</button>
       </section>
 
 
@@ -63,13 +63,15 @@
       <!--wish list-->
       <section class="c-wishlist" *ngIf="currentIndex === 3">
         <h5 class="c-header">My wish list </h5>
+
+
         <div class="container" *ngFor="let movie of profile.wishList">
           <div class="row w__item">
             <div class="col-3 w__img-wrap">
-              <img src={{movie.poster}} alt="{{movie.title}}">
+              <img src={{movie?.poster}} alt="{{movie?.title}}">
             </div>
             <div class="col-9">
-              <a routerLink="/movie/{{movie.imdbId}}" class="s-item__title">{{movie.title}} ({{movie.releaseDate.toString().substring(0, 4)}})</a>
+              <a routerLink="/movie/{{movie?.imdbId}}" class="s-item__title">{{movie?.title}} ({{movie?.releaseDate.toString().substring(0, 4)}})</a>
 
               <div class="flex">
                 <i class="fa fa-star"></i>
@@ -77,34 +79,35 @@
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
                 <i class="fa fa-star"></i>
-                <p>{{movie.rating}}/5.0</p>
-                <p>{{movie.rated}}</p>
+                <p>{{movie?.rating}}/5.0</p>
+                <p>{{movie?.rated}}</p>
               </div>
 
-              <p class="s-plot">{{movie.plot.substring(0, 100)}}...</p>
+              <p class="s-plot">{{movie?.plot.substring(0, 100)}}...</p>
 
-              <div>
-                <p>
-                  Starring
-                  <span *ngFor="let actor of movie.casts | slice:0:3" routerLink="/celebrity/{{actor?.celebrityId}}">
-                  {{actor.name}} ,
-                  </span>
-                </p>
-              </div>
+              <!--<div>-->
+                <!--<p>-->
+                  <!--Starring-->
+                  <!--<span *ngFor="let actor of movie?.casts | slice:0:3" routerLink="/celebrity/{{actor?.celebrityId}}">-->
+                  <!--{{actor.name}} ,-->
+                  <!--</span>-->
+                <!--</p>-->
+              <!--</div>-->
 
-              <p>
-                Director
-                <span routerLink="/celebrity/{{movie.director.celebrityId}}">{{movie.director.name}}</span>
-              </p>
-              <p>
-                Genres
-                <span *ngFor="let genre of movie.genres | slice: 0:5" class="c-genres" style="text-transform: lowercase">
-                {{genre}},
-                </span>
-              </p>
+              <!--<p>-->
+                <!--Director-->
+                <!--<span routerLink="/celebrity/{{movie.director.celebrityId}}">{{movie.director.name}}</span>-->
+              <!--</p>-->
+              <!--<p>-->
+                <!--Genres-->
+                <!--<span *ngFor="let genre of movie.genres | slice: 0:5" class="c-genres" style="text-transform: lowercase">-->
+                <!--{{genre}},-->
+                <!--</span>-->
+              <!--</p>-->
             </div>
           </div>
         </div>
+
         <ngb-pagination class="d-flex justify-content-left" [collectionSize]="20" [(page)]="tvPage" (click)="getNextPage()"></ngb-pagination>
 
       </section>
@@ -163,6 +166,8 @@
 
       <div class="c-reviews" *ngIf="currentIndex === 5">
         <h5 class="c-header">My reviews </h5>
+
+
         <div class="container" *ngFor="let movie of profile.wishList">
           <div class="row w__item">
             <div class="col-3 w__img-wrap">
