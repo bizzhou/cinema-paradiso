@@ -86,13 +86,17 @@ main {
 
 
 }
-.r_item {
-  margin-bottom: 1em;
-  .r_img-wrap {
-    img {
-      height: 130px;
-      width: auto;
-    }
+
+.reviews {
+  .row {
+    margin-bottom: -10px;
+  }
+}
+// reviews poster
+.r_img-wrap {
+  img {
+    height: 130px;
+    width: auto;
   }
 }
 .review {
@@ -122,6 +126,23 @@ main {
       cursor: pointer;
     }
   }
+}
+.c-update-btn {
+  cursor: pointer;
+  border: 1px solid lighten(black, 25%);
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: white;
+  background-color: lighten(black, 20%);
+  font-size: 14px;
+  float: right;
+}
+.c-update-btn:hover {
+  background-color: lighten(black, 40%);
+}
+// overwrite
+.content_text {
+  font-size: 14px;
 }
 
 //
