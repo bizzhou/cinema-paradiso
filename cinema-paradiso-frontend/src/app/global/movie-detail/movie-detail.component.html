@@ -10,7 +10,7 @@
           <ul class="s-explore">
             <!--     in theaters -->
             <li class="s-explore__title"><h3>In Theaters</h3></li>
-            <li class="s-explore__item active"><a href="#">opening this week</a></li>
+            <li class="s-explore__item"><a href="#">opening this week</a></li>
             <li class="s-explore__item"><a href="#">top box office</a></li>
             <li class="s-explore__item"><a href="#">coming soon</a></li>
             <li class="s-explore__item"><a href="#">certified fresh movies</a></li>
@@ -330,9 +330,11 @@
                   <!--<span class="star"></span>-->
                 <!--</ngb-rating>-->
 
-
-                <textarea placeholder="Add a review..." [(ngModel)]="review" name="review"></textarea>
-                <button id="post-btn" (click)="addReview()">Post</button>
+                <form>
+                  <input placeholder="Review title">
+                  <textarea placeholder="What do you think about this movie?" [(ngModel)]="review" name="review"></textarea>
+                  <button class="c-update-btn" (click)="addReview()">Post</button>
+                </form>
               </div>
             </div>
           </div>
