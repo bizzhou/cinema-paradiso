@@ -144,7 +144,14 @@ main {
 .content_text {
   font-size: 14px;
 }
-
+.t_title {
+  h6 {
+    color: lighten(gray, 20%);
+  }
+  .r_movie--title {
+    color: lighten(gray, 40%);
+  }
+}
 //
 //.r_img-text {
 //  font-size: 12px !important;

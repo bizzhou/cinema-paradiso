@@ -46,7 +46,7 @@ $p-content: darken(white, 15%);
   }
 }
 .t_title {
-  color: white !important;
+  color: lighten(gray, 20%) !important;
   margin-top: -5px !important;
 
   h6 {
