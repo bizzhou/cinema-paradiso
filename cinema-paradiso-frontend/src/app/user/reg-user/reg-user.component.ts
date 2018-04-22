@@ -29,7 +29,7 @@ class Profile {
   selector: 'app-reg-user',
   templateUrl: './reg-user.component.html',
   styleUrls: ['./reg-user.component.scss'],
-  providers: [RegUserService, LoginService]
+  providers: [RegUserService, LoginService],
 })
 export class RegUserComponent implements OnInit {
   currentIndex = 1;
@@ -37,10 +37,6 @@ export class RegUserComponent implements OnInit {
   profile = new Profile();
   tokenHelper = new JwtHelperService();
   profile_url: string;
-  oldPassword: string;
-  newPassword: string;
-  changePasswordSuccess: boolean;
-  changePasswordFailure: boolean;
 
 
   constructor(private router: Router, private loginService: LoginService, private modalService: NgbModal,
@@ -133,22 +129,6 @@ export class RegUserComponent implements OnInit {
     }
   }
 
-  changePassword(form: NgForm) {
-    this.regUserService.changePassword(this.oldPassword, this.newPassword).subscribe(result => {
-      if (result['success'] === true) {
-        form.resetForm();
-        this.changePasswordSuccess = true;
-        this.toastr.success('Success');
-        this.loginService.logout();
-        this.router.navigateByUrl('/home');
-      } else {
-        this.changePasswordFailure = true;
-        console.log('fail to cahnge the password');
-        this.toastr.error('Failed to change the password, make sure you passwords are correct');
-        form.resetForm();
-      }
-    });
-  }
 
   deleteRating(rating: Rating) {
     this.regUserService.deleteUserRating(rating.ratedMovie.imdbId).subscribe(data => {

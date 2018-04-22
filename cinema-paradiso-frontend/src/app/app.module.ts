@@ -30,6 +30,9 @@ import {StarsComponent} from './global/stars/stars.component';
 import { AccountComponent } from './user/reg-user/account/account.component';
 import { WishlistComponent } from './user/reg-user/wishlist/wishlist.component';
 import { AboutComponent } from './global/about/about.component';
+import { NotInterestedComponent } from './user/reg-user/not-interested/not-interested.component';
+import { ReviewComponent } from './user/reg-user/review/review.component';
+import { RatingComponent } from './user/reg-user/rating/rating.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +50,10 @@ import { AboutComponent } from './global/about/about.component';
     AccountComponent,
     WishlistComponent,
     AboutComponent,
-    StarsComponent
+    StarsComponent,
+    NotInterestedComponent,
+    ReviewComponent,
+    RatingComponent
   ],
   imports: [
     BrowserModule,

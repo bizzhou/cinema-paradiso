@@ -57,234 +57,31 @@
         <button class="c-update-btn">Update profile</button>
       </section>
 
-
-
-
       <!--wish list-->
       <section class="c-wishlist" *ngIf="currentIndex === 3">
-        <h5 class="c-header">My wish list </h5>
-        <div class="container" *ngFor="let movie of profile.wishList">
-          <div class="row w__item">
-            <div class="col-3 w__img-wrap">
-              <img src={{movie.poster}} alt="{{movie.title}}">
-            </div>
-            <div class="col-9">
-              <a routerLink="/movie/{{movie.imdbId}}" class="s-item__title">{{movie.title}} ({{movie.releaseDate.toString().substring(0, 4)}})</a>
-
-              <div class="flex">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <p>{{movie.rating}}/5.0</p>
-                <p>{{movie.rated}}</p>
-              </div>
-
-              <p class="s-plot">{{movie.plot.substring(0, 100)}}...</p>
-
-              <div>
-                <p>
-                  Starring
-                  <span *ngFor="let actor of movie.casts | slice:0:3" routerLink="/celebrity/{{actor?.celebrityId}}">
-                  {{actor.name}} ,
-                  </span>
-                </p>
-              </div>
-
-              <p>
-                Director
-                <span routerLink="/celebrity/{{movie.director.celebrityId}}">{{movie.director.name}}</span>
-              </p>
-              <p>
-                Genres
-                <span *ngFor="let genre of movie.genres | slice: 0:5" class="c-genres" style="text-transform: lowercase">
-                {{genre}},
-                </span>
-              </p>
-            </div>
-          </div>
-        </div>
-        <ngb-pagination class="d-flex justify-content-left" [collectionSize]="20" [(page)]="tvPage" (click)="getNextPage()"></ngb-pagination>
-
+        <app-wishlist [profile]="profile"></app-wishlist>
       </section>
 
       <!--not interested list-->
       <div class="c-not-interested" *ngIf="currentIndex === 4">
-        <h5 class="c-header">Not interested list </h5>
-        <div class="container" *ngFor="let movie of profile.wishList">
-          <div class="row w__item">
-            <div class="col-3 w__img-wrap">
-              <img src={{movie.poster}} alt="{{movie.title}}">
-            </div>
-            <div class="col-9">
-              <a routerLink="/movie/{{movie.imdbId}}" class="s-item__title">{{movie.title}} ({{movie.releaseDate.toString().substring(0, 4)}})</a>
-
-              <div class="flex">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <p>{{movie.rating}}/5.0</p>
-                <p>{{movie.rated}}</p>
-              </div>
-
-              <p class="s-plot">{{movie.plot.substring(0, 100)}}...</p>
-
-              <div>
-                <p>
-                  Starring
-                  <span *ngFor="let actor of movie.casts | slice:0:3" routerLink="/celebrity/{{actor?.celebrityId}}">
-                  {{actor.name}} ,
-                  </span>
-                </p>
-              </div>
-
-              <p>
-                Director
-                <span routerLink="/celebrity/{{movie.director.celebrityId}}">{{movie.director.name}}</span>
-              </p>
-              <p>
-                Genres
-                <span *ngFor="let genre of movie.genres | slice: 0:5" class="c-genres" style="text-transform: lowercase">
-                {{genre}},
-                </span>
-              </p>
-            </div>
-          </div>
-        </div>
-        <ngb-pagination class="d-flex justify-content-left" [collectionSize]="20" [(page)]="tvPage" (click)="getNextPage()"></ngb-pagination>
-
+        <app-not-interested [profile]="profile"></app-not-interested>
       </div>
 
-
-
-
+      <!--review-->
       <div class="c-reviews" *ngIf="currentIndex === 5">
-        <h5 class="c-header">My reviews </h5>
-        <div class="container" *ngFor="let movie of profile.wishList">
-          <div class="row w__item">
-            <div class="col-3 w__img-wrap">
-
-              <!--TODO: movie poster here-->
-              <img src={{movie.poster}} alt="{{movie.title}}">
-            </div>
-
-            <div class="col-9 review">
-              <!--TODO: review title here-->
-              <h5 class="r-title">An enchanting re-imagining of Beauty and the Beast</h5>
-
-              <!--TODO: movie title here-->
-              <p class="r-title__sub">
-                Rated: {{movie.title}}
-                <i class="fa fa-star" style="margin-left: 15px"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i>4.0/5.0</i>
-              </p>
-              <!-- TODO: review content here, use substring(), so only display first 3 lines-->
-              <p class="review__content">The progressive agenda wins the Oscar! Love that! Wait, nope-I draw the line at interspecies carnality. When protesting persecution and lauding universal love, at least pick a metaphor not as universally reviled...</p>
-              <!--<a routerLink="/movie/{{movie.imdbId}}" class="s-item__title">{{movie.title}} ({{movie.releaseDate.toString().substring(0, 4)}})</a>-->
-              <div class="review__buttons">
-                <button class="c-update-btn r-update-btn">Update</button>
-                <button class="c-update-btn r-update-btn">Delete</button>
-              </div>
-            </div>
-
-          </div>
-        </div>
-        <ngb-pagination class="d-flex justify-content-left" [collectionSize]="20" [(page)]="tvPage" (click)="getNextPage()"></ngb-pagination>
-
-
-
+        <app-review [profile]="profile"></app-review>
       </div>
 
-
+      <!--ratings-->
       <div class="c-ratings" *ngIf="currentIndex === 6">
-        <h5 class="c-header">My Ratings </h5>
-        <div class="container" *ngFor="let rating of profile.userRatings">
-          <div class="row w__item">
-            <div class="col-3 w__img-wrap">
-
-              <!--TODO: movie poster here-->
-              <img src={{rating?.ratedMovie.poster}} alt="{{rating?.ratedMovie.title}}">
-            </div>
-
-            <div class="col-9 rating">
-              <p class="r-title__sub">
-                Rated: {{rating?.ratedMovie.title}}
-                <i class="fa fa-star" style="margin-left: 15px"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i>{{rating?.userRating}}/5.0</i>
-              </p>
-              <div class="rating__buttons">
-                <button class="c-update-btn r-update-btn" (click)="deleteRating(rating)">Delete</button>
-              </div>
-            </div>
-
-          </div>
-        </div>
-        <ngb-pagination class="d-flex justify-content-left" [collectionSize]="20" [(page)]="tvPage" (click)="getNextPage()"></ngb-pagination>
-
-
+        <app-rating [profile]="profile"></app-rating>
 
       </div>
 
-      <!-- reviews -->
       <!--account settings-->
-      <!--TODO: currently using movies from wish list, should retrieve from reviews-->
       <section class="c-account" *ngIf="currentIndex === 7">
-
-        <h5 class="c-header">Change password</h5>
-        <form target="_blank" #changePasswordForm="ngForm" (submit)="changePassword(changePasswordForm)">
-
-          <div class="c-inputs">
-            <label>Old password</label>
-            <input type="password" name="oldPassword" placeholder="**********" required [(ngModel)]="oldPassword">
-          </div>
-
-          <div class="c-inputs">
-            <label>New Password</label>
-            <input type="password" name="newPassword" placeholder="**********" required [(ngModel)]="newPassword">
-          </div>
-
-          <button type="submit" class="c-update-btn">Update password</button>
-        </form>
-
-        <!-- change username-->
-        <h5 class="c-header">Change username</h5>
-        <form>
-          <div class="c-inputs">
-            <label>Changing your username can have unintended side effects.</label>
-            <input [placeholder]="profile.username">
-            <button class="c-update-btn">Change username</button>
-          </div>
-        </form>
-
-        <h5 class="c-header span-warning">Delete account</h5>
-        <form>
-          <div class="c-inputs">
-            <label>Once you delete your account, there is no going back. Please be certain!</label>
-            <button class="c-update-btn" style="margin-top: 0;">Delete account</button>
-          </div>
-        </form>
-
+        <app-account [profile]="profile"></app-account>
       </section>
-
-
-
-
-
-
-
-
-
 
 
     </div>

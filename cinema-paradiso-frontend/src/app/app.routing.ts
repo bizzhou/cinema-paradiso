@@ -8,6 +8,7 @@ import {RegUserComponent} from './user/reg-user/reg-user.component';
 import {SearchComponent} from './global/search/search.component';
 import {AdminComponent} from './user/admin/admin.component';
 import { AboutComponent } from './global/about/about.component';
+import {AccountComponent} from "./user/reg-user/account/account.component";
 
 const appRoutes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'home'},

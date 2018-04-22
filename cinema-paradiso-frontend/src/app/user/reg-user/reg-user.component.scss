@@ -2,6 +2,7 @@ $main-background: lighten(black, 11%);
 $link-hover: lighten(black, 40%);
 $color-red: rgb(229, 9, 20);
 $color-gray: rgb(100, 100, 100);
+$color-light-red: #e8716d;
 $color-input-title: darken(white, 25%);
 
 @mixin cols ($width, $padding-left, $padding-right){
@@ -115,6 +116,12 @@ main {
 }
 .c-update-btn:hover {
   background-color: lighten(black, 40%);
+}
+.c-warning-btn {
+  background-color: $color-red;
+}
+.c-warning-btn:hover {
+  background-color: $color-light-red;
 }
 .span-title {
   color: lighten(black, 40%);
