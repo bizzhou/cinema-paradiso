@@ -72,8 +72,6 @@ public class RegUserServiceImpl extends UserService {
     public UserProfile updateProfile(UserProfile userProfile) {
         UserProfile profile = getUserProfile(userProfile.getId());
         profile.setBiography(userProfile.getBiography());
-        profile.setWatchList(userProfile.getWatchList());
-        profile.setWishList(userProfile.getWishList());
         profile.setName(userProfile.getName());
         profile.setProfileImage(userProfile.getProfileImage());
         profile.setPrivate(userProfile.getPrivate());

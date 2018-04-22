@@ -1,4 +1,4 @@
-<h5 class="c-header">My reviews and ratings</h5>
+<h5 class="c-header">My reviews </h5>
 <div class="container" *ngFor="let movie of profile.wishList">
   <div class="row w__item">
     <div class="col-3 w__img-wrap">
@@ -26,10 +26,10 @@
       <!--<a routerLink="/movie/{{movie.imdbId}}" class="s-item__title">{{movie.title}} ({{movie.releaseDate.toString().substring(0, 4)}})</a>-->
       <div class="review__buttons">
         <button class="c-update-btn r-update-btn">Update</button>
-        <button class="c-update-btn r-update-btn c-warning-btn">Delete</button>
+        <button class="c-update-btn r-update-btn">Delete</button>
       </div>
     </div>
 
   </div>
 </div>
-<ngb-pagination class="d-flex justify-content-left" [collectionSize]="20" ></ngb-pagination>
+<ngb-pagination class="d-flex justify-content-left" [collectionSize]="20" [(page)]="tvPage" (click)="getNextPage()"></ngb-pagination>

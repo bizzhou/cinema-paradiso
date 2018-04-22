@@ -44,7 +44,7 @@
 
         <div class="c-inputs">
           <label>Name</label>
-          <input [placeholder]="profile.username">
+          <input [(ngModel)]="profile.username" [placeholder]="profile.username">
         </div>
         <div class="c-inputs">
           <label>Public email</label>
@@ -52,9 +52,9 @@
         </div>
         <div class="c-inputs">
           <label>Bio</label>
-          <textarea>{{profile.biography}}</textarea>
+          <textarea [(ngModel)]="profile.biography" name="biography">{{profile.biography}}</textarea>
         </div>
-        <button class="c-update-btn">Update profile</button>
+        <button class="c-update-btn" (click)="updateProfile()">Update profile</button>
       </section>
 
       <!--wish list-->

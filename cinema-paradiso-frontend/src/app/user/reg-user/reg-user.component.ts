@@ -69,7 +69,7 @@ export class RegUserComponent implements OnInit {
         this.profile.wishList = profileDetails['wishList'] as Movie[];
         this.profile.userRatings = profileDetails['userRatings'] as Rating[];
 
-        console.log(this.profile.userRatings);
+        console.log(this.profile.wishList);
 
         if (this.profile.profileImage === undefined) {
           this.profile_url = 'http://localhost:8080/user/avatar/default.jpeg';
@@ -86,11 +86,20 @@ export class RegUserComponent implements OnInit {
 
 
   updateProfile() {
-    this.regUserService.update(this.profile).subscribe(data => {
+
+    const tempProfile = new Profile();
+    tempProfile.username = this.profile.username;
+    tempProfile.email = this.profile.email;
+    tempProfile.biography = this.profile.biography;
+    tempProfile.id = this.profile.id;
+
+    this.regUserService.update(tempProfile).toPromise().then(data => {
       this.toastr.success('Success');
     }, error => {
       this.toastr.error('Failed to update profile');
     });
+
+
   }
 
   open(content) {
