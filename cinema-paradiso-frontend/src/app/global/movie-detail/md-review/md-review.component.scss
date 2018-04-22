@@ -44,7 +44,7 @@ $color-red: rgb(229, 9, 20);
     margin-top: 5px;
   }
 }
-.t-title {
+.t_title {
   color: white !important;
   margin-top: -5px !important;
 
@@ -65,7 +65,7 @@ $color-red: rgb(229, 9, 20);
     }
   }
 
-  .t-buttons {
+  .t_buttons {
     display: inline;
     button {
       display: inline-block;
@@ -75,7 +75,7 @@ $color-red: rgb(229, 9, 20);
   }
 
 }
-.t-content{
+.t_content{
   padding: 5px 10px;
   margin-top: 5px;
   margin-bottom: 35px;
@@ -83,16 +83,31 @@ $color-red: rgb(229, 9, 20);
   border-radius: 2px;
   position: relative;
 
-  .content-title {
+  .content_title {
     font-size: 16px;
     font-weight: 400;
+
   }
 
-  .content-text {
+  .content_text {
     margin-top: -5px;
     color: lighten(black, 50%);
+    //display: inline;
+    a {
+      color: black;
+      cursor: pointer;
+      text-decoration: underline !important;
+    }
   }
+}
 
+.t_more {
+  margin-top: -10px;
+  cursor: pointer;
+  font-size: 14px;
+  color: white !important;
+  text-decoration: underline !important;
+  float: right;
 }
 // triangle
 //.t-content:before{
