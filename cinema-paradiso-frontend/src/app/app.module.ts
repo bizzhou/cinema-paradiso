@@ -34,7 +34,8 @@ import { NotInterestedComponent } from './user/reg-user/not-interested/not-inter
 import { UserReviewComponent } from './user/reg-user/user-review/user-review.component';
 import { UserRatingComponent } from './user/reg-user/user-rating/user-rating.component';
 import {MdReviewComponent} from './global/movie-detail/md-review/md-review.component';
-import { ReviewCollectionComponent } from './global/review-collection/review-collection.component';
+import { CriticReviewsComponent } from './global/review-collection/critic-reviews/critic-reviews.component';
+import { RegUserReviewsComponent } from './global/review-collection/reg-user-reviews/reg-user-reviews.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { ReviewCollectionComponent } from './global/review-collection/review-col
     UserReviewComponent,
     UserRatingComponent,
     MdReviewComponent,
-    ReviewCollectionComponent,
+    CriticReviewsComponent,
+    RegUserReviewsComponent,
   ],
   imports: [
     BrowserModule,
