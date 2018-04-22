@@ -10,6 +10,15 @@ main{
 .testimonial-wrap {
   padding-left: 5%;
   padding-right: 5%;
+  color: white;
+}
+
+.t_header {
+
+}
+.t_rank {
+  font-size: 16px;
+  margin-bottom: 1em;
 }
 
 .testimonial{
@@ -20,6 +29,7 @@ main{
     margin-top: 5px;
   }
 }
+
 .t_title {
   color: white !important;
   margin-top: -5px !important;
