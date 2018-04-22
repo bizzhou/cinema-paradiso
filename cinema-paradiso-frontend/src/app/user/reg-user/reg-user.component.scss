@@ -4,6 +4,8 @@ $color-red: rgb(229, 9, 20);
 $color-gray: rgb(100, 100, 100);
 $color-light-red: #e8716d;
 $color-input-title: darken(white, 25%);
+$btn-hover: lighten(black, 40%);
+$btn-normal: lighten(black, 20%);
 
 @mixin cols ($width, $padding-left, $padding-right){
   width: $width;
@@ -116,11 +118,11 @@ main {
   margin-top: 20px;
   padding: 5px 10px;
   color: white;
-  background-color: lighten(black, 20%);
+  background-color: $btn-normal;
   font-size: 16px;
 }
 .c-update-btn:hover {
-  background-color: lighten(black, 40%);
+  background-color: $btn-hover;
 }
 .button__warning {
   background-color: $color-red;
