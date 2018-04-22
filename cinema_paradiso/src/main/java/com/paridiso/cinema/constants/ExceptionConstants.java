@@ -24,7 +24,15 @@ public class ExceptionConstants {
     private String userRatingNotExists;
     private String reviewExists;
     private String invalidRatingNumber;
+    private String alreadyInWishList;
 
+    public String getAlreadyInWishList() {
+        return alreadyInWishList;
+    }
+
+    public void setAlreadyInWishList(String alreadyInWishList) {
+        this.alreadyInWishList = alreadyInWishList;
+    }
 
     public String getInvalidRatingNumber() {
         return invalidRatingNumber;

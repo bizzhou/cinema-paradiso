@@ -111,12 +111,15 @@ export class MovieDetailComponent implements OnInit {
     this.movieService.addToWishList(imdbId)
       .subscribe(
         data => {
-          console.log(data);
+
+          this.toastrService.success('SUCCESSFULLY ADDED TO WISHLIST');
           if (data === false) {
             this.isMovieExistInWishList = false;
           } else {
             this.isMovieExistInWishList = true;
           }
+        }, error1 => {
+          this.toastrService.error(error1['error']['message']);
         }
       );
   }

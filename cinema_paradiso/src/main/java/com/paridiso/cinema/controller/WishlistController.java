@@ -1,5 +1,6 @@
 package com.paridiso.cinema.controller;
 
+import com.paridiso.cinema.constants.ExceptionConstants;
 import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.service.JwtTokenService;
 import com.paridiso.cinema.service.ListService;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.List;
 
 import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
@@ -25,6 +28,9 @@ public class WishlistController {
     @Autowired
     JwtTokenService jwtTokenService;
 
+    @Autowired
+    ExceptionConstants exceptionConstants;
+
     @GetMapping(value = "/get")
     public ResponseEntity<List<Movie>> getWishList(@RequestHeader(value = "Authorization") String jwtToken) {
         List<Movie> wishListMovies = listService.getListFromUserId(jwtTokenService.getUserIdFromToken(jwtToken));
@@ -36,9 +42,10 @@ public class WishlistController {
                                                  @RequestParam("filmId") String filmId) {
         Boolean result = listService.addToList(jwtTokenService.getUserIdFromToken(jwtToken), filmId);
         if (result) {
-            return new ResponseEntity<>(HttpStatus.OK);
+            return ResponseEntity.ok(true);
+        } else {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exceptionConstants.getAlreadyInWishList());
         }
-        return new ResponseEntity<Boolean>(false, HttpStatus.CONFLICT);
     }
 
     @DeleteMapping(value = "delete/{filmId}")
