@@ -1,96 +1,92 @@
-<html>
+<main>
+  <!-- Sidebar/menu -->
+  <div class="container">
+    <div class="row">
+      <nav class="col-sidebar sidebar">
+        <ul class="s-tabs">
+          <li class="s-tabs__list"><a>Account management</a></li>
+          <li class="s-tabs__list active"><a (click)="showDiv(1)">Profile summary</a></li>
+          <li class="s-tabs__list"><a>My followings </a></li>
+          <li class="s-tabs__list"><a>My followers </a></li>
+          <li class="s-tabs__list"><a (click)="showDiv(3)">My wish list </a></li>
+          <li class="s-tabs__list"><a (click)="showDiv(4)">Not interested list </a></li>
+          <li class="s-tabs__list"><a (click)="showDiv(5)">My reviews </a></li>
+          <li class="s-tabs__list"><a (click)="showDiv(6)">My ratings </a></li>
+          <li class="s-tabs__list"><a (click)="showDiv(7)">Account settings </a></li>
 
-<body>
-  <main>
-    <!-- Sidebar/menu -->
-    <div class="container">
-      <div class="row">
-    <nav class="col-sidebar sidebar">
-      <ul class="s-tabs">
-        <li class="s-tabs__list"><a>Account management</a></li>
-        <li class="s-tabs__list active"><a (click)="showDiv(1)">Profile summary</a></li>
-        <li class="s-tabs__list"><a >My followings </a></li>
-        <li class="s-tabs__list"><a >My followers </a></li>
-        <li class="s-tabs__list"><a (click)="showDiv(3)">My wish list </a></li>
-        <li class="s-tabs__list"><a (click)="showDiv(4)">Not interested list </a></li>
-        <li class="s-tabs__list"><a (click)="showDiv(5)">My reviews </a></li>
-        <li class="s-tabs__list"><a (click)="showDiv(6)">My ratings </a></li>
-        <li class="s-tabs__list"><a (click)="showDiv(7)">Account settings </a></li>
+        </ul>
 
-      </ul>
+      </nav>
 
-    </nav>
+      <div class="col-right content">
 
-    <div class="col-right content">
+        <!--profile summary-->
+        <section class="c-profile" *ngIf="currentIndex === 1">
+          <h5 class="c-header">Public profile</h5>
 
-      <!--profile summary-->
-      <section class="c-profile" *ngIf="currentIndex === 1">
-        <h5 class="c-header">Public profile</h5>
+          <div *ngIf="profile.isCritic" class="c-inputs">
+            <label>Account status: <span class="span-title">critic</span></label>
+          </div>
+          <div *ngIf="!profile.isCritic" class="c-inputs">
+            <label>Account status: <span class="span-title">regular user</span></label>
+          </div>
+          <div class="c-inputs">
+            <label>Joined on: <span class="span-title">2017-03-03</span></label>
+          </div>
 
-        <div *ngIf="profile.isCritic" class="c-inputs">
-          <label>Account status: <span class="span-title">critic</span></label>
+          <div class="c-avatar">
+            <img src="{{profile_url}}" id="profile_image">
+            <button class="c-update-btn" id="update-avatar" (click)="open(content)">Update avatar</button>
+          </div>
+
+          <div class="c-inputs">
+            <label>Name</label>
+            <input [(ngModel)]="profile.username" [placeholder]="profile.username">
+          </div>
+          <div class="c-inputs">
+            <label>Public email</label>
+            <input [placeholder]="profile.email">
+          </div>
+          <div class="c-inputs">
+            <label>Bio</label>
+            <textarea [(ngModel)]="profile.biography" name="biography">{{profile.biography}}</textarea>
+          </div>
+          <button class="c-update-btn" (click)="updateProfile()">Update profile</button>
+        </section>
+
+        <!--wish list-->
+        <section class="c-wishlist" *ngIf="currentIndex === 3">
+          <app-wishlist [profile]="profile"></app-wishlist>
+        </section>
+
+        <!--not interested list-->
+        <div class="c-not-interested" *ngIf="currentIndex === 4">
+          <app-not-interested [profile]="profile"></app-not-interested>
         </div>
-        <div *ngIf="!profile.isCritic" class="c-inputs">
-          <label>Account status: <span class="span-title">regular user</span></label>
-        </div>
-        <div class="c-inputs">
-          <label>Joined on: <span class="span-title">2017-03-03</span></label>
+
+        <!--review-->
+        <div class="c-reviews" *ngIf="currentIndex === 5">
+          <app-user-review [profile]="profile"></app-user-review>
         </div>
 
-        <div class="c-avatar">
-          <img src="{{profile_url}}" id="profile_image">
-          <button class="c-update-btn" id="update-avatar">Update avatar</button>
+        <!--ratings-->
+        <div class="c-ratings" *ngIf="currentIndex === 6">
+          <app-user-rating [profile]="profile" (eventEmitter)="deleteRating($event)"></app-user-rating>
         </div>
 
-        <div class="c-inputs">
-          <label>Name</label>
-          <input [(ngModel)]="profile.username" [placeholder]="profile.username">
-        </div>
-        <div class="c-inputs">
-          <label>Public email</label>
-          <input [placeholder]="profile.email">
-        </div>
-        <div class="c-inputs">
-          <label>Bio</label>
-          <textarea [(ngModel)]="profile.biography" name="biography">{{profile.biography}}</textarea>
-        </div>
-        <button class="c-update-btn" (click)="updateProfile()">Update profile</button>
-      </section>
+        <!--account settings-->
+        <section class="c-account" *ngIf="currentIndex === 7">
+          <app-account [profile]="profile"></app-account>
+        </section>
 
-      <!--wish list-->
-      <section class="c-wishlist" *ngIf="currentIndex === 3">
-        <app-wishlist [profile]="profile"></app-wishlist>
-      </section>
 
-      <!--not interested list-->
-      <div class="c-not-interested" *ngIf="currentIndex === 4">
-        <app-not-interested [profile]="profile"></app-not-interested>
       </div>
-
-      <!--review-->
-      <div class="c-reviews" *ngIf="currentIndex === 5">
-        <app-user-review [profile]="profile"></app-user-review>
-      </div>
-
-      <!--ratings-->
-      <div class="c-ratings" *ngIf="currentIndex === 6">
-        <app-user-rating [profile]="profile" (eventEmitter)="deleteRating($event)"></app-user-rating>
-      </div>
-
-      <!--account settings-->
-      <section class="c-account" *ngIf="currentIndex === 7">
-        <app-account [profile]="profile"></app-account>
-      </section>
-
-
+      <!--./right content-->
     </div>
-        <!--./right content-->
-    </div>
-      <!--./row-->
-    </div>
-    <!--./container-->
-  </main>
-</body>
+    <!--./row-->
+  </div>
+  <!--./container-->
+</main>
 
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
@@ -112,4 +108,3 @@
   </div>
 </ng-template>
 
-</html>

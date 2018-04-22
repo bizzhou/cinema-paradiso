@@ -1,11 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ModalDismissReasons, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {RegUserService} from './reg-user.service';
 import {Token} from '../../global/models/token.model';
 import {LoginStatusService} from '../../global/login/login.status.service';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {ToastrService} from 'ngx-toastr';
-import {NgForm} from '@angular/forms';
 import {LoginService} from '../../global/login/login.service';
 import {Movie} from '../../global/models/movie.model';
 
@@ -38,6 +37,7 @@ export class RegUserComponent implements OnInit {
   tokenHelper = new JwtHelperService();
   profile_url: string;
 
+  modalRef: NgbModalRef;
 
   constructor(private router: Router, private loginService: LoginService, private modalService: NgbModal,
               private regUserService: RegUserService, private loginStatusService: LoginStatusService, private toastr: ToastrService) {
@@ -45,11 +45,6 @@ export class RegUserComponent implements OnInit {
 
   showDiv(index) {
     this.currentIndex = index;
-    console.log(this.currentIndex);
-
-    // style
-
-
   }
 
   ngOnInit() {
@@ -103,7 +98,9 @@ export class RegUserComponent implements OnInit {
   }
 
   open(content) {
-    this.modalService.open(content).result.then(result => {
+    this.modalRef = this.modalService.open(content);
+    console.log(this.modalRef);
+    this.modalRef.result.then(result => {
       this.closeReason = `Reason ${result}`;
     }, (reason) => {
       this.closeReason = `Dismissed ${this.getDissmissReason(reason)}`;
@@ -130,7 +127,8 @@ export class RegUserComponent implements OnInit {
       formData.append('userId', user.id.toString());
 
       this.regUserService.upload(formData).subscribe(data => {
-        this.router.navigateByUrl('/user');
+        this.modalRef.close();
+        window.location.reload();
       }, error => {
         this.toastr.success('Failure');
         console.log(error);
