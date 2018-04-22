@@ -65,4 +65,8 @@ export class MovieService {
   addRatingToMovie(movieId: string, rating: number) {
     return this.http.post(MOVIE_SERVER + `add/rating/${movieId}/${rating}`, null);
   }
+
+  editRatingForMovie(movieId: string, rating: number) {
+    return this.http.post(MOVIE_SERVER + `edit/rating/${movieId}/${rating}`, null);
+  }
 }

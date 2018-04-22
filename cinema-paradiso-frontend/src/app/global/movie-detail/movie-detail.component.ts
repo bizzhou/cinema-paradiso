@@ -45,7 +45,22 @@ export class MovieDetailComponent implements OnInit {
         console.log(newRating);
         this.toastrService.success('SUCCESS, new rating:' + newRating);
       }, error1 => {
-        this.toastrService.error(error1['error']['message']);
+
+        const errorMessage = error1['error']['message'];
+
+        if (errorMessage === 'USER RATING FOR MOVIE EXISTS') {
+          this.movieService.editRatingForMovie(this.selectedMovieId, data).subscribe(newRating => {
+            console.log('edited rating ', newRating);
+            this.toastrService.success('You have edited your previous rating, new Rating: ' +
+              newRating);
+          }, error2 => {
+            this.toastrService.error('FAILED TO CHANGE YOUR PREVIOUS RATING');
+          });
+        } else {
+          this.toastrService.error(error1['error']['message']);
+        }
+
+
       });
 
     } else {
@@ -83,7 +98,7 @@ export class MovieDetailComponent implements OnInit {
       .subscribe(
         data => {
           this.movie = data as Movie;
-          // console.log(this.movie);
+          console.log(this.movie);
           // console.log('casts ', this.movie.casts);
           // console.log('imdbId ', this.movie.imdbId);
           // console.log(this.movie.photos);
