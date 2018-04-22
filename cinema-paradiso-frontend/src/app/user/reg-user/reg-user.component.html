@@ -74,7 +74,7 @@
 
       <!--ratings-->
       <div class="c-ratings" *ngIf="currentIndex === 6">
-        <app-rating [profile]="profile"></app-rating>
+        <app-rating [profile]="profile" (eventEmitter)="deleteRating($event)"></app-rating>
 
       </div>
 
