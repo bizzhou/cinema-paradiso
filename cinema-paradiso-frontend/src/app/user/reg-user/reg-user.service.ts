@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams, HttpRequest} from '@angular/common/http';
+import {Movie} from '../../global/models/movie.model';
 
 @Injectable()
 export class RegUserService {
@@ -30,5 +31,9 @@ export class RegUserService {
 
   deleteUserRating(imdbId: string) {
     return this.http.delete(`http://localhost:8080/movie/delete/rating/${imdbId}`);
+  }
+
+  removeFromWishList(imdbId: string) {
+    return this.http.delete(`http://localhost:8080/wishlist/delete/${imdbId}`);
   }
 }

@@ -52,7 +52,7 @@ public class WishlistController {
     public ResponseEntity removeFromWishList(@RequestHeader(value = "Authorization") String jwtToken,
                                              @PathVariable("filmId") String filmId) {
         listService.removeFromList(jwtTokenService.getUserIdFromToken(jwtToken), filmId);
-        return new ResponseEntity<Boolean>(true, HttpStatus.OK);
+        return ResponseEntity.ok(true);
     }
 
     /**

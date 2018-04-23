@@ -85,23 +85,13 @@ public class WishlistServiceImpl implements ListService, WishlistService {
 
     @Override
     public void removeFromList(Integer userId, String filmId) {
-        // find movie
         Movie movie = movieRepository.findMovieByImdbId(filmId)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieNotFound()));
-
-        // find user
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserNotFound()));
-
         // check movie existence and size limit
         List<Movie> movies = user.getUserProfile().getWishList().getMovies();
-        for (Movie m : movies) {
-            if (m.getImdbId().equals(movie.getImdbId())) {
-                movies.remove(m);
-                break;
-            }
-        }
-
+        movies.remove(movie);
         user.getUserProfile().getWishList().setMovies(movies);
         wishListRepository.save(user.getUserProfile().getWishList());
     }

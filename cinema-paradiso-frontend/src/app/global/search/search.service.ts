@@ -28,6 +28,4 @@ export class SearchService {
     return this.http.post(SEARCH_SERVER + endpoint, param);
   }
 
-  
-
 }
