@@ -39,4 +39,13 @@ export class AccountComponent implements OnInit {
     });
   }
 
+  deleteUser() {
+    const user = JSON.parse(localStorage.getItem('credential'));
+    this.regUserService.deleteUser(parseInt(user['id'])).subscribe(result => {
+      if (result === true) {
+        this.toastr.success('Successfully Deleted Your Account');
+        this.loginService.logout();
+      }
+    });
+  }
 }

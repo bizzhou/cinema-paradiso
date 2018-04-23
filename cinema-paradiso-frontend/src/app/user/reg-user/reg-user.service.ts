@@ -36,4 +36,8 @@ export class RegUserService {
   removeFromWishList(imdbId: string) {
     return this.http.delete(`http://localhost:8080/wishlist/delete/${imdbId}`);
   }
+
+  deleteUser(userId: number) {
+    return this.http.delete(`http://localhost:8080/admin/suspend/${userId}`);
+  }
 }

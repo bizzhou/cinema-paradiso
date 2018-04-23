@@ -41,7 +41,7 @@ public class AdminServiceImpl extends UserService {
     public Boolean suspendUser(Integer id) {
         User user = getUser(id);
         user.setAccountSuspended(true);
-        return userRepository.save(user).getUserID() == null;
+        return userRepository.save(user).getUserID() != null;
     }
 
     private User getUser(Integer id) {

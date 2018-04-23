@@ -27,15 +27,6 @@ export class HeaderComponent implements OnInit {
               private router: Router) {
   }
 
-  // keywordSubmit() {
-  // this.searchService.search(this.keywords, '0', '20').subscribe(result => {
-  //   this.searchService.nextResult(result);
-  //   this.searchService.nextKeyword(this.keywords);
-  //   console.log('current result  ', this.searchService.currentResult);
-  //   this.router.navigateByUrl('/search');
-  // });
-  // }
-
   search() {
     if (this.keyword !== '') {
       this.router.navigate(['/search', {keyword: this.keyword}]);
@@ -64,10 +55,8 @@ export class HeaderComponent implements OnInit {
 
         if (this.user.role === 'ROLE_USER' || this.user.role === 'ROLE_CRITIC') {
           this.is_admin = false;
-          console.log(this.is_admin);
         } else {
           this.is_admin = true;
-          console.log(this.is_admin);
         }
       }
     }, error => {

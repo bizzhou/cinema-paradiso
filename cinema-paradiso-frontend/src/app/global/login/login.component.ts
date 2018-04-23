@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import * as $ from 'jquery';
 import {User} from '../../user/user/user.model';
 import {LoginService} from './login.service';
 import {LoginStatusService} from './login.status.service';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +12,8 @@ import {LoginStatusService} from './login.status.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private loginService: LoginService, private loginStatusService: LoginStatusService) {
+  constructor(private loginService: LoginService, private loginStatusService: LoginStatusService,
+              private toastrService: ToastrService) {
   }
 
   user = new User();
@@ -97,6 +98,8 @@ export class LoginComponent implements OnInit {
         localStorage.setItem('token', JSON.stringify(data['token']));
         // Set user loggedIn status to global. So header can subscribe to the event.
         this.loginStatusService.changeStatus(true);
+      }, error1 => {
+        this.toastrService.error('Login Failed');
       });
     }
   }

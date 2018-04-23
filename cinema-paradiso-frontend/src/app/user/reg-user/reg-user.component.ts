@@ -73,10 +73,7 @@ export class RegUserComponent implements OnInit {
     } else {
       this.router.navigateByUrl('home');
     }
-
-
   }
-
 
   updateProfile() {
 

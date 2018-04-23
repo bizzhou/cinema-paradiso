@@ -18,6 +18,7 @@ import java.util.List;
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RequestMapping("/admin")
 @RestController
 public class AdminController {
@@ -48,11 +49,10 @@ public class AdminController {
         return null;
     }
 
-    @PostMapping(value = "/suspend/{id}")
+    @DeleteMapping(value = "/suspend/{id}")
     public ResponseEntity<?> suspendUser(@PathVariable Integer id) {
-        ObjectNode objectNode = objectMapper.createObjectNode();
-        objectNode.put("success", userService.suspendUser(id));
-        return ResponseEntity.ok(objectNode);
+        Boolean result = userService.suspendUser(id);
+        return ResponseEntity.ok(result);
     }
 
     //    @PreAuthorize("hasRole('ADMIN')")
