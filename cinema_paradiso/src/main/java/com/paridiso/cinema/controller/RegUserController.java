@@ -99,8 +99,10 @@ public class RegUserController {
     public ResponseEntity<?> changePassword(@RequestHeader(value = "Authorization") String jwtToken,
                                             @RequestParam(value = "old_password") String oldPass,
                                             @RequestParam(value = "new_password") String newPass) {
-        Integer profileId = jwtTokenService.getUserProfileIdFromToken(jwtToken);
-        boolean result = userService.updatePassword(profileId, oldPass, newPass);
+        Integer userId = jwtTokenService.getUserIdFromToken(jwtToken);
+        logger.info(userId);
+        boolean result = userService.updatePassword(userId, oldPass, newPass);
+
         return result ? ResponseEntity.ok(result) : ResponseEntity.badRequest().body(result);
     }
 

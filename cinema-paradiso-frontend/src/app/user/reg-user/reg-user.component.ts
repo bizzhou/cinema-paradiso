@@ -48,8 +48,6 @@ export class RegUserComponent implements OnInit {
   }
 
   ngOnInit() {
-    // this.loadPosters();
-
     if (this.loginStatusService.getTokenDetails() !== null) {
       this.loginStatusService.changeStatus(true);
       this.regUserService.getProfile().subscribe(profileDetails => {
