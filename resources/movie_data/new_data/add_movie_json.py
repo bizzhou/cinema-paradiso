@@ -6,11 +6,13 @@ import requests
 # celeb = json.load(open('./academy/oscar_celeb.json'))
 # data = open('./academy/oscar_data.json')
 # link = open('./academy/oscar_movie_celeb_id_link.json')
+# images = json.loads(open('./ac'))
+
 
 celeb = json.load(open('./recent_movies/recent_celeb.json', encoding='utf8'))
 data = open('./recent_movies/recent_data.txt', encoding='utf8')
 link = open('./recent_movies/recent_movie_celeb_id_link.json', encoding='utf8')
-images = json.load(open('./recent_movies/recent_images.json', encoding='utf8'))
+# images = json.load(open('./recent_movies/recent_images.json', encoding='utf8'))
 
 celeb_dict = {}
 data_dict = {}
@@ -22,9 +24,10 @@ def make_movie(x): return {"imdbId" : x}
 # put celec into memory
 for line in celeb:
     celeb_dict[line['id']] = line
-# print(len(celeb_dict))
-for image in images:
-    image_dict[image['id']] = image['images']
+
+# TODO: uncomment this.
+# for image in images:
+#     image_dict[image['id']] = image['images']
 
 for line in link:
     json_data = json.loads(line)
@@ -53,7 +56,7 @@ for line in data:
     new_director['birthCity'] = None
     new_director['birthState'] = None
     new_director['birthCountry'] = None
-    new_director['filmography'] = list(map(make_movie, director['knownFor']))
+    # new_director['filmography'] = list(map(make_movie, director['knownFor']))
     new_director['director'] = True
     new_director['photo_LOCATION'] = None
     new_director['profileImageName'] = None
@@ -76,7 +79,7 @@ for line in data:
             new_actor['birthState'] = None
             new_actor['birthCountry'] = None
             # new_actor['filmography'] = celeb_dict[actor]['knownFor'].map(ele)
-            new_actor['filmography'] = list(map(make_movie, celeb_dict[actor]['knownFor']))
+            # new_actor['filmography'] = list(map(make_movie, celeb_dict[actor]['knownFor']))
             new_actor['director'] = False
             new_actor['photo_LOCATION'] = None
             new_actor['profileImageName'] = None
@@ -120,7 +123,8 @@ for line in data:
     movie_json['releaseDate'] = release_date
     movie_json['genres'] = list_of_genre
     award_list = []
-    movie_json['awards'] = award_list.append(json_data['Awards'])
+    award_list.append(json_data['Awards'])
+    movie_json['awards'] = award_list
     movie_json['plot'] = json_data['Plot']
     movie_json['language'] = json_data['Language']
     movie_json['country'] = json_data['Country']
@@ -137,15 +141,15 @@ for line in data:
     movie_json['numberOfRatings'] = random.randrange(30)
     movie_json['casts'] = actors_list
     movie_json['director'] = new_director
-    movie_json['photos'] = image_dict[json_data['imdbID']]
+    # movie_json['photos'] = image_dict[json_data['imdbID']]
 
     if movie_json['rating'] == 'N/A' or movie_json['releaseDate'] == 'N/A' or movie_json['runTime'] == '':
         continue
 
     # skip difficult cases for now
 
-    print(json.dumps(movie_json))
-    break
-    # request = requests.post('http://localhost:8080/movie/add', json=(movie_json))
-    # if (request.status_code == 400):
-    #     print(request.text)
+    # print(json.dumps(movie_json))
+    # break
+    request = requests.post('http://localhost:8080/movie/add', json=(movie_json))
+    if (request.status_code == 400):
+        print(request.text)
