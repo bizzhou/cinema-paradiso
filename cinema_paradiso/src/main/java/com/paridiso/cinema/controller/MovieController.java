@@ -121,23 +121,27 @@ public class MovieController {
     }
 
     @GetMapping(value = "/get/trending")
-    public ResponseEntity<Set> getMoviesTrending() {
-        return new ResponseEntity<>(filmService.getMoviesTrending(), HttpStatus.OK);
+    public ResponseEntity<Set> getMoviesTrending(@RequestParam Integer pageNo,
+                                                 @RequestParam Integer pageSize) {
+        return new ResponseEntity<>(filmService.getMoviesTrending(pageNo, pageSize), HttpStatus.OK);
     }
 
     @GetMapping(value = "/get/comingSoon")
-    public ResponseEntity<Set> getMoviesComingSoon() {
-        return new ResponseEntity<Set>(filmService.getMoviesComingSoon(), HttpStatus.OK);
+    public ResponseEntity<Set> getMoviesComingSoon(@RequestParam Integer pageNo,
+                                                   @RequestParam Integer pageSize) {
+        return new ResponseEntity<Set>(filmService.getMoviesComingSoon(pageNo, pageSize), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/get/playing")
-    public ResponseEntity<Set> getMoviesPlaying() {
-        return new ResponseEntity<>(filmService.getMoviesPlaying(), HttpStatus.OK);
+    @PostMapping(value = "/playing")
+    public ResponseEntity<?> getMoviesPlaying(@RequestParam Integer pageNo,
+                                              @RequestParam Integer pageSize) {
+        return new ResponseEntity<>(filmService.getMoviesPlaying(pageNo, pageSize), HttpStatus.OK);
     }
 
     @GetMapping(value = "/get/topBoxOffice")
-    public ResponseEntity<List> getTopBoxOffice() {
-        return new ResponseEntity<List>(filmService.getMoviesTopBoxOffice(), HttpStatus.OK);
+    public ResponseEntity<List> getTopBoxOffice(@RequestParam Integer pageNo,
+                                                @RequestParam Integer pageSize) {
+        return new ResponseEntity<List>(filmService.getMoviesTopBoxOffice(pageNo, pageSize), HttpStatus.OK);
     }
 
     @GetMapping(value = "get/similar/{id}")

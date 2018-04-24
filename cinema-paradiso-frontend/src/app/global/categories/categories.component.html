@@ -52,8 +52,6 @@
         <li class="s-explore__item"><a href="#"><span style="color: white;">more <i
           class="fa fa-angle-right"></i></span></a></li>
       </ul>
-
-
     </div> <!-- ./end left panel -->
 
     <!--  right panel -->
@@ -70,7 +68,7 @@
 
         <!-- grid view-->
         <ul *ngIf="!isListView" class="row l-cards__table">
-          <li  *ngFor="let movie of moviesPlaying"  class="col-20 l-cards__item">
+          <li  *ngFor="let movie of moviesPlaying"  class="col-3 l-cards__item">
             <a routerLink="/movie/{{movie.imdbId}}" class="l-cards__image fill"><img [src]="movie.poster"></a>
             <a href="/movie/{{movie.imdbId}}" class="l-cards__text">{{movie.title}} <i class="item__rating"> {{movie.regUserRating}}</i></a>
           </li>
@@ -107,9 +105,10 @@
         </ul> <!-- .row -->
 
       </div>
-
       <!--   pagination   -->
-      <ngb-pagination [collectionSize]="10" [(page)]="page" [maxSize]="5" [ellipses]="false" [boundaryLinks]="true" ></ngb-pagination>
+      <!--<ngb-pagination [collectionSize]="movieNumberOfPages" [(page)]="1" [maxSize]="5" (pageChange)="getMoviesPlayingNextPage($event)" [ellipses]="false" [boundaryLinks]="true" >-->
+        <!---->
+      <!--</ngb-pagination>-->
 
     </div> <!-- ./end right panel -->
 

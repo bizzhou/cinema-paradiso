@@ -3,8 +3,10 @@ package com.paridiso.cinema.service;
 import com.paridiso.cinema.entity.Film;
 import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.entity.Trailer;
+import org.springframework.data.domain.Page;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -32,7 +34,7 @@ public interface FilmService {
      *
      * @return a set of qualified movies
      */
-    Set<Movie> getMoviesTrending();
+    Set<Movie> getMoviesTrending(Integer pageNo, Integer pageSize);
 
     /**
      * Get movies coming soon
@@ -40,7 +42,7 @@ public interface FilmService {
      *
      * @return a set of qualified movies
      */
-    Set<Movie> getMoviesComingSoon();
+    Set<Movie> getMoviesComingSoon(Integer pageNo, Integer pageSize);
 
     /**
      * Get movies playing now
@@ -48,7 +50,7 @@ public interface FilmService {
      *
      * @return a set of qualified movies
      */
-    Set<Movie> getMoviesPlaying();
+    HashMap<String, Object> getMoviesPlaying(Integer pageNo, Integer pageSize);
 
     /**
      * Get movies with the top box office
@@ -56,7 +58,7 @@ public interface FilmService {
      *
      * @return a list of qualified movies
      */
-    List<Movie> getMoviesTopBoxOffice();
+    List<Movie> getMoviesTopBoxOffice(Integer pageNo, Integer pageSize);
 
     Set<? extends Film> getTopRating();
 

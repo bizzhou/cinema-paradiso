@@ -10,26 +10,38 @@ import {MovieService} from '../movie-detail/movie.service';
 export class CategoriesComponent implements OnInit {
 
   page = 1;
-  moviesPlaying: Movie[];
   isListView: boolean;
+
+  moviesPlaying: Movie[];
+  numOfMoviesPlayingPages: number;
 
   constructor(private movieService: MovieService) { }
 
   ngOnInit() {
 
     this.getMoviesPlaying();
+
   }
 
   getMoviesPlaying(): any {
-    this.movieService.getMoviesPlaying()
+    this.movieService.getMoviesPlaying('0', '20')
       .subscribe(
         data => {
-          this.moviesPlaying = data as Movie[];
+          this.moviesPlaying = data['movie'] as Movie[];
+          this.numOfMoviesPlayingPages = data['movie_page'];
           console.log(this.moviesPlaying);
           localStorage.setItem('nowPlaying', JSON.stringify(this.moviesPlaying));
         },
         error => console.log('Failed to fetch movies playing')
       );
+  }
+
+  getMoviesPlayingNextPage(currentPage) {
+    const actualPage = currentPage - 1;
+    this.movieService.getMoviesPlaying(actualPage.toString(), '20')
+      .subscribe(results =>{
+        this.moviesPlaying = results['movie'] as Movie[];
+      });
   }
 
   setListView(isListView: boolean) {

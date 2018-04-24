@@ -12,14 +12,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
@@ -163,53 +162,62 @@ public class MovieServiceImpl implements FilmService {
     }
 
     @Override
-    public Set<Movie> getMoviesPlaying() {
+    public HashMap<String, Object> getMoviesPlaying(Integer pageNo, Integer pageSize) {
         // get 21 days before
         Calendar daysBefore = movieUtility.getDaysBeforeNow(limitationConstants.getThreeWeeksRange());
         Calendar now = movieUtility.getNow();
         // get movies by release date
-        return movieRepository.findMoviesByReleaseDateBetween(daysBefore, now);
+        Page<Movie> moviesPage = movieRepository.findMoviesByReleaseDateBetween(daysBefore, now, new PageRequest(pageNo, pageSize));
+
+        HashMap<String, Object> results = new HashMap<>();
+        results.put("movie", moviesPage.getContent());
+        results.put("movie_page", moviesPage.getTotalPages());
+
+        return results;
     }
 
     @Override
-    public Set<Movie> getMoviesComingSoon() {
+    public Set<Movie> getMoviesComingSoon(Integer pageNo, Integer pageSize) {
         // get 3 week from now
-        Calendar daysAfter = movieUtility.getDaysAfterNow(limitationConstants.getThreeWeeksRange());
-        Calendar now = movieUtility.getNow();
-        // get movies by release date
-        Collection<? extends Film> films =
-                utilityService.shrinkMovieSize(movieRepository.findMoviesByReleaseDateBetween(now, daysAfter));
-        return (Set<Movie>) films;
+//        Calendar daysAfter = movieUtility.getDaysAfterNow(limitationConstants.getThreeWeeksRange());
+//        Calendar now = movieUtility.getNow();
+//        // get movies by release date
+//        Collection<? extends Film> films =
+//                utilityService.shrinkMovieSize(movieRepository.findMoviesByReleaseDateBetween(now, daysAfter, new PageRequest(pageNo, pageSize)));
+//        return (Set<Movie>) films;
+        return null;
     }
 
     @Override
-    public Set<Movie> getMoviesTrending() {
+    public Set<Movie> getMoviesTrending(Integer pageNo, Integer pageSize) {
         // get date 3 week before and now
-        Calendar daysBeforeNow = movieUtility.getDaysBeforeNow(limitationConstants.getThreeWeeksRange());
-        Calendar now = movieUtility.getNow();
-        // get movies with ratings >= 4.0 and released within one week
-        Set<Movie> moviesTrending;
-        moviesTrending = movieRepository.findMoviesByRegUserRatingBetweenAndReleaseDateBetween(
-                limitationConstants.getTrendingRating(), limitationConstants.getRatingLimit(),
-                daysBeforeNow, now);
-        Collection<? extends Film> films = utilityService.shrinkMovieSize(moviesTrending);
-        // if the number of movies returned above < 6, then find movies rated > 2.5
-        if (moviesTrending.size() < limitationConstants.getLeastReturns()) {
-            moviesTrending.addAll(movieRepository.findMoviesByRegUserRatingBetweenAndReleaseDateBetween(
-                    limitationConstants.getAcceptableTrendingRating(), limitationConstants.getRatingLimit(),
-                    daysBeforeNow, now));
-        }
-        return (Set<Movie>) films;
+//        Calendar daysBeforeNow = movieUtility.getDaysBeforeNow(limitationConstants.getThreeWeeksRange());
+//        Calendar now = movieUtility.getNow();
+//        // get movies with ratings >= 4.0 and released within one week
+//        Set<Movie> moviesTrending;
+//        moviesTrending = movieRepository.findMoviesByRegUserRatingBetweenAndReleaseDateBetween(
+//                limitationConstants.getTrendingRating(), limitationConstants.getRatingLimit(),
+//                daysBeforeNow, now);
+//        Collection<? extends Film> films = utilityService.shrinkMovieSize(moviesTrending);
+//        // if the number of movies returned above < 6, then find movies rated > 2.5
+//        if (moviesTrending.size() < limitationConstants.getLeastReturns()) {
+//            moviesTrending.addAll(movieRepository.findMoviesByRegUserRatingBetweenAndReleaseDateBetween(
+//                    limitationConstants.getAcceptableTrendingRating(), limitationConstants.getRatingLimit(),
+//                    daysBeforeNow, now));
+//        }
+//        return (Set<Movie>) films;
+        return null;
     }
 
     @Override
-    public List<Movie> getMoviesTopBoxOffice() {
+    public List<Movie> getMoviesTopBoxOffice(Integer pageNo, Integer pageSize) {
         // get dates 3 week before and now
-        Calendar daysBeforeNow = movieUtility.getDaysBeforeNow(limitationConstants.getThreeWeeksRange());
-        Calendar now = movieUtility.getNow();
-        Collection<? extends Film> films = utilityService.shrinkMovieSize(
-                movieRepository.findTop6ByReleaseDateBetweenOrderByBoxOfficeDesc(daysBeforeNow, now));
-        return (List<Movie>) films;
+//        Calendar daysBeforeNow = movieUtility.getDaysBeforeNow(limitationConstants.getThreeWeeksRange());
+//        Calendar now = movieUtility.getNow();
+//        Collection<? extends Film> films = utilityService.shrinkMovieSize(
+//                movieRepository.findTop6ByReleaseDateBetweenOrderByBoxOfficeDesc(daysBeforeNow, now));
+//        return (List<Movie>) films;
+        return null;
     }
 
     @Override

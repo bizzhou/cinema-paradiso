@@ -119,16 +119,18 @@ main{
 
 .l-cards__table {
   margin-top: 0.6rem;
+  padding: 0 20px;
 
   .l-cards__item {
     text-align: center;
     overflow: hidden;
     letter-spacing: 0;
+    padding: 0 20px;
   }
 
   .l-cards__image {
     img {
-      height: 10em;
+      height: 11em;
     }
   }
 
