@@ -10,7 +10,7 @@ public interface ReviewService {
 
     List<Review> getCriticReviews(Long filmId);
 
-    void addReview(Integer userId, String movieId, Review review);
+    boolean addReview(Integer userId, String movieId, Review review);
 
     Review getReview(Long reviewId);
 
@@ -19,6 +19,8 @@ public interface ReviewService {
     void removeReview(Integer profileId, Long reviewId);
 
     List<Review> getMovieReviews(String filmId);
+
+    List<Review> getUserReviews(Integer userProfileId);
 
     boolean detectBadReview(Review review);
 
