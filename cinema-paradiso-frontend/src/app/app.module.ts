@@ -5,6 +5,7 @@ import {FormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
 import {CommonModule} from '@angular/common';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {LazyLoadImagesModule} from 'ngx-lazy-load-images';
 
 
 import {HomeComponent} from './global/home/home.component';
@@ -75,7 +76,8 @@ import { SidebarComponent } from './global/categories/sidebar/sidebar.component'
     CommonModule,
     BrowserAnimationsModule,
     NgbModule.forRoot(),
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    LazyLoadImagesModule
   ],
   providers: [
     LoginStatusService,
