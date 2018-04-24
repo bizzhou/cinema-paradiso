@@ -14,6 +14,6 @@ public interface ListService {
 
     void removeFromList(Integer userId, String filmId);
 
-    Boolean isMovieInWishList(Integer userId, String filmId);
+    Boolean isMovieInList(Integer userId, String filmId);
 
 }

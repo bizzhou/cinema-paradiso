@@ -1,9 +1,6 @@
 package com.paridiso.cinema.entity.buider;
 
-import com.paridiso.cinema.entity.Review;
-import com.paridiso.cinema.entity.UserProfile;
-import com.paridiso.cinema.entity.WatchList;
-import com.paridiso.cinema.entity.WishList;
+import com.paridiso.cinema.entity.*;
 
 import java.util.List;
 
@@ -12,7 +9,7 @@ public final class UserProfileBuilder {
     private String name;
     private String profileImage;
     private String biography;
-    private WatchList watchList;
+    private NotInterestedList notInterestedList;
     private WishList wishList;
     private List<Review> reviews;
 
@@ -43,8 +40,8 @@ public final class UserProfileBuilder {
         return this;
     }
 
-    public UserProfileBuilder withWatchList(WatchList watchList) {
-        this.watchList = watchList;
+    public UserProfileBuilder withNotInterestedListList(NotInterestedList notInterestedList) {
+        this.notInterestedList = notInterestedList;
         return this;
     }
 
@@ -64,7 +61,7 @@ public final class UserProfileBuilder {
         userProfile.setName(name);
         userProfile.setProfileImage(profileImage);
         userProfile.setBiography(biography);
-        userProfile.setWatchList(watchList);
+        userProfile.setNotInterestedList(notInterestedList);
         userProfile.setWishList(wishList);
         userProfile.setReviews(reviews);
         return userProfile;

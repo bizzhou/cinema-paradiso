@@ -97,7 +97,7 @@ public class WishlistServiceImpl implements ListService, WishlistService {
     }
 
     @Override
-    public Boolean isMovieInWishList(Integer userId, String filmId) {
+    public Boolean isMovieInList(Integer userId, String filmId) {
 
         // find movie
         Movie movie = movieRepository.findMovieByImdbId(filmId)

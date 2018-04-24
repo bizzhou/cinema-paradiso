@@ -19,13 +19,15 @@ export class Movie {
   language: string;
   country: string;
   poster: string;
-  rating: number;
+  regUserRating: number;
+  criticRating: number;
   production: string;
   website: string;
   boxOffice: number;
   runTime: number;
   isInWishlist: boolean;
-  numberOfRating: number;
+  numOfRegUserRatings: number;
+  numOfCriticRatings: number;
 
   constructor(values: Object = {}) {
     Object.assign(this, values);

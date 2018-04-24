@@ -172,7 +172,7 @@
             <div class="col-ratings rating-container">
               <div class="rating-inner">
                 <div class="rating">
-                  <span class="rating-num">{{movie?.rating}}</span>
+                  <span class="rating-num">{{movie?.criticRating}}</span>
                   <div class="rating-stars">
                       <span>
                         <i class=" fa fa-star icon-star"></i>
@@ -191,7 +191,7 @@
                       </span>
                   </div>
                   <div class="rating-users">
-                    <i class="icon-user"></i> {{movie.numberOfRating}} Total
+                    <i class="icon-user"></i> {{movie.numOfCriticRatings}} Critics
                   </div>
                 </div>
 
@@ -251,7 +251,7 @@
             <div class="col-ratings rating-container">
               <div class="rating-inner">
                 <div class="rating">
-                  <span class="rating-num">{{movie?.rating}}</span>
+                  <span class="rating-num">{{movie?.regUserRating}}</span>
                   <div class="rating-stars">
                       <span>
                         <i class=" fa fa-star icon-star"></i>
@@ -270,7 +270,7 @@
                       </span>
                   </div>
                   <div class="rating-users">
-                    <i class="icon-user"></i> 9,004 critics
+                    <i class="icon-user"></i> {{movie?.numOfRegUserRatings}} Users
                   </div>
                 </div>
 

@@ -13,16 +13,15 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
-import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
-@RequestMapping("/wishlist")
+@RequestMapping("/not-interested")
 @RestController
 @CrossOrigin(origins = "http://localhost:4200")
-public class WishlistController {
+public class NotInterestedListController {
 
     @Autowired
-    @Qualifier(value = "wishlistServiceImpl")
+    @Qualifier(value = "notInterestedListServiceImpl")
     ListService listService;
 
     @Autowired
@@ -32,44 +31,27 @@ public class WishlistController {
     ExceptionConstants exceptionConstants;
 
     @GetMapping(value = "/get")
-    public ResponseEntity<List<Movie>> getWishList(@RequestHeader(value = "Authorization") String jwtToken) {
-        List<Movie> wishListMovies = listService.getListFromUserId(jwtTokenService.getUserIdFromToken(jwtToken));
-        return new ResponseEntity<>(wishListMovies, HttpStatus.OK);
+    public ResponseEntity<List<Movie>> getNotInterestedList(@RequestHeader(value = "Authorization") String jwtToken) {
+        List<Movie> notInterestedListMovies = listService.getListFromUserId(jwtTokenService.getUserIdFromToken(jwtToken));
+        return new ResponseEntity<>(notInterestedListMovies, HttpStatus.OK);
     }
 
     @RequestMapping(value = "/add", method = POST)
-    public ResponseEntity<Boolean> addToWishList(@RequestHeader(value = "Authorization") String jwtToken,
+    public ResponseEntity<Boolean> addToNotInterestedList(@RequestHeader(value = "Authorization") String jwtToken,
                                                  @RequestParam("filmId") String filmId) {
         Boolean result = listService.addToList(jwtTokenService.getUserIdFromToken(jwtToken), filmId);
         if (result) {
             return ResponseEntity.ok(true);
         } else {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exceptionConstants.getAlreadyInWishList());
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exceptionConstants.getAlreadyInNotInterestedList());
         }
     }
 
     @DeleteMapping(value = "delete/{filmId}")
-    public ResponseEntity removeFromWishList(@RequestHeader(value = "Authorization") String jwtToken,
+    public ResponseEntity removeFromNotInterestedList(@RequestHeader(value = "Authorization") String jwtToken,
                                              @PathVariable("filmId") String filmId) {
         listService.removeFromList(jwtTokenService.getUserIdFromToken(jwtToken), filmId);
         return ResponseEntity.ok(true);
-    }
-
-    /**
-     * if movie exists in the user's wish list
-     * @param jwtToken
-     * @param filmId
-     * @return
-     */
-    @RequestMapping(value = "/exist", method = DELETE)
-    public ResponseEntity<Boolean> isMovieInList(@RequestHeader(value = "Authorization") String jwtToken,
-                                                     @RequestParam("filmId") String filmId) {
-        Boolean result = listService.isMovieInList(jwtTokenService.getUserIdFromToken(jwtToken), filmId);
-        if (result) {
-            return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-        }
-        return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
-
     }
 
 }

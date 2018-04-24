@@ -38,7 +38,7 @@ public class RegUserServiceImpl extends UserService {
     WishListRepository wishListRepository;
 
     @Autowired
-    WatchListRepository watchListRepository;
+    NotInterestedListRepository notInterestedListRepository;
 
     @Autowired
     MovieRepository movieRepository;
@@ -61,10 +61,10 @@ public class RegUserServiceImpl extends UserService {
         user.setUserProfile(userProfileRepository.save(new UserProfile()));
         // create a new wish list/ watch list
         user.getUserProfile().setWishList(wishListRepository.save(new WishList()));
-        user.getUserProfile().setWatchList(watchListRepository.save(new WatchList()));
+        user.getUserProfile().setNotInterestedList(notInterestedListRepository.save(new NotInterestedList()));
         // set size limit
         user.getUserProfile().getWishList().setWishListSize(limitationConstants.getWishListSize());
-        user.getUserProfile().getWatchList().setWishListSize(limitationConstants.getWatchListSize());
+        user.getUserProfile().getNotInterestedList().setNotInterestedListSize(limitationConstants.getWishListSize());
         return Optional.ofNullable(userRepository.save(user));
     }
 

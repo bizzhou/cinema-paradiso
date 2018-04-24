@@ -15,7 +15,7 @@ public class UserProfile {
     private String biography;
 
     @JsonIgnore
-    private WatchList watchList;
+    private NotInterestedList notInterestedList;
 
     @JsonIgnore
     private WishList wishList;
@@ -47,9 +47,9 @@ public class UserProfile {
     }
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "watchListId")
-    public WatchList getWatchList() {
-        return watchList;
+    @JoinColumn(name = "notInterestedListId")
+    public NotInterestedList getNotInterestedList() {
+        return notInterestedList;
     }
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -102,8 +102,8 @@ public class UserProfile {
         this.biography = biography;
     }
 
-    public void setWatchList(WatchList watchList) {
-        this.watchList = watchList;
+    public void setNotInterestedList(NotInterestedList notInterestedList) {
+        this.notInterestedList = notInterestedList;
     }
 
     public void setWishList(WishList wishList) {
@@ -137,7 +137,7 @@ public class UserProfile {
                 ", name='" + name + '\'' +
                 ", profileImage='" + profileImage + '\'' +
                 ", biography='" + biography + '\'' +
-                ", watchList=" + watchList +
+                ", notInterestedList=" + notInterestedList +
                 ", wishList=" + wishList +
                 ", isCritic=" + isCritic +
                 ", isPrivate=" + isPrivate +

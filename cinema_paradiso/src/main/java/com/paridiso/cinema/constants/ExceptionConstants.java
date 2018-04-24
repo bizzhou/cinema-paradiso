@@ -25,6 +25,7 @@ public class ExceptionConstants {
     private String reviewExists;
     private String invalidRatingNumber;
     private String alreadyInWishList;
+    private String alreadyInNotInterestedList;
 
     public String getAlreadyInWishList() {
         return alreadyInWishList;
@@ -168,5 +169,13 @@ public class ExceptionConstants {
 
     public void setSlideNotFound(String slideNotFound) {
         this.slideNotFound = slideNotFound;
+    }
+
+    public String getAlreadyInNotInterestedList() {
+        return alreadyInNotInterestedList;
+    }
+
+    public void setAlreadyInNotInterestedList(String alreadyInNotInterestedList) {
+        this.alreadyInNotInterestedList = alreadyInNotInterestedList;
     }
 }

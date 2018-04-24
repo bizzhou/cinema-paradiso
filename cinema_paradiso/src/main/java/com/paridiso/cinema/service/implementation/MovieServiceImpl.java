@@ -89,7 +89,7 @@ public class MovieServiceImpl implements FilmService {
     public Double addRating(Integer userProfileId, String filmId, Double rating) {
         Movie movie = getMovie(filmId);
         UserProfile userProfile = utilityService.getUserProfile(userProfileId);
-        if (userRatingRepository.findUserRatingsByUserAndRatedMovie(userProfile, movie).isPresent() == true) {
+        if (userRatingRepository.findUserRatingsByUserAndRatedMovie(userProfile, movie).isPresent()) {
             throw new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserRatingExists());
         }
         UserRating userRating = new UserRating();
@@ -189,13 +189,13 @@ public class MovieServiceImpl implements FilmService {
         Calendar now = movieUtility.getNow();
         // get movies with ratings >= 4.0 and released within one week
         Set<Movie> moviesTrending;
-        moviesTrending = movieRepository.findMoviesByRatingBetweenAndReleaseDateBetween(
+        moviesTrending = movieRepository.findMoviesByRegUserRatingBetweenAndReleaseDateBetween(
                 limitationConstants.getTrendingRating(), limitationConstants.getRatingLimit(),
                 daysBeforeNow, now);
         Collection<? extends Film> films = utilityService.shrinkMovieSize(moviesTrending);
         // if the number of movies returned above < 6, then find movies rated > 2.5
         if (moviesTrending.size() < limitationConstants.getLeastReturns()) {
-            moviesTrending.addAll(movieRepository.findMoviesByRatingBetweenAndReleaseDateBetween(
+            moviesTrending.addAll(movieRepository.findMoviesByRegUserRatingBetweenAndReleaseDateBetween(
                     limitationConstants.getAcceptableTrendingRating(), limitationConstants.getRatingLimit(),
                     daysBeforeNow, now));
         }
@@ -225,7 +225,7 @@ public class MovieServiceImpl implements FilmService {
     @Override
     public Set<? extends Film> getTopRating() {
         // TODO Generate proper number of regUserRating in the database, not just random....
-        Set<Movie> top50ByRatingOrderByRating = movieRepository.findTop50ByOrderByNumberOfRatingsDescRatingDesc();
+        Set<Movie> top50ByRatingOrderByRating = movieRepository.findTop50ByOrderByNumOfRegUserRatingsDescRegUserRatingDesc();
         logger.info(top50ByRatingOrderByRating);
         return top50ByRatingOrderByRating;
     }
