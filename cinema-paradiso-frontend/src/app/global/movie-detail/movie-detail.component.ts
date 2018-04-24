@@ -4,6 +4,7 @@ import {MovieService} from './movie.service';
 import {ActivatedRoute} from '@angular/router';
 import {LoginStatusService} from '../login/login.status.service';
 import {ToastrService} from 'ngx-toastr';
+import {Review} from '../models/review.model';
 
 
 @Component({
@@ -15,7 +16,7 @@ export class MovieDetailComponent implements OnInit {
 
   movie: Movie;
   selectedMovieId: string;
-  review: string;
+  review = new Review();
 
   isMovieExistInWishList: boolean;
   currentRating = 0;
@@ -32,7 +33,14 @@ export class MovieDetailComponent implements OnInit {
 
 
   addReview() {
-    console.log('adding review dummy');
+    this.review.imdbId = this.selectedMovieId;
+    this.movieService.addReview(this.review).subscribe(data => {
+      this.toastrService.success('SUCCESS');
+      this.movie.reviews.push(this.review);
+      console.log(this.movie.reviews);
+    }, error1 => {
+      this.toastrService.error(error1['error']['message']);
+    });
   }
 
   ratingOperations(data: number) {
@@ -60,7 +68,6 @@ export class MovieDetailComponent implements OnInit {
           this.toastrService.error(error1['error']['message']);
         }
 
-
       });
 
     } else {
@@ -68,14 +75,6 @@ export class MovieDetailComponent implements OnInit {
     }
 
   }
-
-
-  // rateMovie() {
-  //   this.movieService.rateMovie(this.hovered, this.selectedMovieId).subscribe(result => {
-  //     console.log(result);
-  //   });
-  // }
-
 
   ngOnInit() {
     window.scroll(0, 0);
@@ -88,8 +87,10 @@ export class MovieDetailComponent implements OnInit {
     console.log('id: ' + this.selectedMovieId);
     this.getMovie(this.selectedMovieId);
 
-    this.ratingAnimation();
-    console.log('user token ', this.loginStatusService.getTokenDetails());
+    console.log(this.movie.reviews);
+
+    // this.ratingAnimation();
+    // console.log('user token ', this.loginStatusService.getTokenDetails());
   }
 
 
@@ -98,10 +99,6 @@ export class MovieDetailComponent implements OnInit {
       .subscribe(
         data => {
           this.movie = data as Movie;
-          console.log(this.movie);
-          // console.log('casts ', this.movie.casts);
-          // console.log('imdbId ', this.movie.imdbId);
-          // console.log(this.movie.photos);
         },
         error => console.log('Failed to fetch movie with id')
       );

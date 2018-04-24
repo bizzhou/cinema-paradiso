@@ -353,9 +353,9 @@
 
               <!--TODO: post review here-->
               <form>
-                <input placeholder="Review title">
-                <textarea placeholder="What do you think about this movie?" [(ngModel)]="review"
-                          name="review"></textarea>
+                <input placeholder="Review title" [(ngModel)]="review.title" name="review_title">
+                <textarea placeholder="What do you think about this movie?" [(ngModel)]="review.reviewContent"
+                          name="review_content"></textarea>
                 <button class="c-update-btn" (click)="addReview()">Post</button>
               </form>
             </div>
@@ -455,7 +455,7 @@
         <!-- end 3rd section -->
 
         <!-- 	4th section	critic reviews -->
-        <app-md-review></app-md-review>
+        <app-md-review [userReviews]="movie.reviews"></app-md-review>
         <!-- end -->
 
       </div>

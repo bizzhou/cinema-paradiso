@@ -24,7 +24,7 @@ public class Review {
         return reviewId;
     }
 
-    @JsonIgnore
+//    @JsonIgnore
     @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "authorId", nullable = false)
     public UserProfile getAuthor() {

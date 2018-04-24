@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
@@ -57,7 +56,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Transactional
     @Override
-    public void addReview(Integer userId, String movieId, Review review) {
+    public boolean addReview(Integer userId, String movieId, Review review) {
         Movie movie = utilityService.getMoive(movieId);
         User user = utilityService.getUser(userId);
         if (reviewRepository.findReviewByMovieAndAuthor(movie, user.getUserProfile()).isPresent()) {
@@ -67,15 +66,7 @@ public class ReviewServiceImpl implements ReviewService {
         review.setPostedDate(Calendar.getInstance());
         review.setMovie(movie);
         review.setCriticReview(user.getUserProfile().getCritic());
-        List<Review> reviews = user.getUserProfile().getReviews() == null
-                ? new ArrayList<>() : user.getUserProfile().getReviews();
-        reviews.add(review);
-        logger.info(review.getReviewId());
-        user.getUserProfile().setReviews(reviews);
-        movie.getReviews().add(review);
-        reviewRepository.save(review);
-        userProfileRepository.save(user.getUserProfile());
-        movieRepository.save(movie);
+        return reviewRepository.save(review) == null;
     }
 
     @Override
@@ -90,7 +81,6 @@ public class ReviewServiceImpl implements ReviewService {
         Review review1 = reviewRepository.findById(review.getReviewId())
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getReviewNotFound()));
         Review newReview = null;
-
         // update review when find same in user profile.
         for (Review tempReview : userProfile.getReviews()) {
             if (tempReview.getMovie().getImdbId().equals(review1.getMovie().getImdbId())) {
@@ -120,6 +110,12 @@ public class ReviewServiceImpl implements ReviewService {
         } else {
             throw new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getReviewNotFound());
         }
+    }
+
+    @Override
+    public List<Review> getUserReviews(Integer userProfileId) {
+        UserProfile userProfile = utilityService.getUserProfile(userProfileId);
+        return userProfile.getReviews();
     }
 
     @Override
