@@ -1,6 +1,7 @@
 package com.paridiso.cinema.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -24,7 +25,7 @@ public class Review {
         return reviewId;
     }
 
-//    @JsonIgnore
+    @JsonIgnore
     @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "authorId", nullable = false)
     public UserProfile getAuthor() {

@@ -87,10 +87,13 @@ export class MovieDetailComponent implements OnInit {
     console.log('id: ' + this.selectedMovieId);
     this.getMovie(this.selectedMovieId);
 
-    console.log(this.movie.reviews);
+    this.movieService.getMovieReviews(this.selectedMovieId).subscribe(data => {
+      this.movie.reviews = data as Review[];
+      console.log(this.movie.reviews);
+    }, error1 => {
+      this.toastrService.error('FAILED TO FETCH REVIEWS');
+    });
 
-    // this.ratingAnimation();
-    // console.log('user token ', this.loginStatusService.getTokenDetails());
   }
 
 
