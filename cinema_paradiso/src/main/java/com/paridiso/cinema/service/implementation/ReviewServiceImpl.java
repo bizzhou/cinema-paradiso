@@ -18,6 +18,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -63,9 +64,11 @@ public class ReviewServiceImpl implements ReviewService {
             throw new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getReviewExists());
         }
         review.setAuthor(user.getUserProfile());
+        review.setPostedDate(Calendar.getInstance());
         review.setMovie(movie);
+        review.setCriticReview(user.getUserProfile().getCritic());
         List<Review> reviews = user.getUserProfile().getReviews() == null
-                ? new ArrayList<Review>() : user.getUserProfile().getReviews();
+                ? new ArrayList<>() : user.getUserProfile().getReviews();
         reviews.add(review);
         logger.info(review.getReviewId());
         user.getUserProfile().setReviews(reviews);
@@ -87,11 +90,12 @@ public class ReviewServiceImpl implements ReviewService {
         Review review1 = reviewRepository.findById(review.getReviewId())
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getReviewNotFound()));
         Review newReview = null;
-        // update review in userprofile
+
+        // update review when find same in user profile.
         for (Review tempReview : userProfile.getReviews()) {
             if (tempReview.getMovie().getImdbId().equals(review1.getMovie().getImdbId())) {
                 tempReview.setReviewContent(review.getReviewContent());
-                tempReview.setPostedDate(review.getPostedDate());
+                tempReview.setPostedDate(Calendar.getInstance());
                 tempReview.setTitle(review.getTitle());
                 newReview = review;
             }
@@ -105,9 +109,6 @@ public class ReviewServiceImpl implements ReviewService {
         logger.info(reviewId);
         Review review = reviewRepository.findReviewByReviewId(reviewId)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getReviewNotFound()));
-//        logger.error(review);
-//        boolean remove = review.getMovie().getReviews().remove(review);
-//        movieRepository.save(review.getMovie());
         reviewRepository.delete(review);
     }
 
