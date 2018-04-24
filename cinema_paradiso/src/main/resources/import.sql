@@ -13,8 +13,8 @@ update slides set backgroundImage="https://images-na.ssl-images-amazon.com/image
 
 -- INSERT INTO Celebrities (celebrityId, name, isDirector) VALUES ("nm000001", "Guillermo del Toro", 1);
 --
--- INSERT INTO Movies (imdbId, title, rating, numberOfRatings) VALUES ("tt000002", "The Shape Of Water", 4.3, 999);
--- INSERT INTO Movies (imdbId, title, rating, numberOfRatings) VALUES ("tt000003", "Blade Runner", 0, 0);
+-- INSERT INTO Movies (imdbId, title, regUserRating, numOfRegUserRatings) VALUES ("tt000002", "The Shape Of Water", 4.3, 999);
+-- INSERT INTO Movies (imdbId, title, regUserRating, numOfRegUserRatings) VALUES ("tt000003", "Blade Runner", 0, 0);
 --
 -- INSERT INTO userProfiles (id, biography, critic, private, name, profileImage, watchListId, wishListId) VALUES (1, "Hello World", FALSE, FALSE, "John Doe", NULL, 1, 1);
 -- INSERT INTO userProfiles (id, biography, critic, private, name, profileImage, watchListId, wishListId) VALUES (2, "Raze World", TRUE, FALSE, "Peter Vim", NULL, 1, 1);

@@ -1,7 +1,6 @@
 package com.paridiso.cinema.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.paridiso.cinema.entity.enumerations.Genre;
 import com.paridiso.cinema.entity.enumerations.Rated;
 import org.hibernate.annotations.Type;
@@ -9,7 +8,6 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.net.URI;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -34,8 +32,10 @@ public class Film {
     protected String language;
     protected String country;
     protected String poster;
-    protected Double rating;
-    protected Integer numberOfRatings;
+    protected Double regUserRating;
+    protected Integer numOfRegUserRatings;
+    protected Double criticRating;
+    protected Integer numOfCriticRatings;
     protected String production;
     protected URI website;
 
@@ -130,12 +130,20 @@ public class Film {
         return poster;
     }
 
-    public Double getRating() {
-        return rating;
+    public Double getRegUserRating() {
+        return regUserRating;
     }
 
-    public Integer getNumberOfRatings() {
-        return numberOfRatings;
+    public Integer getNumOfRegUserRatings() {
+        return numOfRegUserRatings;
+    }
+
+    public Double getCriticRating() {
+        return criticRating;
+    }
+
+    public Integer getNumOfCriticRatings() {
+        return numOfCriticRatings;
     }
 
     public String getProduction() {
@@ -214,12 +222,12 @@ public class Film {
         this.poster = poster;
     }
 
-    public void setRating(Double rating) {
-        this.rating = rating;
+    public void setRegUserRating(Double regUserRating) {
+        this.regUserRating = regUserRating;
     }
 
-    public void setNumberOfRatings(Integer numberOfRatings) {
-        this.numberOfRatings = numberOfRatings;
+    public void setNumOfRegUserRatings(Integer numOfRegUserRatings) {
+        this.numOfRegUserRatings = numOfRegUserRatings;
     }
 
     public void setProduction(String production) {
@@ -228,6 +236,14 @@ public class Film {
 
     public void setWebsite(URI website) {
         this.website = website;
+    }
+
+    public void setCriticRating(Double criticRating) {
+        this.criticRating = criticRating;
+    }
+
+    public void setNumOfCriticRatings(Integer numOfCriticRatings) {
+        this.numOfCriticRatings = numOfCriticRatings;
     }
 
     @Override
@@ -250,8 +266,8 @@ public class Film {
                 ", language='" + language + '\'' +
                 ", country='" + country + '\'' +
                 ", poster='" + poster + '\'' +
-                ", rating=" + rating +
-                ", numberOfRatings=" + numberOfRatings +
+                ", regUserRating=" + regUserRating +
+                ", numOfRegUserRatings=" + numOfRegUserRatings +
                 ", production='" + production + '\'' +
                 ", website=" + website +
                 '}';

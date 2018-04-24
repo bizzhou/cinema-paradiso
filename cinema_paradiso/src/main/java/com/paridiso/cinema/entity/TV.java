@@ -49,8 +49,8 @@ public class TV extends Film {
                 ", language='" + language + '\'' +
                 ", country='" + country + '\'' +
                 ", poster='" + poster + '\'' +
-                ", rating=" + rating +
-                ", numberOfRatings=" + numberOfRatings +
+                ", regUserRating=" + regUserRating +
+                ", numOfRegUserRatings=" + numOfRegUserRatings +
                 ", production='" + production + '\'' +
                 ", website=" + website +
                 '}';

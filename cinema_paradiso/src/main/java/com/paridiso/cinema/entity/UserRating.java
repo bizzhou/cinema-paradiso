@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.util.Calendar;
 
 /**
- * Store a rated movie and its rating (of the user),
+ * Store a rated movie and its regUserRating (of the user),
  * i.e each user can has a list of UserRatings
  */
 @Entity

@@ -72,6 +72,8 @@ public class MovieController {
     public ResponseEntity<?> addRating(@RequestHeader(value = "Authorization") String jwtToken,
                                              @PathVariable String filmId,
                                              @PathVariable Double rating) {
+        System.out.println("Ratings: " + rating);
+
         if (rating > 5 || rating < 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exceptionConstants.getInvalidRatingNumber());
         }

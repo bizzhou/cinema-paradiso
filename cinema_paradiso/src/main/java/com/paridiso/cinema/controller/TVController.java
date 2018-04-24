@@ -43,7 +43,7 @@ public class TVController {
 
     @RequestMapping(value = "/rate_tv/{id}", method = POST)
     public ResponseEntity<Boolean> rateTV(@PathVariable Long id,
-                                          @RequestParam(value = "rating", required = true) Double rating) {
+                                          @RequestParam(value = "regUserRating", required = true) Double rating) {
         return null;
     }
 

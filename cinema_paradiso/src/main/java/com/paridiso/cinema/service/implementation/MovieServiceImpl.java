@@ -97,9 +97,9 @@ public class MovieServiceImpl implements FilmService {
         userRating.setUserRating(rating);
         userRating.setUser(userProfile);
         userRating.setRatedDate(Calendar.getInstance());
-        logger.info("old rating " + movie.getRating());
+        logger.info("old regUserRating " + movie.getRegUserRating());
         Double newRating = calculateNewRating(rating, movie);
-        logger.info("new rating " + newRating);
+        logger.info("new regUserRating " + newRating);
         userRatingRepository.save(userRating);
         movieRepository.save(movie);
         return newRating;
@@ -126,9 +126,9 @@ public class MovieServiceImpl implements FilmService {
         UserRating userRating = userRatingRepository.findUserRatingsByUserAndRatedMovie(userProfile, movie)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserRatingNotExists()));
         Double oldRating = calculateOldRating(movie, userRating);
-        movie.setRating(oldRating);
+        movie.setRegUserRating(oldRating);
         Double newRating = calculateNewRating(rating, movie);
-        movie.setRating(newRating);
+        movie.setRegUserRating(newRating);
         userRating.setUserRating(rating);
         movieRepository.save(movie);
         userRatingRepository.save(userRating);
@@ -136,19 +136,19 @@ public class MovieServiceImpl implements FilmService {
     }
 
     private Double calculateOldRating(Movie movie, UserRating userRating) {
-        Double oldRating = (movie.getRating() * movie.getNumberOfRatings() - userRating.getUserRating()) /
-                (movie.getNumberOfRatings() - 1);
-        movie.setRating(oldRating);
-        movie.setNumberOfRatings(movie.getNumberOfRatings() - 1);
+        Double oldRating = (movie.getRegUserRating() * movie.getNumOfRegUserRatings() - userRating.getUserRating()) /
+                (movie.getNumOfRegUserRatings() - 1);
+        movie.setRegUserRating(oldRating);
+        movie.setNumOfRegUserRatings(movie.getNumOfRegUserRatings() - 1);
         return oldRating;
     }
 
     private Double calculateNewRating(Double rating, Movie movie) {
-        Integer oldNumberOfRating = movie.getNumberOfRatings();
-        Double newRating = (movie.getRating() * oldNumberOfRating + rating) / (oldNumberOfRating + 1);
-        movie.setNumberOfRatings(oldNumberOfRating + 1);
+        Integer oldNumberOfRating = movie.getNumOfRegUserRatings();
+        Double newRating = (movie.getRegUserRating() * oldNumberOfRating + rating) / (oldNumberOfRating + 1);
+        movie.setNumOfRegUserRatings(oldNumberOfRating + 1);
         double tenthPlace = Math.round(newRating * 10.0) / 10.0;
-        movie.setRating(tenthPlace);
+        movie.setRegUserRating(tenthPlace);
         return tenthPlace;
     }
 
@@ -224,7 +224,7 @@ public class MovieServiceImpl implements FilmService {
 
     @Override
     public Set<? extends Film> getTopRating() {
-        // TODO Generate proper number of rating in the database, not just random....
+        // TODO Generate proper number of regUserRating in the database, not just random....
         Set<Movie> top50ByRatingOrderByRating = movieRepository.findTop50ByOrderByNumberOfRatingsDescRatingDesc();
         logger.info(top50ByRatingOrderByRating);
         return top50ByRatingOrderByRating;
