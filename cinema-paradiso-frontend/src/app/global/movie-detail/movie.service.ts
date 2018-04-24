@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Review} from '../models/review.model';
+import {Observable} from 'rxjs/Observable';
 
 const MOVIE_SERVER = 'http://localhost:8080/movie/';
 const WISH_LIST_SERVER = 'http://localhost:8080/wishlist/';
@@ -81,5 +82,9 @@ export class MovieService {
 
   addReview(review: Review) {
     return this.http.post(`http://localhost:8080/review/add/${review.imdbId}`, review);
+  }
+
+  getMovieReviews(selectedMovieId: string): Observable<any> {
+    return this.http.get(`http://localhost:8080/review/get/${selectedMovieId}`);
   }
 }

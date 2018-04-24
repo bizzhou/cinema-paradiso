@@ -60,7 +60,18 @@ public class ReviewController {
 
     @GetMapping(value = "get/{filmId}")
     public ResponseEntity<List> getMovieReviews(@PathVariable String filmId) {
-        return ResponseEntity.ok(reviewService.getMovieReviews(filmId));
+        List<Review> movieReviews = reviewService.getMovieReviews(filmId);
+        List<Map> list = new ArrayList<Map>();
+        for (Review review : movieReviews) {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("reviewId", review.getReviewId());
+            map.put("title", review.getTitle());
+            map.put("user", review.getAuthor().getId());
+            map.put("criticReview", review.isCriticReview());
+            map.put("postDate", review.getPostedDate());
+            list.add(map);
+        }
+        return ResponseEntity.ok(list);
     }
 
     @RequestMapping(value = "/{filmId}/review", method = POST, params = "liked")
