@@ -1,9 +1,11 @@
 $color-red: rgb(229, 9, 20);
+$color-gray: gray;
 $link-hover: lighten(black, 60%);
 $link-active: darken(gray, 30%);
 $sidebar-link-hover: white;
 $sidebar-link: darken(white, 20%);
 $main-background: lighten(black, 10%);
+$color-plot: lighten(black, 60%);
 
 @mixin cols ($width, $padding-left, $padding-right){
   width: $width;
@@ -21,17 +23,20 @@ main{
   padding-bottom: 5%;
 }
 .col-sidebar {
-  @include cols(31%, 1px, 1px);
+  @include cols(28%, 1px, 1px);
 }
 .col-right {
-  @include cols(68.5%, 0, 0);
+  @include cols(71.5%, 0, 0);
 }
 .sidebar {
   padding-left:3%;
 }
+.col-20 {
+  @include cols(19.5%, 10px, 10px);
+}
 .content-wrap {
-  padding-left:3%;
-  padding-right: 3%;
+  padding-left:1%;
+  padding-right: 0%;
 }
 
 .s-explore {
@@ -86,6 +91,8 @@ main{
 // content-wrap
 .l-cards {
 
+  color: white;
+
   a:hover {
     color: $link-hover;
   }
@@ -99,37 +106,90 @@ main{
 
   .l-cards__more:first-of-type {
     position: absolute;
-    right: 12%;
+    right: 4.5%;
     font-size: 1.1em;
   }
   .l-cards__more:last-of-type {
     position: absolute;
-    right: 7%;
+    right: 0;
     font-size: 1.1em;
   }
 
 }
 
-.l-cards__list {
+.l-cards__table {
   margin-top: 0.6rem;
-  margin-bottom: 9rem;
-  display: flex;
 
   .l-cards__item {
-    background-color: #646464;
-    height: 3em;
-    flex: 0 0 7em;
-    margin-right: 2.3em;
-    margin-bottom: 1em;
     text-align: center;
-    font-weight: 400;
+    overflow: hidden;
     letter-spacing: 0;
   }
 
+  .l-cards__image {
+    img {
+      height: 10em;
+    }
+  }
+
   .l-cards__text {
-    text-align: center;
-    overflow: hidden;
     font-size: 12px;
   }
 
 }
+
+.item__rating {
+  color: $color-red;
+  margin-right: -5px;
+}
+
+
+.l-cards__item {
+  margin-bottom: 1em;
+}
+
+.l-cards__list {
+  color: white;
+  margin-top: 1em;
+
+  .item__title {
+    font-size: 16px;
+    font-weight: 400;
+  }
+
+  .cards__content {
+    font-size: 14px;
+  }
+
+  .cards__rating, .cards__content span{
+    color: $color-plot;
+    font-size: 14px;
+  }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

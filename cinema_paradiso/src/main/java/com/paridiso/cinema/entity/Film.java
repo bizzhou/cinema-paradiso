@@ -3,6 +3,7 @@ package com.paridiso.cinema.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.paridiso.cinema.entity.enumerations.Genre;
 import com.paridiso.cinema.entity.enumerations.Rated;
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -134,6 +135,7 @@ public class Film {
         return regUserRating;
     }
 
+    @ColumnDefault("0")
     public Integer getNumOfRegUserRatings() {
         return numOfRegUserRatings;
     }
@@ -142,6 +144,7 @@ public class Film {
         return criticRating;
     }
 
+    @ColumnDefault("0")
     public Integer getNumOfCriticRatings() {
         return numOfCriticRatings;
     }

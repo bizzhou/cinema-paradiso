@@ -60,106 +60,56 @@
     <div class="col-right content-wrap">
 
       <!-- 	1st section	 -->
-      <div class="l-cards">
-        <h2 class="l-cards__title">opening this week </h2>
-        <a class="l-cards__more" href="#"><i class="fa fa-th-large"></i> </a>
-        <a class="l-cards__more" href="#"><i class="fa fa-list-ul"></i> </a>
-        <!-- 			<a class="l-cards__more"href="#"><i class="fa fa-list"></i>
-        </a>
-              <a class="l-cards__more"href="#">  <i class="fa fa-th-large"></i> -->
-        <!--</a>-->
+      <div class="container l-cards">
+        <div class="row">
+          <h2 class="col-10 l-cards__title">opening this week </h2>
+          <a class="col-1 l-cards__more" (click)="setListView(false)"><i class="fa fa-th-large"></i> </a>
+          <a class="col-1 l-cards__more" (click)="setListView(true)"><i class="fa fa-list-ul"></i> </a>
+        </div>
 
-        <!-- 1st row -->
-        <ul class="l-cards__list">
-          <li class="l-cards__item">
-            <a routerLink="/movie-detail" class="l-cards__image fill"></a>
-            <a href="#" class="l-cards__text"></a>
+
+        <!-- grid view-->
+        <ul *ngIf="!isListView" class="row l-cards__table">
+          <li  *ngFor="let movie of moviesPlaying"  class="col-20 l-cards__item">
+            <a routerLink="/movie/{{movie.imdbId}}" class="l-cards__image fill"><img [src]="movie.poster"></a>
+            <a href="/movie/{{movie.imdbId}}" class="l-cards__text">{{movie.title}} <i class="item__rating"> {{movie.regUserRating}}</i></a>
           </li>
+        </ul> <!-- .row -->
 
-          <li class="l-cards__item" ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus."><a href="#" class="l-cards__image fill"></a>
-            <a href="#" class="l-cards__text"></a></li>
+        <!-- list view -->
+        <ul *ngIf="isListView" class="row l-cards__list">
+          <li  *ngFor="let movie of moviesPlaying"  class="col-12 l-cards__item">
+            <div class="container"><div class="row">
+              <a routerLink="/movie/{{movie.imdbId}}" class="col-2 l-cards__image fill"><img [src]="movie.poster"></a>
+              <div class="col-10">
+                <h5 class="item__title">{{movie.title}}</h5>
+                <p class="cards__rating">
+                  <i class="fa fa-star item__rating"></i>
+                  <i class="fa fa-star item__rating"></i>
+                  <i class="fa fa-star item__rating"></i>
+                  <i class="fa fa-star item__rating"></i>
+                  <i class="fa fa-star item__rating" style="margin-right: 5px"></i>
+                  <span> ({{movie.numOfCriticRatings + movie.numOfRegUserRatings}} Ratings)</span>
+                </p>
+                <p class="cards__content">
+                  <span>{{movie.plot.substring(0, 150)}}</span>
+                </p>
+                <p class="cards__content">
+                  Director: <span>{{movie.director.name}}</span>
+                </p>
+                <p class="cards__content">
+                  Starring: <span *ngFor="let cast of movie.casts | slice:0:4">{{cast.name}}, </span>
+                </p>
 
-          <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-            <a href="#" class="l-cards__text"></a></li>
-
-          <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-            <a href="#" class="l-cards__text"></a></li>
-
-          <!--<li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>-->
-            <!--<a href="#" class="l-cards__text"></a></li>-->
-
-
-        </ul> <!-- ./first row -->
-
-        <!-- 2nd row -->
-        <ul class="l-cards__list">
-          <li class="l-cards__item">
-            <a href="#" class="l-cards__image fill"></a>
-            <a href="#" class="l-cards__text"></a>
+              </div>
+            </div></div>
           </li>
+        </ul> <!-- .row -->
 
-          <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-            <a href="#" class="l-cards__text"></a></li>
-
-          <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-            <a href="#" class="l-cards__text"></a></li>
-
-          <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-            <a href="#" class="l-cards__text"></a></li>
-
-          <!--<li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>-->
-            <!--<a href="#" class="l-cards__text"></a></li>-->
-
-
-        </ul> <!-- ./2nd row -->
-
-        <!-- 3rd row -->
-        <ul class="l-cards__list">
-          <li class="l-cards__item">
-            <a href="#" class="l-cards__image fill"></a>
-            <a href="#" class="l-cards__text"></a>
-          </li>
-
-          <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-            <a href="#" class="l-cards__text"></a></li>
-
-          <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-            <a href="#" class="l-cards__text"></a></li>
-
-          <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-            <a href="#" class="l-cards__text"></a></li>
-
-          <!--<li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>-->
-            <!--<a href="#" class="l-cards__text"></a></li>-->
-
-
-        </ul> <!-- ./3rd row -->
-
-        <!-- 4th row -->
-        <ul class="l-cards__list">
-          <li class="l-cards__item">
-            <a href="#" class="l-cards__image fill"></a>
-            <a href="#" class="l-cards__text"></a>
-          </li>
-
-          <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-            <a href="#" class="l-cards__text"></a></li>
-
-          <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-            <a href="#" class="l-cards__text"></a></li>
-
-          <li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>
-            <a href="#" class="l-cards__text"></a></li>
-
-          <!--<li class="l-cards__item"><a href="#" class="l-cards__image fill"></a>-->
-            <!--<a href="#" class="l-cards__text"></a></li>-->
-
-
-        </ul> <!-- ./4th row -->
       </div>
 
       <!--   pagination   -->
-      <ngb-pagination [collectionSize]="120" [(page)]="page" [maxSize]="5" [ellipses]="false" [boundaryLinks]="true" ></ngb-pagination>
+      <ngb-pagination [collectionSize]="10" [(page)]="page" [maxSize]="5" [ellipses]="false" [boundaryLinks]="true" ></ngb-pagination>
 
     </div> <!-- ./end right panel -->
 
