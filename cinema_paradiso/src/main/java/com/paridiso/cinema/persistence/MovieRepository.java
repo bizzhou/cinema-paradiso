@@ -18,7 +18,7 @@ public interface MovieRepository extends JpaRepository<Movie, String> {
 
     Page<Movie> findMoviesByReleaseDateBetween(Calendar startDate, Calendar currentDate, Pageable page);
 
-    Set<Movie> findMoviesByRegUserRatingBetweenAndReleaseDateBetween(Double startRating, Double endRating, Calendar startDate, Calendar endDate);
+    Page<Movie> findMoviesByRegUserRatingBetweenAndReleaseDateBetween(Double startRating, Double endRating, Calendar startDate, Calendar endDate, Pageable page);
 
     Page<Movie> findMoviesByTitleContains(String filmTitle, Pageable pageable);
 

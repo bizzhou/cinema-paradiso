@@ -34,7 +34,7 @@ public interface FilmService {
      *
      * @return a set of qualified movies
      */
-    Set<Movie> getMoviesTrending(Integer pageNo, Integer pageSize);
+    HashMap<String, Object> getMoviesTrending(Integer pageNo, Integer pageSize);
 
     /**
      * Get movies coming soon

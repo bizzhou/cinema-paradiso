@@ -192,24 +192,19 @@ public class MovieServiceImpl implements FilmService {
     }
 
     @Override
-    public Set<Movie> getMoviesTrending(Integer pageNo, Integer pageSize) {
-        // get date 3 week before and now
-//        Calendar daysBeforeNow = movieUtility.getDaysBeforeNow(limitationConstants.getThreeWeeksRange());
-//        Calendar now = movieUtility.getNow();
-//        // get movies with ratings >= 4.0 and released within one week
-//        Set<Movie> moviesTrending;
-//        moviesTrending = movieRepository.findMoviesByRegUserRatingBetweenAndReleaseDateBetween(
-//                limitationConstants.getTrendingRating(), limitationConstants.getRatingLimit(),
-//                daysBeforeNow, now);
-//        Collection<? extends Film> films = utilityService.shrinkMovieSize(moviesTrending);
-//        // if the number of movies returned above < 6, then find movies rated > 2.5
-//        if (moviesTrending.size() < limitationConstants.getLeastReturns()) {
-//            moviesTrending.addAll(movieRepository.findMoviesByRegUserRatingBetweenAndReleaseDateBetween(
-//                    limitationConstants.getAcceptableTrendingRating(), limitationConstants.getRatingLimit(),
-//                    daysBeforeNow, now));
-//        }
-//        return (Set<Movie>) films;
-        return null;
+    public HashMap<String, Object> getMoviesTrending(Integer pageNo, Integer pageSize) {
+        // get date 1 month before and now
+        Calendar daysBeforeNow = movieUtility.getDaysBeforeNow(limitationConstants.getOneMonthRange());
+        Calendar now = movieUtility.getNow();
+
+        // get movies with ratings >= 3.5 and released within one month
+        Page<Movie> moviesPage  = movieRepository.findMoviesByRegUserRatingBetweenAndReleaseDateBetween(
+                limitationConstants.getTrendingRating(), limitationConstants.getRatingLimit(),
+                daysBeforeNow, now, new PageRequest(pageNo, pageSize));
+        HashMap<String, Object> results = new HashMap<>();
+        results.put("movie", moviesPage.getContent());
+        results.put("movie_page", moviesPage.getTotalPages());
+        return results;
     }
 
     @Override

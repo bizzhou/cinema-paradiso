@@ -120,16 +120,16 @@ public class MovieController {
         return null;
     }
 
-    @GetMapping(value = "/get/trending")
-    public ResponseEntity<Set> getMoviesTrending(@RequestParam Integer pageNo,
+    @PostMapping(value = "/trending")
+    public ResponseEntity<?> getMoviesTrending(@RequestParam Integer pageNo,
                                                  @RequestParam Integer pageSize) {
         return new ResponseEntity<>(filmService.getMoviesTrending(pageNo, pageSize), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/get/comingSoon")
-    public ResponseEntity<Set> getMoviesComingSoon(@RequestParam Integer pageNo,
+    @PostMapping(value = "/comingSoon")
+    public ResponseEntity<?> getMoviesComingSoon(@RequestParam Integer pageNo,
                                                    @RequestParam Integer pageSize) {
-        return new ResponseEntity<Set>(filmService.getMoviesComingSoon(pageNo, pageSize), HttpStatus.OK);
+        return new ResponseEntity<>(filmService.getMoviesComingSoon(pageNo, pageSize), HttpStatus.OK);
     }
 
     @PostMapping(value = "/playing")
