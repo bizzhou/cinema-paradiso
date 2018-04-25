@@ -2,12 +2,17 @@ package com.paridiso.cinema.service.implementation;
 
 import com.paridiso.cinema.constants.ExceptionConstants;
 import com.paridiso.cinema.entity.Celebrity;
+import com.paridiso.cinema.entity.FilmographyWrapper;
+import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.persistence.CelebrityRepository;
 import com.paridiso.cinema.service.CelebrityService;
+import com.paridiso.cinema.service.UtilityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +26,9 @@ public class CelebrityServiceImpl implements CelebrityService {
 
     @Autowired
     ExceptionConstants exceptionConstants;
+
+    @Autowired
+    UtilityService utilityService;
 
     @Override
     public List<Celebrity> getCelebrities() {
@@ -47,5 +55,22 @@ public class CelebrityServiceImpl implements CelebrityService {
         if (celebrityRepository.findCelebrityByCelebrityId(celebrity.getCelebrityId()) != null)
             throw new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieNotFound());
         return Optional.of(celebrityRepository.save(celebrity));
+    }
+
+    @Transactional
+    @Override
+    public boolean addFilmography(FilmographyWrapper filmography) {
+
+        List<Movie> celebFilmgraphy = new ArrayList<>();
+        filmography.getFilmography().forEach(movieId -> {
+            celebFilmgraphy.add(utilityService.getMoive(movieId));
+        });
+
+        Celebrity celebrity = celebrityRepository.findById(filmography.getCelebrityId())
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getCelebrityNotFound()));
+
+        celebrity.setFilmography(celebFilmgraphy);
+        return celebrityRepository.save(celebrity).getFilmography() != null;
+
     }
 }

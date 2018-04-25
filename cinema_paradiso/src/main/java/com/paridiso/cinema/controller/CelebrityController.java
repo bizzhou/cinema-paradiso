@@ -2,6 +2,7 @@ package com.paridiso.cinema.controller;
 
 import com.paridiso.cinema.constants.ExceptionConstants;
 import com.paridiso.cinema.entity.Celebrity;
+import com.paridiso.cinema.entity.FilmographyWrapper;
 import com.paridiso.cinema.service.CelebrityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,10 +49,15 @@ public class CelebrityController {
         return null;
     }
 
-    @PostMapping(value = "update/{id{")
+    @PostMapping(value = "update/{id}")
     public ResponseEntity<Celebrity> deleteCelebrity(@PathVariable Integer id,
                                                      @RequestBody Celebrity celebrity) {
         return null;
+    }
+
+    @PostMapping(value = "add_filmogrpahy")
+    public ResponseEntity<?> addFilmography(@RequestBody FilmographyWrapper filmography) {
+        return ResponseEntity.ok(celebrityService.addFilmography(filmography));
     }
 
 }
