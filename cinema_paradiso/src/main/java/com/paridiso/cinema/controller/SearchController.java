@@ -16,7 +16,7 @@ import java.util.Set;
 
 @RequestMapping("/search")
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class SearchController {
 
     @Autowired
