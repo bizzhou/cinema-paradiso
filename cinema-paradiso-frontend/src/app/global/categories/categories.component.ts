@@ -41,6 +41,8 @@ export class CategoriesComponent implements OnInit {
   // click on tab, get corresponding movies
   setCurrentTab(tab: string) {
 
+    console.log('fetching' + tab);
+
     switch (tab) {
       case this.sidebarEnum.moviesPlaying: {
         this.getMoviesPlaying();
@@ -60,39 +62,40 @@ export class CategoriesComponent implements OnInit {
   getMoviesNextPage(currentPage) {
     const actualPage = currentPage - 1;
 
+    console.log('sending request for: ' + this.currentTab + ' page ' + actualPage);
     switch (this.currentTab) {
       case this.sidebarEnum.moviesPlaying: {
         this.movieService.getMoviesPlaying(actualPage.toString(), '20')
           .subscribe(results => {
             this.moviesPlaying = results['movie'] as Movie[];
-            window.scroll(0, 0);
+            this.currentMovies = this.moviesPlaying;
           });
         break;
       }
       case this.sidebarEnum.moviesTopBoxOffice: {
         this.movieService.getTopBoxOffice(actualPage.toString(), '20')
           .subscribe(results => {
-            this.moviesPlaying = results['movie'] as Movie[];
-            window.scroll(0, 0);
+            this.moviesTopBoxOffice = results['movie'] as Movie[];
+            this.currentMovies = this.moviesTopBoxOffice;
           });
         break;
       }
 
     }
 
+    window.scroll(0, 0);
+
   }
 
   getMoviesPlaying(): any {
-    if (this.moviesPlaying != null) {
-      this.currentMovies = this.moviesPlaying;
-    } else {
+    if (this.moviesPlaying == null) {
       this.movieService.getMoviesPlaying('0', '20')
         .subscribe(
           data => {
             this.moviesPlaying = data['movie'] as Movie[];
             this.numOfMoviesPlayingPages = data['movie_page'] * 10;
 
-            // for current tab
+            // set for current tab
             this.currentMovies = this.moviesPlaying;
             this.numOfCurrentMovies = this.numOfMoviesPlayingPages;
 
@@ -104,12 +107,11 @@ export class CategoriesComponent implements OnInit {
         );
     }
 
+
   }
 
   getMoviesTopBoxOffice(): any {
-    if (this.moviesTopBoxOffice != null) {
-      this.currentMovies = this.moviesTopBoxOffice;
-    } else {
+    if (this.moviesTopBoxOffice == null) {
       this.movieService.getTopBoxOffice('0', '20')
         .subscribe(
           data => {
@@ -117,7 +119,7 @@ export class CategoriesComponent implements OnInit {
             this.numOfMoviesTopBoxOffice = data['movie_page'] * 10;
 
             this.currentMovies = this.moviesTopBoxOffice;
-            this.numOfCurrentMovies = this.numOfMoviesTopBoxOffice;
+            this.numOfCurrentMovies = this.numOfMoviesPlayingPages;
 
             console.log(this.moviesTopBoxOffice);
             console.log(this.numOfMoviesTopBoxOffice);
@@ -126,6 +128,7 @@ export class CategoriesComponent implements OnInit {
           error => console.log('Failed to fetch movies with top box office')
         );
     }
+
   }
 
   setListView(isListView: boolean) {
