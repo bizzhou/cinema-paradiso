@@ -6,7 +6,27 @@
 
       <!--  sidebar: movies category  -->
     <div class="col-sidebar sidebar">
-      <app-sidebar></app-sidebar>
+      <ul class="s-explore">
+        <!--     in theaters -->
+        <li class="s-explore__title"><h3>In Theaters</h3></li>
+        <li class="s-explore__item active"><a (click)="setCurrentTab(sidebarEnum.moviesPlaying)">now playing</a></li>
+        <li class="s-explore__item"><a (click)="setCurrentTab(sidebarEnum.moviesTopBoxOffice)">top box office</a></li>
+        <li class="s-explore__item"><a>trending now</a></li>
+        <li class="s-explore__item"><a href="#">coming soon</a></li>
+        <li class="s-explore__item"><a href="#">certified fresh movies</a></li>
+
+        <!--     dvds -->
+        <li class="s-explore__title"><h3>dvd & streaming movies</h3></li>
+        <li class="s-explore__item"><a href="#">browser all</a></li>
+        <li class="s-explore__item"><a href="#">top DVD & streaming</a></li>
+        <li class="s-explore__item"><a href="#">certified fresh movies</a></li>
+
+        <!--     tv -->
+        <li class="s-explore__title"><h3>TV</h3></li>
+        <li class="s-explore__item"><a href="#">new TV tonight</a></li>
+        <li class="s-explore__item"><a href="#">most popular tv on RT</a></li>
+        <li class="s-explore__item"><a href="#">certified fresh TV</a></li>
+      </ul>
     </div>
 
     <!--  right panel -->
@@ -15,7 +35,7 @@
       <!-- 	1st section	 -->
       <div class="container l-cards">
         <div class="row">
-          <h2 class="col-10 l-cards__title">now playing </h2>
+          <h2 class="col-10 l-cards__title">{{currentTab}} </h2>
           <a class="col-1 l-cards__more" (click)="setListView(false)"><i class="fa fa-th-large"></i> </a>
           <a class="col-1 l-cards__more" (click)="setListView(true)"><i class="fa fa-list-ul"></i> </a>
         </div>
@@ -30,7 +50,7 @@
 
         <!-- list view -->
         <ul *ngIf="isListView" class="row l-cards__list">
-          <li  *ngFor="let movie of moviesPlaying"  class="col-12 l-cards__item">
+          <li  *ngFor="let movie of currentMovies"  class="col-12 l-cards__item">
             <div class="container"><div class="row">
               <a routerLink="/movie/{{movie.imdbId}}" class="col-2 l-cards__image fill"><img [src]="movie.poster"></a>
               <div class="col-10">
@@ -62,7 +82,7 @@
 
       <ngb-pagination class="d-flex justify-content-center"
                       [collectionSize]="numOfCurrentMovies"
-                      (pageChange)="getMoviesPlayingNextPage($event)"
+                      (pageChange)="getMoviesNextPage($event)"
                       [(page)]="moviePage" [maxSize]=10
                       [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
 

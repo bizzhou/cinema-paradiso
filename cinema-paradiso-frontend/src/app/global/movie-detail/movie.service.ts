@@ -39,7 +39,7 @@ export class MovieService {
   getTopBoxOffice(pageNo: string, pageSize: string) {
     const param = new HttpParams().set('pageNo', pageNo)
       .set('pageSize', pageSize);
-    return this.http.get(MOVIE_SERVER + 'topBoxOffice');
+    return this.http.post(MOVIE_SERVER + 'topBoxOffice', param);
   }
 
   getMovie(imdbId: string): any {

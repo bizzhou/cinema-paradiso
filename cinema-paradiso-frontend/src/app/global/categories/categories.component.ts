@@ -4,8 +4,8 @@ import {MovieService} from '../movie-detail/movie.service';
 
 
 export enum Sidebar {
-  MoviesPlaying = 'moviesPlaying',
-  moviesTopBoxOffice = 'moviesTopBoxOffice',
+  moviesPlaying = 'now playing',
+  moviesTopBoxOffice = 'top box office',
 
 }
 @Component({
@@ -15,12 +15,12 @@ export enum Sidebar {
 })
 export class CategoriesComponent implements OnInit {
 
-  sidebar = Sidebar;
+  public sidebarEnum = Sidebar;
 
   page = 1;
   isListView: boolean;
 
-  currentTab = Sidebar.MoviesPlaying;
+  currentTab = Sidebar.moviesPlaying;
   currentMovies: Movie[];
   numOfCurrentMovies: number;
 
@@ -38,7 +38,47 @@ export class CategoriesComponent implements OnInit {
 
   }
 
-  setCurrentPage() {
+  // click on tab, get corresponding movies
+  setCurrentTab(tab: string) {
+
+    switch (tab) {
+      case this.sidebarEnum.moviesPlaying: {
+        this.getMoviesPlaying();
+        this.currentTab = this.sidebarEnum.moviesPlaying;
+        break;
+      }
+      case this.sidebarEnum.moviesTopBoxOffice: {
+        this.getMoviesTopBoxOffice();
+        this.currentTab = this.sidebarEnum.moviesTopBoxOffice;
+        break;
+      }
+    }
+
+  }
+
+  // get next page according to current tab
+  getMoviesNextPage(currentPage) {
+    const actualPage = currentPage - 1;
+
+    switch (this.currentTab) {
+      case this.sidebarEnum.moviesPlaying: {
+        this.movieService.getMoviesPlaying(actualPage.toString(), '20')
+          .subscribe(results => {
+            this.moviesPlaying = results['movie'] as Movie[];
+            window.scroll(0, 0);
+          });
+        break;
+      }
+      case this.sidebarEnum.moviesTopBoxOffice: {
+        this.movieService.getTopBoxOffice(actualPage.toString(), '20')
+          .subscribe(results => {
+            this.moviesPlaying = results['movie'] as Movie[];
+            window.scroll(0, 0);
+          });
+        break;
+      }
+
+    }
 
   }
 
@@ -64,15 +104,6 @@ export class CategoriesComponent implements OnInit {
         );
     }
 
-  }
-
-  getMoviesPlayingNextPage(currentPage) {
-    const actualPage = currentPage - 1;
-    this.movieService.getMoviesPlaying(actualPage.toString(), '20')
-      .subscribe(results => {
-        this.moviesPlaying = results['movie'] as Movie[];
-        window.scroll(0, 0);
-      });
   }
 
   getMoviesTopBoxOffice(): any {
