@@ -2,8 +2,9 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import {AppConstant} from '../../app.constant';
 
-const SEARCH_SERVER = 'http://localhost:8080/search/';
+const SEARCH_SERVER = AppConstant.API_ENDPOINT + 'search/';
 
 @Injectable()
 export class SearchService {

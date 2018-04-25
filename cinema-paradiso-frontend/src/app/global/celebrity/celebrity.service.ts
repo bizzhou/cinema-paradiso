@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {AppConstant} from '../../app.constant';
 
-const CELEBRITY_SERVER = 'http://localhost:8080/celebrity/';
+const CELEBRITY_SERVER = AppConstant.API_ENDPOINT + 'celebrity/';
 
 @Injectable()
 export class CelebrityService {
