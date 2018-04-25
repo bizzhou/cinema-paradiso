@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams, HttpRequest} from '@angular/common/http';
-import {Movie} from '../../global/models/movie.model';
 import {AppConstant} from '../../app.constant';
 
 @Injectable()
@@ -41,4 +40,9 @@ export class RegUserService {
   deleteUser(userId: number) {
     return this.http.delete(AppConstant.API_ENDPOINT + `admin/suspend/${userId}`);
   }
+
+  getUserReviews() {
+    return this.http.get(AppConstant.API_ENDPOINT + `review/get/user_reviews`);
+  }
+
 }

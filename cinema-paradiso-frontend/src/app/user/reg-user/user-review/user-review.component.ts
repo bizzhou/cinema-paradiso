@@ -7,11 +7,12 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class UserReviewComponent implements OnInit {
 
-  @Input() profile;
+  @Input() reviews;
 
   constructor() { }
 
   ngOnInit() {
+    console.log(this.reviews);
   }
 
 }

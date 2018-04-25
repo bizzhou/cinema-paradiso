@@ -69,6 +69,7 @@ public class ReviewController {
             map.put("author", review.getAuthor().getId());
             map.put("criticReview", review.isCriticReview());
             map.put("postDate", review.getPostedDate());
+            map.put("reviewContent", review.getReviewContent());
             list.add(map);
         }
         return ResponseEntity.ok(list);

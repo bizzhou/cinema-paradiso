@@ -95,6 +95,7 @@ $p-content: darken(white, 15%);
     margin-top: -5px;
     color: $p-content;
     //display: inline;
+    white-space: pre-line;
     a {
       //color: white;
       cursor: pointer;
