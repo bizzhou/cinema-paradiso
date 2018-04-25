@@ -3,9 +3,10 @@ import {HttpClient, HttpParams} from '@angular/common/http';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Review} from '../models/review.model';
 import {Observable} from 'rxjs/Observable';
+import {AppConstant} from '../../app.constant';
 
-const MOVIE_SERVER = 'http://localhost:8080/movie/';
-const WISH_LIST_SERVER = 'http://localhost:8080/wishlist/';
+const MOVIE_SERVER = AppConstant.API_ENDPOINT + 'movie/';
+const WISH_LIST_SERVER = AppConstant.API_ENDPOINT + 'wishlist/';
 
 @Injectable()
 export class MovieService {
@@ -46,7 +47,7 @@ export class MovieService {
 
   addToWishList(imdbId: string) {
     const params = new HttpParams().set('filmId', imdbId);
-    return this.http.post('http://localhost:8080/wishlist/add', params);
+    return this.http.post(WISH_LIST_SERVER + 'add', params);
   }
 
   removeFromWishList(imdbId: string) {
@@ -73,10 +74,10 @@ export class MovieService {
   }
 
   addReview(review: Review) {
-    return this.http.post(`http://localhost:8080/review/add/${review.imdbId}`, review);
+    return this.http.post(AppConstant.API_ENDPOINT + `review/add/${review.imdbId}`, review);
   }
 
   getMovieReviews(selectedMovieId: string): Observable<any> {
-    return this.http.get(`http://localhost:8080/review/get/${selectedMovieId}`);
+    return this.http.get(AppConstant.API_ENDPOINT + `review/get/${selectedMovieId}`);
   }
 }

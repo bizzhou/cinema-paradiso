@@ -10,6 +10,7 @@ import {Movie} from '../../global/models/movie.model';
 
 import {Router} from '@angular/router';
 import {Rating} from '../../global/models/rating.model';
+import {AppConstant} from '../../app.constant';
 
 class Profile {
   name: string;
@@ -65,9 +66,9 @@ export class RegUserComponent implements OnInit {
         console.log(this.profile.wishList);
 
         if (this.profile.profileImage === undefined) {
-          this.profile_url = 'http://localhost:8080/user/avatar/default.jpeg';
+          this.profile_url = AppConstant.API_ENDPOINT + 'user/avatar/default.jpeg';
         } else {
-          this.profile_url = 'http://localhost:8080/user/avatar/' + profileDetails['profileImage'];
+          this.profile_url = AppConstant.API_ENDPOINT + '/user/avatar/' + profileDetails['profileImage'];
         }
       });
     } else {
