@@ -14,6 +14,7 @@ public class LimitationConstants {
     private Integer leastReturns;
     private Double ratingLimit;
     private Integer threeWeeksRange;
+    private Integer oneMonthRange;
 
     public LimitationConstants() { }
 
@@ -69,5 +70,13 @@ public class LimitationConstants {
 
     public void setThreeWeeksRange(Integer threeWeeksRange) {
         this.threeWeeksRange = threeWeeksRange;
+    }
+
+    public Integer getOneMonthRange() {
+        return oneMonthRange;
+    }
+
+    public void setOneMonthRange(Integer oneMonthRange) {
+        this.oneMonthRange = oneMonthRange;
     }
 }

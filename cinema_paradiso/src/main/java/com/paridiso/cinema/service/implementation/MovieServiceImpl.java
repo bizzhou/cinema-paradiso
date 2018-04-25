@@ -164,7 +164,7 @@ public class MovieServiceImpl implements FilmService {
     @Override
     public HashMap<String, Object> getMoviesPlaying(Integer pageNo, Integer pageSize) {
         // get 21 days before
-        Calendar daysBefore = movieUtility.getDaysBeforeNow(limitationConstants.getThreeWeeksRange());
+        Calendar daysBefore = movieUtility.getDaysBeforeNow(limitationConstants.getOneMonthRange());
         Calendar now = movieUtility.getNow();
         // get movies by release date
         Page<Movie> moviesPage = movieRepository.findMoviesByReleaseDateBetween(daysBefore, now, new PageRequest(pageNo, pageSize));

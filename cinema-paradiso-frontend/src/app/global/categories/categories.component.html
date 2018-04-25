@@ -60,7 +60,7 @@
       <!-- 	1st section	 -->
       <div class="container l-cards">
         <div class="row">
-          <h2 class="col-10 l-cards__title">opening this week </h2>
+          <h2 class="col-10 l-cards__title">now playing </h2>
           <a class="col-1 l-cards__more" (click)="setListView(false)"><i class="fa fa-th-large"></i> </a>
           <a class="col-1 l-cards__more" (click)="setListView(true)"><i class="fa fa-list-ul"></i> </a>
         </div>
@@ -72,7 +72,7 @@
             <a routerLink="/movie/{{movie.imdbId}}" class="l-cards__image fill"><img [src]="movie.poster"></a>
             <a href="/movie/{{movie.imdbId}}" class="l-cards__text">{{movie.title}} <i class="item__rating"> {{movie.regUserRating}}</i></a>
           </li>
-        </ul> <!-- .row -->
+        </ul>
 
         <!-- list view -->
         <ul *ngIf="isListView" class="row l-cards__list">
@@ -109,6 +109,11 @@
       <!--<ngb-pagination [collectionSize]="movieNumberOfPages" [(page)]="1" [maxSize]="5" (pageChange)="getMoviesPlayingNextPage($event)" [ellipses]="false" [boundaryLinks]="true" >-->
         <!---->
       <!--</ngb-pagination>-->
+      <ngb-pagination class="d-flex justify-content-center"
+                      [collectionSize]="numOfMoviesPlayingPages"
+                      (pageChange)="getMoviesPlayingNextPage($event)"
+                      [(page)]="moviePage" [maxSize]=10
+                      [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
 
     </div> <!-- ./end right panel -->
 

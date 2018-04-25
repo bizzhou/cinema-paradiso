@@ -14,6 +14,7 @@ export class CategoriesComponent implements OnInit {
 
   moviesPlaying: Movie[];
   numOfMoviesPlayingPages: number;
+  moviePage = 1;
 
   constructor(private movieService: MovieService) { }
 
@@ -28,8 +29,9 @@ export class CategoriesComponent implements OnInit {
       .subscribe(
         data => {
           this.moviesPlaying = data['movie'] as Movie[];
-          this.numOfMoviesPlayingPages = data['movie_page'];
+          this.numOfMoviesPlayingPages = data['movie_page'] * 10;
           console.log(this.moviesPlaying);
+          console.log(this.numOfMoviesPlayingPages)
           localStorage.setItem('nowPlaying', JSON.stringify(this.moviesPlaying));
         },
         error => console.log('Failed to fetch movies playing')
@@ -39,8 +41,9 @@ export class CategoriesComponent implements OnInit {
   getMoviesPlayingNextPage(currentPage) {
     const actualPage = currentPage - 1;
     this.movieService.getMoviesPlaying(actualPage.toString(), '20')
-      .subscribe(results =>{
+      .subscribe(results => {
         this.moviesPlaying = results['movie'] as Movie[];
+        window.scroll(0, 0);
       });
   }
 

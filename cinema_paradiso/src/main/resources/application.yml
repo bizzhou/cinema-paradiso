@@ -70,6 +70,7 @@ application:
     acceptableTrendingRating: 2.5
     leastReturns: 6
     threeWeeksRange: 21
+    oneMonthRange: 31
 
 
 
