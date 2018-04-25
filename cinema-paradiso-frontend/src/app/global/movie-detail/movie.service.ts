@@ -28,12 +28,16 @@ export class MovieService {
     return this.http.post(MOVIE_SERVER + 'playing', param);
   }
 
-  getMoviesTrending() {
-    return this.http.get(MOVIE_SERVER + 'get/trending');
+  getMoviesTrending(pageNo: string, pageSize: string) {
+    const param = new HttpParams().set('pageNo', pageNo)
+      .set('pageSize', pageSize);
+    return this.http.post(MOVIE_SERVER + 'trending', param);
   }
 
-  getMoviesComingSoon() {
-    return this.http.get(MOVIE_SERVER + 'get/comingSoon');
+  getMoviesComingSoon(pageNo: string, pageSize: string) {
+    const param = new HttpParams().set('pageNo', pageNo)
+      .set('pageSize', pageSize);
+    return this.http.post(MOVIE_SERVER + 'comingSoon', param);
   }
 
   getTopBoxOffice(pageNo: string, pageSize: string) {

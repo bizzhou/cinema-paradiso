@@ -6,7 +6,8 @@ import {MovieService} from '../movie-detail/movie.service';
 export enum Sidebar {
   moviesPlaying = 'now playing',
   moviesTopBoxOffice = 'top box office',
-
+  moviesComingSoon = 'coming soon',
+  moviesTrending = 'trending now'
 }
 @Component({
   selector: 'app-categories',
@@ -18,6 +19,7 @@ export class CategoriesComponent implements OnInit {
   public sidebarEnum = Sidebar;
 
   page = 1;
+  moviePage = 1;
   isListView: boolean;
 
   currentTab = Sidebar.moviesPlaying;
@@ -26,9 +28,15 @@ export class CategoriesComponent implements OnInit {
 
   moviesPlaying: Movie[];
   numOfMoviesPlayingPages: number;
+
   moviesTopBoxOffice: Movie[];
   numOfMoviesTopBoxOffice: number;
-  moviePage = 1;
+
+  moviesComingSoon: Movie[];
+  numOfMoviesComingSoon: number;
+
+  moviesTrending: Movie[];
+  numOfMoviesTrending: number;
 
   constructor(private movieService: MovieService) { }
 
@@ -38,7 +46,7 @@ export class CategoriesComponent implements OnInit {
 
   }
 
-  // click on tab, get corresponding movies
+  // click on tab, get corresponding movies and page header
   setCurrentTab(tab: string) {
 
     console.log('fetching' + tab);
@@ -54,10 +62,21 @@ export class CategoriesComponent implements OnInit {
         this.currentTab = this.sidebarEnum.moviesTopBoxOffice;
         break;
       }
+      case this.sidebarEnum.moviesComingSoon: {
+        this.getMoviesComingSoon();
+        this.currentTab = this.sidebarEnum.moviesComingSoon;
+        break;
+      }
+      case this.sidebarEnum.moviesTrending: {
+        this.getMoviesTrending();
+        this.currentTab = this.sidebarEnum.moviesTrending;
+        break;
+      }
     }
 
   }
 
+  // TODO: add to local storage
   // get next page according to current tab
   getMoviesNextPage(currentPage) {
     const actualPage = currentPage - 1;
@@ -79,6 +98,23 @@ export class CategoriesComponent implements OnInit {
             this.currentMovies = this.moviesTopBoxOffice;
           });
         break;
+      }
+      case this.sidebarEnum.moviesComingSoon: {
+        this.movieService.getMoviesComingSoon(actualPage.toString(), '20')
+          .subscribe(results => {
+              this.moviesComingSoon = results['movie'] as Movie[];
+              this.currentMovies = this.moviesComingSoon;
+
+            });
+        break;
+      }
+      case this.sidebarEnum.moviesTrending: {
+        this.movieService.getMoviesTrending(actualPage.toString(), '20')
+          .subscribe(results => {
+              this.moviesTrending = results['movie'] as Movie[];
+              this.currentMovies = this.moviesTrending;
+            }
+          );
       }
 
     }
@@ -105,6 +141,10 @@ export class CategoriesComponent implements OnInit {
           },
           error => console.log('Failed to fetch movies playing')
         );
+    } else {
+      // set for current tab
+      this.currentMovies = this.moviesPlaying;
+      this.numOfCurrentMovies = this.numOfMoviesPlayingPages;
     }
 
 
@@ -127,6 +167,55 @@ export class CategoriesComponent implements OnInit {
           },
           error => console.log('Failed to fetch movies with top box office')
         );
+    } else {
+      this.currentMovies = this.moviesTopBoxOffice;
+      this.numOfCurrentMovies = this.numOfMoviesPlayingPages;
+    }
+
+  }
+
+  getMoviesComingSoon(): any {
+    if (this.moviesComingSoon == null) {
+      this.movieService.getMoviesComingSoon('0', '20')
+        .subscribe(
+          data => {
+            this.moviesComingSoon = data['movie'] as Movie[];
+            this.numOfMoviesComingSoon = data['movie_page'] * 10;
+
+            this.currentMovies = this.moviesComingSoon;
+            this.numOfCurrentMovies = this.numOfMoviesComingSoon;
+
+            console.log(this.moviesComingSoon);
+            localStorage.setItem('comingSoon', JSON.stringify(this.moviesComingSoon));
+          },
+          error => console.log('Failed to fetch movies coming soon')
+        );
+    } else {
+      this.currentMovies = this.moviesComingSoon;
+      this.numOfCurrentMovies = this.numOfMoviesComingSoon;
+    }
+
+  }
+
+  getMoviesTrending(): any {
+    if (this.moviesTrending == null) {
+      this.movieService.getMoviesTrending('0', '20')
+        .subscribe(
+          data => {
+            this.moviesTrending = data['movie'] as Movie[];
+            this.numOfMoviesTrending = data['movie_page'] * 10;
+
+            this.currentMovies = this.moviesTrending;
+            this.numOfCurrentMovies = this.numOfMoviesTrending;
+
+            console.log(this.moviesTrending);
+            localStorage.setItem('movieTrending', JSON.stringify(this.moviesTrending));
+          },
+          error => console.log('Failed to fetch movies trending')
+        );
+    } else {
+      this.currentMovies = this.moviesTrending;
+      this.numOfCurrentMovies = this.numOfMoviesTrending;
     }
 
   }

@@ -105,7 +105,7 @@ export class HomeComponent implements OnInit {
   }
 
   getMoviesTrending(): any {
-    this.movieService.getMoviesTrending()
+    this.movieService.getMoviesTrending('0', '6')
       .subscribe(
         data => {
           this.moviesTrending = data as Movie[];
@@ -117,7 +117,7 @@ export class HomeComponent implements OnInit {
   }
 
   getMoviesComingSoon(): any {
-    this.movieService.getMoviesComingSoon()
+    this.movieService.getMoviesComingSoon('0', '6')
       .subscribe(
         data => {
           this.moviesComingSoon = data as Movie[];
