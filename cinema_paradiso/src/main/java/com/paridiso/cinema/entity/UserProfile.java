@@ -13,16 +13,22 @@ public class UserProfile {
     private String name;
     private String profileImage;
     private String biography;
+    private Boolean isCritic;
+    private Boolean isPrivate;
 
     @JsonIgnore
     private NotInterestedList notInterestedList;
 
     @JsonIgnore
     private WishList wishList;
-    private Boolean isCritic;
-    private Boolean isPrivate;
+
+    @JsonIgnore
     private List<Review> reviews;
+
+    @JsonIgnore
     private List<Review> likedReviews;
+
+    @JsonIgnore
     private List<UserRating> userRatings;
 
     public UserProfile() {
