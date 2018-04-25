@@ -138,10 +138,10 @@ public class MovieController {
         return new ResponseEntity<>(filmService.getMoviesPlaying(pageNo, pageSize), HttpStatus.OK);
     }
 
-    @GetMapping(value = "/get/topBoxOffice")
-    public ResponseEntity<List> getTopBoxOffice(@RequestParam Integer pageNo,
+    @PostMapping(value = "/topBoxOffice")
+    public ResponseEntity<?> getTopBoxOffice(@RequestParam Integer pageNo,
                                                 @RequestParam Integer pageSize) {
-        return new ResponseEntity<List>(filmService.getMoviesTopBoxOffice(pageNo, pageSize), HttpStatus.OK);
+        return new ResponseEntity<>(filmService.getMoviesTopBoxOffice(pageNo, pageSize), HttpStatus.OK);
     }
 
     @GetMapping(value = "get/similar/{id}")

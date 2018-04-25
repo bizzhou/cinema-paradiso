@@ -163,7 +163,7 @@ public class MovieServiceImpl implements FilmService {
 
     @Override
     public HashMap<String, Object> getMoviesPlaying(Integer pageNo, Integer pageSize) {
-        // get 21 days before
+        // get 31 days before
         Calendar daysBefore = movieUtility.getDaysBeforeNow(limitationConstants.getOneMonthRange());
         Calendar now = movieUtility.getNow();
         // get movies by release date
@@ -177,15 +177,18 @@ public class MovieServiceImpl implements FilmService {
     }
 
     @Override
-    public Set<Movie> getMoviesComingSoon(Integer pageNo, Integer pageSize) {
+    public HashMap<String, Object>  getMoviesComingSoon(Integer pageNo, Integer pageSize) {
         // get 3 week from now
-//        Calendar daysAfter = movieUtility.getDaysAfterNow(limitationConstants.getThreeWeeksRange());
-//        Calendar now = movieUtility.getNow();
-//        // get movies by release date
-//        Collection<? extends Film> films =
-//                utilityService.shrinkMovieSize(movieRepository.findMoviesByReleaseDateBetween(now, daysAfter, new PageRequest(pageNo, pageSize)));
-//        return (Set<Movie>) films;
-        return null;
+        Calendar daysAfter = movieUtility.getDaysAfterNow(limitationConstants.getOneMonthRange());
+        Calendar now = movieUtility.getNow();
+
+        // get movies by release date
+        Page<Movie> moviesPage = movieRepository.findMoviesByReleaseDateBetween(now, daysAfter, new PageRequest(pageNo, pageSize));
+        HashMap<String, Object> results = new HashMap<>();
+        results.put("movie", moviesPage.getContent());
+        results.put("movie_page", moviesPage.getTotalPages());
+
+        return results;
     }
 
     @Override
@@ -210,14 +213,20 @@ public class MovieServiceImpl implements FilmService {
     }
 
     @Override
-    public List<Movie> getMoviesTopBoxOffice(Integer pageNo, Integer pageSize) {
+    public HashMap<String, Object> getMoviesTopBoxOffice(Integer pageNo, Integer pageSize) {
         // get dates 3 week before and now
-//        Calendar daysBeforeNow = movieUtility.getDaysBeforeNow(limitationConstants.getThreeWeeksRange());
-//        Calendar now = movieUtility.getNow();
-//        Collection<? extends Film> films = utilityService.shrinkMovieSize(
-//                movieRepository.findTop6ByReleaseDateBetweenOrderByBoxOfficeDesc(daysBeforeNow, now));
-//        return (List<Movie>) films;
-        return null;
+        Calendar daysBeforeNow = movieUtility.getDaysBeforeNow(limitationConstants.getOneMonthRange());
+        Calendar now = movieUtility.getNow();
+
+        Page<Movie> moviePage = movieRepository
+                .findMoviesByReleaseDateBetweenOrderByBoxOfficeDesc(
+                        daysBeforeNow, now, new PageRequest(pageNo, pageSize));
+
+        HashMap<String, Object> results = new HashMap<>();
+        results.put("movie", moviePage.getContent());
+        results.put("movie_page", moviePage.getTotalPages());
+
+        return results;
     }
 
     @Override

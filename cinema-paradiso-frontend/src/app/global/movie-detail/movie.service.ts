@@ -36,8 +36,10 @@ export class MovieService {
     return this.http.get(MOVIE_SERVER + 'get/comingSoon');
   }
 
-  getTopBoxOffice() {
-    return this.http.get(MOVIE_SERVER + 'get/topBoxOffice');
+  getTopBoxOffice(pageNo: string, pageSize: string) {
+    const param = new HttpParams().set('pageNo', pageNo)
+      .set('pageSize', pageSize);
+    return this.http.get(MOVIE_SERVER + 'topBoxOffice');
   }
 
   getMovie(imdbId: string): any {

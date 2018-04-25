@@ -8,7 +8,7 @@
       <ul class="s-explore">
         <!--     in theaters -->
         <li class="s-explore__title"><h3>In Theaters</h3></li>
-        <li class="s-explore__item active"><a href="#">opening this week</a></li>
+        <li class="s-explore__item active"><a href="#">now playing</a></li>
         <li class="s-explore__item"><a href="#">top box office</a></li>
         <li class="s-explore__item"><a href="#">coming soon</a></li>
         <li class="s-explore__item"><a href="#">certified fresh movies</a></li>
@@ -105,10 +105,7 @@
         </ul> <!-- .row -->
 
       </div>
-      <!--   pagination   -->
-      <!--<ngb-pagination [collectionSize]="movieNumberOfPages" [(page)]="1" [maxSize]="5" (pageChange)="getMoviesPlayingNextPage($event)" [ellipses]="false" [boundaryLinks]="true" >-->
-        <!---->
-      <!--</ngb-pagination>-->
+
       <ngb-pagination class="d-flex justify-content-center"
                       [collectionSize]="numOfMoviesPlayingPages"
                       (pageChange)="getMoviesPlayingNextPage($event)"

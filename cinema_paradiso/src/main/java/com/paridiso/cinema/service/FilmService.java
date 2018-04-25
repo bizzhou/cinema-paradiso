@@ -42,7 +42,7 @@ public interface FilmService {
      *
      * @return a set of qualified movies
      */
-    Set<Movie> getMoviesComingSoon(Integer pageNo, Integer pageSize);
+    HashMap<String, Object> getMoviesComingSoon(Integer pageNo, Integer pageSize);
 
     /**
      * Get movies playing now
@@ -58,7 +58,7 @@ public interface FilmService {
      *
      * @return a list of qualified movies
      */
-    List<Movie> getMoviesTopBoxOffice(Integer pageNo, Integer pageSize);
+    HashMap<String, Object> getMoviesTopBoxOffice(Integer pageNo, Integer pageSize);
 
     Set<? extends Film> getTopRating();
 
