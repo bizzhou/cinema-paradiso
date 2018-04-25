@@ -35,7 +35,7 @@ import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 @RequestMapping("/user")
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class RegUserController {
     @Autowired
     private RegUserServiceImpl userService;
