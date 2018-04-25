@@ -77,7 +77,5 @@ export class MovieService {
     return this.http.post(AppConstant.API_ENDPOINT + `review/add/${review.imdbId}`, review);
   }
 
-  getMovieReviews(selectedMovieId: string): Observable<any> {
-    return this.http.get(AppConstant.API_ENDPOINT + `review/get/${selectedMovieId}`);
-  }
+
 }

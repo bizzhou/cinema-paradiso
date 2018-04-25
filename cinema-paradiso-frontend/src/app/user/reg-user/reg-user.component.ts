@@ -11,6 +11,7 @@ import {Movie} from '../../global/models/movie.model';
 import {Router} from '@angular/router';
 import {Rating} from '../../global/models/rating.model';
 import {AppConstant} from '../../app.constant';
+import {Review} from '../../global/models/review.model';
 
 class Profile {
   name: string;
@@ -37,6 +38,7 @@ export class RegUserComponent implements OnInit {
   profile = new Profile();
   tokenHelper = new JwtHelperService();
   profile_url: string;
+  myReviews: Review[];
 
   modalRef: NgbModalRef;
 
@@ -63,8 +65,6 @@ export class RegUserComponent implements OnInit {
         this.profile.wishList = profileDetails['wishList'] as Movie[];
         this.profile.userRatings = profileDetails['userRatings'] as Rating[];
 
-        console.log(this.profile.wishList);
-
         if (this.profile.profileImage === undefined) {
           this.profile_url = AppConstant.API_ENDPOINT + 'user/avatar/default.jpeg';
         } else {
@@ -74,6 +74,17 @@ export class RegUserComponent implements OnInit {
     } else {
       this.router.navigateByUrl('home');
     }
+
+
+    this.regUserService.getUserReviews().subscribe(data => {
+      console.log(data);
+      this.myReviews = data as Review[];
+    });
+
+
+
+
+
   }
 
   updateProfile() {

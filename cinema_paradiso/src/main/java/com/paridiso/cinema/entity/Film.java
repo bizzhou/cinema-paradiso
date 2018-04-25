@@ -105,7 +105,6 @@ public class Film {
         return trailers;
     }
 
-//    @JsonIgnore
     @OneToMany(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER, mappedBy = "movie")
     public List<Review> getReviews() {
         return reviews;
