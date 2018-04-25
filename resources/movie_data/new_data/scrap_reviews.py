@@ -68,16 +68,16 @@ def get_reviews(url, imdb_id,title, outfile_name):
 			outfile.write("\n")
 	
 
-FILE_1 = "recent_movies/recent_data.txt"
-FILE_1_OUTPUT = "recent_movies/recent_revies.txt"
+# FILE_1 = "recent_movies/recent_data.txt"
+# FILE_1_OUTPUT = "recent_movies/recent_revies.txt"
 
 # FILE_2 = "recent_film_data.json"
 # FILE_2_OUTPUT = "recent_film_reviews.json"
 
-# FILE_3 = "movies_of_interest_data.json"
-# FILE_3_OUTPUT = "movies_of_interest_reviews.json"
+FILE_3 = "./tv/tv_json.txt"
+FILE_3_OUTPUT = "./tv/tv_review.txt"
 
 if __name__ == '__main__':
-	load_reviews(FILE_1, FILE_1_OUTPUT)
+	# load_reviews(FILE_1, FILE_1_OUTPUT)
 	# load_reviews(FILE_2, FILE_2_OUTPUT)
-	# load_reviews(FILE_3, FILE_3_OUTPUT)
+	load_reviews(FILE_3, FILE_3_OUTPUT)
