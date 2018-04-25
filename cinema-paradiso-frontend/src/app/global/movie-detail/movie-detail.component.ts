@@ -87,21 +87,22 @@ export class MovieDetailComponent implements OnInit {
     console.log('id: ' + this.selectedMovieId);
     this.getMovie(this.selectedMovieId);
 
-    this.movieService.getMovieReviews(this.selectedMovieId).subscribe(data => {
-      this.movie.reviews = data as Review[];
-      console.log(this.movie.reviews);
-    }, error1 => {
-      this.toastrService.error('FAILED TO FETCH REVIEWS');
-    });
 
   }
 
 
   getMovie(imdbId: string): any {
-    this.movieService.getMovieDetails(imdbId)
-      .subscribe(
-        data => {
-          this.movie = data as Movie;
+    this.movieService.getMovieDetails(imdbId).subscribe(data => {
+        this.movie = data as Movie;
+
+        this.movieService.getMovieReviews(this.selectedMovieId).subscribe(data => {
+          console.log(data);
+          this.movie.reviews = data as Review[];
+          console.log(this.movie.reviews);
+        }, error1 => {
+          this.toastrService.error('FAILED TO FETCH REVIEWS');
+        });
+
         },
         error => console.log('Failed to fetch movie with id')
       );

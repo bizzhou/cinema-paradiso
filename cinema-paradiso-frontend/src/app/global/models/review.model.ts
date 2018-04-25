@@ -1,6 +1,6 @@
 export class Review {
   reviewId: number;
-  author: string;
+  author: number;
   isCriticReview: boolean;
   likeCount: number;
   postedDate: Date;

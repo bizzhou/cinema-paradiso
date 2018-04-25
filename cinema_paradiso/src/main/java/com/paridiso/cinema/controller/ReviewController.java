@@ -66,7 +66,7 @@ public class ReviewController {
             HashMap<String, Object> map = new HashMap<>();
             map.put("reviewId", review.getReviewId());
             map.put("title", review.getTitle());
-            map.put("user", review.getAuthor().getId());
+            map.put("author", review.getAuthor().getId());
             map.put("criticReview", review.isCriticReview());
             map.put("postDate", review.getPostedDate());
             list.add(map);
