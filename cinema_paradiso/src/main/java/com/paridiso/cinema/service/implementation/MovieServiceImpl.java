@@ -2,6 +2,7 @@ package com.paridiso.cinema.service.implementation;
 
 import com.paridiso.cinema.constants.ExceptionConstants;
 import com.paridiso.cinema.constants.LimitationConstants;
+import com.paridiso.cinema.constants.MapKeyConstants;
 import com.paridiso.cinema.entity.*;
 import com.paridiso.cinema.persistence.MovieRepository;
 import com.paridiso.cinema.persistence.UserRatingRepository;
@@ -34,6 +35,9 @@ public class MovieServiceImpl implements FilmService {
 
     @Autowired
     LimitationConstants limitationConstants;
+
+    @Autowired
+    MapKeyConstants mapKeyConstants;
 
     @Autowired
     UtilityService utilityService;
@@ -170,8 +174,8 @@ public class MovieServiceImpl implements FilmService {
         Page<Movie> moviesPage = movieRepository.findMoviesByReleaseDateBetween(daysBefore, now, new PageRequest(pageNo, pageSize));
 
         HashMap<String, Object> results = new HashMap<>();
-        results.put("movie", moviesPage.getContent());
-        results.put("movie_page", moviesPage.getTotalPages());
+        results.put(mapKeyConstants.getMovieLabel(), moviesPage.getContent());
+        results.put(mapKeyConstants.getMoviePageLabel(), moviesPage.getTotalPages());
 
         return results;
     }
@@ -185,8 +189,8 @@ public class MovieServiceImpl implements FilmService {
         // get movies by release date
         Page<Movie> moviesPage = movieRepository.findMoviesByReleaseDateBetween(now, daysAfter, new PageRequest(pageNo, pageSize));
         HashMap<String, Object> results = new HashMap<>();
-        results.put("movie", moviesPage.getContent());
-        results.put("movie_page", moviesPage.getTotalPages());
+        results.put(mapKeyConstants.getMovieLabel(), moviesPage.getContent());
+        results.put(mapKeyConstants.getMoviePageLabel(), moviesPage.getTotalPages());
 
         return results;
     }
@@ -202,8 +206,8 @@ public class MovieServiceImpl implements FilmService {
                 limitationConstants.getTrendingRating(), limitationConstants.getRatingLimit(),
                 daysBeforeNow, now, new PageRequest(pageNo, pageSize));
         HashMap<String, Object> results = new HashMap<>();
-        results.put("movie", moviesPage.getContent());
-        results.put("movie_page", moviesPage.getTotalPages());
+        results.put(mapKeyConstants.getMovieLabel(), moviesPage.getContent());
+        results.put(mapKeyConstants.getMoviePageLabel(), moviesPage.getTotalPages());
         return results;
     }
 
@@ -218,8 +222,8 @@ public class MovieServiceImpl implements FilmService {
                         daysBeforeNow, now, new PageRequest(pageNo, pageSize));
 
         HashMap<String, Object> results = new HashMap<>();
-        results.put("movie", moviePage.getContent());
-        results.put("movie_page", moviePage.getTotalPages());
+        results.put(mapKeyConstants.getMovieLabel(), moviePage.getContent());
+        results.put(mapKeyConstants.getMoviePageLabel(), moviePage.getTotalPages());
 
         return results;
     }

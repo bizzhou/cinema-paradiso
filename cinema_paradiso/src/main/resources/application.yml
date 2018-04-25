@@ -72,6 +72,11 @@ application:
     threeWeeksRange: 21
     oneMonthRange: 31
 
+  map-key:
+    movieLabel: "movie"
+    moviePageLabel: "moviePage"
+
+
 
 
 

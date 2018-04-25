@@ -3,56 +3,11 @@
 <main>
   <div class="container">
     <div class="row">
+
       <!--  sidebar: movies category  -->
     <div class="col-sidebar sidebar">
-      <ul class="s-explore">
-        <!--     in theaters -->
-        <li class="s-explore__title"><h3>In Theaters</h3></li>
-        <li class="s-explore__item active"><a href="#">now playing</a></li>
-        <li class="s-explore__item"><a href="#">top box office</a></li>
-        <li class="s-explore__item"><a href="#">coming soon</a></li>
-        <li class="s-explore__item"><a href="#">certified fresh movies</a></li>
-
-        <!--     dvds -->
-        <li class="s-explore__title"><h3>dvd & streaming movies</h3></li>
-        <li class="s-explore__item"><a href="#">browser all</a></li>
-        <li class="s-explore__item"><a href="#">top DVD & streaming</a></li>
-        <li class="s-explore__item"><a href="#">coming soon</a></li>
-        <li class="s-explore__item"><a href="#">certified fresh movies</a></li>
-
-        <!--     tv -->
-        <li class="s-explore__title"><h3>TV</h3></li>
-        <li class="s-explore__item"><a href="#">new TV tonight</a></li>
-        <li class="s-explore__item"><a href="#">most popular tv on RT</a></li>
-        <li class="s-explore__item"><a href="#">certified fresh TV</a></li>
-
-      </ul>
-
-      <!--  2nd box  -->
-      <ul class="s-explore">
-        <!--     in theaters -->
-        <li class="s-explore__title"><h3>You may like</h3></li>
-        <li class="s-explore__item">
-          <a href="#">Blade Runner 2049</a>
-          <span class="s-explore__rating">4.9/5.0</span>
-        </li>
-        <li class="s-explore__item"><a href="#">Coco</a><span class="s-explore__rating">4.9/5.0</span></li>
-        <li class="s-explore__item"><a href="#">Call Me By Your Name</a><span
-          class="s-explore__rating">4.9/5.0</span></li>
-        <li class="s-explore__item"><a href="#">Lady Bird</a><span class="s-explore__rating">4.9/5.0</span></li>
-        <li class="s-explore__item"><a href="#">Blade Runner 2049</a><span
-          class="s-explore__rating">4.9/5.0</span></li>
-        <li class="s-explore__item"><a href="#">Coco</a><span class="s-explore__rating">4.9/5.0</span></li>
-        <li class="s-explore__item"><a href="#">Call Me By Your Name</a><span
-          class="s-explore__rating">4.9/5.0</span></li>
-        <li class="s-explore__item"><a href="#">Lady Bird</a><span class="s-explore__rating">4.9/5.0</span></li>
-        <li class="s-explore__item"><a href="#">Blade Runner 2049</a><span
-          class="s-explore__rating">4.9/5.0</span></li>
-        <li class="s-explore__item"><a href="#">Coco</a><span class="s-explore__rating">4.9/5.0</span></li>
-        <li class="s-explore__item"><a href="#"><span style="color: white;">more <i
-          class="fa fa-angle-right"></i></span></a></li>
-      </ul>
-    </div> <!-- ./end left panel -->
+      <app-sidebar></app-sidebar>
+    </div>
 
     <!--  right panel -->
     <div class="col-right content-wrap">
@@ -65,10 +20,9 @@
           <a class="col-1 l-cards__more" (click)="setListView(true)"><i class="fa fa-list-ul"></i> </a>
         </div>
 
-
         <!-- grid view-->
         <ul *ngIf="!isListView" class="row l-cards__table">
-          <li  *ngFor="let movie of moviesPlaying"  class="col-3 l-cards__item">
+          <li  *ngFor="let movie of currentMovies"  class="col-3 l-cards__item">
             <a routerLink="/movie/{{movie.imdbId}}" class="l-cards__image fill"><img [src]="movie.poster"></a>
             <a href="/movie/{{movie.imdbId}}" class="l-cards__text">{{movie.title}} <i class="item__rating"> {{movie.regUserRating}}</i></a>
           </li>
@@ -107,7 +61,7 @@
       </div>
 
       <ngb-pagination class="d-flex justify-content-center"
-                      [collectionSize]="numOfMoviesPlayingPages"
+                      [collectionSize]="numOfCurrentMovies"
                       (pageChange)="getMoviesPlayingNextPage($event)"
                       [(page)]="moviePage" [maxSize]=10
                       [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>

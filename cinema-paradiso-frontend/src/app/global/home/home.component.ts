@@ -93,7 +93,7 @@ export class HomeComponent implements OnInit {
   }
 
   getMoviesPlaying(): any {
-    this.movieService.getMoviesPlaying()
+    this.movieService.getMoviesPlaying('0', '6')
       .subscribe(
         data => {
           this.moviesPlaying = data as Movie[];
@@ -129,7 +129,7 @@ export class HomeComponent implements OnInit {
   }
 
   getTopBoxOffice(): any {
-    this.movieService.getTopBoxOffice()
+    this.movieService.getTopBoxOffice('0', '6')
       .subscribe(
         data => {
           this.moviesTopBoxOffice = data as Movie[];

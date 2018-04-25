@@ -38,6 +38,7 @@ import { CriticReviewsComponent } from './global/review-collection/critic-review
 import { RegUserReviewsComponent } from './global/review-collection/reg-user-reviews/reg-user-reviews.component';
 import {CriticPortfolioComponent} from './global/public-portfolio/critic/critic.component';
 import {RegUserPortfolioComponent} from './global/public-portfolio/reg-user/reg-user.component';
+import { SidebarComponent } from './global/categories/sidebar/sidebar.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import {RegUserPortfolioComponent} from './global/public-portfolio/reg-user/reg-
     CriticReviewsComponent,
     RegUserReviewsComponent,
     CriticPortfolioComponent,
-    RegUserPortfolioComponent
+    RegUserPortfolioComponent,
+    SidebarComponent
   ],
   imports: [
     BrowserModule,
