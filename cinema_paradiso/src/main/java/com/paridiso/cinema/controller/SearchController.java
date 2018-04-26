@@ -72,7 +72,7 @@ public class SearchController {
                                          @RequestParam Integer pageSize) {
         Page<TV> tVsFromKeyword = searchService.getTVsFromKeyword(keyword, pageNo, pageSize);
         HashMap<String, Object> results = new HashMap<>();
-        results.put("movie", tVsFromKeyword.getContent());
+        results.put("tv", tVsFromKeyword.getContent());
         return ResponseEntity.ok(results);
     }
 
