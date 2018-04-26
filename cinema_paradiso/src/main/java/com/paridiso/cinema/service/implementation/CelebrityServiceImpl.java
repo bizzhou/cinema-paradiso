@@ -7,6 +7,8 @@ import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.persistence.CelebrityRepository;
 import com.paridiso.cinema.service.CelebrityService;
 import com.paridiso.cinema.service.UtilityService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -29,6 +31,8 @@ public class CelebrityServiceImpl implements CelebrityService {
 
     @Autowired
     UtilityService utilityService;
+
+    private static Logger logger = LogManager.getLogger(CelebrityServiceImpl.class);
 
     @Override
     public List<Celebrity> getCelebrities() {
@@ -62,14 +66,20 @@ public class CelebrityServiceImpl implements CelebrityService {
     public boolean addFilmography(FilmographyWrapper filmography) {
 
         List<Movie> celebFilmgraphy = new ArrayList<>();
+
         filmography.getFilmography().forEach(movieId -> {
-            celebFilmgraphy.add(utilityService.getMoive(movieId));
+            try {
+                celebFilmgraphy.add(utilityService.getMoive(movieId));
+            } catch (ResponseStatusException e) {
+                logger.info("Cannot find moive " + movieId);
+            }
         });
 
-        Celebrity celebrity = celebrityRepository.findById(filmography.getCelebrityId())
+        Celebrity celebrity = celebrityRepository.findById(filmography.getId())
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getCelebrityNotFound()));
 
         celebrity.setFilmography(celebFilmgraphy);
+//        System.out.println(celebFilmgraphy);
         return celebrityRepository.save(celebrity).getFilmography() != null;
 
     }

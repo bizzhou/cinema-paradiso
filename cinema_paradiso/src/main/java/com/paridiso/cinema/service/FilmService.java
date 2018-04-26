@@ -10,11 +10,11 @@ import java.util.Set;
 
 public interface FilmService {
 
-    Movie addMovie(Movie movie);
+    <T extends Film> T addFilm(Film movie);
 
-    Movie getMovie(String filmId);
+    <T extends Film> T getFilm(String filmId);
 
-    List<Movie> getMovies();
+    List<? extends Film> getMovies();
 
     void deleteFilm(String filmId);
 

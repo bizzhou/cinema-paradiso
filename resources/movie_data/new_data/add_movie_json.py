@@ -6,13 +6,19 @@ import requests
 # celeb = json.load(open('./academy/oscar_celeb.json'))
 # data = open('./academy/oscar_data.json')
 # link = open('./academy/oscar_movie_celeb_id_link.json')
-# images = json.loads(open('./ac'))
+# images = json.load(open('./academy/oscar_images.json'))
 
 
-celeb = json.load(open('./recent_movies/recent_celeb.json', encoding='utf8'))
-data = open('./recent_movies/recent_data.txt', encoding='utf8')
-link = open('./recent_movies/recent_movie_celeb_id_link.json', encoding='utf8')
+# celeb = json.load(open('./recent_movies/recent_celeb.json', encoding='utf8'))
+# data = open('./recent_movies/recent_data.txt', encoding='utf8')
+# link = open('./recent_movies/recent_movie_celeb_id_link.json', encoding='utf8')
 # images = json.load(open('./recent_movies/recent_images.json', encoding='utf8'))
+
+
+celeb = json.load(open('./tv/tv_celeb.json', encoding='utf8'))
+data = open('./tv/tv_data.txt', encoding='utf8')
+link = open('./tv/tv_celeb_id_link.json', encoding='utf8')
+images = json.load(open('./tv/tv_images.json', encoding='utf8'))
 
 celeb_dict = {}
 data_dict = {}
@@ -26,8 +32,8 @@ for line in celeb:
     celeb_dict[line['id']] = line
 
 # TODO: uncomment this.
-# for image in images:
-#     image_dict[image['id']] = image['images']
+for image in images:
+    image_dict[image['id']] = image['images']
 
 for line in link:
     json_data = json.loads(line)
@@ -40,26 +46,29 @@ for line in data:
     id = json_data['imdbID']
 
     # get the director string
-    director = celeb_dict[link_dict[id]['director']]
+    try:
+        director = celeb_dict[link_dict[id]['director']]
+        new_director = {}
+        # new_director['PHOTO_LOCATION'] = director['poster']
+        new_director['celebrityId'] = director['id']
+        new_director['name'] = director['name']
+        new_director['profileImage'] = director['poster']
+        new_director['biography'] = director['biography'].strip()
+        new_director['birthDate'] = None
+        new_director['birthCity'] = None
+        new_director['birthState'] = None
+        new_director['birthCountry'] = None
+        # new_director['filmography'] = list(map(make_movie, director['knownFor']))
+        new_director['director'] = True
+        new_director['photo_LOCATION'] = None
+        new_director['profileImageName'] = None
+    except:
+        director = {}
 
     # print('---------------------')
     # print(director['knownFor'])
     # print('---------------------')
-
-    new_director = {}
-    # new_director['PHOTO_LOCATION'] = director['poster']
-    new_director['celebrityId'] = director['id']
-    new_director['name'] = director['name']
-    new_director['profileImage'] = director['poster']
-    new_director['biography'] = director['biography'].strip()
-    new_director['birthDate'] = None
-    new_director['birthCity'] = None
-    new_director['birthState'] = None
-    new_director['birthCountry'] = None
-    # new_director['filmography'] = list(map(make_movie, director['knownFor']))
-    new_director['director'] = True
-    new_director['photo_LOCATION'] = None
-    new_director['profileImageName'] = None
+    
 
     # get the actor id array
     actors = link_dict[id]['actors']
@@ -114,6 +123,12 @@ for line in data:
             list_of_genre[i] = 'FILM_NOIR'
         if item.strip() == 'SCI-FI':
             list_of_genre[i] = 'SCI_FI'
+        if item.strip() == 'TALK-SHOW':
+            list_of_genre[i] = 'TALK_SHOW'
+        if item.strip() == 'GAME-SHOW':
+            list_of_genre[i] = 'GAME_SHOW'
+        if item.strip() == 'REALITY-TV':
+            list_of_genre[i] = 'REALITY_TV'
 
     movie_json = {}
     movie_json['imdbId'] = json_data['imdbID']
@@ -133,15 +148,34 @@ for line in data:
     if json_data['imdbRating'] == 'N/A':
         json_data['imdbRating'] = 0
     movie_json['rating'] = round(float(json_data['imdbRating']) / 2, 1)
-    movie_json['production'] = json_data['Production']
-    movie_json['website'] = json_data['Website']
-    movie_json['boxOffice'] = json_data['BoxOffice']
-    movie_json['boxOffice'] = ''.join(x for x in json_data['BoxOffice'] if x.isdigit())
+
+    try:
+        movie_json['production'] = json_data['Production']
+    except:
+        movie_json['production'] = 'N/A'
+    try:                
+        movie_json['website'] = json_data['Website']
+    except:
+        movie_json['website'] = 'N/A'
+
+    # movie_json['boxOffice'] = json_data['BoxOffice']
+    try:
+        movie_json['boxOffice'] = ''.join(x for x in json_data['BoxOffice'] if x.isdigit())
+    except:
+        movie_json['boxOffice'] = None
+
     movie_json['runTime'] = ''.join(x for x in json_data['Runtime'] if x.isdigit())
     movie_json['numberOfRatings'] = random.randrange(30)
     movie_json['casts'] = actors_list
-    movie_json['director'] = new_director
-    # movie_json['photos'] = image_dict[json_data['imdbID']]
+    try:
+        movie_json['director'] = new_director
+    except:
+        movie_json['director'] = None
+
+    try:
+        movie_json['photos'] = image_dict[json_data['imdbID']]
+    except:
+        movie_json['photos'] = []
 
     if movie_json['rating'] == 'N/A' or movie_json['releaseDate'] == 'N/A' or movie_json['runTime'] == '':
         continue
@@ -150,6 +184,8 @@ for line in data:
 
     # print(json.dumps(movie_json))
     # break
-    request = requests.post('http://localhost:8080/movie/add', json=(movie_json))
+    # request = requests.post('http://localhost:8080/movie/add', json=(movie_json))
+
+    request = requests.post('http://localhost:8080/tv/add', json=(movie_json))
     if (request.status_code == 400):
         print(request.text)

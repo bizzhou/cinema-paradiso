@@ -44,12 +44,12 @@ public class MovieController {
 
     @GetMapping(value = "/get/{filmId}")
     public ResponseEntity<?> getMovie(@PathVariable String filmId) {
-        return ResponseEntity.ok(filmService.getMovie(filmId));
+        return ResponseEntity.ok(filmService.getFilm(filmId));
     }
 
     @PostMapping(value = "/add")
     public ResponseEntity<Boolean> addMovie(@RequestBody Movie movie) {
-        filmService.addMovie(movie);
+        filmService.addFilm(movie);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

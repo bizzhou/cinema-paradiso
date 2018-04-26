@@ -13,11 +13,16 @@ def make_request(tv_celeb):
 		request_param = {}
 		
 		request_param['id'] = celeb_id
-		request_param['filmograhy'] = knownFor_array
+		request_param['filmography'] = knownFor_array
 
-		resp = requests.post('http://localhost:8080/celebrity/add_filmogrpahy', json=(movie_json))
-	    if (request.status_code == 400):
-	        print(request.text)
+		print(request_param)
+
+		resp = requests.post('http://localhost:8080/celebrity/add_filmogrpahy', json=(request_param))
+		# break
+		if (resp.status_code == 400):
+			print(resp.text)
+
+	    
 
 
 tv_celeb = json.load(open('./tv/tv_celeb.json'))
