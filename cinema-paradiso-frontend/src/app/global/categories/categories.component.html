@@ -6,14 +6,22 @@
 
       <!--  sidebar: movies category  -->
     <div class="col-sidebar sidebar">
-      <ul class="s-explore">
+      <ul class="s-explore" id="category-sidebar">
         <!--     in theaters -->
         <!--TODO: set to page 1, otherwise bug-->
         <li class="s-explore__title"><h3>In Theaters</h3></li>
-        <li class="s-explore__item active"><a (click)="setCurrentTab(sidebarEnum.moviesPlaying)">now playing</a></li>
-        <li class="s-explore__item"><a (click)="setCurrentTab(sidebarEnum.moviesTopBoxOffice)">top box office</a></li>
-        <li class="s-explore__item"><a (click)="setCurrentTab(sidebarEnum.moviesTrending)">trending now</a></li>
-        <li class="s-explore__item"><a (click)="setCurrentTab(sidebarEnum.moviesComingSoon)">coming soon</a></li>
+        <li class="s-explore__item" (click)="selectTab(1)" [ngClass]="{active: isActive(1)}">
+          <a (click)="setCurrentTab(sidebarEnum.moviesPlaying)">now playing</a>
+        </li>
+        <li class="s-explore__item" (click)="selectTab(2)" [ngClass]="{active: isActive(2)}">
+          <a (click)="setCurrentTab(sidebarEnum.moviesTopBoxOffice)">top box office</a>
+        </li>
+        <li class="s-explore__item"  (click)="selectTab(3)" [ngClass]="{active: isActive(3)}">
+          <a (click)="setCurrentTab(sidebarEnum.moviesTrending)">trending now</a>
+        </li>
+        <li class="s-explore__item"  (click)="selectTab(4)" [ngClass]="{active: isActive(4)}">
+          <a (click)="setCurrentTab(sidebarEnum.moviesComingSoon)">coming soon</a>
+        </li>
         <li class="s-explore__item"><a href="#">certified fresh movies</a></li>
 
         <!--     dvds -->
@@ -94,4 +102,17 @@
 
 </main>
 </body>
+
+<script>
+  var sidebarDiv = document.getElementById("category-sidebar");
+  var lis = sidebarDiv.getElementsByClassName("s-explore__item");
+  for (var i = 0; i < lis.length; i++) {
+    lis[i].addEventListener("click", function() {
+      var current = document.getElementsByClassName("active");
+      current[0].className = current[0].className.replace(" active", "");
+      this.className += " active";
+    });
+  }
+</script>
+
 </html>

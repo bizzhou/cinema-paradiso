@@ -12,12 +12,13 @@ export enum Sidebar {
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
-  styleUrls: ['./categories.component.scss']
+  styleUrls: ['./categories.component.scss'],
 })
 export class CategoriesComponent implements OnInit {
 
   public sidebarEnum = Sidebar;
 
+  selectedTab: any;
   page = 1;
   moviePage = 1;
   isListView: boolean;
@@ -77,6 +78,7 @@ export class CategoriesComponent implements OnInit {
 
   }
 
+  // TODO: add to local storage， with page number
   // get next page according to current tab
   getMoviesNextPage(currentPage) {
     const actualPage = currentPage - 1;
@@ -123,7 +125,6 @@ export class CategoriesComponent implements OnInit {
 
   }
 
-  // TODO: add to local storage， with page number
   getMoviesPlaying(): any {
     this.movieService.getMoviesPlaying('0', '20')
       .subscribe(
@@ -198,12 +199,18 @@ export class CategoriesComponent implements OnInit {
         },
         error => console.log('Failed to fetch movies trending')
       );
-
   }
 
   setListView(isListView: boolean) {
     this.isListView = isListView;
   }
 
+  // styling tab
+  selectTab(tab) {
+    this.selectedTab = tab;
+  }
+  isActive(tab) {
+    return this.selectedTab === tab;
+  }
 
 }
