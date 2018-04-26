@@ -26,6 +26,11 @@ import {ToastrModule} from 'ngx-toastr';
 import {SearchService} from './global/search/search.service';
 import {LazyLoadImageModule} from 'ng-lazyload-image';
 
+import {VgCoreModule} from 'videogular2/core';
+import {VgControlsModule} from 'videogular2/controls';
+import {VgOverlayPlayModule} from 'videogular2/overlay-play';
+import {VgBufferingModule} from 'videogular2/buffering';
+
 
 import {StarsComponent} from './global/stars/stars.component';
 import {AccountComponent} from './user/reg-user/account/account.component';
@@ -77,7 +82,11 @@ import { SidebarComponent } from './global/categories/sidebar/sidebar.component'
     BrowserAnimationsModule,
     NgbModule.forRoot(),
     ToastrModule.forRoot(),
-    LazyLoadImageModule
+    LazyLoadImageModule,
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule
   ],
   providers: [
     LoginStatusService,
