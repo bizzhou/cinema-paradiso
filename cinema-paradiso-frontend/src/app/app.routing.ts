@@ -7,7 +7,7 @@ import {CelebrityComponent} from './global/celebrity/celebrity.component';
 import {RegUserComponent} from './user/reg-user/reg-user.component';
 import {SearchComponent} from './global/search/search.component';
 import {AdminComponent} from './user/admin/admin.component';
-import { AboutComponent } from './global/about/about.component';
+import {AboutComponent} from './global/about/about.component';
 import {CriticReviewsComponent} from './global/review-collection/critic-reviews/critic-reviews.component';
 import {RegUserReviewsComponent} from './global/review-collection/reg-user-reviews/reg-user-reviews.component';
 import {CriticPortfolioComponent} from './global/public-portfolio/critic/critic.component';
