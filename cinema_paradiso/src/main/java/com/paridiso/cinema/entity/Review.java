@@ -1,5 +1,6 @@
 package com.paridiso.cinema.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -23,14 +24,13 @@ public class Review {
         return reviewId;
     }
 
-//    @JsonIgnore
+    @JsonIgnore
     @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
     @JoinColumn(name = "authorId", nullable = false)
     public UserProfile getAuthor() {
         return author;
     }
 
-//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "imdbId", nullable = false)
     public Movie getMovie() {
