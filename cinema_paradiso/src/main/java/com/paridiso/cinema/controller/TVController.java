@@ -1,7 +1,7 @@
 package com.paridiso.cinema.controller;
 
 import com.paridiso.cinema.entity.TV;
-import com.paridiso.cinema.service.FilmService;
+import com.paridiso.cinema.service.implementation.TVServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,7 +16,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 public class TVController {
 
     @Autowired
-    FilmService filmService;
+    TVServiceImpl tvService;
 
     @RequestMapping(value = "/all", method = GET)
     public ResponseEntity<List> getAllTV() {
@@ -29,9 +29,9 @@ public class TVController {
         return null;
     }
 
-    @RequestMapping(value = "/add_tv", method = POST)
+    @PostMapping(value = "/add")
     public ResponseEntity<Boolean> addTV(@RequestBody TV tv) {
-        return null;
+        return tvService.addFilm(tv) != null ? ResponseEntity.ok(true) : ResponseEntity.badRequest().body(false);
     }
 
 

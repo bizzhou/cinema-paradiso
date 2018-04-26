@@ -30,5 +30,8 @@ public enum Genre {
     SCI_FI,
     NEWS,
     SHORT,
-    SPORT
+    SPORT,
+    TALK_SHOW,
+    GAME_SHOW,
+    REALITY_TV
 }
