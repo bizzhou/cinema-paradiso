@@ -76,4 +76,19 @@ export class MovieService {
     return this.http.get(AppConstant.API_ENDPOINT + `review/get/${selectedMovieId}`);
   }
 
+  editReviewForMovie(clickedReview: Review) {
+    console.log('clicked review ', clickedReview);
+    clickedReview.imdbId = clickedReview['movie']['imdbId'];
+    return this.http.post(AppConstant.API_ENDPOINT + `review/edit/${clickedReview.imdbId}`, clickedReview);
+  }
+
+  deleteReviewForMovie(reviewId: number) {
+    return this.http.delete(AppConstant.API_ENDPOINT + `review/delete/${reviewId}`);
+  }
+
+  getUserReviews() {
+    return this.http.get(AppConstant.API_ENDPOINT + `review/gets/user_reviews`);
+  }
+
+
 }

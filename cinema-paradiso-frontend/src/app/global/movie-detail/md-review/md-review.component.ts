@@ -14,7 +14,8 @@ export class MdReviewComponent implements OnInit, OnChanges {
   @Input()
   criticReviews: Review[];
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit() {
   }
@@ -22,6 +23,5 @@ export class MdReviewComponent implements OnInit, OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     console.log(this.userReviews);
   }
-
 
 }

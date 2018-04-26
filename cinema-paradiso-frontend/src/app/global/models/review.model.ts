@@ -1,3 +1,5 @@
+import {Movie} from './movie.model';
+
 export class Review {
   reviewId: number;
   author: number;
@@ -6,6 +8,7 @@ export class Review {
   postedDate: Date;
   reviewContent: string;
   title: string;
+  // movie: Movie;
   imdbId: string;
 
   constructor(values: Object = {}) {
