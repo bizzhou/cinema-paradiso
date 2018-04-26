@@ -5,8 +5,6 @@ import {FormsModule} from '@angular/forms';
 import {AppComponent} from './app.component';
 import {CommonModule} from '@angular/common';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {LazyLoadImagesModule} from 'ngx-lazy-load-images';
-
 
 import {HomeComponent} from './global/home/home.component';
 import {FooterComponent} from './global/footer/footer.component';
@@ -26,17 +24,24 @@ import {HomeService} from './global/home/home.service';
 import {MovieService} from './global/movie-detail/movie.service';
 import {ToastrModule} from 'ngx-toastr';
 import {SearchService} from './global/search/search.service';
+import {LazyLoadImageModule} from 'ng-lazyload-image';
+
+import {VgCoreModule} from 'videogular2/core';
+import {VgControlsModule} from 'videogular2/controls';
+import {VgOverlayPlayModule} from 'videogular2/overlay-play';
+import {VgBufferingModule} from 'videogular2/buffering';
+
 
 import {StarsComponent} from './global/stars/stars.component';
-import { AccountComponent } from './user/reg-user/account/account.component';
-import { WishlistComponent } from './user/reg-user/wishlist/wishlist.component';
-import { AboutComponent } from './global/about/about.component';
-import { NotInterestedComponent } from './user/reg-user/not-interested/not-interested.component';
-import { UserReviewComponent } from './user/reg-user/user-review/user-review.component';
-import { UserRatingComponent } from './user/reg-user/user-rating/user-rating.component';
+import {AccountComponent} from './user/reg-user/account/account.component';
+import {WishlistComponent} from './user/reg-user/wishlist/wishlist.component';
+import {AboutComponent} from './global/about/about.component';
+import {NotInterestedComponent} from './user/reg-user/not-interested/not-interested.component';
+import {UserReviewComponent} from './user/reg-user/user-review/user-review.component';
+import {UserRatingComponent} from './user/reg-user/user-rating/user-rating.component';
 import {MdReviewComponent} from './global/movie-detail/md-review/md-review.component';
-import { CriticReviewsComponent } from './global/review-collection/critic-reviews/critic-reviews.component';
-import { RegUserReviewsComponent } from './global/review-collection/reg-user-reviews/reg-user-reviews.component';
+import {CriticReviewsComponent} from './global/review-collection/critic-reviews/critic-reviews.component';
+import {RegUserReviewsComponent} from './global/review-collection/reg-user-reviews/reg-user-reviews.component';
 import {CriticPortfolioComponent} from './global/public-portfolio/critic/critic.component';
 import {RegUserPortfolioComponent} from './global/public-portfolio/reg-user/reg-user.component';
 
@@ -64,7 +69,7 @@ import {RegUserPortfolioComponent} from './global/public-portfolio/reg-user/reg-
     CriticReviewsComponent,
     RegUserReviewsComponent,
     CriticPortfolioComponent,
-    RegUserPortfolioComponent
+    RegUserPortfolioComponent,
   ],
   imports: [
     BrowserModule,
@@ -75,7 +80,11 @@ import {RegUserPortfolioComponent} from './global/public-portfolio/reg-user/reg-
     BrowserAnimationsModule,
     NgbModule.forRoot(),
     ToastrModule.forRoot(),
-    LazyLoadImagesModule
+    LazyLoadImageModule,
+    VgCoreModule,
+    VgControlsModule,
+    VgOverlayPlayModule,
+    VgBufferingModule
   ],
   providers: [
     LoginStatusService,

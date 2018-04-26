@@ -90,7 +90,6 @@ export class MovieDetailComponent implements OnInit {
 
   }
 
-
   getMovie(imdbId: string): any {
     this.movieService.getMovieDetails(imdbId).subscribe(data => {
         this.movie = data as Movie;
