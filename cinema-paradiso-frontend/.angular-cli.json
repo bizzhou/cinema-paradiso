@@ -19,10 +19,10 @@
       "testTsconfig": "tsconfig.spec.json",
       "prefix": "app",
       "styles": [
+        "../node_modules/videogular2/fonts/videogular.css",
         "styles.scss"
       ],
       "scripts": [
-
       ],
       "environmentSource": "environments/environment.ts",
       "environments": {
