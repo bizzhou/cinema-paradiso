@@ -49,7 +49,7 @@ export class CategoriesComponent implements OnInit {
   // click on tab, get corresponding movies and page header
   setCurrentTab(tab: string) {
 
-    console.log('fetching' + tab);
+    console.log('fetching ' + tab);
 
     switch (tab) {
       case this.sidebarEnum.moviesPlaying: {
@@ -73,10 +73,10 @@ export class CategoriesComponent implements OnInit {
         break;
       }
     }
+    this.moviePage = 1;
 
   }
 
-  // TODO: add to local storage
   // get next page according to current tab
   getMoviesNextPage(currentPage) {
     const actualPage = currentPage - 1;
@@ -123,100 +123,81 @@ export class CategoriesComponent implements OnInit {
 
   }
 
+  // TODO: add to local storage， with page number
   getMoviesPlaying(): any {
-    if (this.moviesPlaying == null) {
-      this.movieService.getMoviesPlaying('0', '20')
-        .subscribe(
-          data => {
-            this.moviesPlaying = data['movie'] as Movie[];
-            this.numOfMoviesPlayingPages = data['movie_page'] * 10;
+    this.movieService.getMoviesPlaying('0', '20')
+      .subscribe(
+        data => {
+          this.moviesPlaying = data['movie'] as Movie[];
+          this.numOfMoviesPlayingPages = data['movie_page'] * 10;
 
-            // set for current tab
-            this.currentMovies = this.moviesPlaying;
-            this.numOfCurrentMovies = this.numOfMoviesPlayingPages;
+          // set for current tab
+          this.currentMovies = this.moviesPlaying;
+          this.numOfCurrentMovies = this.numOfMoviesPlayingPages;
 
-            console.log(this.moviesPlaying);
-            console.log(this.numOfMoviesPlayingPages);
-            localStorage.setItem('nowPlaying', JSON.stringify(this.moviesPlaying));
-          },
-          error => console.log('Failed to fetch movies playing')
-        );
-    } else {
-      // set for current tab
-      this.currentMovies = this.moviesPlaying;
-      this.numOfCurrentMovies = this.numOfMoviesPlayingPages;
-    }
+          console.log(this.moviesPlaying);
+          console.log(this.numOfMoviesPlayingPages);
+          localStorage.setItem('nowPlaying', JSON.stringify(this.moviesPlaying));
+        },
+        error => console.log('Failed to fetch movies playing')
+      );
 
 
   }
 
   getMoviesTopBoxOffice(): any {
-    if (this.moviesTopBoxOffice == null) {
-      this.movieService.getTopBoxOffice('0', '20')
-        .subscribe(
-          data => {
-            this.moviesTopBoxOffice = data['movie'] as Movie[];
-            this.numOfMoviesTopBoxOffice = data['movie_page'] * 10;
+    this.movieService.getTopBoxOffice('0', '20')
+      .subscribe(
+        data => {
+          this.moviesTopBoxOffice = data['movie'] as Movie[];
+          this.numOfMoviesTopBoxOffice = data['movie_page'] * 10;
 
-            this.currentMovies = this.moviesTopBoxOffice;
-            this.numOfCurrentMovies = this.numOfMoviesPlayingPages;
+          this.currentMovies = this.moviesTopBoxOffice;
+          this.numOfCurrentMovies = this.numOfMoviesPlayingPages;
 
-            console.log(this.moviesTopBoxOffice);
-            console.log(this.numOfMoviesTopBoxOffice);
-            localStorage.setItem('topBoxOffice', JSON.stringify(this.moviesTopBoxOffice));
-          },
-          error => console.log('Failed to fetch movies with top box office')
-        );
-    } else {
-      this.currentMovies = this.moviesTopBoxOffice;
-      this.numOfCurrentMovies = this.numOfMoviesPlayingPages;
-    }
+          console.log(this.moviesTopBoxOffice);
+          console.log(this.numOfMoviesTopBoxOffice);
+          localStorage.setItem('topBoxOffice', JSON.stringify(this.moviesTopBoxOffice));
+        },
+        error => console.log('Failed to fetch movies with top box office')
+      );
+
 
   }
 
   getMoviesComingSoon(): any {
-    if (this.moviesComingSoon == null) {
-      this.movieService.getMoviesComingSoon('0', '20')
-        .subscribe(
-          data => {
-            this.moviesComingSoon = data['movie'] as Movie[];
-            this.numOfMoviesComingSoon = data['movie_page'] * 10;
+    this.movieService.getMoviesComingSoon('0', '20')
+      .subscribe(
+        data => {
+          this.moviesComingSoon = data['movie'] as Movie[];
+          this.numOfMoviesComingSoon = data['movie_page'] * 10;
 
-            this.currentMovies = this.moviesComingSoon;
-            this.numOfCurrentMovies = this.numOfMoviesComingSoon;
+          this.currentMovies = this.moviesComingSoon;
+          this.numOfCurrentMovies = this.numOfMoviesComingSoon;
 
-            console.log(this.moviesComingSoon);
-            localStorage.setItem('comingSoon', JSON.stringify(this.moviesComingSoon));
-          },
-          error => console.log('Failed to fetch movies coming soon')
-        );
-    } else {
-      this.currentMovies = this.moviesComingSoon;
-      this.numOfCurrentMovies = this.numOfMoviesComingSoon;
-    }
+          console.log(this.moviesComingSoon);
+          localStorage.setItem('comingSoon', JSON.stringify(this.moviesComingSoon));
+        },
+        error => console.log('Failed to fetch movies coming soon')
+      );
 
   }
 
   getMoviesTrending(): any {
-    if (this.moviesTrending == null) {
-      this.movieService.getMoviesTrending('0', '20')
-        .subscribe(
-          data => {
-            this.moviesTrending = data['movie'] as Movie[];
-            this.numOfMoviesTrending = data['movie_page'] * 10;
+    this.movieService.getMoviesTrending('0', '20')
+      .subscribe(
+        data => {
+          this.moviesTrending = data['movie'] as Movie[];
+          this.numOfMoviesTrending = data['movie_page'] * 10;
 
-            this.currentMovies = this.moviesTrending;
-            this.numOfCurrentMovies = this.numOfMoviesTrending;
+          this.currentMovies = this.moviesTrending;
+          this.numOfCurrentMovies = this.numOfMoviesTrending;
 
-            console.log(this.moviesTrending);
-            localStorage.setItem('movieTrending', JSON.stringify(this.moviesTrending));
-          },
-          error => console.log('Failed to fetch movies trending')
-        );
-    } else {
-      this.currentMovies = this.moviesTrending;
-      this.numOfCurrentMovies = this.numOfMoviesTrending;
-    }
+          console.log(this.moviesTrending);
+          localStorage.setItem('movieTrending', JSON.stringify(this.moviesTrending));
+        },
+        error => console.log('Failed to fetch movies trending')
+      );
 
   }
 
