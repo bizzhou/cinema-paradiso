@@ -82,9 +82,6 @@ export class RegUserComponent implements OnInit {
     });
 
 
-
-
-
   }
 
   updateProfile() {
@@ -142,7 +139,6 @@ export class RegUserComponent implements OnInit {
       });
     }
   }
-
 
   deleteRating(rating: Rating) {
     this.regUserService.deleteUserRating(rating.ratedMovie.imdbId).subscribe(data => {
