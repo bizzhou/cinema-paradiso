@@ -59,17 +59,17 @@
         <div class="r_poster">
 
           <div class="row">
-            <div class="col-md-6">
-              <img id="movie_poster" src="{{movie.poster}}" alt="{{movie.title}}" style="height: 300px; width: 200px">
+            <div class="col-md-5">
+              <img id="movie_poster" [lazyLoad]="movie.poster" [defaultImage]="'../../../assets/images/no_image.png'"
+                   alt="{{movie.title}}" style="height: 300px; width: 200px">
             </div>
 
             <div class="col-md">
-              <h3>Critic Rating</h3><span class="rating-num">{{movie?.rating}}</span>
+              <h3>Critic Rating:</h3><span class="rating-num">{{movie?.rating}}</span>
               <br>
               <br>
               <br>
-              <br>
-              <h3>User Rating</h3><span class="rating-num">{{movie?.rating}}</span>
+              <h3>User Rating:</h3><span class="rating-num">{{movie?.rating}}</span>
 
             </div>
           </div>
@@ -197,7 +197,9 @@
             <!--<li class="row md-list__item" *ngFor="let photo of movie?.photos">-->
             <li class="row md-list__item">
               <a class="col-photos item__detail" href="" *ngFor="let photo of movie?.photos">
-                <img src="{{photo}}">
+                <img [defaultImage]="'../../../assets/images/no_image.png'"
+                     [lazyLoad]="photo">
+                <!--<img src="{{photo}}" alt="">-->
               </a>
             </li>
           </ul>
@@ -215,7 +217,7 @@
             <li class="row md-list__item">
               <a class="col-casts item__detail" *ngFor="let actor of movie?.casts"
                  routerLink="/celebrity/{{actor.celebrityId}}">
-                <img src="{{actor.profileImage}}">
+                <img src="{{actor.profileImage}}" onError="this.src='../../../assets/images/no_image.png'">
                 <span>{{actor.name}}</span>
               </a>
             </li>
