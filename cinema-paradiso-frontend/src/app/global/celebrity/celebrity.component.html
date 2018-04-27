@@ -1,83 +1,44 @@
 <div>
   <main>
-    <h3 id="people_name">
+    <h1 id="people_name">
       {{celebrity.name}}
-    </h3>
+    </h1>
 
     <div class="p_tab">
 
-      <ul>
-        <li>
-          <a class="show_overview" href="">
-            <i class="fa fa-search"></i> Overview</a>
-        </li>
-        <li>
-          <a class="show_biography" href="">
-            <i class="fa fa-book"></i> Biography</a>
-        </li>
-        <li>
-          <a class="show_people_pictures" href="">
-            <i class="fa fa-image"></i> Filmography</a>
-        </li>
-      </ul>
-    </div>
 
+      <div class="container overview-wrap">
+        <div class="row">
+          <div class="col-overview overview">
+            <img class='people_portrait' src="{{celebrity.profileImage}}"
+                 onError="this.src='../../../assets/images/no_image.png'" alt="">
 
-    <div class="container overview-wrap">
-      <div class="row">
-        <div class="col-overview overview">
-          <img class='people_portrait' src="{{celebrity.profileImage}}" alt="">
+            <!--<h3>BIOGRAPHY</h3>-->
+            <p class="o-bio">
+              {{celebrity.biography}}
+            </p>
 
-          <!--<h3>BIOGRAPHY</h3>-->
-          <p class="o-bio">
-            {{celebrity.biography}}
-          </p>
-
-        </div>
-
-        <div class="col-detail detail">
-          <div class="d-video__main">
           </div>
 
-          <ul class="container d-videos__more">
-            <li class="row d-video__item">
-            </li>
-          </ul>
+          <div class="col-detail detail">
 
-          <div></div>
+            <h2>Filmography</h2>
+
+              <ul class="filmography_details">
+                <li *ngFor="let movie of celebrity.filmography">
+                  <img src="{{movie.poster}}" alt="Movie Poster" routerLink="/movie/{{movie.imdbId}}">
+                  <br>
+                  {{movie.title}}
+                </li>
+              </ul>
+
+            <!--<ng-template #no_filmography>-->
+            <!--<h4>No Filmography Data Available...</h4>-->
+            <!--</ng-template>-->
 
 
-        </div>
+          </div>
 
-      </div>
-    </div>
-
-
-    <div class="container bio-wrap" style="display:none">
-      <div class="row">
-        <div class="col-overview overview">
-          <img class='people_portrait' src="{{celebrity.profileImage}}"
-            alt="">
-
-        </div>
-        <div class="col-detail detail">
-          <p>
-            {{celebrity.biography}}
-          </p>
-
-        </div>
-      </div>
-    </div>
-
-    <!--Pictures-->
-
-    <div class="container photos-wrap" style="display:none">
-      <div class="row">
-        <div class="col-overview overview">
-        </div>
-
-        <div class="col-detail detail">
-          <img src="{{celebrity.profileImage}}" alt="">
         </div>
       </div>
     </div>
