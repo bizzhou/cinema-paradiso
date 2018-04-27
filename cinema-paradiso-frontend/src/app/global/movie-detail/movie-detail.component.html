@@ -161,175 +161,26 @@
       <div class="col-right content-wrap">
         <!-- poster -->
         <div class="r_poster">
-          <img [src]="movie?.photos[0]" [alt]="movie?.title">
-          <a href="#" class="r_poster--play">
-            <i class="fa fa-play fa-2x"></i>
-          </a>
-        </div>
-        <!-- ratings -->
-        <div class="container">
-          <div class="row ratings">
-            <div class="col-ratings rating-container">
-              <div class="rating-inner">
-                <div class="rating">
-                  <span class="rating-num">{{movie?.rating}}</span>
-                  <div class="rating-stars">
-                      <span>
-                        <i class=" fa fa-star icon-star"></i>
-                      </span>
-                    <span>
-                        <i class=" fa fa-star icon-star"></i>
-                      </span>
-                    <span>
-                        <i class=" fa fa-star icon-star"></i>
-                      </span>
-                    <span>
-                        <i class=" fa fa-star icon-star"></i>
-                      </span>
-                    <span>
-                        <i class=" fa fa-star icon-star "></i>
-                      </span>
-                  </div>
-                  <div class="rating-users">
-                    <i class="icon-user"></i> {{movie?.numberOfRating}} Total
-                  </div>
-                </div>
 
-                <div class="histo">
-                  <div class="five histo-rate">
-                      <span class="histo-star ">
-                        <i class="active  icon-star"></i> 5 </span>
-                    <span class="bar-block">
-                        <span id="bar-five" class="bar">
-                          <span>6,784</span>&nbsp;
-                        </span>
-                      </span>
-                  </div>
-
-                  <div class="four histo-rate">
-                      <span class="histo-star">
-                        <i class="active   icon-star"></i> 4 </span>
-                    <span class="bar-block">
-                        <span id="bar-four" class="bar">
-                          <span>1298</span>&nbsp;
-                        </span>
-                      </span>
-                  </div>
-
-                  <div class="three histo-rate">
-                      <span class="histo-star">
-                        <i class="active  icon-star"></i> 3 </span>
-                    <span class="bar-block">
-                        <span id="bar-three" class="bar">
-                          <span>940</span>&nbsp;
-                        </span>
-                      </span>
-                  </div>
-
-                  <div class="two histo-rate">
-                      <span class="histo-star">
-                        <i class="active  icon-star"></i> 2 </span>
-                    <span class="bar-block">
-                        <span id="bar-two" class="bar">
-                          <span>525</span>&nbsp;
-                        </span>
-                      </span>
-                  </div>
-
-                  <div class="one histo-rate">
-                      <span class="histo-star">
-                        <i class="active icon-star"></i> 1 </span>
-                    <span class="bar-block">
-                        <span id="bar-one" class="bar">
-                          <span>57</span>&nbsp;
-                        </span>
-                      </span>
-                  </div>
-                </div>
-              </div>
+          <div class="row">
+            <div class="col-md-6">
+              <img id="movie_poster" src="{{movie.poster}}" alt="{{movie.title}}" style="height: 300px; width: 200px">
             </div>
-            <div class="col-ratings rating-container">
-              <div class="rating-inner">
-                <div class="rating">
-                  <span class="rating-num">{{movie?.rating}}</span>
-                  <div class="rating-stars">
-                      <span>
-                        <i class=" fa fa-star icon-star"></i>
-                      </span>
-                    <span>
-                        <i class=" fa fa-star icon-star"></i>
-                      </span>
-                    <span>
-                        <i class=" fa fa-star icon-star"></i>
-                      </span>
-                    <span>
-                        <i class=" fa fa-star icon-star non-rated"></i>
-                      </span>
-                    <span>
-                        <i class=" fa fa-star icon-star non-rated"></i>
-                      </span>
-                  </div>
-                  <div class="rating-users">
-                    <i class="icon-user"></i> 9,004 critics
-                  </div>
-                </div>
 
-                <div class="histo">
-                  <div class="five histo-rate">
-                      <span class="histo-star ">
-                        <i class="active  icon-star"></i> 5 </span>
-                    <span class="bar-block">
-                        <span id="bar-ten" class="bar">
-                          <span>6,784</span>&nbsp;
-                        </span>
-                      </span>
-                  </div>
+            <div class="col-md">
+              <h3>Critic Rating</h3><span class="rating-num">{{movie?.rating}}</span>
+              <br>
+              <br>
+              <br>
+              <br>
+              <h3>User Rating</h3><span class="rating-num">{{movie?.rating}}</span>
 
-                  <div class="four histo-rate">
-                      <span class="histo-star">
-                        <i class="active   icon-star"></i> 4 </span>
-                    <span class="bar-block">
-                        <span id="bar-nine" class="bar">
-                          <span>1298</span>&nbsp;
-                        </span>
-                      </span>
-                  </div>
-
-                  <div class="three histo-rate">
-                      <span class="histo-star">
-                        <i class="active  icon-star"></i> 3 </span>
-                    <span class="bar-block">
-                        <span id="bar-eight" class="bar">
-                          <span>940</span>&nbsp;
-                        </span>
-                      </span>
-                  </div>
-
-                  <div class="two histo-rate">
-                      <span class="histo-star">
-                        <i class="active  icon-star"></i> 2 </span>
-                    <span class="bar-block">
-                        <span id="bar-seven" class="bar">
-                          <span>525</span>&nbsp;
-                        </span>
-                      </span>
-                  </div>
-
-                  <div class="one histo-rate">
-                      <span class="histo-star">
-                        <i class="active icon-star"></i> 1 </span>
-                    <span class="bar-block">
-                        <span id="bar-six" class="bar">
-                          <span>57</span>&nbsp;
-                        </span>
-                      </span>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
 
+
         </div>
+        <!-- ratings -->
         <!-- add ratings -->
         <div class="container ratings-add">
           <p class="ratings-header">Add Your Rating</p>
@@ -403,14 +254,37 @@
 
           <ul class="container md-list__videos">
             <li class="row md-list__item">
-              <!-- YOUTUBE VIDEOS -->
-              <!--<object class="col-video item__detail" data="https://www.youtube.com/embed/uiA4B5Y63IQ?hd=1&rel=0&autohide=1&showinfo=0">-->
-              <!--</object>-->
+              <vg-player>
+                <vg-overlay-play></vg-overlay-play>
+                <vg-buffering></vg-buffering>
 
-              <!--<object class="col-video item__detail" data="https://www.youtube.com/embed/zwmTb-aAdJg?hd=1&rel=0&autohide=1&showinfo=0">-->
-              <!--</object>-->
-              <!--<object class="col-video item__detail" data="https://www.youtube.com/embed/T6pk194roPI?hd=1&rel=0&autohide=1&showinfo=0">-->
-              <!--</object>-->
+                <vg-scrub-bar>
+                  <vg-scrub-bar-current-time></vg-scrub-bar-current-time>
+                  <vg-scrub-bar-buffering-time></vg-scrub-bar-buffering-time>
+                </vg-scrub-bar>
+
+                <vg-controls>
+                  <vg-play-pause></vg-play-pause>
+                  <vg-playback-button></vg-playback-button>
+
+                  <vg-time-display vgProperty="current" vgFormat="mm:ss"></vg-time-display>
+
+                  <vg-scrub-bar style="pointer-events: none;"></vg-scrub-bar>
+
+                  <vg-time-display vgProperty="left" vgFormat="mm:ss"></vg-time-display>
+                  <vg-time-display vgProperty="total" vgFormat="mm:ss"></vg-time-display>
+
+                  <vg-track-selector></vg-track-selector>
+                  <vg-mute></vg-mute>
+                  <vg-volume></vg-volume>
+
+                  <vg-fullscreen></vg-fullscreen>
+                </vg-controls>
+
+                <video [vgMedia]="media" #media id="singleVideo" preload="auto" crossorigin>
+                  <source src="../../../assets/images/trailer.mp4" type="video/mp4">
+                </video>
+              </vg-player>
             </li>
           </ul>
         </section>
