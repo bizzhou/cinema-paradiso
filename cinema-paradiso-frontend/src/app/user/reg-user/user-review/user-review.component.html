@@ -6,7 +6,6 @@
     </div>
 
     <div class="col-9 review">
-      <!--TODO: review title here-->
       <h5 class="r-title">{{review.title}}</h5>
 
 
@@ -32,7 +31,6 @@
 </div>
 <ngb-pagination class="d-flex justify-content-left" [collectionSize]="20"></ngb-pagination>
 
-
 <ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title">Edit Review</h4>
@@ -43,13 +41,17 @@
   <div class="modal-body">
 
     <form>
-      <label>Title</label>
-      <input type="text" [(ngModel)]="clickedReview.title" name="clicked_review_title">
 
-      <label>Content</label>
+      <div>
+        <label>Title</label>
+        <input type="text" [(ngModel)]="clickedReview.title" name="clicked_review_title">
+      </div>
 
-      <textarea [(ngModel)]="clickedReview.reviewContent" name="clicked_review_content" id="" cols="30" rows="10">
-      </textarea>
+      <div>
+        <label>Content</label>
+        <textarea [(ngModel)]="clickedReview.reviewContent" name="clicked_review_content" id="" cols="30" rows="10">
+          </textarea>
+      </div>
 
       <button class="btn" (click)="editReview()">Submit</button>
     </form>
@@ -59,4 +61,3 @@
     <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
   </div>
 </ng-template>
-

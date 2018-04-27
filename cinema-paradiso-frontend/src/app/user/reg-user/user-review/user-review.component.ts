@@ -13,8 +13,7 @@ export class UserReviewComponent implements OnInit {
   @Input() reviews;
   private closeResult: string;
   clickedReview: Review;
-
-
+  
   constructor(private movieService: MovieService, private modalService: NgbModal) {
   }
 
