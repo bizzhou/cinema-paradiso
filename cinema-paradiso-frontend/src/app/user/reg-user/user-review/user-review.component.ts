@@ -1,7 +1,8 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {ModalDismissReasons, NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {ModalDismissReasons, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {MovieService} from '../../../global/movie-detail/movie.service';
 import {Review} from '../../../global/models/review.model';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-review',
@@ -13,8 +14,9 @@ export class UserReviewComponent implements OnInit {
   @Input() reviews;
   private closeResult: string;
   clickedReview: Review;
-  
-  constructor(private movieService: MovieService, private modalService: NgbModal) {
+  modalRef: NgbModalRef;
+
+  constructor(private movieService: MovieService, private modalService: NgbModal, private toastrService: ToastrService) {
   }
 
   ngOnInit() {
@@ -23,7 +25,8 @@ export class UserReviewComponent implements OnInit {
 
   open(content, review: Review) {
     this.clickedReview = review;
-    this.modalService.open(content).result.then((result) => {
+    this.modalRef = this.modalService.open(content);    
+    this.modalRef.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -43,6 +46,8 @@ export class UserReviewComponent implements OnInit {
   editReview() {
     this.movieService.editReviewForMovie(this.clickedReview).subscribe(data => {
       console.log('Return Data', data);
+      this.toastrService.success('Success');
+      this.modalRef.close();
     }, error => {
       console.log('Error ', error);
     });
@@ -52,6 +57,7 @@ export class UserReviewComponent implements OnInit {
     this.movieService.deleteReviewForMovie(review.reviewId).subscribe(data => {
       console.log('Return Data', data);
       this.reviews.splice(this.reviews.indexOf(review), 1);
+      this.toastrService.success('Success');
     }, error => {
       console.log('Error ', error);
     });
