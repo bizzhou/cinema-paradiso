@@ -5,6 +5,7 @@ movie_data/venv/
 
 movie_data/new_data/test\.ipynb
 
+.debris
 
 \.DS_Store
 
@@ -29,3 +30,5 @@ resources/movie_data/new_data/venv/Scripts/
 resources/movie_data/new_data/venv/
 
 cinema-paradiso-frontend/package-lock\.json
+
+\.debris/tmp/
