@@ -254,6 +254,8 @@
 
           <ul class="container md-list__videos">
             <li class="row md-list__item">
+
+
               <vg-player>
                 <vg-overlay-play></vg-overlay-play>
                 <vg-buffering></vg-buffering>
@@ -282,9 +284,15 @@
                 </vg-controls>
 
                 <video [vgMedia]="media" #media id="singleVideo" preload="auto" crossorigin>
-                  <source src="../../../assets/images/trailer.mp4" type="video/mp4">
+                  <!--<source src="../../../assets/trailers/{{movie.imdbId}}.mp4" onError="this.src='../../../assets/trailers/trailer.mp4'" type="video/mp4">-->
+                  <source *ngIf="trailer" src="{{trailer}}" onError="this.src='../../../assets/trailers/trailer.mp4'" type="video/mp4">
                 </video>
               </vg-player>
+
+
+
+
+
             </li>
           </ul>
         </section>

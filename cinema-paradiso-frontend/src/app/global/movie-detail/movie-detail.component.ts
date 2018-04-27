@@ -22,6 +22,7 @@ export class MovieDetailComponent implements OnInit {
   currentRating = 0;
   ngbRatingReadOnly = false;
   loggedInFlag: boolean;
+  trailer: string;
 
   constructor(private movieService: MovieService,
               private loginStatusService: LoginStatusService,
@@ -96,6 +97,8 @@ export class MovieDetailComponent implements OnInit {
 
         const shrinked_photo = this.movie.photos.map(ele => this.shrinkPhoto(ele));
         this.movie.photos = shrinked_photo;
+        this.trailer = `../../../assets/trailers/${this.movie.imdbId}.mp4`;
+
 
         this.movieService.getMovieReviews(this.selectedMovieId).subscribe(reviews => {
           this.movie.reviews = reviews as Review[];
@@ -104,12 +107,12 @@ export class MovieDetailComponent implements OnInit {
           this.toastrService.error('FAILED TO FETCH REVIEWS');
         });
 
-        },
-        error => console.log('Failed to fetch movie with id')
-      );
+      },
+      error => console.log('Failed to fetch movie with id')
+    );
   }
 
-  shrinkPhoto (photo: string) {
+  shrinkPhoto(photo: string) {
     return photo.substr(0, photo.indexOf('@') + 1) + '._V1_SY1000_CR0,0,1257,1000_AL_.jpg';
   }
 
