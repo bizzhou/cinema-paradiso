@@ -12,8 +12,10 @@ export class MovieService {
   constructor(private http: HttpClient) {
   }
 
-  getMoviesPlaying() {
-    return this.http.get(MOVIE_SERVER + 'get/playing');
+  getMoviesPlaying(pageNo: string, pageSize: string) {
+    const param = new HttpParams().set('pageNo', pageNo)
+      .set('pageSize', pageSize);
+    return this.http.post(MOVIE_SERVER + 'playing', param);
   }
 
   getMoviesTrending(pageNo: string, pageSize: string) {

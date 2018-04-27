@@ -86,6 +86,7 @@ export class CategoriesComponent implements OnInit {
     console.log('sending request for: ' + this.currentTab + ' page ' + actualPage);
     switch (this.currentTab) {
       case this.sidebarEnum.moviesPlaying: {
+        // this.movieService.getMoviesPlaying(actualPage.toString(), '20')
         this.movieService.getMoviesPlaying(actualPage.toString(), '20')
           .subscribe(results => {
             this.moviesPlaying = results['movie'] as Movie[];

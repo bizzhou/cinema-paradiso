@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -64,22 +65,22 @@ public class TVServiceImpl implements FilmService {
     }
 
     @Override
-    public Set<Movie> getMoviesTrending() {
+    public HashMap<String, Object> getMoviesTrending(Integer pageNo, Integer pageSize) {
         return null;
     }
 
     @Override
-    public Set<Movie> getMoviesComingSoon() {
+    public HashMap<String, Object> getMoviesComingSoon(Integer pageNo, Integer pageSize) {
         return null;
     }
 
     @Override
-    public Set<Movie> getMoviesPlaying() {
+    public HashMap<String, Object> getMoviesPlaying(Integer pageNo, Integer pageSize) {
         return null;
     }
 
     @Override
-    public List<Movie> getMoviesTopBoxOffice() {
+    public HashMap<String, Object> getMoviesTopBoxOffice(Integer pageNo, Integer pageSize) {
         return null;
     }
 

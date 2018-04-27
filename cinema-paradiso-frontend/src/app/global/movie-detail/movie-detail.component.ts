@@ -95,6 +95,8 @@ export class MovieDetailComponent implements OnInit {
     this.movieService.getMovieDetails(imdbId).subscribe(data => {
         this.movie = data as Movie;
 
+        console.log(this.movie);
+
         // const shrinked_photo = this.movie.photos.map(ele => this.shrinkPhoto(ele));
         // this.movie.photos = shrinked_photo;
         this.trailer = `../../../assets/trailers/${this.movie.imdbId}.mp4`;
