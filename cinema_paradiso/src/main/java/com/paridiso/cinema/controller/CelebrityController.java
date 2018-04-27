@@ -57,8 +57,11 @@ public class CelebrityController {
 
     @PostMapping(value = "add_filmogrpahy")
     public ResponseEntity<?> addFilmography(@RequestBody FilmographyWrapper filmography) {
-//        System.out.println(filmography);
         return ResponseEntity.ok(celebrityService.addFilmography(filmography));
     }
 
+    @GetMapping(value = "get/{id}/filmography")
+    public ResponseEntity<?> getFilmography(@PathVariable String id) {
+        return ResponseEntity.ok(celebrityService.getFilmography(id));
+    }
 }

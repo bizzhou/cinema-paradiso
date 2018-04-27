@@ -3,6 +3,7 @@ package com.paridiso.cinema.service.implementation;
 import com.paridiso.cinema.constants.AlgorithmConstants;
 import com.paridiso.cinema.constants.ExceptionConstants;
 import com.paridiso.cinema.entity.*;
+import com.paridiso.cinema.persistence.CelebrityRepository;
 import com.paridiso.cinema.persistence.MovieRepository;
 import com.paridiso.cinema.persistence.UserProfileRepository;
 import com.paridiso.cinema.persistence.UserRepository;
@@ -34,7 +35,10 @@ public class UtilityServiceImpl implements UtilityService {
     private UserProfileRepository userProfileRepository;
 
     @Autowired
-    MovieRepository movieRepository;
+    private MovieRepository movieRepository;
+
+    @Autowired
+    private CelebrityRepository celebrityRepository;
 
     @Override
     public Movie getMoive(String movieId) {
@@ -53,6 +57,12 @@ public class UtilityServiceImpl implements UtilityService {
     public UserProfile getUserProfile(Integer id) {
         return userProfileRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getProfileNotFound()));
+    }
+
+    @Override
+    public Celebrity getCelebrity(String id) {
+        return celebrityRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getCelebrityNotFound()));
     }
 
 

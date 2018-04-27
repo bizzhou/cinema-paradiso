@@ -1,5 +1,7 @@
 package com.paridiso.cinema.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.net.URI;
 import java.util.Calendar;
@@ -20,6 +22,8 @@ public class Celebrity {
     private String birthCountry;
     private Set<URI> photos;
     private boolean isDirector;
+
+    @JsonIgnore
     private List<Movie> filmography;
 
     public Celebrity() {
