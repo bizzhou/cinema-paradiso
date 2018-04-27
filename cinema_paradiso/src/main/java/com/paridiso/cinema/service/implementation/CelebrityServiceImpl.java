@@ -2,6 +2,7 @@ package com.paridiso.cinema.service.implementation;
 
 import com.paridiso.cinema.constants.ExceptionConstants;
 import com.paridiso.cinema.entity.Celebrity;
+import com.paridiso.cinema.entity.Film;
 import com.paridiso.cinema.entity.FilmographyWrapper;
 import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.persistence.CelebrityRepository;
@@ -66,6 +67,7 @@ public class CelebrityServiceImpl implements CelebrityService {
     public boolean addFilmography(FilmographyWrapper filmography) {
 
         List<Movie> celebFilmgraphy = new ArrayList<>();
+        Celebrity celebrity = utilityService.getCelebrity(filmography.getId());
 
         filmography.getFilmography().forEach(movieId -> {
             try {
@@ -75,12 +77,14 @@ public class CelebrityServiceImpl implements CelebrityService {
             }
         });
 
-        Celebrity celebrity = celebrityRepository.findById(filmography.getId())
-                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getCelebrityNotFound()));
-
         celebrity.setFilmography(celebFilmgraphy);
-//        System.out.println(celebFilmgraphy);
         return celebrityRepository.save(celebrity).getFilmography() != null;
 
+    }
+
+    @Override
+    public List<? extends Film> getFilmography(String id) {
+        Celebrity celebrity = utilityService.getCelebrity(id);
+        return celebrity.getFilmography();
     }
 }

@@ -1,6 +1,7 @@
 package com.paridiso.cinema.service;
 
 import com.paridiso.cinema.entity.Celebrity;
+import com.paridiso.cinema.entity.Film;
 import com.paridiso.cinema.entity.FilmographyWrapper;
 
 import java.util.List;
@@ -19,4 +20,6 @@ public interface CelebrityService {
     Optional<Celebrity> addCelebrity(Celebrity celebrity);
 
     boolean addFilmography(FilmographyWrapper filmography);
+
+    List<? extends Film> getFilmography(String id);
 }
