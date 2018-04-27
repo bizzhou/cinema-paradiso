@@ -1,13 +1,15 @@
+import {Movie} from './movie.model';
+
 export class Review {
   reviewId: number;
-  author: string;
+  author: number;
   isCriticReview: boolean;
   likeCount: number;
   postedDate: Date;
   reviewContent: string;
   title: string;
+  // movie: Movie;
   imdbId: string;
-  userProfileId: number;
 
   constructor(values: Object = {}) {
     Object.assign(this, values);

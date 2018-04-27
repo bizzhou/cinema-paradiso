@@ -11,7 +11,7 @@ import java.util.List;
 
 @RequestMapping("/carousel")
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 public class CarouselController {
 
     @Autowired

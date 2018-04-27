@@ -103,49 +103,62 @@
         <i class="fa fa-tv"></i> TV-Series
       </ng-template>
       <ng-template ngbTabContent>
+
         <div class="container tv_results">
 
-          <div class="row s-item">
-            <div class="col-1"></div>
-            <div class="col-3 s_img-wrap">
-              <img
-                src="https://images-na.ssl-images-amazon.com/images/M/MV5BMjE3NTQ1NDg1Ml5BMl5BanBnXkFtZTgwNzY2NDA0MjI@._V1_UX182_CR0,0,182,268_AL_.jpg"
-                alt="">
-            </div>
-            <div class="col-7">
-              <p class="s-item__title">Game of Throne</p>
-
-              <div class="flex">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <p>5.0/5.0</p>
-                <p>RR</p>
+          <div *ngFor="let movie of tvResults">
+            <div class="row s-item">
+              <div class="col-1"></div>
+              <div class="col-3 s_img-wrap">
+                <img src={{movie?.poster}} alt="{{movie?.title}}">
               </div>
+              <div class="col-7">
+                <a routerLink="/tv/{{movie.imdbId}}" class="s-item__title">{{movie?.title}}
+                  <div *ngIf="movie.releaseDate === null; else release_date"></div>
+                  <ng-template #release_date>({{movie?.releaseDate.toString().substring(0, 4)}})</ng-template>
+                </a>
 
-              <p class="s-plot">Nine noble families fight for control over the mythical lands of Westeros, while an
-                ancient enemy returns after
-                being dormant for thousands of years. </p>
-              <p>
-                Starring
-                <span> Emilia Clarke, Peter Dinklage, Kit Harington </span>
-              </p>
-              <p>
-                Director
-                <span> David Benioff, D.B. Weiss </span>
-              </p>
-              <p>
-                Genres
-                <span> Action, Adventure, Drama, Fantasy, Romance </span>
-              </p>
+                <div class="flex">
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <i class="fa fa-star"></i>
+                  <p>{{movie?.rating}}/5.0</p>
+                  <p>{{movie?.rated}}</p>
+                </div>
+
+                <p class="s-plot">{{movie?.plot}}</p>
+
+                <div>
+                  <p>
+                    Starring
+                    <span *ngFor="let actor of movie.casts | slice:0:5" routerLink="/celebrity/{{actor?.celebrityId}}">
+                      {{actor?.name}} ,
+                    </span>
+                  </p>
+                </div>
+
+                <p>
+                  Director
+                  <span routerLink="/celebrity/{{movie?.director?.celebrityId}}">{{movie?.director?.name}}</span>
+                </p>
+                <p>
+                  Genres
+                  <span *ngFor="let genre of movie?.genres | slice: 0:5" class="c-genres"
+                        style="text-transform: lowercase">
+                  {{genre}},
+                </span>
+                </p>
+              </div>
             </div>
           </div>
+
+
         </div>
 
         <ngb-pagination class="d-flex justify-content-center" [collectionSize]="tvNumberOfPages" [maxSize]=10 [(page)]="tvPage"
-                        (pageChange)="getNextTVPage($event)"></ngb-pagination>
+                        (pageChange)="getNextTVPage($event)" [boundaryLinks]="true"></ngb-pagination>
 
       </ng-template>
     </ngb-tab>

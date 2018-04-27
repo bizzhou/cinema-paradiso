@@ -121,6 +121,7 @@ main {
   .review__content {
     font-size: 14px;
     color: $p-content !important;
+    //white-space: pre-line;
     a {
       text-decoration: underline !important;
       cursor: pointer;
@@ -142,6 +143,7 @@ main {
 }
 // overwrite
 .content_text {
+  white-space: pre-line;
   font-size: 14px;
 }
 .t_title {

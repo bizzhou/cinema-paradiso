@@ -5,13 +5,13 @@
 
   <!--critic reviews-->
   <div class="container" style="margin-top: 30px;">
-    <!--TODO: show 3 rows-->
     <div class="row">
       <div class="testimonial">
         <div class="t_title">
           <!--TODO: user profile image goes here-->
-          <img src="https://user-images.githubusercontent.com/20979257/36620069-64e71fbe-18bf-11e8-87e8-565e2fc4d6da.jpeg"
-               alt="user" />
+          <img
+            src="https://user-images.githubusercontent.com/20979257/36620069-64e71fbe-18bf-11e8-87e8-565e2fc4d6da.jpeg"
+            alt="user"/>
 
           <!--TODO: USERNAME rated USER_RATING on RATED_DATE-->
           <h6>
@@ -37,7 +37,8 @@
           <!--TODO: user review content goes here. review content show first 3 lines-->
           <h6 class="content_title"><a>review title goes here </a></h6>
           <p class="content_text">
-            review content goes here. the movie's worldview is as easy to like as the protagonist and her friends, but del toro lays it on so thick that there's
+            review content goes here. the movie's worldview is as easy to like as the protagonist and her friends, but
+            del toro lays it on so thick that there's
             no room for the movie's worldview is as easy to like as the protagonist...
             <a class="t_full-text">(Expand)</a>
           </p>
@@ -50,8 +51,9 @@
       <div class="testimonial">
         <div class="t_title">
           <!--TODO: user profile image goes here-->
-          <img src="https://user-images.githubusercontent.com/20979257/36620069-64e71fbe-18bf-11e8-87e8-565e2fc4d6da.jpeg"
-               alt="user" />
+          <img
+            src="https://user-images.githubusercontent.com/20979257/36620069-64e71fbe-18bf-11e8-87e8-565e2fc4d6da.jpeg"
+            alt="user"/>
 
           <!--TODO: USERNAME rated USER_RATING on RATED_DATE-->
           <h6>
@@ -76,7 +78,8 @@
           <!--TODO: user review content goes here. review content show first 3 lines-->
           <h6 class="content_title"><a>review title goes here </a></h6>
           <p class="content_text">
-            review content goes here. the movie's worldview is as easy to like as the protagonist and her friends, but del toro lays it on so thick that there's
+            review content goes here. the movie's worldview is as easy to like as the protagonist and her friends, but
+            del toro lays it on so thick that there's
             no room for the movie's worldview is as easy to like as the protagonist...
             <a class="t_full-text">(Expand)</a>
           </p>
@@ -89,8 +92,9 @@
       <div class="testimonial">
         <div class="t_title">
           <!--TODO: user profile image goes here-->
-          <img src="https://user-images.githubusercontent.com/20979257/36620069-64e71fbe-18bf-11e8-87e8-565e2fc4d6da.jpeg"
-               alt="user" />
+          <img
+            src="https://user-images.githubusercontent.com/20979257/36620069-64e71fbe-18bf-11e8-87e8-565e2fc4d6da.jpeg"
+            alt="user"/>
 
           <!--TODO: USERNAME rated USER_RATING on RATED_DATE-->
           <h6>
@@ -115,7 +119,8 @@
           <!--TODO: user review content goes here. review content show first 3 lines-->
           <h6 class="content_title"><a>review title goes here </a></h6>
           <p class="content_text">
-            review content goes here. the movie's worldview is as easy to like as the protagonist and her friends, but del toro lays it on so thick that there's
+            review content goes here. the movie's worldview is as easy to like as the protagonist and her friends, but
+            del toro lays it on so thick that there's
             no room for the movie's worldview is as easy to like as the protagonist...
             <a class="t_full-text">(Expand)</a>
           </p>
@@ -144,119 +149,45 @@
 
   <div class="container" style="margin-top: 30px;">
     <!--TODO: show 3 rows-->
-    <div class="row">
-      <div class="testimonial">
-        <div class="t_title">
-          <!--TODO: user profile image goes here-->
-          <img src="https://user-images.githubusercontent.com/20979257/36620076-68d7d546-18bf-11e8-9fd9-e2c313cac2fc.jpeg" alt="user"
-          />
 
-          <!--TODO: USERNAME rated USER_RATING on RATED_DATE-->
-          <h6>
-            <a routerLink="/portfolio/user">Bin</a> rated
-            <span>
+    <div *ngFor="let review of userReviews">
+      <div class="row">
+
+        <div class="testimonial">
+          <div class="t_title">
+            <!--TODO: user profile image goes here-->
+            <img
+              src="https://user-images.githubusercontent.com/20979257/36620076-68d7d546-18bf-11e8-9fd9-e2c313cac2fc.jpeg"
+              alt="user"
+            />
+
+            <!--TODO: USERNAME rated USER_RATING on RATED_DATE-->
+            <h6>
+              <a routerLink="/portfolio/user">Bin</a> rated
+              <span>
               <i class="fa fa-star"></i>
               <i class="fa fa-star"></i>
               <i class="fa fa-star"></i>
               <i class="fa fa-star"></i>
               <i class="fa fa-star"></i>
             </span>
-            on 2018-04-20
-          </h6>
+              on {{review.postedDate | date}}
+            </h6>
 
-          <div class="t_buttons">
-            <button class="c-update-btn"><i class="fa fa-flag"></i> Report</button>
-            <button class="c-update-btn"><i class="fa fa-thumbs-up"></i> 222</button>
+            <div class="t_buttons">
+              <button class="c-update-btn"><i class="fa fa-flag"></i> Report</button>
+              <button class="c-update-btn"><i class="fa fa-thumbs-up"></i> 222</button>
+            </div>
+
           </div>
+          <div class="t_content">
+            <h6 class="content_title"><a>{{review.title}} </a></h6>
+            <p class="content_text">
+              {{review.reviewContent}}
+              <a class="t_full-text">(Expand)</a>
+            </p>
 
-        </div>
-        <div class="t_content">
-          <!--TODO: user review content goes here. review content show first 3 lines-->
-          <h6 class="content_title"><a>review title goes here </a></h6>
-          <p class="content_text">
-            review content goes here. the movie's worldview is as easy to like as the protagonist and her friends, but del toro lays it on so thick that there's
-            no room for the movie's worldview is as easy to like as the protagonist...
-            <a class="t_full-text">(Expand)</a>
-          </p>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="testimonial">
-        <div class="t_title">
-          <!--TODO: user profile image goes here-->
-          <img src="https://user-images.githubusercontent.com/20979257/36620076-68d7d546-18bf-11e8-9fd9-e2c313cac2fc.jpeg" alt="user"
-          />
-
-          <!--TODO: USERNAME rated USER_RATING on RATED_DATE-->
-          <h6>
-            Bin rated
-            <span>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-            </span>
-            on 2018-04-20
-          </h6>
-
-          <div class="t_buttons">
-            <button class="c-update-btn"><i class="fa fa-flag"></i> Report</button>
-            <button class="c-update-btn"><i class="fa fa-thumbs-up"></i> 222</button>
           </div>
-
-        </div>
-        <div class="t_content">
-          <!--TODO: user review content goes here. review content show first 3 lines-->
-          <h6 class="content_title"><a>review title goes here </a></h6>
-          <p class="content_text">
-            review content goes here. the movie's worldview is as easy to like as the protagonist and her friends, but del toro lays it on so thick that there's
-            no room for the movie's worldview is as easy to like as the protagonist...
-            <a class="t_full-text">(Expand)</a>
-          </p>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="testimonial">
-        <div class="t_title">
-          <!--TODO: user profile image goes here-->
-          <img src="https://user-images.githubusercontent.com/20979257/36620076-68d7d546-18bf-11e8-9fd9-e2c313cac2fc.jpeg" alt="user"
-          />
-
-          <!--TODO: USERNAME rated USER_RATING on RATED_DATE-->
-          <h6>
-            Bin rated
-            <span>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-            </span>
-            on 2018-04-20
-          </h6>
-
-          <div class="t_buttons">
-            <button class="c-update-btn"><i class="fa fa-flag"></i> Report</button>
-            <button class="c-update-btn"><i class="fa fa-thumbs-up"></i> 222</button>
-          </div>
-
-        </div>
-        <div class="t_content">
-          <!--TODO: user review content goes here. review content show first 3 lines-->
-          <h6 class="content_title"><a>review title goes here </a></h6>
-          <p class="content_text">
-            review content goes here. the movie's worldview is as easy to like as the protagonist and her friends, but del toro lays it on so thick that there's
-            no room for the movie's worldview is as easy to like as the protagonist...
-            <a class="t_full-text">(Expand)</a>
-          </p>
-
         </div>
       </div>
     </div>
@@ -264,10 +195,12 @@
     <div class="row">
       <div class="col-10"></div>
       <div class="col-2">
-        <a  routerLink="/movie/tt1856101/reviews/temp" class="t_more">More <i class="fa fa-angle-double-right"></i></a>
+        <a routerLink="/movie/tt1856101/reviews/temp" class="t_more">More <i class="fa fa-angle-double-right"></i></a>
       </div>
     </div>
 
   </div>
 
 </section>
+
+

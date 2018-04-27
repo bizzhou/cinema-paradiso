@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams, HttpRequest} from '@angular/common/http';
-import {Movie} from '../../global/models/movie.model';
+import {AppConstant} from '../../app.constant';
 
 @Injectable()
 export class RegUserService {
@@ -9,7 +9,7 @@ export class RegUserService {
   }
 
   upload(formData: FormData) {
-    const req = new HttpRequest('POST', 'http://localhost:8080/user/update/avatar', formData, {
+    const req = new HttpRequest('POST', AppConstant.API_ENDPOINT + 'user/update/avatar', formData, {
       reportProgress: true,
       responseType: 'text'
     });
@@ -17,27 +17,32 @@ export class RegUserService {
   }
 
   getProfile() {
-    return this.http.get('http://localhost:8080/user/get/profile');
+    return this.http.get(AppConstant.API_ENDPOINT + 'user/get/profile');
   }
 
   update(profile: any) {
-    return this.http.post('http://localhost:8080/user/update/profile', profile);
+    return this.http.post(AppConstant.API_ENDPOINT + 'user/update/profile', profile);
   }
 
   changePassword(oldPassword: string, newPassword: string) {
     const params = new HttpParams().set('old_password', oldPassword).set('new_password', newPassword);
-    return this.http.post('http://localhost:8080/user/change/password', params);
+    return this.http.post(AppConstant.API_ENDPOINT + 'user/change/password', params);
   }
 
   deleteUserRating(imdbId: string) {
-    return this.http.delete(`http://localhost:8080/movie/delete/rating/${imdbId}`);
+    return this.http.delete(AppConstant.API_ENDPOINT + `movie/delete/rating/${imdbId}`);
   }
 
   removeFromWishList(imdbId: string) {
-    return this.http.delete(`http://localhost:8080/wishlist/delete/${imdbId}`);
+    return this.http.delete(AppConstant.API_ENDPOINT + `wishlist/delete/${imdbId}`);
   }
 
   deleteUser(userId: number) {
-    return this.http.delete(`http://localhost:8080/admin/suspend/${userId}`);
+    return this.http.delete(AppConstant.API_ENDPOINT + `admin/suspend/${userId}`);
   }
+
+  getUserReviews() {
+    return this.http.get(AppConstant.API_ENDPOINT + `review/get/user_reviews`);
+  }
+
 }

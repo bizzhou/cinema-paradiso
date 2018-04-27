@@ -1,3 +1,5 @@
+import {Movie} from './movie.model';
+
 export class Celebrity {
   celebrityId: string;
   photoLocation: string;
@@ -9,6 +11,7 @@ export class Celebrity {
   isDirector: boolean;
   name: string;
   profileImage: string;
+  filmography: Movie[];
 
   constructor(values: Object = {}) {
     Object.assign(this, values);

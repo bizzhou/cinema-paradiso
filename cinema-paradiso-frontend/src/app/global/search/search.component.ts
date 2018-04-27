@@ -24,6 +24,7 @@ export class SearchComponent implements OnInit {
 
   moviesResults: Movie[];
   celebrityResults: Celebrity[];
+  tvResults: Movie[];
   keyword: string;
 
 
@@ -34,6 +35,9 @@ export class SearchComponent implements OnInit {
         this.searchService.search(this.keyword, '0', '20').subscribe(results => {
           this.moviesResults = results['movie'] as Movie[];
           this.celebrityResults = results['celebrity'] as Celebrity[];
+
+          // console.log(results['tv']);
+          this.tvResults = results['tv'] as Movie[];
 
           this.movieNumberOfPages = results['movie_page'] * 10;
           this.peopleNumberOfPages = results['celebrities_page'] * 10;
@@ -50,24 +54,30 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  getNextMoviePage(currentPage) {
+  getNextMoviePage(currentPage: number) {
     const actualPage = currentPage - 1;
-    this.searchService.searchDetails("movie" , this.keyword, actualPage.toString(), '20').subscribe(results => {
+    this.searchService.searchDetails('movie' , this.keyword, actualPage.toString(), '20').subscribe(results => {
       this.moviesResults = results['movie'] as Movie[];
       window.scroll(0, 0);
     });
   }
 
-  getNextPeoplePage(currentPage) {
+  getNextPeoplePage(currentPage: number) {
     const actualPage = currentPage - 1;
-    this.searchService.searchDetails("people", this.keyword, actualPage.toString(), '20').subscribe(results => {
+    this.searchService.searchDetails('people', this.keyword, actualPage.toString(), '20').subscribe(results => {
       this.celebrityResults = results['celebrity'] as Celebrity[];
       window.scroll(0, 0);
     });
   }
 
-  getNextTVPage() {
+  getNextTVPage(currentPage: number) {
+    const actualPage = currentPage - 1;
+    console.log('getting tv');
+    this.searchService.searchDetails('tv', this.keyword, actualPage.toString(), '20').subscribe(results => {
 
+      this.tvResults = results['tv'] as Movie[];
+      window.scroll(0, 0);
+    });
   }
 
 

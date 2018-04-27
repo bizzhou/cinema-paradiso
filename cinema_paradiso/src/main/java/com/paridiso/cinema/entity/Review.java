@@ -1,7 +1,7 @@
 package com.paridiso.cinema.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Calendar;
@@ -31,7 +31,6 @@ public class Review {
         return author;
     }
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "imdbId", nullable = false)
     public Movie getMovie() {
@@ -50,6 +49,7 @@ public class Review {
         return isCriticReview;
     }
 
+    @Type(type = "text")
     public String getReviewContent() {
         return reviewContent;
     }

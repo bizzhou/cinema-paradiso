@@ -4,6 +4,7 @@ import {MovieService} from './movie.service';
 import {ActivatedRoute} from '@angular/router';
 import {LoginStatusService} from '../login/login.status.service';
 import {ToastrService} from 'ngx-toastr';
+import {Review} from '../models/review.model';
 
 
 @Component({
@@ -15,12 +16,13 @@ export class MovieDetailComponent implements OnInit {
 
   movie: Movie;
   selectedMovieId: string;
-  review: string;
+  review = new Review();
 
   isMovieExistInWishList: boolean;
   currentRating = 0;
   ngbRatingReadOnly = false;
   loggedInFlag: boolean;
+  trailer: string;
 
   constructor(private movieService: MovieService,
               private loginStatusService: LoginStatusService,
@@ -32,7 +34,14 @@ export class MovieDetailComponent implements OnInit {
 
 
   addReview() {
-    console.log('adding review dummy');
+    this.review.imdbId = this.selectedMovieId;
+    this.movieService.addReview(this.review).subscribe(data => {
+      this.toastrService.success('SUCCESS');
+      this.movie.reviews.push(this.review);
+      console.log(this.movie.reviews);
+    }, error1 => {
+      this.toastrService.error(error1['error']['message']);
+    });
   }
 
   ratingOperations(data: number) {
@@ -60,7 +69,6 @@ export class MovieDetailComponent implements OnInit {
           this.toastrService.error(error1['error']['message']);
         }
 
-
       });
 
     } else {
@@ -68,14 +76,6 @@ export class MovieDetailComponent implements OnInit {
     }
 
   }
-
-
-  // rateMovie() {
-  //   this.movieService.rateMovie(this.hovered, this.selectedMovieId).subscribe(result => {
-  //     console.log(result);
-  //   });
-  // }
-
 
   ngOnInit() {
     window.scroll(0, 0);
@@ -88,23 +88,32 @@ export class MovieDetailComponent implements OnInit {
     console.log('id: ' + this.selectedMovieId);
     this.getMovie(this.selectedMovieId);
 
-    this.ratingAnimation();
-    console.log('user token ', this.loginStatusService.getTokenDetails());
+
   }
 
-
   getMovie(imdbId: string): any {
-    this.movieService.getMovieDetails(imdbId)
-      .subscribe(
-        data => {
-          this.movie = data as Movie;
-          console.log(this.movie);
-          // console.log('casts ', this.movie.casts);
-          // console.log('imdbId ', this.movie.imdbId);
-          // console.log(this.movie.photos);
-        },
-        error => console.log('Failed to fetch movie with id')
-      );
+    this.movieService.getMovieDetails(imdbId).subscribe(data => {
+        this.movie = data as Movie;
+
+        // const shrinked_photo = this.movie.photos.map(ele => this.shrinkPhoto(ele));
+        // this.movie.photos = shrinked_photo;
+        this.trailer = `../../../assets/trailers/${this.movie.imdbId}.mp4`;
+
+
+        this.movieService.getMovieReviews(this.selectedMovieId).subscribe(reviews => {
+          this.movie.reviews = reviews as Review[];
+          console.log(this.movie.reviews);
+        }, error1 => {
+          this.toastrService.error('FAILED TO FETCH REVIEWS');
+        });
+
+      },
+      error => console.log('Failed to fetch movie with id')
+    );
+  }
+
+  shrinkPhoto(photo: string) {
+    return photo.substr(0, photo.indexOf('@') + 1) + '._V1_SY1000_CR0,0,1257,1000_AL_.jpg';
   }
 
   addToWishList(imdbId: string) {

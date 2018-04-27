@@ -1,31 +1,19 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import {Review} from '../models/review.model';
+import {AppConstant} from '../../app.constant';
 
-const MOVIE_SERVER = 'http://localhost:8080/movie/';
-const WISH_LIST_SERVER = 'http://localhost:8080/wishlist/';
+const MOVIE_SERVER = AppConstant.API_ENDPOINT + 'movie/';
+const WISH_LIST_SERVER = AppConstant.API_ENDPOINT + 'wishlist/';
 
 @Injectable()
 export class MovieService {
 
-  private movieIdSource = new BehaviorSubject<string>('');
-  movieIdObservable = this.movieIdSource.asObservable();
-
   constructor(private http: HttpClient) {
   }
 
-  setSelectedMovieId(movieId: string) {
-    this.movieIdSource.next(movieId);
-  }
-
-  getSelectedMovieId(): any {
-    return this.movieIdObservable;
-  }
-
-  getMoviesPlaying(pageNo: string, pageSize: string) {
-    const param = new HttpParams().set('pageNo', pageNo)
-                                  .set('pageSize', pageSize);
-    return this.http.post(MOVIE_SERVER + 'playing', param);
+  getMoviesPlaying() {
+    return this.http.get(MOVIE_SERVER + 'get/playing');
   }
 
   getMoviesTrending(pageNo: string, pageSize: string) {
@@ -46,23 +34,17 @@ export class MovieService {
     return this.http.post(MOVIE_SERVER + 'topBoxOffice', param);
   }
 
-  getMovie(imdbId: string): any {
-    return this.http.get(MOVIE_SERVER + imdbId);
-  }
-
   addToWishList(imdbId: string) {
     const params = new HttpParams().set('filmId', imdbId);
-    return this.http.post('http://localhost:8080/wishlist/add', params);
+    return this.http.post(WISH_LIST_SERVER + 'add', params);
   }
 
   removeFromWishList(imdbId: string) {
-    // const params = new HttpParams().set('filmId', imdbId);
-    return this.http.delete(WISH_LIST_SERVER + 'delete/' + imdbId);
+    return this.http.delete(WISH_LIST_SERVER + `delete/${imdbId}`);
   }
 
   isMovieInWishList(imdbId: string) {
     const params = new HttpParams().set('filmId', imdbId);
-    console.log('Check movie existence: ' + WISH_LIST_SERVER + 'exist');
     return this.http.post(WISH_LIST_SERVER + 'exist', params);
   }
 
@@ -77,4 +59,28 @@ export class MovieService {
   editRatingForMovie(movieId: string, rating: number) {
     return this.http.post(MOVIE_SERVER + `edit/rating/${movieId}/${rating}`, null);
   }
+
+  addReview(review: Review) {
+    return this.http.post(AppConstant.API_ENDPOINT + `review/add/${review.imdbId}`, review);
+  }
+
+  getMovieReviews(selectedMovieId: string) {
+    return this.http.get(AppConstant.API_ENDPOINT + `review/get/${selectedMovieId}`);
+  }
+
+  editReviewForMovie(clickedReview: Review) {
+    console.log('clicked review ', clickedReview);
+    clickedReview.imdbId = clickedReview['movie']['imdbId'];
+    return this.http.post(AppConstant.API_ENDPOINT + `review/edit/${clickedReview.imdbId}`, clickedReview);
+  }
+
+  deleteReviewForMovie(reviewId: number) {
+    return this.http.delete(AppConstant.API_ENDPOINT + `review/delete/${reviewId}`);
+  }
+
+  getUserReviews() {
+    return this.http.get(AppConstant.API_ENDPOINT + `review/gets/user_reviews`);
+  }
+
+
 }

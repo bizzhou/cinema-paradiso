@@ -14,6 +14,8 @@ public interface UtilityService {
 
     UserProfile getUserProfile(Integer id);
 
+    Celebrity getCelebrity(String id);
+
     String getHashedPassword(String passwordToHash, String salt) throws NoSuchAlgorithmException;
 
     Collection<? extends Film> shrinkMovieSize(Collection<? extends Film> films);

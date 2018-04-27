@@ -1,0 +1,63 @@
+<h5 class="c-header">My reviews </h5>
+<div class="container" *ngFor="let review of reviews">
+  <div class="row w__item">
+    <div class="col-3 w__img-wrap">
+      <img src={{review.movie.poster}} alt="{{review.movie.title}}">
+    </div>
+
+    <div class="col-9 review">
+      <h5 class="r-title">{{review.title}}</h5>
+
+
+      <p class="r-title__sub">
+        Rated: {{review.movie.title}}
+        <i class="fa fa-star" style="margin-left: 15px"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <i class="fa fa-star"></i>
+        <!--TODO: user rating goes here-->
+        <i style="margin-left: 5px;">4.0/5.0</i>
+      </p>
+      <!-- TODO: review content here, use substring(), so only display first 3 lines-->
+      <p class="review__content">{{review.reviewContent}}</p>
+      <div class="button__group">
+        <button class="c-update-btn r-update-btn" (click)="open(content, review)">Update</button>
+        <button class="c-update-btn r-update-btn button__warning" (click)="deleteReview(review)">Delete</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+<ngb-pagination class="d-flex justify-content-left" [collectionSize]="20"></ngb-pagination>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Edit Review</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <form>
+
+      <div>
+        <label>Title</label>
+        <input type="text" [(ngModel)]="clickedReview.title" name="clicked_review_title">
+      </div>
+
+      <div>
+        <label>Content</label>
+        <textarea [(ngModel)]="clickedReview.reviewContent" name="clicked_review_content" id="" cols="30" rows="10">
+          </textarea>
+      </div>
+
+      <button class="btn" (click)="editReview()">Submit</button>
+    </form>
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>

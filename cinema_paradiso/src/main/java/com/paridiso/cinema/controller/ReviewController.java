@@ -7,13 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.springframework.web.bind.annotation.RequestMethod.GET;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:4200")
+@CrossOrigin(origins = "*")
 @RequestMapping("review/")
 public class ReviewController {
 
@@ -27,10 +30,10 @@ public class ReviewController {
     public ResponseEntity addReview(@RequestHeader(value = "Authorization") String jwtToken,
                                     @PathVariable String filmId,
                                     @RequestBody Review review) {
-        System.out.println(review);
         reviewService.addReview(jwtTokenService.getUserIdFromToken(jwtToken), filmId, review);
         return ResponseEntity.ok(true);
     }
+
 
     @PostMapping(value = "edit/{filmId}")
     public ResponseEntity editReview(@RequestHeader(value = "Authorization") String jwtToken,
@@ -39,6 +42,13 @@ public class ReviewController {
         Review review1 = reviewService.editReview(id, review);
         return ResponseEntity.ok(review1);
     }
+
+    @GetMapping(value = "get/user_reviews")
+    public ResponseEntity<?> getUserReviews(@RequestHeader(value = "Authorization") String jwtToken) {
+        Integer id = jwtTokenService.getUserProfileIdFromToken(jwtToken);
+        return ResponseEntity.ok(reviewService.getUserReviews(id));
+    }
+
 
     @DeleteMapping(value = "delete/{reviewId}")
     public ResponseEntity deleteReview(@RequestHeader(value = "Authorization") String jwtToken,
@@ -50,18 +60,19 @@ public class ReviewController {
 
     @GetMapping(value = "get/{filmId}")
     public ResponseEntity<List> getMovieReviews(@PathVariable String filmId) {
-        return ResponseEntity.ok(reviewService.getMovieReviews(filmId));
-    }
-
-    @RequestMapping(value = "user/reviews", method = GET)
-    public ResponseEntity<List> getUserReviews() {
-        return null;
-    }
-
-    @RequestMapping(value = "user/update_review/{reviewID}", method = POST)
-    public ResponseEntity<Boolean> updateReview(@PathVariable Integer reviewID,
-                                                @RequestParam(value = "review_content", required = true) String reviewContent) {
-        return null;
+        List<Review> movieReviews = reviewService.getMovieReviews(filmId);
+        List<Map> list = new ArrayList<Map>();
+        for (Review review : movieReviews) {
+            HashMap<String, Object> map = new HashMap<>();
+            map.put("reviewId", review.getReviewId());
+            map.put("title", review.getTitle());
+            map.put("author", review.getAuthor().getId());
+            map.put("criticReview", review.isCriticReview());
+            map.put("postDate", review.getPostedDate());
+            map.put("reviewContent", review.getReviewContent());
+            list.add(map);
+        }
+        return ResponseEntity.ok(list);
     }
 
     @RequestMapping(value = "/{filmId}/review", method = POST, params = "liked")
@@ -70,13 +81,6 @@ public class ReviewController {
                                               @RequestParam Boolean liked) {
         return null;
     }
-
-    @RequestMapping(value = "movie/{movieId}/dislike_review/{reviewId}", method = POST)
-    public ResponseEntity<Boolean> dislikeReview(@PathVariable Long movieId,
-                                                 @PathVariable Long reviewId) {
-        return null;
-    }
-
 
     @RequestMapping(value = "/", method = GET)
     public String welcome() {

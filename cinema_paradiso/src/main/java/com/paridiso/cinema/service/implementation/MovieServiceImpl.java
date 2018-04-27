@@ -52,14 +52,14 @@ public class MovieServiceImpl implements FilmService {
 
     @Transactional
     @Override
-    public Movie addMovie(Movie movie) {
+    public Movie addFilm(Film movie) {
 //        if (movieRepository.findMovieByImdbId(movie.getImdbId()).get() != null)
 //            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieExists());
-        return movieRepository.save(movie);
+        return movieRepository.save((Movie)movie);
     }
 
     @Override
-    public Movie getMovie(String filmId) {
+    public Movie getFilm(String filmId) {
         return movieRepository
                 .findMovieByImdbId(filmId)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieDoesNotExist()));
@@ -90,7 +90,7 @@ public class MovieServiceImpl implements FilmService {
     @Transactional
     @Override
     public Double addRating(Integer userProfileId, String filmId, Double rating) {
-        Movie movie = getMovie(filmId);
+        Movie movie = getFilm(filmId);
         UserProfile userProfile = utilityService.getUserProfile(userProfileId);
         if (userRatingRepository.findUserRatingsByUserAndRatedMovie(userProfile, movie).isPresent()) {
             throw new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserRatingExists());
@@ -112,7 +112,7 @@ public class MovieServiceImpl implements FilmService {
     @Transactional
     @Override
     public Double deleteRating(Integer userProfileId, String filmId) {
-        Movie movie = getMovie(filmId);
+        Movie movie = getFilm(filmId);
         UserProfile userProfile = utilityService.getUserProfile(userProfileId);
         UserRating userRating = userRatingRepository.findUserRatingsByUserAndRatedMovie(userProfile, movie)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserRatingNotExists()));
@@ -124,7 +124,7 @@ public class MovieServiceImpl implements FilmService {
     @Transactional
     @Override
     public Double updateRating(Integer userProfileId, String filmId, Double rating) {
-        Movie movie = getMovie(filmId);
+        Movie movie = getFilm(filmId);
         UserProfile userProfile = utilityService.getUserProfile(userProfileId);
         UserRating userRating = userRatingRepository.findUserRatingsByUserAndRatedMovie(userProfile, movie)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserRatingNotExists()));

@@ -1,95 +1,44 @@
 <div>
   <main>
-    <h3 id="people_name">
+    <h1 id="people_name">
       {{celebrity.name}}
-    </h3>
+    </h1>
 
     <div class="p_tab">
 
-      <ul>
-        <li>
-          <a class="show_overview" href="">
-            <i class="fa fa-search"></i> Overview</a>
-        </li>
-        <li>
-          <a class="show_biography" href="">
-            <i class="fa fa-book"></i> Biography</a>
-        </li>
-        <li>
-          <a class="show_people_pictures" href="">
-            <i class="fa fa-image"></i> Filmography</a>
-        </li>
-      </ul>
-    </div>
 
+      <div class="container overview-wrap">
+        <div class="row">
+          <div class="col-overview overview">
+            <img class='people_portrait' src="{{celebrity.profileImage}}"
+                 onError="this.src='../../../assets/images/no_image.png'" alt="">
 
-    <div class="container overview-wrap">
-      <div class="row">
-        <div class="col-overview overview">
-          <img class='people_portrait' src="{{celebrity.profileImage}}" alt="">
+            <!--<h3>BIOGRAPHY</h3>-->
+            <p class="o-bio">
+              {{celebrity.biography}}
+            </p>
 
-          <!--<h3>BIOGRAPHY</h3>-->
-          <p class="o-bio">
-            {{celebrity.biography}}
-          </p>
-
-        </div>
-
-        <div class="col-detail detail">
-          <!--bug?? can't display with class embed-responsive-->
-          <!--<div class="embed-responsive embed-responsive-16by9">-->
-          <div class="d-video__main">
-            <iframe width="100%" height="300px" src="https://www.youtube.com/embed/cYg8kEmdHIw" frameborder="0" allow="autoplay; encrypted-media"
-              allowfullscreen></iframe>
           </div>
 
-          <ul class="container d-videos__more">
-            <li class="row d-video__item">
-              <object class="col-video item__detail" data="https://www.youtube.com/embed/TucyzpHDNlE">
-              </object>
+          <div class="col-detail detail">
 
-              <object class="col-video item__detail" data="https://www.youtube.com/embed/FI_fCBRicyY">
-              </object>
-              <object class="col-video item__detail" data="https://www.youtube.com/embed/wOBizhZ2A-4">
-              </object>
-            </li>
-          </ul>
-          <!--<a class="d-video__more" href="#">more <i class="fa fa-angle-double-right"></i></a>-->
+            <h2>Filmography</h2>
 
-          <div></div>
+              <ul class="filmography_details">
+                <li *ngFor="let movie of celebrity.filmography">
+                  <img src="{{movie.poster}}" alt="Movie Poster" routerLink="/movie/{{movie.imdbId}}">
+                  <br>
+                  {{movie.title}}
+                </li>
+              </ul>
 
-
-        </div>
-
-      </div>
-    </div>
+            <!--<ng-template #no_filmography>-->
+            <!--<h4>No Filmography Data Available...</h4>-->
+            <!--</ng-template>-->
 
 
-    <div class="container bio-wrap" style="display:none">
-      <div class="row">
-        <div class="col-overview overview">
-          <img class='people_portrait' src="{{celebrity.profileImage}}"
-            alt="">
+          </div>
 
-        </div>
-        <div class="col-detail detail">
-          <p>
-            {{celebrity.biography}}
-          </p>
-
-        </div>
-      </div>
-    </div>
-
-    <!--Pictures-->
-
-    <div class="container photos-wrap" style="display:none">
-      <div class="row">
-        <div class="col-overview overview">
-        </div>
-
-        <div class="col-detail detail">
-          <img src="{{celebrity.profileImage}}" alt="">
         </div>
       </div>
     </div>
