@@ -12,14 +12,6 @@ export class MovieService {
   constructor(private http: HttpClient) {
   }
 
-  setSelectedMovieId(movieId: string) {
-    this.movieIdSource.next(movieId);
-  }
-
-  getSelectedMovieId(): any {
-    return this.movieIdObservable;
-  }
-
   getMoviesPlaying() {
     return this.http.get(MOVIE_SERVER + 'get/playing');
   }

@@ -36,6 +36,7 @@ export class Movie {
   numOfCriticRatings: number;
 
 
+
   constructor(values: Object = {}) {
     Object.assign(this, values);
   }
