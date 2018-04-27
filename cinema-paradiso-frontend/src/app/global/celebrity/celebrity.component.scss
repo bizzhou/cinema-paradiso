@@ -79,7 +79,7 @@ main{
 #people_name {
   color: white;
   margin-left: 3%;
-  font-size: 1.1em;
+  text-align: center;
 }
 // tab
 .p_tab {
@@ -96,5 +96,13 @@ main{
   }
   a:hover {
     color: white;
+  }
+}
+
+.filmography_details {
+  color:white;
+  img {
+    height: 500px;
+    width: 300px;
   }
 }

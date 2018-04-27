@@ -94,9 +94,11 @@ export class MovieDetailComponent implements OnInit {
     this.movieService.getMovieDetails(imdbId).subscribe(data => {
         this.movie = data as Movie;
 
-        this.movieService.getMovieReviews(this.selectedMovieId).subscribe(data => {
-          console.log(data);
-          this.movie.reviews = data as Review[];
+        const shrinked_photo = this.movie.photos.map(ele => this.shrinkPhoto(ele));
+        this.movie.photos = shrinked_photo;
+
+        this.movieService.getMovieReviews(this.selectedMovieId).subscribe(reviews => {
+          this.movie.reviews = reviews as Review[];
           console.log(this.movie.reviews);
         }, error1 => {
           this.toastrService.error('FAILED TO FETCH REVIEWS');
@@ -105,6 +107,10 @@ export class MovieDetailComponent implements OnInit {
         },
         error => console.log('Failed to fetch movie with id')
       );
+  }
+
+  shrinkPhoto (photo: string) {
+    return photo.substr(0, photo.indexOf('@') + 1) + '._V1_SY1000_CR0,0,1257,1000_AL_.jpg';
   }
 
   addToWishList(imdbId: string) {
