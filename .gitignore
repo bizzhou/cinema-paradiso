@@ -5,7 +5,7 @@ movie_data/venv/
 
 movie_data/new_data/test\.ipynb
 
-.debris
+.debris/
 
 \.DS_Store
 

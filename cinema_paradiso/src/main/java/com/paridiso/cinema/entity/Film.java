@@ -35,10 +35,13 @@ public class Film {
     protected String language;
     protected String country;
     protected String poster;
+
     protected Double regUserRating;
     protected Integer numOfRegUserRatings;
+
     protected Double criticRating;
     protected Integer numOfCriticRatings;
+
     protected String production;
     protected URI website;
 

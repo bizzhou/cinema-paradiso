@@ -14,13 +14,7 @@ export class Movie {
   director: Celebrity;
   casts: Celebrity[];
   trailers: Trailer[];
-
   reviews: Review[];
-
-  // userReviews: Review[];
-  // TODO: add critic reviews;
-  // criticReviews: Review[];
-
   plot: string;
   language: string;
   country: string;
@@ -34,8 +28,6 @@ export class Movie {
   isInWishlist: boolean;
   numOfRegUserRatings: number;
   numOfCriticRatings: number;
-
-
 
   constructor(values: Object = {}) {
     Object.assign(this, values);

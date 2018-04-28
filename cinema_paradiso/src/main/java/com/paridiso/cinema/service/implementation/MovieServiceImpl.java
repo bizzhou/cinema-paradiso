@@ -55,7 +55,7 @@ public class MovieServiceImpl implements FilmService {
     public Movie addFilm(Film movie) {
 //        if (movieRepository.findMovieByImdbId(movie.getImdbId()).get() != null)
 //            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieExists());
-        return movieRepository.save((Movie)movie);
+        return movieRepository.save((Movie) movie);
     }
 
     @Override
@@ -101,7 +101,7 @@ public class MovieServiceImpl implements FilmService {
         userRating.setUser(userProfile);
         userRating.setRatedDate(Calendar.getInstance());
         logger.info("old regUserRating " + movie.getRegUserRating());
-        Double newRating = calculateNewRating(rating, movie);
+        Double newRating = calculateNewRating(rating, movie, userProfile.getCritic());
         logger.info("new regUserRating " + newRating);
         userRatingRepository.save(userRating);
         movieRepository.save(movie);
@@ -116,7 +116,7 @@ public class MovieServiceImpl implements FilmService {
         UserProfile userProfile = utilityService.getUserProfile(userProfileId);
         UserRating userRating = userRatingRepository.findUserRatingsByUserAndRatedMovie(userProfile, movie)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserRatingNotExists()));
-        Double oldRating = calculateOldRating(movie, userRating);
+        Double oldRating = calculateOldRating(movie, userRating, userProfile.getCritic());
         userRatingRepository.delete(userRating);
         return oldRating;
     }
@@ -128,9 +128,9 @@ public class MovieServiceImpl implements FilmService {
         UserProfile userProfile = utilityService.getUserProfile(userProfileId);
         UserRating userRating = userRatingRepository.findUserRatingsByUserAndRatedMovie(userProfile, movie)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserRatingNotExists()));
-        Double oldRating = calculateOldRating(movie, userRating);
+        Double oldRating = calculateOldRating(movie, userRating, userProfile.getCritic());
         movie.setRegUserRating(oldRating);
-        Double newRating = calculateNewRating(rating, movie);
+        Double newRating = calculateNewRating(rating, movie, userProfile.getCritic());
         movie.setRegUserRating(newRating);
         userRating.setUserRating(rating);
         movieRepository.save(movie);
@@ -138,20 +138,37 @@ public class MovieServiceImpl implements FilmService {
         return newRating;
     }
 
-    private Double calculateOldRating(Movie movie, UserRating userRating) {
-        Double oldRating = (movie.getRegUserRating() * movie.getNumOfRegUserRatings() - userRating.getUserRating()) /
-                (movie.getNumOfRegUserRatings() - 1);
-        movie.setRegUserRating(oldRating);
-        movie.setNumOfRegUserRatings(movie.getNumOfRegUserRatings() - 1);
+    private Double calculateOldRating(Movie movie, UserRating userRating, boolean isCritic) {
+        Double oldRating = null;
+        if (isCritic) {
+            oldRating = (movie.getCriticRating() * movie.getNumOfCriticRatings() - userRating.getUserRating()) /
+                    (movie.getNumOfCriticRatings() - 1);
+            movie.setNumOfRegUserRatings(movie.getNumOfCriticRatings() - 1);
+            movie.setCriticRating(oldRating);
+        } else {
+            oldRating = (movie.getRegUserRating() * movie.getNumOfRegUserRatings() - userRating.getUserRating()) /
+                    (movie.getNumOfRegUserRatings() - 1);
+            movie.setNumOfRegUserRatings(movie.getNumOfRegUserRatings() - 1);
+            movie.setRegUserRating(oldRating);
+        }
         return oldRating;
     }
 
-    private Double calculateNewRating(Double rating, Movie movie) {
-        Integer oldNumberOfRating = movie.getNumOfRegUserRatings();
-        Double newRating = (movie.getRegUserRating() * oldNumberOfRating + rating) / (oldNumberOfRating + 1);
-        movie.setNumOfRegUserRatings(oldNumberOfRating + 1);
-        double tenthPlace = Math.round(newRating * 10.0) / 10.0;
-        movie.setRegUserRating(tenthPlace);
+    private Double calculateNewRating(Double rating, Movie movie, boolean isCritic) {
+        Double tenthPlace = null;
+        if (isCritic) {
+            Integer oldNumberOfRating = movie.getNumOfCriticRatings();
+            Double newRating = (movie.getCriticRating() * oldNumberOfRating + rating) / (oldNumberOfRating + 1);
+            movie.setNumOfCriticRatings(oldNumberOfRating + 1);
+            tenthPlace = Math.round(newRating * 10.0) / 10.0;
+            movie.setCriticRating(tenthPlace);
+        } else {
+            Integer oldNumberOfRating = movie.getNumOfRegUserRatings();
+            Double newRating = (movie.getRegUserRating() * oldNumberOfRating + rating) / (oldNumberOfRating + 1);
+            movie.setNumOfRegUserRatings(oldNumberOfRating + 1);
+            tenthPlace = Math.round(newRating * 10.0) / 10.0;
+            movie.setRegUserRating(tenthPlace);
+        }
         return tenthPlace;
     }
 
@@ -172,26 +189,22 @@ public class MovieServiceImpl implements FilmService {
         Calendar now = movieUtility.getNow();
         // get movies by release date
         Page<Movie> moviesPage = movieRepository.findMoviesByReleaseDateBetween(daysBefore, now, new PageRequest(pageNo, pageSize));
-
         HashMap<String, Object> results = new HashMap<>();
         results.put(mapKeyConstants.getMovieLabel(), moviesPage.getContent());
         results.put(mapKeyConstants.getMoviePageLabel(), moviesPage.getTotalPages());
-
         return results;
     }
 
     @Override
-    public HashMap<String, Object>  getMoviesComingSoon(Integer pageNo, Integer pageSize) {
+    public HashMap<String, Object> getMoviesComingSoon(Integer pageNo, Integer pageSize) {
         // get 3 week from now
         Calendar daysAfter = movieUtility.getDaysAfterNow(limitationConstants.getOneMonthRange());
         Calendar now = movieUtility.getNow();
-
         // get movies by release date
         Page<Movie> moviesPage = movieRepository.findMoviesByReleaseDateBetween(now, daysAfter, new PageRequest(pageNo, pageSize));
         HashMap<String, Object> results = new HashMap<>();
         results.put(mapKeyConstants.getMovieLabel(), moviesPage.getContent());
         results.put(mapKeyConstants.getMoviePageLabel(), moviesPage.getTotalPages());
-
         return results;
     }
 
@@ -200,9 +213,8 @@ public class MovieServiceImpl implements FilmService {
         // get date 1 month before and now
         Calendar daysBeforeNow = movieUtility.getDaysBeforeNow(limitationConstants.getOneMonthRange());
         Calendar now = movieUtility.getNow();
-
         // get movies with ratings >= 3.5 and released within one month
-        Page<Movie> moviesPage  = movieRepository.findMoviesByRegUserRatingBetweenAndReleaseDateBetween(
+        Page<Movie> moviesPage = movieRepository.findMoviesByRegUserRatingBetweenAndReleaseDateBetween(
                 limitationConstants.getTrendingRating(), limitationConstants.getRatingLimit(),
                 daysBeforeNow, now, new PageRequest(pageNo, pageSize));
         HashMap<String, Object> results = new HashMap<>();
@@ -216,15 +228,12 @@ public class MovieServiceImpl implements FilmService {
         // get dates 3 week before and now
         Calendar daysBeforeNow = movieUtility.getDaysBeforeNow(limitationConstants.getOneMonthRange());
         Calendar now = movieUtility.getNow();
-
         Page<Movie> moviePage = movieRepository
                 .findMoviesByReleaseDateBetweenOrderByBoxOfficeDesc(
                         daysBeforeNow, now, new PageRequest(pageNo, pageSize));
-
         HashMap<String, Object> results = new HashMap<>();
         results.put(mapKeyConstants.getMovieLabel(), moviePage.getContent());
         results.put(mapKeyConstants.getMoviePageLabel(), moviePage.getTotalPages());
-
         return results;
     }
 

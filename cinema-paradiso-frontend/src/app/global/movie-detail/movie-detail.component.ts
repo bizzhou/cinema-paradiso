@@ -6,7 +6,6 @@ import {LoginStatusService} from '../login/login.status.service';
 import {ToastrService} from 'ngx-toastr';
 import {Review} from '../models/review.model';
 
-
 @Component({
   selector: 'app-movie-detail',
   templateUrl: './movie-detail.component.html',
@@ -46,13 +45,25 @@ export class MovieDetailComponent implements OnInit {
 
   ratingOperations(data: number) {
 
+    const userCredential = JSON.parse(localStorage.getItem('credential'));
+
     if (this.loggedInFlag === true) {
       console.log('Logged in');
       console.log(typeof (data), data);
 
       this.movieService.addRatingToMovie(this.selectedMovieId, data).subscribe(newRating => {
         console.log(newRating);
+
+        if (userCredential['role'] === 'ROLE_USER') {
+          this.movie.numOfRegUserRatings += 1;
+          this.movie.regUserRating = parseFloat(newRating.toString());
+        } else {
+          this.movie.numOfCriticRatings += 1;
+          this.movie.criticRating = parseFloat(newRating.toString());
+        }
+
         this.toastrService.success('SUCCESS, new rating:' + newRating);
+
       }, error1 => {
 
         const errorMessage = error1['error']['message'];
@@ -60,6 +71,13 @@ export class MovieDetailComponent implements OnInit {
         if (errorMessage === 'USER RATING FOR MOVIE EXISTS') {
           this.movieService.editRatingForMovie(this.selectedMovieId, data).subscribe(newRating => {
             console.log('edited rating ', newRating);
+
+            if (userCredential['role'] === 'ROLE_USER') {
+              this.movie.regUserRating = parseFloat(newRating.toString());
+            } else {
+              this.movie.criticRating = parseFloat(newRating.toString());
+            }
+
             this.toastrService.success('You have edited your previous rating, new Rating: ' +
               newRating);
           }, error2 => {

@@ -9,16 +9,16 @@ import requests
 # images = json.load(open('./academy/oscar_images.json'))
 
 
-# celeb = json.load(open('./recent_movies/recent_celeb.json', encoding='utf8'))
-# data = open('./recent_movies/recent_data.txt', encoding='utf8')
-# link = open('./recent_movies/recent_movie_celeb_id_link.json', encoding='utf8')
-# images = json.load(open('./recent_movies/recent_images.json', encoding='utf8'))
+celeb = json.load(open('./recent_movies/recent_celeb.json', encoding='utf8'))
+data = open('./recent_movies/recent_data.txt', encoding='utf8')
+link = open('./recent_movies/recent_movie_celeb_id_link.json', encoding='utf8')
+images = json.load(open('./recent_movies/recent_images.json', encoding='utf8'))
 
 
-celeb = json.load(open('./tv/tv_celeb.json', encoding='utf8'))
-data = open('./tv/tv_data.txt', encoding='utf8')
-link = open('./tv/tv_celeb_id_link.json', encoding='utf8')
-images = json.load(open('./tv/tv_images.json', encoding='utf8'))
+# celeb = json.load(open('./tv/tv_celeb.json', encoding='utf8'))
+# data = open('./tv/tv_data.txt', encoding='utf8')
+# link = open('./tv/tv_celeb_id_link.json', encoding='utf8')
+# images = json.load(open('./tv/tv_images.json', encoding='utf8'))
 
 celeb_dict = {}
 data_dict = {}
@@ -147,7 +147,11 @@ for line in data:
 
     if json_data['imdbRating'] == 'N/A':
         json_data['imdbRating'] = 0
-    movie_json['rating'] = round(float(json_data['imdbRating']) / 2, 1)
+        continue
+    movie_json['regUserRating'] = round(float(json_data['imdbRating']) / 2, 1)
+    movie_json['criticRating'] = round((movie_json['regUserRating'] - float(random.randrange(6)) / 10 + float(random.randrange(4)) / 10), 1)
+    movie_json['numOfRegUserRatings'] = random.randrange(30)
+    movie_json['numOfCriticRatings'] = random.randrange(10)
 
     try:
         movie_json['production'] = json_data['Production']
@@ -165,7 +169,6 @@ for line in data:
         movie_json['boxOffice'] = None
 
     movie_json['runTime'] = ''.join(x for x in json_data['Runtime'] if x.isdigit())
-    movie_json['numberOfRatings'] = random.randrange(30)
     movie_json['casts'] = actors_list
     try:
         movie_json['director'] = new_director
@@ -177,15 +180,15 @@ for line in data:
     except:
         movie_json['photos'] = []
 
-    if movie_json['rating'] == 'N/A' or movie_json['releaseDate'] == 'N/A' or movie_json['runTime'] == '':
+    if movie_json['releaseDate'] == 'N/A' or movie_json['runTime'] == '':
         continue
 
     # skip difficult cases for now
 
     # print(json.dumps(movie_json))
     # break
-    # request = requests.post('http://localhost:8080/movie/add', json=(movie_json))
 
-    request = requests.post('http://localhost:8080/tv/add', json=(movie_json))
+    request = requests.post('http://localhost:8080/movie/add', json=(movie_json))
+    # request = requests.post('http://localhost:8080/tv/add', json=(movie_json))
     if (request.status_code == 400):
         print(request.text)

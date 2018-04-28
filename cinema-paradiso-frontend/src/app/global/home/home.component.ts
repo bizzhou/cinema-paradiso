@@ -80,10 +80,9 @@ export class HomeComponent implements OnInit {
     this.homeService.getCarousel()
       .subscribe(
         data => {
-          // assign movies to carousel
           this.carousel = data as Slide[];
-          localStorage.setItem('slides', JSON.stringify(this.carousel));
           console.log(this.carousel);
+          localStorage.setItem('slides', JSON.stringify(this.carousel));
         },
         error => console.log('Failed to fetch carousel data')
       );
@@ -93,8 +92,8 @@ export class HomeComponent implements OnInit {
     this.movieService.getMoviesPlaying('0', '6')
       .subscribe(
         data => {
-          this.moviesPlaying = data as Movie[];
           console.log(this.moviesPlaying);
+          this.moviesPlaying = data['movie'] as Movie[];
           localStorage.setItem('nowPlaying', JSON.stringify(this.moviesPlaying));
         },
         error => console.log('Failed to fetch movies playing')
@@ -105,7 +104,7 @@ export class HomeComponent implements OnInit {
     this.movieService.getMoviesTrending('0', '6')
       .subscribe(
         data => {
-          this.moviesTrending = data as Movie[];
+          this.moviesTrending = data['movie'] as Movie[];
           console.log(this.moviesTrending);
           localStorage.setItem('movieTrending', JSON.stringify(this.moviesTrending));
         },
@@ -117,7 +116,7 @@ export class HomeComponent implements OnInit {
     this.movieService.getMoviesComingSoon('0', '6')
       .subscribe(
         data => {
-          this.moviesComingSoon = data as Movie[];
+          this.moviesComingSoon = data['movie'] as Movie[];
           console.log(this.moviesComingSoon);
           localStorage.setItem('comingSoon', JSON.stringify(this.moviesComingSoon));
         },
@@ -129,7 +128,7 @@ export class HomeComponent implements OnInit {
     this.movieService.getTopBoxOffice('0', '6')
       .subscribe(
         data => {
-          this.moviesTopBoxOffice = data as Movie[];
+          this.moviesTopBoxOffice = data['movie'] as Movie[];
           console.log(this.moviesTopBoxOffice);
           localStorage.setItem('topBoxOffice', JSON.stringify(this.moviesTopBoxOffice));
         },
