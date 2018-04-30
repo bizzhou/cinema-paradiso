@@ -1,5 +1,6 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Review} from '../../models/review.model';
+import {AppConstant} from '../../../app.constant';
 
 @Component({
     selector: 'app-md-review',
@@ -18,10 +19,7 @@ export class MdReviewComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-
         console.log('init ', this.reviews);
-
-
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -29,7 +27,12 @@ export class MdReviewComponent implements OnInit, OnChanges {
         console.log('reviews in component ', this.reviews);
 
         this.reviews.forEach(review => {
-            if (review.isCriticReview === true) {
+
+            const img_link = AppConstant.API_ENDPOINT + `user/avatar/${review.author}.jpeg`;
+            // review.authorImage = img_link;
+            review['authorImage'] = img_link;
+
+            if (review.criticReview === true) {
                 this.criticReviews.push(review);
             } else {
                 this.userReviews.push(review);

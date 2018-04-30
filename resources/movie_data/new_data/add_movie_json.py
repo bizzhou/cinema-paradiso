@@ -3,10 +3,10 @@ import random
 from datetime import datetime
 import requests
 
-# celeb = json.load(open('./academy/oscar_celeb.json'))
-# data = open('./academy/oscar_data.json')
-# link = open('./academy/oscar_movie_celeb_id_link.json')
-# images = json.load(open('./academy/oscar_images.json'))
+celeb = json.load(open('./academy/oscar_celeb.json'))
+data = open('./academy/oscar_data.json')
+link = open('./academy/oscar_movie_celeb_id_link.json')
+images = json.load(open('./academy/oscar_images.json'))
 
 
 # celeb = json.load(open('./recent_movies/recent_celeb.json', encoding='utf8'))
@@ -145,12 +145,14 @@ for line in data:
     movie_json['country'] = json_data['Country']
     movie_json['poster'] = json_data['Poster']
 
+
     if json_data['imdbRating'] == 'N/A':
         json_data['imdbRating'] = 0
         continue
     movie_json['regUserRating'] = round(float(json_data['imdbRating']) / 2, 1)
     movie_json['criticRating'] = round((movie_json['regUserRating'] - float(random.randrange(6)) / 10 + float(random.randrange(4)) / 10), 1)
     movie_json['numOfRegUserRatings'] = random.randrange(30)
+    # movie_json['numOfRegUserRatings'] = ''.join(x for x in json_data['imdbVotes'] if x.isdigit())
     movie_json['numOfCriticRatings'] = random.randrange(10)
 
     try:
