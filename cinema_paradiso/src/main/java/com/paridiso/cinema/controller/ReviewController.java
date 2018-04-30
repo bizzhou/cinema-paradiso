@@ -27,16 +27,16 @@ public class ReviewController {
     JwtTokenService jwtTokenService;
 
     @RequestMapping(value = "add/{filmId}", method = POST)
-    public ResponseEntity addReview(@RequestHeader(value = "Authorization") String jwtToken,
+    public ResponseEntity<?> addReview(@RequestHeader(value = "Authorization") String jwtToken,
                                     @PathVariable String filmId,
                                     @RequestBody Review review) {
-        reviewService.addReview(jwtTokenService.getUserIdFromToken(jwtToken), filmId, review);
-        return ResponseEntity.ok(true);
+        Review review1 = reviewService.addReview(jwtTokenService.getUserIdFromToken(jwtToken), filmId, review);
+        return ResponseEntity.ok(review1);
     }
 
 
     @PostMapping(value = "edit/{filmId}")
-    public ResponseEntity editReview(@RequestHeader(value = "Authorization") String jwtToken,
+    public ResponseEntity<?> editReview(@RequestHeader(value = "Authorization") String jwtToken,
                                      @RequestBody Review review) {
         Integer id = jwtTokenService.getUserProfileIdFromToken(jwtToken);
         Review review1 = reviewService.editReview(id, review);

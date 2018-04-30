@@ -143,11 +143,13 @@ public class MovieServiceImpl implements FilmService {
         if (isCritic) {
             oldRating = (movie.getCriticRating() * movie.getNumOfCriticRatings() - userRating.getUserRating()) /
                     (movie.getNumOfCriticRatings() - 1);
+            oldRating = Math.round(oldRating * 10.0) / 10.0;
             movie.setNumOfRegUserRatings(movie.getNumOfCriticRatings() - 1);
             movie.setCriticRating(oldRating);
         } else {
             oldRating = (movie.getRegUserRating() * movie.getNumOfRegUserRatings() - userRating.getUserRating()) /
                     (movie.getNumOfRegUserRatings() - 1);
+            oldRating = Math.round(oldRating * 10.0) / 10.0;
             movie.setNumOfRegUserRatings(movie.getNumOfRegUserRatings() - 1);
             movie.setRegUserRating(oldRating);
         }

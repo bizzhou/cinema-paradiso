@@ -56,7 +56,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Transactional
     @Override
-    public boolean addReview(Integer userId, String movieId, Review review) {
+    public Review addReview(Integer userId, String movieId, Review review) {
         Movie movie = utilityService.getMoive(movieId);
         User user = utilityService.getUser(userId);
         if (reviewRepository.findReviewByMovieAndAuthor(movie, user.getUserProfile()).isPresent()) {
@@ -66,7 +66,7 @@ public class ReviewServiceImpl implements ReviewService {
         review.setPostedDate(Calendar.getInstance());
         review.setMovie(movie);
         review.setCriticReview(user.getUserProfile().getCritic());
-        return reviewRepository.save(review) == null;
+        return reviewRepository.save(review);
     }
 
     @Override

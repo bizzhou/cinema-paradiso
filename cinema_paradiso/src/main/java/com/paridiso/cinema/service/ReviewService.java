@@ -10,7 +10,7 @@ public interface ReviewService {
 
     List<Review> getCriticReviews(Long filmId);
 
-    boolean addReview(Integer userId, String movieId, Review review);
+    Review addReview(Integer userId, String movieId, Review review);
 
     Review getReview(Long reviewId);
 
