@@ -11,6 +11,7 @@ public class WishList {
     private List<Movie> movies;
     private Integer wishListSize;
 
+
     public WishList() {
     }
 

@@ -12,4 +12,6 @@ public interface CarouselService {
 
     Slide addSlide(Slide slide);
 
+    List<Slide> setMovieStatus(List<Slide> slides, Integer userId);
+
 }

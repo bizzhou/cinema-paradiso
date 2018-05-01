@@ -1,6 +1,7 @@
 package com.paridiso.cinema.entity;
 
 import com.paridiso.cinema.entity.enumerations.ListMovieStatus;
+import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
 
@@ -30,6 +31,7 @@ public class Slide {
     }
 
     @Enumerated(EnumType.STRING)
+    @ColumnDefault(value = "NONE")
     public ListMovieStatus getListMovieStatus() {
         return listMovieStatus;
     }
@@ -60,4 +62,7 @@ public class Slide {
                 '}';
     }
 
+    public void setListMovieStatus(ListMovieStatus listMovieStatus) {
+        this.listMovieStatus = listMovieStatus;
+    }
 }

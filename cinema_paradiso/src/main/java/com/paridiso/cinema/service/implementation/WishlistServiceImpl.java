@@ -89,6 +89,7 @@ public class WishlistServiceImpl implements ListService, WishlistService {
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieNotFound()));
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserNotFound()));
+
         // check movie existence and size limit
         List<Movie> movies = user.getUserProfile().getWishList().getMovies();
         movies.remove(movie);
@@ -112,13 +113,5 @@ public class WishlistServiceImpl implements ListService, WishlistService {
         return movieUtility.containsMovie(movies, filmId);
     }
 
-    // TODO:
-//    @Override
-//    public boolean contains(Integer userId, String filmId) {
-//
-//
-//
-//    }
-//
 
 }

@@ -14,13 +14,15 @@ import {BehaviorSubject} from "rxjs/BehaviorSubject";
 export class HomeService {
 
   public selectedImdbId: string;
-  public loginStatus = new BehaviorSubject(false);
-  // currentLoginStatus = this.loginStatus.asObservable();
 
   constructor(private http: HttpClient) { }
 
-  getCarousel(loginStatus: boolean) {
-    return this.http.get(AppConstant.API_ENDPOINT + `carousel/get/${loginStatus}`);
+  getCarousel() {
+    return this.http.get(AppConstant.API_ENDPOINT + `carousel/get`);
+  }
+
+  getCustomCarousel() {
+    return this.http.get(AppConstant.API_ENDPOINT + `carousel/getCustomCarousel`);
   }
 
   errorHandler(error): any {
@@ -31,10 +33,5 @@ export class HomeService {
   parseImdbId(imdbId: string) {
     return this.selectedImdbId = imdbId;
   }
-
-  // getLoginStatus(status: boolean) {
-  //   console.log(status);
-  //   this.loginStatus.next(status);
-  // }
 
 }

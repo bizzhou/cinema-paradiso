@@ -16,6 +16,5 @@ public interface ListService {
 
     Boolean isMovieInList(Integer userId, String filmId);
 
-//    boolean contains(Integer userId, String filmId);
 
 }

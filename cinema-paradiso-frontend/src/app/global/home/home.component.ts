@@ -12,6 +12,7 @@ import {MovieService} from '../movie-detail/movie.service';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {Slide} from '../models/slide.model';
 import {ToastrService} from 'ngx-toastr';
+import {ListMovieStatus} from "../models/ListMovieStatus.model";
 
 @Component({
   selector: 'app-home',
@@ -28,6 +29,7 @@ export class HomeComponent implements OnInit {
   moviesTopBoxOffice: Movie[];
   selectedMovieId: string;
   isMovieExistInWishList: boolean;              // button changes accordingly
+  listMovieStatusEnum = ListMovieStatus;
 
   constructor(private loginStatusService: LoginStatusService,
               private homeService: HomeService,
@@ -49,7 +51,13 @@ export class HomeComponent implements OnInit {
     if (localStorage.getItem('slides') !== null) {
       this.carousel = JSON.parse(localStorage.getItem('slides')) as Slide[];
     } else {
-      this.getCarousel();
+      if (this.loginStatus) {
+        console.log('Fetching custom carousel')
+        this.getCustomCarousel();
+      } else {
+        console.log('Fetching normal carousel')
+        this.getCarousel();
+      }
     }
 
     if (localStorage.getItem('nowPlaying') !== null) {
@@ -80,14 +88,27 @@ export class HomeComponent implements OnInit {
 
   getCarousel(): any {
 
-    this.homeService.getCarousel(this.loginStatus)
+    this.homeService.getCarousel()
       .subscribe(
         data => {
           this.carousel = data as Slide[];
           console.log(this.carousel);
-          localStorage.setItem('slides', JSON.stringify(this.carousel));
+          // localStorage.setItem('slides', JSON.stringify(this.carousel));
         },
         error => console.log('Failed to fetch carousel data')
+      );
+  }
+
+  getCustomCarousel(): any {
+
+    this.homeService.getCustomCarousel()
+      .subscribe(
+        data => {
+          this.carousel = data as Slide[];
+          console.log(this.carousel);
+          // localStorage.setItem('slides', JSON.stringify(this.carousel));
+        },
+        error => console.log('Failed to fetch custome carousel data')
       );
   }
 
@@ -143,6 +164,7 @@ export class HomeComponent implements OnInit {
     this.movieService.addToWishList(imdbId)
       .subscribe(
         data => {
+          // TODO set enum here
           console.log(data);
         },
         error => {
@@ -153,22 +175,19 @@ export class HomeComponent implements OnInit {
   }
 
   removeFromWishList(imdbId: string) {
-    this.movieService.removeFromWishList(imdbId);
+    this.movieService.removeFromWishList(imdbId)
+      .subscribe(
+        data => {
+          console.log(data);
+        },
+        error => {
+          this.toastr.error('Please Login!');
+          $('.modal-wrapper').toggleClass('open');
+        }
+      );
   }
 
-  checkMoviesInWishList(movies: Movie[]) {
-    // movies.forEach(function(movie, index, movieArray) {
-    //   if (this.isMovieInWishList(movie.imdbId)) {
-    //     movie.isInWishlist = true;
-    //   } else {
-    //     movie.isInWishlist = false;
-    //   }
-    // });
 
-    // movies.forEach(function(part, index, theArray) {
-    //   theArray[index].isInWishlist = false;
-    // });
-  }
 
   /**
    *
