@@ -62,20 +62,31 @@
                 </span>
               </p>
               <div class="l-hero__buttons">
-                <button class="o-button color-gray">
-                  + Not interested
+                <button *ngIf="carouselSlide.movie.listMovieStatus === listMovieStatusEnum.NONE
+                               || carouselSlide.movie.listMovieStatus === listMovieStatusEnum.WISHLIST
+                               ;else inNotInterestedList"
+                        (click)="addToNotInterestedList(carouselSlide.movie)"
+                  class="o-button color-gray">
+                  <i class="fa fa-plus"></i> Not interested
                 </button>
 
+                  <button *ngIf="carouselSlide.movie.listMovieStatus === listMovieStatusEnum.NOT_INTERESTED_LIST"
+                          (click)="removeFromNotInterestedList(carouselSlide.movie)"
+                          class="o-button color-red">
+                    <i class="fa fa-minus"></i> Not interested
+                  </button>
+
+
                 <!-- wish list button -->
-                <button *ngIf="carouselSlide.movie.listMovieStatus !== listMovieStatusEnum.WISHLIST;else inWishList"
+                <button *ngIf="carouselSlide.movie.listMovieStatus === listMovieStatusEnum.NONE ;else inWishList"
                         (click)="addToWishList(carouselSlide.movie)"
                         class="o-button color-red">
-                  + Wishlist
+                  <i class="fa fa-plus"></i> Wishlist
                 </button>
                 <ng-template #inWishList>
                   <button class="o-button color-gray"
                     (click)="removeFromWishList(carouselSlide.movie)">
-                    - Wishlist
+                    <i class="fa fa-minus"></i> Wishlist
                   </button>
                 </ng-template>
 

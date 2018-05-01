@@ -37,6 +37,10 @@ public class WishlistController {
         return new ResponseEntity<>(wishListMovies, HttpStatus.OK);
     }
 
+    /**
+     * @exception ResponseStatusException CONFLICT: movie already exists
+     * @exception ResponseStatusException BAD_REQUEST: user not logged in
+     */
     @RequestMapping(value = "/add", method = POST)
     public ResponseEntity<Boolean> addToWishList(@RequestHeader(value = "Authorization") String jwtToken,
                                                  @RequestParam("filmId") String filmId) {

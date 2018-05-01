@@ -5,6 +5,7 @@ import {AppConstant} from '../../app.constant';
 
 const MOVIE_SERVER = AppConstant.API_ENDPOINT + 'movie/';
 const WISH_LIST_SERVER = AppConstant.API_ENDPOINT + 'wishlist/';
+const NOT_INTERESTED_LIST_SERVER = AppConstant.API_ENDPOINT + 'not-interested/';
 
 @Injectable()
 export class MovieService {
@@ -43,6 +44,15 @@ export class MovieService {
 
   removeFromWishList(imdbId: string) {
     return this.http.delete(WISH_LIST_SERVER + `delete/${imdbId}`);
+  }
+
+  addToNotInterestedList(imdbId: string) {
+    const params = new HttpParams().set('filmId', imdbId);
+    return this.http.post(NOT_INTERESTED_LIST_SERVER + 'add', params);
+  }
+
+  removeFromNotInterestedList(imdbId: string) {
+    return this.http.delete(NOT_INTERESTED_LIST_SERVER + `delete/${imdbId}`);
   }
 
   isMovieInWishList(imdbId: string) {

@@ -59,7 +59,7 @@ public class CarouselServiceImpl implements CarouselService {
      */
     @Transactional
     @Override
-    public List<Slide> setMovieStatus(List<Slide> slides, Integer userId) {
+    public List<Slide> setInitialMovieStatus(List<Slide> slides, Integer userId) {
         // get wish list
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserNotFound()));

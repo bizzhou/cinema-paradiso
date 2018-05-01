@@ -188,4 +188,35 @@ export class HomeComponent implements OnInit {
       );
   }
 
+  addToNotInterestedList(movie: Movie) {
+    this.movieService.addToNotInterestedList(movie.imdbId)
+      .subscribe(
+        data => {
+          movie.listMovieStatus = this.listMovieStatusEnum.NOT_INTERESTED_LIST;
+          console.log('Added movie ' + movie.imdbId + ' to not interested list');
+        },
+        error => {
+          this.toastr.error('Please Login!');
+          $('.modal-wrapper').toggleClass('open');
+        }
+      );
+  }
+
+  removeFromNotInterestedList(movie: Movie) {
+    this.movieService.removeFromNotInterestedList(movie.imdbId)
+      .subscribe(
+        data => {
+          movie.listMovieStatus = this.listMovieStatusEnum.NONE;
+          console.log('Removed movie ' + movie.imdbId + ' from not interested list');
+        },
+        error => {
+          this.toastr.error('Please Login!');
+          $('.modal-wrapper').toggleClass('open');
+        }
+      );
+  }
+
+
+
+
 }

@@ -76,6 +76,7 @@ public class WishlistServiceImpl implements ListService, WishlistService {
         return true;
     }
 
+    @Transactional
     @Override
     public List<Movie> getListFromUserId(Integer userId) {
         User user = userRepository.findById(userId)
@@ -83,6 +84,7 @@ public class WishlistServiceImpl implements ListService, WishlistService {
         return user.getUserProfile().getWishList().getMovies();
     }
 
+    @Transactional
     @Override
     public void removeFromList(Integer userId, String filmId) {
         Movie movie = movieRepository.findMovieByImdbId(filmId)

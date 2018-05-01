@@ -33,7 +33,7 @@ public class CarouselController {
 
         Integer userId = jwtTokenService.getUserProfileIdFromToken(jwtToken);
 
-        List<Slide> slides = carouselService.setMovieStatus(carouselService.getCarousel(), userId);
+        List<Slide> slides = carouselService.setInitialMovieStatus(carouselService.getCarousel(), userId);
         return new ResponseEntity<>(slides, HttpStatus.OK);
     }
 
