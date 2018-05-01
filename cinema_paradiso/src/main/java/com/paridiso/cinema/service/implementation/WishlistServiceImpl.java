@@ -112,5 +112,13 @@ public class WishlistServiceImpl implements ListService, WishlistService {
         return movieUtility.containsMovie(movies, filmId);
     }
 
+    // TODO:
+//    @Override
+//    public boolean contains(Integer userId, String filmId) {
+//
+//
+//
+//    }
+//
 
 }

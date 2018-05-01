@@ -20,6 +20,7 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class HomeComponent implements OnInit {
 
+  loginStatus = false;
   carousel: Slide[];
   moviesPlaying: Movie[];
   moviesTrending: Movie[];
@@ -39,7 +40,12 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (this.loginStatusService.getTokenDetails() !== null) {
+      this.loginStatusService.changeStatus(true);
+      this.loginStatus = true;
+    }
 
+    // TODO: if in local storage, check here, otherwise check in backend
     if (localStorage.getItem('slides') !== null) {
       this.carousel = JSON.parse(localStorage.getItem('slides')) as Slide[];
     } else {
@@ -70,14 +76,11 @@ export class HomeComponent implements OnInit {
       this.getTopBoxOffice();
     }
 
-    if (this.loginStatusService.getTokenDetails() !== null) {
-      this.loginStatusService.changeStatus(true);
-    }
-
   }
 
   getCarousel(): any {
-    this.homeService.getCarousel()
+
+    this.homeService.getCarousel(this.loginStatus)
       .subscribe(
         data => {
           this.carousel = data as Slide[];

@@ -280,4 +280,27 @@ public class Film {
                 ", website=" + website +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Film film = (Film) o;
+
+        return imdbId.equals(film.imdbId);
+    }
+
+    @Override
+    public int hashCode() {
+        return imdbId.hashCode();
+    }
 }
+
+
+
+
+
+
+
+

@@ -17,9 +17,11 @@ public class CarouselController {
     @Autowired
     CarouselService carouselService;
 
-    @GetMapping(value = "/get")
-    public ResponseEntity<List<Slide>> getCarousel() {
-        return new ResponseEntity<>(carouselService.getCarousel(), HttpStatus.OK);
+    @GetMapping(value = "/get/{loginStatus}")
+    public ResponseEntity<List<Slide>> getCarousel(@PathVariable boolean loginStatus) {
+        List<Slide> slides = carouselService.getCarousel();
+
+        return new ResponseEntity<>(slides, HttpStatus.OK);
     }
 
     @PostMapping(value = "/add/slide")

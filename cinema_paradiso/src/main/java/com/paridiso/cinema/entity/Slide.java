@@ -1,5 +1,7 @@
 package com.paridiso.cinema.entity;
 
+import com.paridiso.cinema.entity.enumerations.ListMovieStatus;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,6 +11,7 @@ public class Slide {
     private Integer slideId;
     private String backgroundImage;
     private Movie movie;
+    private ListMovieStatus listMovieStatus;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +27,11 @@ public class Slide {
     @JoinColumn(name = "imdbId")
     public Movie getMovie() {
         return movie;
+    }
+
+    @Enumerated(EnumType.STRING)
+    public ListMovieStatus getListMovieStatus() {
+        return listMovieStatus;
     }
 
     public void setSlideId(Integer id) {
@@ -51,4 +59,5 @@ public class Slide {
                 ", movie=" + movie +
                 '}';
     }
+
 }

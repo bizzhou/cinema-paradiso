@@ -29,7 +29,7 @@ export class MdReviewComponent implements OnInit, OnChanges {
         console.log('reviews in component ', this.reviews);
 
         this.reviews.forEach(review => {
-            if (review.criticReview === true) {
+            if (review.isCriticReview === true) {
                 this.criticReviews.push(review);
             } else {
                 this.userReviews.push(review);

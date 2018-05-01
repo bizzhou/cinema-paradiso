@@ -44,7 +44,7 @@ public class WishlistController {
         if (result) {
             return ResponseEntity.ok(true);
         } else {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exceptionConstants.getAlreadyInWishList());
+            throw new ResponseStatusException(HttpStatus.CONFLICT, exceptionConstants.getAlreadyInWishList());
         }
     }
 

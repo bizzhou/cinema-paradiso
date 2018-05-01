@@ -4,6 +4,7 @@ import {Observable} from 'rxjs/Observable';
 import {AppConstant} from '../../app.constant';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 // const CAROUSEL_SERVER = 'http://localhost:8080/carousel/';
 
@@ -13,12 +14,13 @@ import 'rxjs/add/operator/catch';
 export class HomeService {
 
   public selectedImdbId: string;
+  public loginStatus = new BehaviorSubject(false);
+  // currentLoginStatus = this.loginStatus.asObservable();
 
   constructor(private http: HttpClient) { }
 
-  getCarousel() {
-    const httpParams = new HttpParams()
-    return this.http.get(AppConstant.API_ENDPOINT + 'carousel/get');
+  getCarousel(loginStatus: boolean) {
+    return this.http.get(AppConstant.API_ENDPOINT + `carousel/get/${loginStatus}`);
   }
 
   errorHandler(error): any {
@@ -29,5 +31,10 @@ export class HomeService {
   parseImdbId(imdbId: string) {
     return this.selectedImdbId = imdbId;
   }
+
+  // getLoginStatus(status: boolean) {
+  //   console.log(status);
+  //   this.loginStatus.next(status);
+  // }
 
 }

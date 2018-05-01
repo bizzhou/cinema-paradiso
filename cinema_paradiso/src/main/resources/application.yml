@@ -59,7 +59,7 @@ application:
     userRatingNotExists: "USER RATING FOR MOVIE DOES NOT `EXISTS"
     reviewExists: "REVIEW EXISTS"
     invalidRatingNumber: "INVALID RATING NUMBER"
-    alreadyInWishList: "MOVIE ALREADY IN WISHLIST"
+    alreadyInWishList: "MOVIE ALREADY IN WISH LIST"
     alreadyInNotInterestedList: "MOVIE ALREADY EXIST IN NOT INTERESTED LIST"
 
   limitation:
