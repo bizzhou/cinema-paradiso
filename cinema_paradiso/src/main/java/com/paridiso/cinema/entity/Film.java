@@ -12,7 +12,6 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 
-// TODO: show have a way to count # of 5-star ratings, 4-star, 3-star...
 @MappedSuperclass
 public class Film {
 
@@ -135,6 +134,7 @@ public class Film {
         return poster;
     }
 
+    @ColumnDefault("0.0")
     public Double getRegUserRating() {
         return regUserRating;
     }
@@ -144,6 +144,7 @@ public class Film {
         return numOfRegUserRatings;
     }
 
+    @ColumnDefault("0.0")
     public Double getCriticRating() {
         return criticRating;
     }

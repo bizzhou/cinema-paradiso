@@ -9,16 +9,16 @@ import requests
 # images = json.load(open('./academy/oscar_images.json'))
 
 
-celeb = json.load(open('./recent_movies/recent_celeb.json', encoding='utf8'))
-data = open('./recent_movies/recent_data.txt', encoding='utf8')
-link = open('./recent_movies/recent_movie_celeb_id_link.json', encoding='utf8')
-images = json.load(open('./recent_movies/recent_images.json', encoding='utf8'))
+# celeb = json.load(open('./recent_movies/recent_celeb.json', encoding='utf8'))
+# data = open('./recent_movies/recent_data.txt', encoding='utf8')
+# link = open('./recent_movies/recent_movie_celeb_id_link.json', encoding='utf8')
+# images = json.load(open('./recent_movies/recent_images.json', encoding='utf8'))
 
 
-# celeb = json.load(open('./tv/tv_celeb.json', encoding='utf8'))
-# data = open('./tv/tv_data.txt', encoding='utf8')
-# link = open('./tv/tv_celeb_id_link.json', encoding='utf8')
-# images = json.load(open('./tv/tv_images.json', encoding='utf8'))
+celeb = json.load(open('./tv/tv_celeb.json', encoding='utf8'))
+data = open('./tv/tv_data.txt', encoding='utf8')
+link = open('./tv/tv_celeb_id_link.json', encoding='utf8')
+images = json.load(open('./tv/tv_images.json', encoding='utf8'))
 
 celeb_dict = {}
 data_dict = {}
@@ -188,7 +188,7 @@ for line in data:
     # print(json.dumps(movie_json))
     # break
 
-    request = requests.post('http://localhost:8080/movie/add', json=(movie_json))
-    # request = requests.post('http://localhost:8080/tv/add', json=(movie_json))
+    # request = requests.post('http://localhost:8080/movie/add', json=(movie_json))
+    request = requests.post('http://localhost:8080/tv/add', json=(movie_json))
     if (request.status_code == 400):
         print(request.text)

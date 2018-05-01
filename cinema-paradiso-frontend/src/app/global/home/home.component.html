@@ -28,7 +28,7 @@
                       <i class="fa fa-star"></i>
                       <i class="fa fa-star"></i>
                       <i class="fa fa-star"></i>
-                      <p>{{carouselSlide.movie.rating}}/5.0</p>
+                      <p>{{carouselSlide.movie.criticRating}}/5.0</p>
                       <p>{{carouselSlide.movie.rated}}</p>
                     </div><!--flex end-->
                     </a>
@@ -64,11 +64,11 @@
               </p>
               <div class="l-hero__buttons">
                 <button class="o-button color-gray">
-                  + Watchlist
+                  + Not interested
                 </button>
                 <button class="o-button color-red"
                         (click)="addToWishList(carouselSlide.movie.imdbId)">
-                  + Wishlist
+                  + Wish list
                 </button>
                 <!--<button *ngIf="carouselSlide.isInWishlist" class="o-button color-gray"-->
                         <!--(click)="removeFromWishList(carouselSlide.imdbId)">-->
@@ -98,8 +98,8 @@
             <img [src]="movie.poster" [alt]="movie.title">
           </a>
           <a routerLink="/movie/{{movie.imdbId}}"  routerLinkActive="active"  class="l-cards__text">
-            {{movie.title}}
-            <p>{{movie.rating}}/5.0</p>
+            {{movie.title.substring(0, 24)}}
+            <p>{{movie.criticRating}}/5.0</p>
           </a>
         </li>
       </ul>
@@ -119,8 +119,8 @@
             <img [src]="movie.poster" [alt]="movie.title">
           </a>
           <a routerLink="/movie/{{movie.imdbId}}" routerLinkActive="active"  class="l-cards__text">
-            {{movie.title}}
-            <p>{{movie.rating}}/5.0</p>
+            {{movie.title.substring(0, 24)}}
+            <p>{{movie.criticRating}}/5.0</p>
           </a>
         </li>
 
@@ -141,8 +141,8 @@
             <img [src]="movie.poster" [alt]="movie.title">
           </a>
           <a routerLink="/movie/{{movie.imdbId}}" routerLinkActive="active"  class="l-cards__text">
-            {{movie.title}}
-            <p>{{movie.rating}}/5.0</p>
+            {{movie.title.substring(0, 24)}}
+            <p>{{movie.criticRating}}/5.0</p>
           </a>
         </li>
 
@@ -163,8 +163,8 @@
             <img [src]="movie.poster" [alt]="movie.title">
           </a>
           <a routerLink="/movie/{{movie.imdbId}}" routerLinkActive="active"  class="l-cards__text">
-            {{movie.title}}
-            <p>{{movie.rating}}/5.0</p>
+            {{movie.title.substring(0, 24)}}
+            <p>{{movie.criticRating}}/5.0</p>
           </a>
         </li>
 
@@ -185,8 +185,8 @@
             <img [src]="movie.poster" [alt]="movie.title">
           </a>
           <a routerLink="/movie/{{movie.imdbId}}" routerLinkActive="active"  class="l-cards__text">
-            {{movie.title}}
-            <p>{{movie.rating}}/5.0</p>
+            {{movie.title.substring(0, 24)}}
+            <p>{{movie.criticRating}}/5.0</p>
           </a>
         </li>
 
