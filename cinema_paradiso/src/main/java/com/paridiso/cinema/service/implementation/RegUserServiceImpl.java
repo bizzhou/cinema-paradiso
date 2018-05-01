@@ -59,7 +59,6 @@ public class RegUserServiceImpl extends UserService {
         }
         // first create a user_profile for the user;
         user.setUserProfile(userProfileRepository.save(new UserProfile()));
-
         // create a new wish list/ watch list
         user.getUserProfile().setCritic(false);
         user.getUserProfile().setWishList(wishListRepository.save(new WishList()));
@@ -81,16 +80,14 @@ public class RegUserServiceImpl extends UserService {
 
     @Transactional
     public boolean makeSummaryPrivate(Integer profileId) {
-        UserProfile profile = userProfileRepository.findById(profileId)
-                .orElseThrow(() -> new RuntimeException(exceptionConstants.getProfileNotFound()));
+        UserProfile profile = utilityService.getUserProfile(profileId);
         profile.setPrivate(true);
         return userProfileRepository.save(profile).getPrivate();
     }
 
     @Transactional
     public boolean chagneProfilePicture(Integer profileId, MultipartFile file) throws IOException {
-        UserProfile profile = userProfileRepository.findById(profileId)
-                .orElseThrow(() -> new RuntimeException("CANNOT FIND PROFILE"));
+        UserProfile profile = utilityService.getUserProfile(profileId);
         profile.setProfileImage(profileId + ".jpeg");
         userProfileRepository.save(profile);
         if (!file.isEmpty()) {
@@ -106,8 +103,7 @@ public class RegUserServiceImpl extends UserService {
 
     @Transactional
     public boolean updatePassword(Integer userId, String oldPassword, String newPassword) {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserNotFound()));
+        User user = utilityService.getUser(userId);
         String hashedPassword = utilityService.getHashedPassword(oldPassword, salt);
         if (!hashedPassword.equals(user.getPassword())) {
             return false;
@@ -131,12 +127,6 @@ public class RegUserServiceImpl extends UserService {
         List<Movie> movies = userProfile.getWishList().getMovies();
         userProfile.getWishList().setMovies(movies);
         return userProfile;
-    }
-
-
-    public User getUser(Integer id) {
-        return userRepository.findById(id)
-                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getProfileNotFound() + id));
     }
 
     public UserProfile getUserProfile(Integer id) {

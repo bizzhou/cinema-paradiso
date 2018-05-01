@@ -1,7 +1,5 @@
 package com.paridiso.cinema.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.paridiso.cinema.constants.ExceptionConstants;
 import com.paridiso.cinema.entity.User;
 import com.paridiso.cinema.security.JwtTokenGenerator;

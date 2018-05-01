@@ -29,8 +29,6 @@ public class UserRating {
         return id;
     }
 
-
-//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "userProfileId")
