@@ -161,17 +161,21 @@ export class HomeComponent implements OnInit {
   }
 
   addToWishList(movie: Movie) {
-    this.movieService.addToWishList(movie.imdbId)
-      .subscribe(
-        data => {
-          movie.listMovieStatus = this.listMovieStatusEnum.WISHLIST;
-          console.log('Added movie ' + movie.imdbId + ' to wish list');
-        },
-        error => {
-          this.toastr.error('Please Login!');
-          $('.modal-wrapper').toggleClass('open');
-        }
-      );
+    if (movie.listMovieStatus === this.listMovieStatusEnum.NOT_INTERESTED_LIST) {
+      this.toastr.error('Already in Not Interested List')
+    } else {
+      this.movieService.addToWishList(movie.imdbId)
+        .subscribe(
+          data => {
+            movie.listMovieStatus = this.listMovieStatusEnum.WISHLIST;
+            console.log('Added movie ' + movie.imdbId + ' to wish list');
+          },
+          error => {
+            this.toastr.error('Please Login!');
+            $('.modal-wrapper').toggleClass('open');
+          }
+        );
+    }
   }
 
   removeFromWishList(movie: Movie) {
@@ -189,17 +193,21 @@ export class HomeComponent implements OnInit {
   }
 
   addToNotInterestedList(movie: Movie) {
-    this.movieService.addToNotInterestedList(movie.imdbId)
-      .subscribe(
-        data => {
-          movie.listMovieStatus = this.listMovieStatusEnum.NOT_INTERESTED_LIST;
-          console.log('Added movie ' + movie.imdbId + ' to not interested list');
-        },
-        error => {
-          this.toastr.error('Please Login!');
-          $('.modal-wrapper').toggleClass('open');
-        }
-      );
+    if (movie.listMovieStatus === this.listMovieStatusEnum.WISHLIST) {
+      this.toastr.error('Already in Wish List');
+    } else {
+      this.movieService.addToNotInterestedList(movie.imdbId)
+        .subscribe(
+          data => {
+            movie.listMovieStatus = this.listMovieStatusEnum.NOT_INTERESTED_LIST;
+            console.log('Added movie ' + movie.imdbId + ' to not interested list');
+          },
+          error => {
+            this.toastr.error('Please Login!');
+            $('.modal-wrapper').toggleClass('open');
+          }
+        );
+    }
   }
 
   removeFromNotInterestedList(movie: Movie) {
