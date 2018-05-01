@@ -28,7 +28,7 @@ export class MdReviewComponent implements OnInit, OnChanges {
 
         this.reviews.forEach(review => {
 
-            const img_link = AppConstant.API_ENDPOINT + `user/avatar/${review.author}.jpeg`;
+            const img_link = AppConstant.API_ENDPOINT + `user/avatar/${review.authorId}.jpeg`;
             // review.authorImage = img_link;
             review['authorImage'] = img_link;
 

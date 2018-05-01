@@ -11,18 +11,12 @@
             <div class="row">
                 <div class="testimonial">
                     <div class="t_title">
-                        <!--TODO: user profile image goes here-->
-                        <!--<img-->
-                                <!--src="{{review?.authorImage}}"-->
-                                <!--alt="user"/>-->
 
-                        <img
-                                [defaultImage]="'../../../../assets/images/default_profile.png'"
+                        <img [defaultImage]="'../../../../assets/images/default_profile.png'"
                                 [lazyLoad]="review?.authorImage"/>
 
-                        <!--TODO: USERNAME rated USER_RATING on RATED_DATE-->
                         <h6>
-                            <a routerLink="/portfolio/critic">{{criticReview.author}}</a> rated
+                            <a routerLink="/portfolio/critic">{{criticReview.authorName}}</a> rated
                             <span>
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
@@ -91,7 +85,7 @@
 
                         <!--TODO: USERNAME rated USER_RATING on RATED_DATE-->
                         <h6>
-                            <a routerLink="/portfolio/user">Bin</a> rated
+                            <a routerLink="/portfolio/user">{{review.authorName}}</a> rated
                             <span>
               <i class="fa fa-star"></i>
               <i class="fa fa-star"></i>
