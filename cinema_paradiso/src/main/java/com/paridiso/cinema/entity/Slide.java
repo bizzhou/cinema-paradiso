@@ -12,7 +12,6 @@ public class Slide {
     private Integer slideId;
     private String backgroundImage;
     private Movie movie;
-    private ListMovieStatus listMovieStatus;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,12 +27,6 @@ public class Slide {
     @JoinColumn(name = "imdbId")
     public Movie getMovie() {
         return movie;
-    }
-
-    @Enumerated(EnumType.STRING)
-    @ColumnDefault(value = "NONE")
-    public ListMovieStatus getListMovieStatus() {
-        return listMovieStatus;
     }
 
     public void setSlideId(Integer id) {
@@ -62,7 +55,4 @@ public class Slide {
                 '}';
     }
 
-    public void setListMovieStatus(ListMovieStatus listMovieStatus) {
-        this.listMovieStatus = listMovieStatus;
-    }
 }

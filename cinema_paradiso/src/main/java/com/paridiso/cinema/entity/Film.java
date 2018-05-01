@@ -2,6 +2,7 @@ package com.paridiso.cinema.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.paridiso.cinema.entity.enumerations.Genre;
+import com.paridiso.cinema.entity.enumerations.ListMovieStatus;
 import com.paridiso.cinema.entity.enumerations.Rated;
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.Type;
@@ -43,6 +44,7 @@ public class Film {
 
     protected String production;
     protected URI website;
+    protected ListMovieStatus listMovieStatus;
 
     public Film() {
     }
@@ -158,6 +160,11 @@ public class Film {
         return production;
     }
 
+    @Enumerated(EnumType.STRING)
+    public ListMovieStatus getListMovieStatus() {
+        return listMovieStatus;
+    }
+
     public URI getWebsite() {
         return website;
     }
@@ -252,6 +259,10 @@ public class Film {
 
     public void setNumOfCriticRatings(Integer numOfCriticRatings) {
         this.numOfCriticRatings = numOfCriticRatings;
+    }
+
+    public void setListMovieStatus(ListMovieStatus listMovieStatus) {
+        this.listMovieStatus = listMovieStatus;
     }
 
     @Override

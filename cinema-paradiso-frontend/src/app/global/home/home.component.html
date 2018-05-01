@@ -65,16 +65,20 @@
                 <button class="o-button color-gray">
                   + Not interested
                 </button>
-                <button *ngIf="carouselSlide.listMovieStatus !== listMovieStatusEnum.WISHLIST"
-                        (click)="addToWishList(carouselSlide.movie.imdbId)"
+
+                <!-- wish list button -->
+                <button *ngIf="carouselSlide.movie.listMovieStatus !== listMovieStatusEnum.WISHLIST;else inWishList"
+                        (click)="addToWishList(carouselSlide.movie)"
                         class="o-button color-red">
                   + Wishlist
                 </button>
-                <button *ngIf="carouselSlide.listMovieStatus === listMovieStatusEnum.WISHLIST"
-                        class="o-button color-gray"
-                        (click)="removeFromWishList(carouselSlide.movie.imdbId)">
+                <ng-template #inWishList>
+                  <button class="o-button color-gray"
+                    (click)="removeFromWishList(carouselSlide.movie)">
                     - Wishlist
-                </button>
+                  </button>
+                </ng-template>
+
               </div>
             </div>
           </div>

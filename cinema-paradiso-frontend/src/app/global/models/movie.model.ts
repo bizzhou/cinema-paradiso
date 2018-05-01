@@ -28,6 +28,7 @@ export class Movie {
   isInWishlist: boolean;
   numOfRegUserRatings: number;
   numOfCriticRatings: number;
+  listMovieStatus: string;
 
   constructor(values: Object = {}) {
     Object.assign(this, values);

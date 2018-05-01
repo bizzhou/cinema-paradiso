@@ -12,7 +12,7 @@ import {MovieService} from '../movie-detail/movie.service';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {Slide} from '../models/slide.model';
 import {ToastrService} from 'ngx-toastr';
-import {ListMovieStatus} from "../models/ListMovieStatus.model";
+import {ListMovieStatus} from '../models/ListMovieStatus.model';
 
 @Component({
   selector: 'app-home',
@@ -52,10 +52,10 @@ export class HomeComponent implements OnInit {
       this.carousel = JSON.parse(localStorage.getItem('slides')) as Slide[];
     } else {
       if (this.loginStatus) {
-        console.log('Fetching custom carousel')
+        console.log('Fetching custom carousel');
         this.getCustomCarousel();
       } else {
-        console.log('Fetching normal carousel')
+        console.log('Fetching normal carousel');
         this.getCarousel();
       }
     }
@@ -160,12 +160,12 @@ export class HomeComponent implements OnInit {
       );
   }
 
-  addToWishList(imdbId: string) {
-    this.movieService.addToWishList(imdbId)
+  addToWishList(movie: Movie) {
+    this.movieService.addToWishList(movie.imdbId)
       .subscribe(
         data => {
-          // TODO set enum here
-          console.log(data);
+          movie.listMovieStatus = this.listMovieStatusEnum.WISHLIST;
+          console.log('Added movie ' + movie.imdbId + ' to wish list');
         },
         error => {
           this.toastr.error('Please Login!');
@@ -174,33 +174,18 @@ export class HomeComponent implements OnInit {
       );
   }
 
-  removeFromWishList(imdbId: string) {
-    this.movieService.removeFromWishList(imdbId)
+  removeFromWishList(movie: Movie) {
+    this.movieService.removeFromWishList(movie.imdbId)
       .subscribe(
         data => {
-          console.log(data);
+          movie.listMovieStatus = this.listMovieStatusEnum.NONE;
+          console.log('Removed movie ' + movie.imdbId + ' from wish list');
         },
         error => {
           this.toastr.error('Please Login!');
           $('.modal-wrapper').toggleClass('open');
         }
       );
-  }
-
-
-
-  /**
-   *
-   * @param {string} imdbId
-   * true if in the list, false otherwise
-   */
-  isMovieInWishList(imdbId: string) {
-    this.movieService.isMovieInWishList(imdbId)
-      .map((res: Response) => {
-        if (res) {
-          return res.status === 200;
-        }
-      });
   }
 
 }

@@ -70,11 +70,11 @@ public class CarouselServiceImpl implements CarouselService {
         // mark whether the movie exists in the list
         for (Slide slide: slides) {
             if (wishListMovies.stream().anyMatch(movie -> movie.equals(slide.getMovie())))
-                slide.setListMovieStatus(ListMovieStatus.WISHLIST);
+                slide.getMovie().setListMovieStatus(ListMovieStatus.WISHLIST);
             else if (notInterestedMovies.stream().anyMatch(movie -> movie.equals(slide.getMovie())))
-                slide.setListMovieStatus(ListMovieStatus.NOT_INTERESTED_LIST);
+                slide.getMovie().setListMovieStatus(ListMovieStatus.NOT_INTERESTED_LIST);
             else
-                slide.setListMovieStatus(ListMovieStatus.NONE);
+                slide.getMovie().setListMovieStatus(ListMovieStatus.NONE);
         }
 
         return slides;
