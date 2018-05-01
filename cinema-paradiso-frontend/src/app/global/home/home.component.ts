@@ -142,8 +142,10 @@ export class HomeComponent implements OnInit {
         data => {
           console.log(data);
         },
-        // error => console.log('Failed to add to wish list')
-        error => this.toastr.error('Please Login!')
+        error => {
+          this.toastr.error('Please Login!');
+          $('.modal-wrapper').toggleClass('open');
+        }
       );
   }
 

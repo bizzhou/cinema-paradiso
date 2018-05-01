@@ -16,12 +16,12 @@
     <a routerLink="/movies" routerLinkActive="active">Movies</a>
     <a routerLink="/movies" routerLinkActive="active">TV Shows</a>
 
-    <!-- if logged in -->
+    <!-- if not logged in -->
     <div *ngIf="!status; else elseBlock">
       <a routerLinkActive="active" class="trigger" href="javascript:;">Log in / Sign up</a>
     </div>
 
-    <!-- if not logged in -->
+    <!-- if logged in -->
     <ng-template #elseBlock>
 
       <!-- admin -->

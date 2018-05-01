@@ -14,7 +14,7 @@
 
               <!-- title -->
                 <div class="c-title">
-                  <div class="c-title__category"><strong>{{carouselSlide.movie.awards}}</strong> </div>
+                  <!--<div class="c-title__category"><strong>{{carouselSlide.movie.awards.slice(0, carouselSlide.movie.awards.indexOf(';'))}}</strong> </div>-->
                   <div class="c-title__name">
                     <a routerLink="/movie/{{carouselSlide.movie.imdbId}}" routerLinkActive="active">
                       {{carouselSlide.movie.title}}
@@ -34,7 +34,6 @@
                     </a>
                   </div>
                 </div>
-
 
               <p class="c-plot">{{carouselSlide.movie.plot}}</p>
 
@@ -68,7 +67,7 @@
                 </button>
                 <button class="o-button color-red"
                         (click)="addToWishList(carouselSlide.movie.imdbId)">
-                  + Wish list
+                  + Wishlist
                 </button>
                 <!--<button *ngIf="carouselSlide.isInWishlist" class="o-button color-gray"-->
                         <!--(click)="removeFromWishList(carouselSlide.imdbId)">-->
