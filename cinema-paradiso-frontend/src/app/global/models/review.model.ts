@@ -2,7 +2,8 @@ import {Movie} from './movie.model';
 
 export class Review {
   reviewId: number;
-  author: number;
+  authorId: number;
+  authorName: string;
   criticReview: boolean;
   likeCount: number;
   postedDate: Date;
