@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Movie} from '../../../global/models/movie.model';
-import {RegUserService} from '../reg-user.service';
+import {UserService} from '../user.service';
 import {ToastrService} from 'ngx-toastr';
 
 @Component({
@@ -12,7 +12,7 @@ export class WishlistComponent implements OnInit {
 
   @Input() profile;
 
-  constructor(private  regUserService: RegUserService, private toastrService: ToastrService) {
+  constructor(private  regUserService: UserService, private toastrService: ToastrService) {
   }
 
   ngOnInit() {

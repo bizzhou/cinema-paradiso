@@ -3,7 +3,7 @@ import {HttpClient, HttpParams, HttpRequest} from '@angular/common/http';
 import {AppConstant} from '../../app.constant';
 
 @Injectable()
-export class RegUserService {
+export class UserService {
 
   constructor(private http: HttpClient) {
   }
@@ -45,4 +45,7 @@ export class RegUserService {
     return this.http.get(AppConstant.API_ENDPOINT + `review/get/user_reviews`);
   }
 
+  getAllUsers() {
+    return this.http.get(AppConstant.API_ENDPOINT + `admin/get/users`);
+  }
 }
