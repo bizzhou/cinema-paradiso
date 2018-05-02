@@ -78,6 +78,7 @@ public class MovieServiceImpl implements FilmService {
         Movie movie = movieRepository
                 .findMovieByImdbId(filmId)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieDoesNotExist()));
+
         return setInitialMovieStatus(movie, user);
     }
 
@@ -160,9 +161,9 @@ public class MovieServiceImpl implements FilmService {
         List<Movie> wishListMovies = user.getUserProfile().getWishList().getMovies();
         List<Movie> notInterestedMovies = user.getUserProfile().getNotInterestedList().getMovies();
 
-        if (wishListMovies.stream().anyMatch(m -> movie.equals(movie)))
+        if (wishListMovies.stream().anyMatch(m -> m.equals(movie)))
             movie.setListMovieStatus(ListMovieStatus.WISHLIST);
-        else if (notInterestedMovies.stream().anyMatch(m -> movie.equals(movie)))
+        else if (notInterestedMovies.stream().anyMatch(m -> m.equals(movie)))
             movie.setListMovieStatus(ListMovieStatus.NOT_INTERESTED_LIST);
         else
             movie.setListMovieStatus(ListMovieStatus.NONE);
