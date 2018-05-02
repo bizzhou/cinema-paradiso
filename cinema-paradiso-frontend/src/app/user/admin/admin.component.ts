@@ -5,6 +5,7 @@ import {Movie} from '../../global/models/movie.model';
 import 'rxjs/add/operator/toPromise';
 import {User} from '../user/user.model';
 import {ToastrService} from 'ngx-toastr';
+import {ModalDismissReasons, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -18,9 +19,12 @@ export class AdminComponent implements OnInit {
   selectedTab = 'manage-movies';
   users: User[];
   filmId: string;
+  closeReason: string;
+  modalRef: NgbModalRef;
+
 
   constructor(private userService: UserService, private movieService: MovieService,
-              private toastrService: ToastrService) {
+              private toastrService: ToastrService, private modalService: NgbModal) {
   }
 
   movie: Movie;
@@ -43,7 +47,13 @@ export class AdminComponent implements OnInit {
 
   private updateMovie(movie: Movie) {
     this.movieService.updateMovie(movie).subscribe(data => {
-      console.log('', data);
+      this.modalRef.close();
+      console.log(data);
+      this.movie = undefined;
+      this.toastrService.success('SUCCESS');
+    }, error => {
+      this.modalRef.close();
+      this.toastrService.error('Error has occured');
     });
   }
 
@@ -64,7 +74,7 @@ export class AdminComponent implements OnInit {
   }
 
   private deleteUser(user: User) {
-    this.userService.deleteUser(user.userId).subscribe(data => {
+    this.userService.deleteUser(user.userID).subscribe(data => {
 
       this.users.splice(this.users.indexOf(user), 1);
       this.toastrService.success('SUCCESS');
@@ -74,6 +84,26 @@ export class AdminComponent implements OnInit {
 
   private tabChangeHandler(event) {
     this.selectedTab = event['nextId'];
+  }
+
+  open(content) {
+    this.modalRef = this.modalService.open(content, { size: 'lg' });
+    console.log(this.modalRef);
+    this.modalRef.result.then(result => {
+      this.closeReason = `Reason ${result}`;
+    }, (reason) => {
+      this.closeReason = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return  `with: ${reason}`;
+    }
   }
 
 
