@@ -4,6 +4,7 @@ import com.paridiso.cinema.constants.ExceptionConstants;
 import com.paridiso.cinema.constants.LimitationConstants;
 import com.paridiso.cinema.constants.MapKeyConstants;
 import com.paridiso.cinema.entity.*;
+import com.paridiso.cinema.entity.enumerations.Role;
 import com.paridiso.cinema.entity.enumerations.ListMovieStatus;
 import com.paridiso.cinema.persistence.MovieRepository;
 import com.paridiso.cinema.persistence.UserRatingRepository;
@@ -23,6 +24,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
 
 @Service
@@ -116,9 +118,13 @@ public class MovieServiceImpl implements FilmService {
 
     @Transactional
     @Override
-    public Double addRating(Integer userProfileId, String filmId, Double rating) {
+    public Double addRating(Integer userId, String filmId, Double rating) {
         Movie movie = getFilm(filmId);
-        UserProfile userProfile = utilityService.getUserProfile(userProfileId);
+        User user = utilityService.getUser(userId);
+        if (user.getRole() == Role.ROLE_ADMIN) {
+            throw new ResponseStatusException(BAD_REQUEST, exceptionConstants.getAdminCannotRate());
+        }
+        UserProfile userProfile = user.getUserProfile();
         if (userRatingRepository.findUserRatingsByUserAndRatedMovie(userProfile, movie).isPresent()) {
             throw new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserRatingExists());
         }
