@@ -276,7 +276,7 @@ public class MovieServiceImpl implements FilmService {
     @Override
     public HashMap<String, Object> getMoviesTopRated(Integer pageNo, Integer pageSize) {
         Page<Movie> moviePage = movieRepository
-                .findTop250ByOrderByWeightedRankDesc(new PageRequest(pageNo, pageSize));
+                .findTop20ByOrderByWeightedRankDesc(new PageRequest(pageNo, pageSize));
 
         HashMap<String, Object> results = new HashMap<>();
         results.put(mapKeyConstants.getMovieLabel(), moviePage.getContent());

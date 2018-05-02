@@ -35,6 +35,9 @@ export class CategoriesComponent implements OnInit {
   moviesTrending: Movie[];
   numOfMoviesTrending: number;
 
+  moviesTopRated: Movie[];
+  numofMoviesTopRated: number;
+
   constructor(private movieService: MovieService,
               private categoriesService: CategoriesService) { }
 
@@ -68,6 +71,11 @@ export class CategoriesComponent implements OnInit {
       case this.sidebarEnum.moviesTrending: {
         this.getMoviesTrending();
         this.currentTab = this.sidebarEnum.moviesTrending;
+        break;
+      }
+      case this.sidebarEnum.moviesTopRated: {
+        this.getMoviesTopRated();
+        this.currentTab = this.sidebarEnum.moviesTopRated;
         break;
       }
       default: {
@@ -121,8 +129,17 @@ export class CategoriesComponent implements OnInit {
               this.currentMovies = this.moviesTrending;
             }
           );
+        break;
       }
-
+      case this.sidebarEnum.moviesTopRated: {
+        this.movieService.getMoviesTopRated(actualPage.toString(), '20')
+          .subscribe(results => {
+              this.moviesTopRated = results['movie'] as Movie[];
+              this.currentMovies = this.moviesTopRated;
+            }
+          );
+        break;
+      }
     }
 
     window.scroll(0, 0);
@@ -186,6 +203,23 @@ export class CategoriesComponent implements OnInit {
         error => console.log('Failed to fetch movies coming soon')
       );
 
+  }
+
+  getMoviesTopRated(): any {
+    this.movieService.getMoviesTopRated('0', '20')
+      .subscribe(
+        data => {
+          this.moviesTopRated = data['movie'] as Movie[];
+          this.numofMoviesTopRated = data['movie_page'] * 10;
+
+          this.currentMovies = this.moviesTopRated;
+          this.numOfCurrentMovies = this.numofMoviesTopRated;
+
+          console.log(this.moviesTopRated);
+          localStorage.setItem('topRated', JSON.stringify(this.moviesTopRated));
+        },
+        error => console.log('Failed to fetch movies top rated')
+      );
   }
 
   getMoviesTrending(): any {

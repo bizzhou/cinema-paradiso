@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit {
   moviesTrending: Movie[];
   moviesComingSoon: Movie[];
   moviesTopBoxOffice: Movie[];
+  moviesTopRated: Movie[];
   selectedMovieId: string;
   isMovieExistInWishList: boolean;              // button changes accordingly
   listMovieStatusEnum = ListMovieStatus;
@@ -86,6 +87,12 @@ export class HomeComponent implements OnInit {
       this.moviesTopBoxOffice = JSON.parse(localStorage.getItem('topBoxOffice')) as Movie[];
     } else {
       this.getTopBoxOffice();
+    }
+
+    if (localStorage.getItem('topRated') != null) {
+      this.moviesTopRated = JSON.parse(localStorage.getItem('topRated')) as Movie[];
+    } else {
+      this.getMoviesTopRated();
     }
 
   }
@@ -161,6 +168,18 @@ export class HomeComponent implements OnInit {
           localStorage.setItem('topBoxOffice', JSON.stringify(this.moviesTopBoxOffice));
         },
         error => console.log('Failed to fetch top box office')
+      );
+  }
+
+  getMoviesTopRated(): any {
+    this.movieService.getMoviesTopRated('0', '6')
+      .subscribe(
+        data => {
+          this.moviesTopRated = data['movie'] as Movie[];
+          console.log(this.moviesTopRated);
+          localStorage.setItem('topRated', JSON.stringify(this.moviesTopBoxOffice));
+        },
+        error => console.log('Failed to fetch movies top rated')
       );
   }
 

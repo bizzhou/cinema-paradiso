@@ -37,6 +37,12 @@ export class MovieService {
     return this.http.post(MOVIE_SERVER + 'topBoxOffice', param);
   }
 
+  getMoviesTopRated(pageNo: string, pageSize: string) {
+    const param = new HttpParams().set('pageNo', pageNo)
+      .set('pageSize', pageSize);
+    return this.http.post(MOVIE_SERVER + 'topRated', param);
+  }
+
   addToWishList(imdbId: string) {
     const params = new HttpParams().set('filmId', imdbId);
     return this.http.post(WISH_LIST_SERVER + 'add', params);

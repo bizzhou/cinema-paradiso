@@ -143,6 +143,12 @@ public class MovieController {
         return new ResponseEntity<>(filmService.getMoviesTopBoxOffice(pageNo, pageSize), HttpStatus.OK);
     }
 
+    @PostMapping(value = "/topRated")
+    public ResponseEntity<?> getTopRatedMovies(@RequestParam Integer pageNo,
+                                               @RequestParam Integer pageSize){
+        return new ResponseEntity<>(filmService.getMoviesTopRated(pageNo, pageSize), HttpStatus.OK);
+    }
+
     @GetMapping(value = "get/similar/{id}")
     public ResponseEntity<Set> getSimilarMovies(@PathVariable Integer id) {
         return null;
@@ -158,10 +164,5 @@ public class MovieController {
         return ResponseEntity.ok(filmService.getTopRating());
     }
 
-    @GetMapping(value = "get/topRated")
-    public ResponseEntity<?> getTopRatedMovies(@RequestParam Integer pageNo,
-                                               @RequestParam Integer pageSize){
-        return new ResponseEntity<Object>(filmService.getMoviesTopRated(pageNo, pageSize), HttpStatus.OK);
-    }
 
 }

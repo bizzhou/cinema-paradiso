@@ -22,7 +22,9 @@
         <li class="s-explore__item"  (click)="selectTab(4)" [ngClass]="{active: isTabActive(4)}">
           <a (click)="setCurrentTab(sidebarEnum.moviesComingSoon)">coming soon</a>
         </li>
-        <li class="s-explore__item"><a href="#">certified fresh movies</a></li>
+        <li class="s-explore__item"  (click)="selectTab(5)" [ngClass]="{active: isTabActive(5)}">
+          <a (click)="setCurrentTab(sidebarEnum.moviesTopRated)">top rated</a>
+        </li>
 
         <!--     dvds -->
         <li class="s-explore__title"><h3>dvd & streaming movies</h3></li>
