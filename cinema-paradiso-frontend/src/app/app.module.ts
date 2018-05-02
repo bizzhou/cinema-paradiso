@@ -45,7 +45,7 @@ import {RegUserReviewsComponent} from './global/review-collection/reg-user-revie
 import {CriticPortfolioComponent} from './global/public-portfolio/critic/critic.component';
 import {RegUserPortfolioComponent} from './global/public-portfolio/reg-user/reg-user.component';
 import {CategoriesService} from './global/categories/categories.service';
-import {RegUserService} from "./user/reg-user/reg-user.service";
+import {RegUserService} from './user/reg-user/reg-user.service';
 
 @NgModule({
   declarations: [

@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Review} from '../models/review.model';
 import {AppConstant} from '../../app.constant';
+import {Movie} from '../models/movie.model';
 
 const MOVIE_SERVER = AppConstant.API_ENDPOINT + 'movie/';
 const WISH_LIST_SERVER = AppConstant.API_ENDPOINT + 'wishlist/';
@@ -82,4 +83,21 @@ export class MovieService {
   }
 
 
+  getAllMovies() {
+    return this.http.get(AppConstant.API_ENDPOINT + `movie/get/all`);
+  }
+
+  deleteMovie(filmId: string) {
+    return this.http.delete(AppConstant.API_ENDPOINT + `movie/delete/${filmId}`);
+  }
+
+
+  addMovie(movie: Movie) {
+    return this.http.post(AppConstant.API_ENDPOINT + `movie/add`, movie);
+  }
+
+
+  updateMovie(movie: Movie) {
+    return this.http.post(AppConstant.API_ENDPOINT + `movie/update`, movie);
+  }
 }

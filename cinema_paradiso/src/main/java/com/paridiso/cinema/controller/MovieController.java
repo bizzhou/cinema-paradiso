@@ -2,6 +2,7 @@ package com.paridiso.cinema.controller;
 
 import com.paridiso.cinema.constants.ExceptionConstants;
 import com.paridiso.cinema.entity.Movie;
+import com.paridiso.cinema.entity.enumerations.Role;
 import com.paridiso.cinema.service.FilmService;
 import com.paridiso.cinema.service.JwtTokenService;
 import com.paridiso.cinema.service.implementation.RegUserServiceImpl;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
+
+import static org.springframework.http.HttpStatus.BAD_REQUEST;
 
 
 @RequestMapping("/movie")
@@ -78,7 +81,7 @@ public class MovieController {
         if (rating > 5 || rating < 0) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exceptionConstants.getInvalidRatingNumber());
         }
-        Integer id = jwtTokenService.getUserProfileIdFromToken(jwtToken);
+        Integer id = jwtTokenService.getUserIdFromToken(jwtToken);
         Double newRating = filmService.addRating(id, filmId, rating);
         return ResponseEntity.ok(newRating);
     }

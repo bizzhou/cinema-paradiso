@@ -17,7 +17,7 @@ export class AccountComponent implements OnInit {
   changePasswordSuccess: boolean;
   changePasswordFailure: boolean;
 
-  constructor(private regUserService: RegUserService,
+  constructor(private userService: RegUserService,
               private loginService: LoginService,
               private toastr: ToastrService) { }
 
@@ -25,7 +25,7 @@ export class AccountComponent implements OnInit {
 
   changePassword(form: NgForm) {
 
-    this.regUserService.changePassword(this.oldPassword, this.newPassword).subscribe(result => {
+    this.userService.changePassword(this.oldPassword, this.newPassword).subscribe(result => {
       if (result === true) {
         form.resetForm();
         this.changePasswordSuccess = true;
@@ -41,7 +41,7 @@ export class AccountComponent implements OnInit {
 
   deleteUser() {
     const user = JSON.parse(localStorage.getItem('credential'));
-    this.regUserService.deleteUser(parseInt(user['id'])).subscribe(result => {
+    this.userService.deleteUser(parseInt(user['id'])).subscribe(result => {
       if (result === true) {
         this.toastr.success('Successfully Deleted Your Account');
         this.loginService.logout();

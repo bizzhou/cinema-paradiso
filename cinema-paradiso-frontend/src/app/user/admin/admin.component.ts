@@ -1,108 +1,148 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnChanges, OnInit} from '@angular/core';
+import {RegUserService} from '../reg-user/reg-user.service';
+import {MovieService} from '../../global/movie-detail/movie.service';
+import {Movie} from '../../global/models/movie.model';
+import 'rxjs/add/operator/toPromise';
+import {User} from '../user/user.model';
+import {ToastrService} from 'ngx-toastr';
+import {ModalDismissReasons, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.scss']
+  styleUrls: ['./admin.component.scss'],
+  providers: [RegUserService]
 })
 export class AdminComponent implements OnInit {
 
-  constructor() {
+  selectedTab = 'manage-users';
+  users: User[];
+  filmId: string;
+  closeReason: string;
+  reviewId: number;
+  modalRef: NgbModalRef;
+  addMovieFlag = false;
+
+  constructor(private userService: RegUserService, private movieService: MovieService,
+              private toastrService: ToastrService, private modalService: NgbModal) {
   }
+
+  movie: Movie;
 
   ngOnInit() {
-    $(document).ready(function () {
+    this.getUsers();
+  }
 
-      $('.mp-users').show();
-      $('.mp-movies').hide();
-      $('.mp-application').hide();
-      $('.mp-carousel').hide();
-      $('.mp-reviews').hide();
-      $('.mp-celebrity').hide();
+  private getMovie(imdbId: string) {
+    this.movieService.getMovieDetails(imdbId).toPromise().then(data => {
+      this.movie = data as Movie;
+    });
+  }
 
-      $('body').on('click', '.larg div h3', function () {
-        if ($(this).children('span').hasClass('close')) {
-          $(this).children('span').removeClass('close');
-        } else {
-          $(this).children('span').addClass('close');
-        }
-        $(this).parent().children('p').slideToggle(250);
-      });
+  private addMovie(content) {
+    this.movie = new Movie();
+    this.open(content);
+    this.addMovieFlag = true;
+  }
 
-      $('body').on('click', 'nav ul li a', function () {
-        let title = $(this).data('title');
-        $('.title').children('h2').html(title);
+  private insertMovieIntoDB() {
+    console.log('this movie', this.movie);
+    this.formatStringIntoArray();
+    console.log('this movie', this.movie);
+    this.movieService.addMovie(this.movie).subscribe(data => {
+      console.log('', data);
+      // this.movie = undefined;
+      this.modalRef.close();
+      this.toastrService.success('SUCCESS');
+    }, error => {
+      this.toastrService.error(error['error']['message']);
+    });
+  }
 
-      });
+  private formatStringIntoArray() {
+    if (this.movie.genres != null) {
+      this.movie.genres = this.movie.genres.toString().split(',');
+    }
 
+    if (this.movie.awards != null) {
+      this.movie.awards = this.movie.awards.toString().split(';');
+    }
+  }
 
-      $('#manage-user').click(e => {
-        $('.mp-users').show();
-        $('.mp-movies').hide();
-        $('.mp-application').hide();
-        $('.mp-carousel').hide();
-        $('.mp-reviews').hide();
-        $('.mp-celebrity').hide();
-      });
+  private updateMovie(movie: Movie) {
 
-      $('#manage-movies').click(e => {
+    this.addMovieFlag = false;
+    this.formatStringIntoArray();
 
-        $('.mp-users').hide();
-        $('.mp-movies').show();
-        $('.mp-application').hide();
-        $('.mp-carousel').hide();
-        $('.mp-reviews').hide();
-        $('.mp-celebrity').hide();
-      });
+    this.movieService.updateMovie(movie).subscribe(data => {
+      this.modalRef.close();
+      console.log(data);
+      console.log(this.movie);
+      this.movie = undefined;
+      this.toastrService.success('SUCCESS');
+    }, error => {
+      this.modalRef.close();
+      this.toastrService.error('Error has occured');
+    });
+  }
 
+  private deleteMovie(filmId) {
+    this.movieService.deleteMovie(filmId).subscribe(data => {
+      this.movie = undefined;
+      this.toastrService.success('SUCCESS');
+    }, error => {
+      this.toastrService.error('FAIL');
+    });
+  }
 
-      $('#manage-reviews').click(e => {
+  private getUsers() {
+    this.userService.getAllUsers().subscribe(data => {
+      this.users = data['users'] as User[];
+      console.log('', this.users);
+    });
+  }
 
-        $('.mp-users').hide();
-        $('.mp-movies').hide();
-        $('.mp-application').hide();
-        $('.mp-carousel').hide();
-        $('.mp-reviews').show();
-        $('.mp-celebrity').hide();
+  private deleteUser(user: User) {
+    this.userService.deleteUser(user.userID).subscribe(data => {
 
-      });
-
-      $('#manage-celebrities').click(e => {
-
-        $('.mp-users').hide();
-        $('.mp-movies').hide();
-        $('.mp-application').hide();
-        $('.mp-carousel').hide();
-        $('.mp-reviews').hide();
-        $('.mp-celebrity').show();
-      });
-
-
-      $('#manage-carousel').click(e => {
-
-        $('.mp-users').hide();
-        $('.mp-movies').hide();
-        $('.mp-application').hide();
-        $('.mp-carousel').show();
-        $('.mp-reviews').hide();
-        $('.mp-celebrity').hide();
-      });
-
-      $('#manage-application').click(e => {
-
-        $('.mp-users').hide();
-        $('.mp-movies').hide();
-        $('.mp-application').show();
-        $('.mp-carousel').hide();
-        $('.mp-reviews').hide();
-        $('.mp-celebrity').hide();
-      });
-
-
+      this.users.splice(this.users.indexOf(user), 1);
+      this.toastrService.success('SUCCESS');
 
     });
-
-
   }
+
+  private tabChangeHandler(event) {
+    this.selectedTab = event['nextId'];
+  }
+
+  open(content) {
+    this.modalRef = this.modalService.open(content, {size: 'lg'});
+    console.log(this.modalRef);
+    this.modalRef.result.then(result => {
+      this.closeReason = `Reason ${result}`;
+    }, (reason) => {
+      this.closeReason = `Dismissed ${this.getDismissReason(reason)}`;
+    });
+  }
+
+  private getDismissReason(reason: any): string {
+    if (reason === ModalDismissReasons.ESC) {
+      return 'by pressing ESC';
+    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
+      return 'by clicking on a backdrop';
+    } else {
+      return `with: ${reason}`;
+    }
+  }
+
+  private deleteReview(reviewId: number) {
+    this.movieService.deleteReviewForMovie(reviewId).subscribe(data => {
+      this.reviewId = undefined;
+      this.toastrService.success('SUCCESS');
+    });
+  }
+
+
 
 }

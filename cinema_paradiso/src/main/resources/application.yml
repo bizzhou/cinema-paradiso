@@ -3,7 +3,7 @@ spring:
     url: jdbc:mysql://localhost:3306/test?useSSL=false
     driver-class-name: com.mysql.jdbc.Driver
     username: root
-    password: Lin123!@#
+#    password: Lin123!@#
   jpa:
 #    show-sql: true
     hibernate:
@@ -61,6 +61,8 @@ application:
     invalidRatingNumber: "INVALID RATING NUMBER"
     alreadyInWishList: "MOVIE ALREADY IN WISH LIST"
     alreadyInNotInterestedList: "MOVIE ALREADY EXIST IN NOT INTERESTED LIST"
+    adminCannotRate: "ADMIN CANNOT RATE MOVIES"
+    adminCannotReview: "ADMIN CANNOT REVIEW MOVIES"
 
   limitation:
     wishListSize: 999

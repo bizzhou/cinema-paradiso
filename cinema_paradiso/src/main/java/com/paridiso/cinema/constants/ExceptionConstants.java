@@ -26,6 +26,24 @@ public class ExceptionConstants {
     private String invalidRatingNumber;
     private String alreadyInWishList;
     private String alreadyInNotInterestedList;
+    private String adminCannotRate;
+    private String adminCannotReview;
+
+    public String getAdminCannotReview() {
+        return adminCannotReview;
+    }
+
+    public void setAdminCannotReview(String adminCannotReview) {
+        this.adminCannotReview = adminCannotReview;
+    }
+
+    public String getAdminCannotRate() {
+        return adminCannotRate;
+    }
+
+    public void setAdminCannotRate(String adminCannotRate) {
+        this.adminCannotRate = adminCannotRate;
+    }
 
     public String getAlreadyInWishList() {
         return alreadyInWishList;

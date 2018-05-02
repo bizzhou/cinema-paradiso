@@ -5,6 +5,7 @@ import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.entity.Review;
 import com.paridiso.cinema.entity.User;
 import com.paridiso.cinema.entity.UserProfile;
+import com.paridiso.cinema.entity.enumerations.Role;
 import com.paridiso.cinema.persistence.MovieRepository;
 import com.paridiso.cinema.persistence.ReviewRepository;
 import com.paridiso.cinema.persistence.UserProfileRepository;
@@ -59,6 +60,9 @@ public class ReviewServiceImpl implements ReviewService {
     public Review addReview(Integer userId, String movieId, Review review) {
         Movie movie = utilityService.getMoive(movieId);
         User user = utilityService.getUser(userId);
+        if (user.getRole() == Role.ROLE_ADMIN) {
+            throw new ResponseStatusException(BAD_REQUEST, exceptionConstants.getAdminCannotReview());
+        }
         if (reviewRepository.findReviewByMovieAndAuthor(movie, user.getUserProfile()).isPresent()) {
             throw new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getReviewExists());
         }

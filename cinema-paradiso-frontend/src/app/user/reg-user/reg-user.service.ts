@@ -59,4 +59,7 @@ export class RegUserService {
     return this.http.get(AppConstant.API_ENDPOINT + `review/get/user_reviews`);
   }
 
+  getAllUsers() {
+    return this.http.get(AppConstant.API_ENDPOINT + `admin/get/users`);
+  }
 }
