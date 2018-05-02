@@ -70,20 +70,20 @@
 
           <div class="row">
             <div class="col-md-5">
-              <img id="movie_poster" [lazyLoad]="movie.poster" [defaultImage]="'../../../assets/images/no_image.png'"
-                   alt="{{movie.title}}" style="height: 300px; width: 200px">
+              <img id="movie_poster" [lazyLoad]="movie?.poster" [defaultImage]="'../../../assets/images/no_image.png'"
+                   alt="{{movie?.title}}" style="height: 300px; width: 200px">
             </div>
 
             <div class="col-md">
               <h3 class="rating_words">Critic Rating:</h3>
-              <span class="rating-num">{{movie.criticRating}}
-                 ({{movie.numOfCriticRatings}})
+              <span class="rating-num">{{movie?.criticRating}}
+                 ({{movie?.numOfCriticRatings}})
             </span>
               <br>
               <br>
               <br>
-              <h3 class="rating_words">User Rating:</h3><span class="rating-num">{{movie.regUserRating}}
-               ({{movie.numOfRegUserRatings}})</span>
+              <h3 class="rating_words">User Rating:</h3><span class="rating-num">{{movie?.regUserRating}}
+               ({{movie?.numOfRegUserRatings}})</span>
             </div>
 
 
@@ -102,6 +102,7 @@
               <img class=""
                    src="https://user-images.githubusercontent.com/20979257/36620069-64e71fbe-18bf-11e8-87e8-565e2fc4d6da.jpeg"
                    alt="user"/>
+
               <p>Melanie</p>
             </div>
 
@@ -219,7 +220,7 @@
                 </vg-controls>
 
                 <video [vgMedia]="media" #media id="singleVideo" preload="auto" crossorigin>
-                  <!--<source src="../../../assets/trailers/{{movie.imdbId}}.mp4" onError="this.src='../../../assets/trailers/trailer.mp4'" type="video/mp4">-->
+                  <!--<source src="../../../assets/trailers/{{movie?.imdbId}}.mp4" onError="this.src='../../../assets/trailers/trailer.mp4'" type="video/mp4">-->
                   <source *ngIf="trailer" src="{{trailer}}" onError="this.src='../../../assets/trailers/trailer.mp4'"
                           type="video/mp4">
                 </video>

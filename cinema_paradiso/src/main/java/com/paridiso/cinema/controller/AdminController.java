@@ -30,9 +30,6 @@ public class AdminController {
     private JwtTokenGenerator generator;
 
     @Autowired
-    private ObjectMapper objectMapper;
-
-    @Autowired
     ExceptionConstants exceptionConstants;
 
     @RequestMapping(value = "/login", method = POST)

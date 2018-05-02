@@ -11,14 +11,12 @@
             <div class="row">
                 <div class="testimonial">
                     <div class="t_title">
-                        <!--TODO: user profile image goes here-->
-                        <img
-                                src="https://user-images.githubusercontent.com/20979257/36620069-64e71fbe-18bf-11e8-87e8-565e2fc4d6da.jpeg"
-                                alt="user"/>
 
-                        <!--TODO: USERNAME rated USER_RATING on RATED_DATE-->
+                        <img [defaultImage]="'../../../../assets/images/default_profile.png'"
+                                [lazyLoad]="review?.authorImage"/>
+
                         <h6>
-                            <a routerLink="/portfolio/critic">{{criticReview.author}}</a> rated
+                            <a routerLink="/portfolio/critic">{{criticReview.authorName}}</a> rated
                             <span>
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
@@ -78,13 +76,16 @@
                     <div class="t_title">
                         <!--TODO: user profile image goes here-->
                         <img
-                                src="https://user-images.githubusercontent.com/20979257/36620076-68d7d546-18bf-11e8-9fd9-e2c313cac2fc.jpeg"
-                                alt="user"
-                        />
+                        [defaultImage]="'../../../../assets/images/default_profile.png'"
+                             [lazyLoad]="review?.authorImage"/>
+
+                        <!--src="{{review?.authorImage}}"-->
+                        <!--alt="user"-->
+
 
                         <!--TODO: USERNAME rated USER_RATING on RATED_DATE-->
                         <h6>
-                            <a routerLink="/portfolio/user">Bin</a> rated
+                            <a routerLink="/portfolio/user">{{review.authorName}}</a> rated
                             <span>
               <i class="fa fa-star"></i>
               <i class="fa fa-star"></i>

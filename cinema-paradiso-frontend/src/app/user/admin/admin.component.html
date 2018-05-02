@@ -1,166 +1,170 @@
-<html>
-<body>
-  <main>
+<main>
 
-    <div class="container">
-      <div class="row">
-        <span class="bckg"></span>
-        <header class="col-sidebar sidebar">
+  <div class="container">
+    <div class="row">
+      <span class="bckg"></span>
+      <header class="col-sidebar sidebar">
 
-          <h1>Dashboard</h1>
-          <nav>
-            <ul>
-              <li>
-                <a href="javascript:void(0);" data-title="Users" id="manage-user">Manage Users</a>
-              </li>
-              <li>
-                <a href="javascript:void(0);" data-title="Movies" id="manage-movies">Manage Movies</a>
-              </li>
-              <li>
-                <a href="javascript:void(0);" data-title="Reviews" id="manage-reviews">Manage Reviews</a>
-              </li>
-              <li>
-                <a href="javascript:void(0);" data-title="Carousel" id="manage-carousel">Manage Carousel</a>
-              </li>
-              <li>
-                <a href="javascript:void(0);" data-title="Celebrities" id="manage-celebrities">Manage Celebrities</a>
-              </li>
-              <li>
-                <a href="javascript:void(0);" data-title="Critic Application" id="manage-application">Critic Application</a>
-              </li>
-              <li>
-                <a href="javascript:void(0);" data-title="Settings">Settings</a>
-              </li>
-            </ul>
-          </nav>
-        </header>
-        <div class="col-main-panel main-panel">
-          <div class="title">
-            <h2>Dashboard</h2>
-            <a href="javascript:void(0);">Hello Melanie !</a>
-          </div>
+        <h1>Dashboard</h1>
 
-          <div class="container mp-users">
+        <ngb-tabset [orientation]="vertical" (tabChange)="tabChangeHandler($event)">
+          <ngb-tab title="User" id="manage-user">
+          </ngb-tab>
+          <ngb-tab title="Movie" id="manage-movies">
+          </ngb-tab>
+          <ngb-tab title="Review" id="manage-reviews">
+          </ngb-tab>
+          <ngb-tab title="Critic Application" id="manage-application">
+          </ngb-tab>
+        </ngb-tabset>
 
-            <div class="row mp-users__item">
-              <h3 class="col-users-title">User 1 </h3>
-              <button class="col-users-item">Suspend</button>
-            </div>
+      </header>
 
-            <div class="row mp-users__item">
-              <h3 class="col-users-title">User 2 </h3>
-              <button class="col-users-item">Suspend</button>
-            </div>
-            <div class="row mp-users__item">
-              <h3 class="col-users-title">User 3 </h3>
-              <button class="col-users-item">Suspend</button>
-            </div>
-          </div>
+      <div class="col-main-panel main-panel">
+        <div class="title">
+          <h2>Dashboard</h2>
+        </div>
 
-          <div class="container mp-movies">
-            <button class="">Create New</button>
-            <div class="row mp-movies__item">
-              <h3 class="col-movies-title">Movie 1 <span class="entypo-down-open"></span></h3>
-              <button class="col-movies-item">Update</button>
-              <button class="col-movies-item">Delete</button>
-            </div>
-            <div class="row mp-movies__item">
-              <h3 class="col-movies-title">Movie 2 <span class="entypo-down-open"></span></h3>
-              <button class="col-movies-item">Update</button>
-              <button class="col-movies-item">Delete</button>
-            </div>
-            <div class="row mp-movies__item">
-              <h3 class="col-movies-title">Movie 3 <span class="entypo-down-open"></span></h3>
-              <button class="col-movies-item">Update</button>
-              <button class="col-movies-item">Delete</button>
-            </div>
-          </div>
+        <div class="container mp-users" *ngIf="selectedTab === 'manage-user'">
 
-          <div class="container mp-reviews">
-            <div class="row mp-reviews__item">
-              <h3 class="col-reviews-title">Review 1 <span class="entypo-down-open"></span></h3>
-              <button class="col-reviews-item">Delete</button>
-            </div>
-            <div class="row mp-reviews__item">
-              <h3 class="col-reviews-title">Review 2 <span class="entypo-down-open"></span></h3>
-              <button class="col-reviews-item">Delete</button>
-            </div>
-            <div class="row mp-reviews__item">
-              <h3 class="col-reviews-title">Review 3 <span class="entypo-down-open"></span></h3>
-              <button class="col-reviews-item">Delete</button>
-            </div>
-          </div>
-
-          <div class="container mp-carousel">
-            <div class="row mp-carousel__item">
-              <h3 class="col-carousel-title">Slide 1 <span class="entypo-down-open"></span></h3>
-              <button class="col-carousel-item">Update</button>
-              <button class="col-carousel-item">Delete</button>
-            </div>
-            <div class="row mp-carousel__item">
-              <h3 class="col-carousel-title">Slide 2 <span class="entypo-down-open"></span></h3>
-              <button class="col-carousel-item">Update</button>
-              <button class="col-carousel-item">Delete</button>
-            </div>
-            <div class="row mp-carousel__item">
-              <h3 class="col-carousel-title">Slide 3 <span class="entypo-down-open"></span></h3>
-              <button class="col-carousel-item">Update</button>
-              <button class="col-carousel-item">Delete</button>
-            </div>
-            <div class="row mp-carousel__item">
-              <h3 class="col-carousel-title">Slide 4 <span class="entypo-down-open"></span></h3>
-              <button class="col-carousel-item">Update</button>
-              <button class="col-carousel-item">Delete</button>
-            </div>
-            <div class="row mp-carousel__item">
-              <h3 class="col-carousel-title">Slide 5 <span class="entypo-down-open"></span></h3>
-              <button class="col-carousel-item">Update</button>
-              <button class="col-carousel-item">Delete</button>
-            </div>
-          </div>
-
-          <div class="container mp-application">
-            <div class="row mp-application__item">
-              <h3 class="col-application-title">Application 1 <span class="entypo-down-open"></span></h3>
-              <button class="col-application-item">Approve</button>
-              <button class="col-application-item">Decline</button>
-            </div>
-            <div class="row mp-application__item">
-              <h3 class="col-application-title">Application 2 <span class="entypo-down-open"></span></h3>
-              <button class="col-application-item">Approve</button>
-              <button class="col-application-item">Decline</button>
-            </div>
-            <div class="row mp-application__item">
-              <h3 class="col-application-title">Application 3 <span class="entypo-down-open"></span></h3>
-              <button class="col-application-item">Approve</button>
-              <button class="col-application-item">Decline</button>
-            </div>
-
-          </div>
-
-          <div class="container mp-celebrity">
-            <button class="">Create New</button>
-            <div class="row mp-celebrity__item">
-              <h3 class="col-celebrity-title">Celebrity 1 <span class="entypo-down-open"></span></h3>
-              <button class="col-celebrity-item">Update</button>
-              <button class="col-celebrity-item">Delete</button>
-            </div>
-            <div class="row mp-celebrity__item">
-              <h3 class="col-celebrity-title">Celebrity 2 <span class="entypo-down-open"></span></h3>
-              <button class="col-celebrity-item">Update</button>
-              <button class="col-celebrity-item">Delete</button>
-            </div>
-            <div class="row mp-celebrity__item">
-              <h3 class="col-celebrity-title">Celebrity 3 <span class="entypo-down-open"></span></h3>
-              <button class="col-celebrity-item">Update</button>
-              <button class="col-celebrity-item">Delete</button>
-            </div>
+          <div class="row mp-users__item" *ngFor="let user of users">
+            <h3 class="col-users-title">{{user.userID}} | {{user.username}} | {{user.email}}</h3>
+            <button class="col-users-item" (click)="deleteUser(user)">Delete</button>
           </div>
         </div>
+
+        <div class="container mp-movies" *ngIf="selectedTab === 'manage-movies'">
+          <button (click)="addMovie(content)">Create New</button>
+
+          <br>
+          <label for="search_movie">Enter Movie ID</label>
+          <input id='search_movie' type="text" (input)="filmId = $event.target.value;">
+          <button class="btn btn-primary" (click)="getMovie(filmId)">Search Film</button>
+
+          <div class="row mp-movies__item" *ngIf="movie != undefined">
+            <h3 class="col-movies-title">{{movie.title}} <span class="entypo-down-open"></span></h3>
+            <button class="col-movies-item" (click)="open(content)">Update</button>
+            <button class="col-movies-item" (click)="deleteMovie(movie.imdbId)">Delete</button>
+          </div>
+
+        </div>
+
+        <div class="container mp-reviews" *ngIf="selectedTab === 'manage-reviews'">
+
+          <label for='search_review'>Enter Review ID</label>
+          <input id='search_review' type="text" (input)="reviewId = $event.target.value;">
+          <button class="btn btn-primary" (click)="deleteReview(reviewId)">Delete Review</button>
+
+           <!--TODO: reported user review goes here-->
+          <div class="row mp-reviews__item">
+          </div>
+
+        </div>
+
+        <div class="container mp-application" *ngIf="selectedTab === 'manage-application'">
+          <div class="row mp-application__item">
+            <h3 class="col-application-title">Application 1 <span class="entypo-down-open"></span></h3>
+            <button class="col-application-item">Approve</button>
+            <button class="col-application-item">Decline</button>
+          </div>
+          <div class="row mp-application__item">
+            <h3 class="col-application-title">Application 2 <span class="entypo-down-open"></span></h3>
+            <button class="col-application-item">Approve</button>
+            <button class="col-application-item">Decline</button>
+          </div>
+          <div class="row mp-application__item">
+            <h3 class="col-application-title">Application 3 <span class="entypo-down-open"></span></h3>
+            <button class="col-application-item">Approve</button>
+            <button class="col-application-item">Decline</button>
+          </div>
+
+        </div>
+
       </div>
-      <!--./row-->
     </div>
-    <!--./container-->
-  </main>
-</body>
-</html>
+    <!--./row-->
+  </div>
+  <!--./container-->
+</main>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Update Movie</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+
+    <form>
+
+
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input id="title" name="title" [(ngModel)]="movie.title" class="form-control">
+
+        <label for="year">Year</label>
+        <input id="year" name="year" [(ngModel)]="movie.year" class="form-control">
+      </div>
+
+
+      <div class="form-group">
+        <label>Plot</label>
+        <!--<input id="plot" name="plot" [(ngModel)]="movie.plot" class="form-control">-->
+        <textarea class="form-control" name="plot" id="" cols="30" rows="3" [(ngModel)]="movie.plot"></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="genres">Genres</label>
+        <input id="genres" name="genres" [(ngModel)]="movie.genres" class="form-control">
+      </div>
+
+
+      <div class="form-group">
+        <label for="country">Country</label>
+        <input id="country" name="country" [(ngModel)]="movie.country" class="form-control">
+      </div>
+
+
+      <div class="form-group">
+        <label for="language">Language</label>
+        <input id="language" name="language" [(ngModel)]="movie.language" class="form-control">
+
+        <label for="rated">Rated</label>
+        <input id="rated" name="rated" [(ngModel)]="movie.rated" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="awards">Awards</label>
+        <input id="awards" name="awards" [(ngModel)]="movie.awards" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="releaseDate">Release Date</label>
+        <input id="releaseDate" name="releaseDate" [(ngModel)]="movie.releaseDate" class="form-control">
+
+        <label for="boxOffice">Box Office</label>
+        <input id="boxOffice" name="boxOffice" [(ngModel)]="movie.boxOffice" class="form-control">
+
+        <label for="runTime">Runtime</label>
+        <input id="runTime" name="runTime" [(ngModel)]="movie.runTime" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="poster">Poster</label>
+        <input id="poster" name="poster" [(ngModel)]="movie.poster" class="form-control">
+      </div>
+
+
+      <button class="btn btn-primary" *ngIf="addMovieFlag === false" (click)="updateMovie(movie)">Submit</button>
+      <button class="btn btn-primary" *ngIf="addMovieFlag === true" (click)="insertMovieIntoDB()">Submit</button>
+
+    </form>
+
+
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+  </div>
+</ng-template>
+

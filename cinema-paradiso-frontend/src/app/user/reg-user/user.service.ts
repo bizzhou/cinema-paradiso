@@ -3,7 +3,7 @@ import {HttpClient, HttpParams, HttpRequest} from '@angular/common/http';
 import {AppConstant} from '../../app.constant';
 
 @Injectable()
-export class RegUserService {
+export class UserService {
 
   constructor(private http: HttpClient) {
   }
@@ -33,22 +33,8 @@ export class RegUserService {
     return this.http.delete(AppConstant.API_ENDPOINT + `movie/delete/rating/${imdbId}`);
   }
 
-  addToWishList(imdbId: string) {
-    const params = new HttpParams().set('filmId', imdbId);
-    return this.http.post(AppConstant.API_ENDPOINT + 'wishlist/add', params);
-  }
-
   removeFromWishList(imdbId: string) {
     return this.http.delete(AppConstant.API_ENDPOINT + `wishlist/delete/${imdbId}`);
-  }
-
-  addToNotInterestedList(imdbId: string) {
-    const params = new HttpParams().set('filmId', imdbId);
-    return this.http.post(AppConstant.API_ENDPOINT + 'not-interested/add', params);
-  }
-
-  removeFromNotInterestedList(imdbId: string) {
-    return this.http.delete(AppConstant.API_ENDPOINT + `not-interested/delete/${imdbId}`);
   }
 
   deleteUser(userId: number) {
@@ -59,4 +45,7 @@ export class RegUserService {
     return this.http.get(AppConstant.API_ENDPOINT + `review/get/user_reviews`);
   }
 
+  getAllUsers() {
+    return this.http.get(AppConstant.API_ENDPOINT + `admin/get/users`);
+  }
 }

@@ -32,7 +32,8 @@ public class AdminServiceImpl extends UserService {
     public List<User> getAllUsers() {
         List<User> users = userRepository.findAll()
                 .stream()
-                .filter(user -> user.getRole().equals(Role.ROLE_CRITIC) || user.getRole().equals(Role.ROLE_USER))
+                .filter(user -> user.getRole().equals(Role.ROLE_CRITIC) || user.getRole().equals(Role.ROLE_USER)
+                        && !user.getAccountSuspended())
                 .collect(Collectors.toList());
         users.forEach(user -> user.setPassword(null));
         return users;
