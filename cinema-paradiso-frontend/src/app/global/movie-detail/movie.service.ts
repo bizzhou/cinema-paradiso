@@ -43,24 +43,6 @@ export class MovieService {
     return this.http.post(MOVIE_SERVER + 'topRated', param);
   }
 
-  addToWishList(imdbId: string) {
-    const params = new HttpParams().set('filmId', imdbId);
-    return this.http.post(WISH_LIST_SERVER + 'add', params);
-  }
-
-  removeFromWishList(imdbId: string) {
-    return this.http.delete(WISH_LIST_SERVER + `delete/${imdbId}`);
-  }
-
-  addToNotInterestedList(imdbId: string) {
-    const params = new HttpParams().set('filmId', imdbId);
-    return this.http.post(NOT_INTERESTED_LIST_SERVER + 'add', params);
-  }
-
-  removeFromNotInterestedList(imdbId: string) {
-    return this.http.delete(NOT_INTERESTED_LIST_SERVER + `delete/${imdbId}`);
-  }
-
   getMovieDetails(imdbId: string): any {
     return this.http.get(MOVIE_SERVER + `get/${imdbId}`);
   }

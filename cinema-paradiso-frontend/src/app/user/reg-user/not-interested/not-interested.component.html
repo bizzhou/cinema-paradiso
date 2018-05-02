@@ -13,13 +13,13 @@
         <i class="fa fa-star"></i>
         <i class="fa fa-star"></i>
         <i class="fa fa-star"></i>
-        <p>{{movie.rating}}/5.0</p>
+        <p>{{movie.criticRating}}/5.0</p>
         <p>{{movie.rated}}</p>
       </div>
 
       <p class="s-plot">{{movie.plot}}</p>
       <div class="button__group">
-        <button class="c-update-btn r-update-btn button__warning">Remove</button>
+        <button (click)="removeFromNotInterestedList(movie)" class="c-update-btn r-update-btn button__warning">Remove</button>
       </div>
     </div>
   </div>

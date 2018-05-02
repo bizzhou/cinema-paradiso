@@ -14,4 +14,6 @@ export class NotInterestedComponent implements OnInit {
   ngOnInit() {
   }
 
+
+
 }

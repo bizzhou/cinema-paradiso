@@ -8,11 +8,13 @@ import {Review} from '../models/review.model';
 import {ListMovieStatus} from '../models/ListMovieStatus.model';
 import {Sidebar} from '../models/sidebar.model';
 import {CategoriesService} from '../categories/categories.service';
+import {RegUserService} from "../../user/reg-user/reg-user.service";
 
 @Component({
     selector: 'app-movie-detail',
     templateUrl: './movie-detail.component.html',
     styleUrls: ['./movie-detail.component.scss'],
+    providers: [CategoriesService]
 })
 export class MovieDetailComponent implements OnInit {
 
@@ -33,6 +35,7 @@ export class MovieDetailComponent implements OnInit {
                 private route: ActivatedRoute,
                 private toastr: ToastrService,
                 private categoriesService: CategoriesService,
+                private regUserService: RegUserService,
                 private toastrService: ToastrService) {
 
         this.selectedMovieId = route.snapshot.params['id'];
@@ -172,7 +175,7 @@ export class MovieDetailComponent implements OnInit {
     if (movie.listMovieStatus === this.listMovieStatusEnum.NOT_INTERESTED_LIST) {
       this.toastr.error('Already in Not Interested List');
     } else {
-      this.movieService.addToWishList(movie.imdbId)
+      this.regUserService.addToWishList(movie.imdbId)
         .subscribe(
           data => {
             movie.listMovieStatus = this.listMovieStatusEnum.WISHLIST;
@@ -187,7 +190,7 @@ export class MovieDetailComponent implements OnInit {
   }
 
   removeFromWishList(movie: Movie) {
-    this.movieService.removeFromWishList(movie.imdbId)
+    this.regUserService.removeFromWishList(movie.imdbId)
       .subscribe(
         data => {
           movie.listMovieStatus = this.listMovieStatusEnum.NONE;
@@ -204,7 +207,7 @@ export class MovieDetailComponent implements OnInit {
     if (movie.listMovieStatus === this.listMovieStatusEnum.WISHLIST) {
       this.toastr.error('Already in Wish List');
     } else {
-      this.movieService.addToNotInterestedList(movie.imdbId)
+      this.regUserService.addToNotInterestedList(movie.imdbId)
         .subscribe(
           data => {
             movie.listMovieStatus = this.listMovieStatusEnum.NOT_INTERESTED_LIST;
@@ -219,7 +222,7 @@ export class MovieDetailComponent implements OnInit {
   }
 
   removeFromNotInterestedList(movie: Movie) {
-    this.movieService.removeFromNotInterestedList(movie.imdbId)
+    this.regUserService.removeFromNotInterestedList(movie.imdbId)
       .subscribe(
         data => {
           movie.listMovieStatus = this.listMovieStatusEnum.NONE;
