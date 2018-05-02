@@ -18,7 +18,7 @@
 
     <!-- if logged in -->
     <div *ngIf="!status; else elseBlock">
-      <a routerLinkActive="active" class="trigger" href="javascript:;">Log in / Sign up</a>
+      <a routerLinkActive="active" class="trigger">Log in / Sign up</a>
     </div>
 
     <!-- if not logged in -->
@@ -29,8 +29,7 @@
           <div ngbDropdown class="header-dropdown">
             <a class="btn btn-outline-primary" id="admin-menu-dropdown" ngbDropdownToggle>{{user.username}}</a>
             <div ngbDropdownMenu aria-labelledby="admin-menu-dropdown" class="dropdown-menu ">
-              <a routerLink="user" class="dropdown-item">Management </a>
-              <a class="dropdown-item">Settings </a>
+              <a routerLink="admin" class="dropdown-item">Management </a>
               <a (click)="logout()" class="trigger dropdown-item">Log Out </a>
             </div>
           </div>

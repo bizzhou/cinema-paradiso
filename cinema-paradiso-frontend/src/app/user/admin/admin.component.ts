@@ -16,7 +16,7 @@ import {ModalDismissReasons, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-boots
 })
 export class AdminComponent implements OnInit {
 
-  selectedTab = 'manage-reviews';
+  selectedTab = 'manage-users';
   users: User[];
   filmId: string;
   closeReason: string;
