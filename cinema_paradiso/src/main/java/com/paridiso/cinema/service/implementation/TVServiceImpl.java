@@ -87,6 +87,11 @@ public class TVServiceImpl implements FilmService {
     }
 
     @Override
+    public HashMap<String, Object> getMoviesTopRated(Integer pageNo, Integer pageSize) {
+        return null;
+    }
+
+    @Override
     public Set<? extends Film> getTopRating() {
         return null;
     }

@@ -66,6 +66,8 @@ public interface FilmService {
      */
     HashMap<String, Object> getMoviesTopBoxOffice(Integer pageNo, Integer pageSize);
 
+    HashMap<String, Object> getMoviesTopRated(Integer pageNo, Integer pageSize);
+
     Set<? extends Film> getTopRating();
 
     Movie updateMovie(Movie movie);

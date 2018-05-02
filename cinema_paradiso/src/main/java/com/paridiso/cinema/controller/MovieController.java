@@ -158,4 +158,10 @@ public class MovieController {
         return ResponseEntity.ok(filmService.getTopRating());
     }
 
+    @GetMapping(value = "get/topRated")
+    public ResponseEntity<?> getTopRatedMovies(@RequestParam Integer pageNo,
+                                               @RequestParam Integer pageSize){
+        return new ResponseEntity<Object>(filmService.getMoviesTopRated(pageNo, pageSize), HttpStatus.OK);
+    }
+
 }

@@ -4,6 +4,7 @@ import com.paridiso.cinema.entity.Movie;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.Calendar;
 import java.util.List;
@@ -25,5 +26,14 @@ public interface MovieRepository extends JpaRepository<Movie, String> {
     Page<Movie> findMoviesByReleaseDateBetweenOrderByBoxOfficeDesc(Calendar startDate, Calendar endDate, Pageable page);
 
     Set<Movie> findTop50ByOrderByNumOfRegUserRatingsDescRegUserRatingDesc();
+
+    @Query(value = "SELECT AVG(m.numOfRegUserRatings) FROM Movie m")
+    Double findAvgNumOfRegUserRatings();
+
+    @Query(value = "SELECT AVG(m.numOfCriticRatings) FROM Movie m")
+    Double findAvgNumOfCriticRatings();
+
+    Page<Movie> findTop250ByOrderByWeightedRankDesc(Pageable page);
+
 
 }

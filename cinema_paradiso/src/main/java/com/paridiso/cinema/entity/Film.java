@@ -46,6 +46,8 @@ public class Film {
     protected URI website;
     protected ListMovieStatus listMovieStatus;
 
+    protected Double weightedRank;
+
     public Film() {
     }
 
@@ -165,6 +167,10 @@ public class Film {
         return listMovieStatus;
     }
 
+    public Double getWeightedRank() {
+        return weightedRank;
+    }
+
     public URI getWebsite() {
         return website;
     }
@@ -264,6 +270,11 @@ public class Film {
     public void setListMovieStatus(ListMovieStatus listMovieStatus) {
         this.listMovieStatus = listMovieStatus;
     }
+
+    public void setWeightedRank(Double weightedRank) {
+        this.weightedRank = weightedRank;
+    }
+
 
     @Override
     public String toString() {

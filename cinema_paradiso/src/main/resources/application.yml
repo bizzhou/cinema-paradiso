@@ -71,6 +71,7 @@ application:
     leastReturns: 6
     threeWeeksRange: 21
     oneMonthRange: 31
+    minNumOfRatingsForWeightedRank: 20
 
   map-key:
     movieLabel: "movie"
