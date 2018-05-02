@@ -16,10 +16,11 @@ import {ModalDismissReasons, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-boots
 })
 export class AdminComponent implements OnInit {
 
-  selectedTab = 'manage-movies';
+  selectedTab = 'manage-reviews';
   users: User[];
-  filmId = 'tt1655442';
+  filmId: string;
   closeReason: string;
+  reviewId: number;
   modalRef: NgbModalRef;
   addMovieFlag = false;
 
@@ -52,6 +53,10 @@ export class AdminComponent implements OnInit {
     this.movieService.addMovie(this.movie).subscribe(data => {
       console.log('', data);
       // this.movie = undefined;
+      this.modalRef.close();
+      this.toastrService.success('SUCCESS');
+    }, error => {
+      this.toastrService.error(error['error']['message']);
     });
   }
 
@@ -130,6 +135,14 @@ export class AdminComponent implements OnInit {
       return `with: ${reason}`;
     }
   }
+
+  private deleteReview(reviewId: number) {
+    this.movieService.deleteReviewForMovie(reviewId).subscribe(data => {
+      this.reviewId = undefined;
+      this.toastrService.success('SUCCESS');
+    });
+  }
+
 
 
 }
