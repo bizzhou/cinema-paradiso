@@ -1,9 +1,6 @@
 package com.paridiso.cinema.service.implementation;
 
-import com.paridiso.cinema.entity.Film;
-import com.paridiso.cinema.entity.Movie;
-import com.paridiso.cinema.entity.TV;
-import com.paridiso.cinema.entity.Trailer;
+import com.paridiso.cinema.entity.*;
 import com.paridiso.cinema.persistence.TvRepository;
 import com.paridiso.cinema.service.FilmService;
 import com.paridiso.cinema.service.UtilityService;
@@ -32,6 +29,11 @@ public class TVServiceImpl implements FilmService {
 
     @Override
     public TV getFilm(String filmId) {
+        return null;
+    }
+
+    @Override
+    public <T extends Film> T getCustomFilm(String filmId, Integer userId) {
         return null;
     }
 
@@ -106,6 +108,11 @@ public class TVServiceImpl implements FilmService {
 
     @Override
     public Double updateRating(Integer userId, String filmId, Double rating) {
+        return null;
+    }
+
+    @Override
+    public Movie setInitialMovieStatus(Movie movie, User user) {
         return null;
     }
 }

@@ -97,8 +97,32 @@
 
 
             <div class="col-rate">
-              <button class="o-button o-button--gray">+ Watchlist</button>
-              <button class="o-button" (click)='addToWishList(selectedMovieId)'>+ Wishlist</button>
+              <!-- style not interested list accordingly -->
+              <button *ngIf="movie.listMovieStatus !== listMovieStatusEnum.NOT_INTERESTED_LIST;else removeFromNotInterested"
+                      (click)="addToNotInterestedList(movie)"
+                      class="o-button color-gray">
+                <i class="fa fa-plus"></i> Not interested
+              </button>
+              <ng-template #removeFromNotInterested>
+                <button (click)="removeFromNotInterestedList(movie)"
+                        class="o-button color-red">
+                  <i class="fa fa-minus"></i> Not interested
+                </button>
+              </ng-template>
+
+              <!-- style wish list accordingly  -->
+              <button *ngIf="movie.listMovieStatus !== listMovieStatusEnum.WISHLIST;else removieFromWish"
+                      (click)="addToWishList(movie)"
+                      class="o-button color-red">
+                <i class="fa fa-plus"></i> Wishlist
+              </button>
+              <ng-template #removieFromWish>
+                <button class="o-button color-gray"
+                        (click)="removeFromWishList(movie)">
+                  <i class="fa fa-minus"></i> Wishlist
+                </button>
+              </ng-template>
+
 
               <app-stars [readonly]="ngbRatingReadOnly" [currentRate]="currentRating"
                          (eventEmitter)="ratingOperations($event)"></app-stars>

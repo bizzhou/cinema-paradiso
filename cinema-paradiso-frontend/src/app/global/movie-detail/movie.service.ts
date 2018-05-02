@@ -55,13 +55,12 @@ export class MovieService {
     return this.http.delete(NOT_INTERESTED_LIST_SERVER + `delete/${imdbId}`);
   }
 
-  isMovieInWishList(imdbId: string) {
-    const params = new HttpParams().set('filmId', imdbId);
-    return this.http.post(WISH_LIST_SERVER + 'exist', params);
-  }
-
   getMovieDetails(imdbId: string): any {
     return this.http.get(MOVIE_SERVER + `get/${imdbId}`);
+  }
+
+  getCustomMovieDetails(imdbId: string): any {
+    return this.http.get(MOVIE_SERVER + `getCustomMovie/${imdbId}`);
   }
 
   addRatingToMovie(movieId: string, rating: number) {

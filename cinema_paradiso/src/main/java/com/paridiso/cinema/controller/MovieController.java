@@ -47,6 +47,12 @@ public class MovieController {
         return ResponseEntity.ok(filmService.getFilm(filmId));
     }
 
+    @GetMapping(value = "/getCustomMovie/{filmId}")
+    public ResponseEntity<?> getCustomMovie(@RequestHeader(value = "Authorization") String jwtToken,
+                                            @PathVariable String filmId) {
+        return ResponseEntity.ok(filmService.getCustomFilm(filmId, jwtTokenService.getUserIdFromToken(jwtToken)));
+    }
+
     @PostMapping(value = "/add")
     public ResponseEntity<Boolean> addMovie(@RequestBody Movie movie) {
         filmService.addFilm(movie);

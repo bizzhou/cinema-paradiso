@@ -181,12 +181,18 @@ main{
   font-weight: bold;
   text-transform: uppercase;
   padding: 0.5em 1.125em;
-  background-color: $color-red;
+  //background-color: $color-red;
   border: none;
 
   &--gray{
-    background-color: $color-gray;
+    //background-color: $color-gray;
   }
+}
+.color-red {
+  background-color: $color-red;
+}
+.color-gray {
+  background-color: $color-gray;
 }
 
 .md_wrap {

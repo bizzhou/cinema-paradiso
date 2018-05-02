@@ -5,6 +5,7 @@ import {ActivatedRoute} from '@angular/router';
 import {LoginStatusService} from '../login/login.status.service';
 import {ToastrService} from 'ngx-toastr';
 import {Review} from '../models/review.model';
+import {ListMovieStatus} from '../models/ListMovieStatus.model';
 
 @Component({
     selector: 'app-movie-detail',
@@ -22,13 +23,33 @@ export class MovieDetailComponent implements OnInit {
     ngbRatingReadOnly = false;
     loggedInFlag: boolean;
     trailer: string;
+    listMovieStatusEnum = ListMovieStatus;
 
     constructor(private movieService: MovieService,
                 private loginStatusService: LoginStatusService,
                 private route: ActivatedRoute,
+                private toastr: ToastrService,
                 private toastrService: ToastrService) {
 
         this.selectedMovieId = route.snapshot.params['id'];
+    }
+
+    ngOnInit() {
+      window.scroll(0, 0);
+
+      if (this.loginStatusService.getTokenDetails() !== null) {
+        this.loginStatusService.changeStatus(true);
+        this.loggedInFlag = true;
+      }
+
+      console.log('id: ' + this.selectedMovieId);
+
+      if (this.loggedInFlag) {
+        this.getCustomMovie(this.selectedMovieId);
+      } else {
+        this.getMovie(this.selectedMovieId);
+      }
+
     }
 
 
@@ -97,20 +118,6 @@ export class MovieDetailComponent implements OnInit {
 
     }
 
-    ngOnInit() {
-        window.scroll(0, 0);
-
-        if (this.loginStatusService.getTokenDetails() !== null) {
-            this.loginStatusService.changeStatus(true);
-            this.loggedInFlag = true;
-        }
-
-        console.log('id: ' + this.selectedMovieId);
-        this.getMovie(this.selectedMovieId);
-
-
-    }
-
     getMovie(imdbId: string): any {
         this.movieService.getMovieDetails(imdbId).subscribe(data => {
                 this.movie = data as Movie;
@@ -134,67 +141,91 @@ export class MovieDetailComponent implements OnInit {
         );
     }
 
+  getCustomMovie(imdbId: string): any {
+    this.movieService.getCustomMovieDetails(imdbId).subscribe(data => {
+        this.movie = data as Movie;
+
+        console.log(this.movie);
+        this.trailer = `../../../assets/trailers/${this.movie.imdbId}.mp4`;
+
+        this.movieService.getMovieReviews(this.selectedMovieId).subscribe(reviews => {
+          this.movie.reviews = reviews as Review[];
+          console.log(this.movie.reviews);
+        }, error1 => {
+          this.toastrService.error('FAILED TO FETCH REVIEWS');
+        });
+
+      },
+      error => console.log('Failed to fetch movie with id')
+    );
+  }
+
     shrinkPhoto(photo: string) {
         return photo.substr(0, photo.indexOf('@') + 1) + '._V1_SY1000_CR0,0,1257,1000_AL_.jpg';
     }
 
-    addToWishList(imdbId: string) {
-        this.movieService.addToWishList(imdbId)
-            .subscribe(
-                data => {
-
-                    this.toastrService.success('SUCCESSFULLY ADDED TO WISHLIST');
-                    if (data === false) {
-                        this.isMovieExistInWishList = false;
-                    } else {
-                        this.isMovieExistInWishList = true;
-                    }
-                }, error1 => {
-                    this.toastrService.error(error1['error']['message']);
-                }
-            );
+  addToWishList(movie: Movie) {
+    if (movie.listMovieStatus === this.listMovieStatusEnum.NOT_INTERESTED_LIST) {
+      this.toastr.error('Already in Not Interested List');
+    } else {
+      this.movieService.addToWishList(movie.imdbId)
+        .subscribe(
+          data => {
+            movie.listMovieStatus = this.listMovieStatusEnum.WISHLIST;
+            console.log('Added movie ' + movie.imdbId + ' to wish list');
+          },
+          error => {
+            this.toastr.error('Please Login!');
+            $('.modal-wrapper').toggleClass('open');
+          }
+        );
     }
+  }
 
-    // TODO: temp method
-    ratingAnimation(): void {
-        $('.bar span').hide();
-        $('#bar-five').animate({
-            width: '100%'
-        }, 1000);
-        $('#bar-four').animate({
-            width: '90%'
-        }, 1000);
-        $('#bar-three').animate({
-            width: '60%'
-        }, 1000);
-        $('#bar-two').animate({
-            width: '50%'
-        }, 1000);
-        $('#bar-one').animate({
-            width: '20%'
-        }, 1000);
+  removeFromWishList(movie: Movie) {
+    this.movieService.removeFromWishList(movie.imdbId)
+      .subscribe(
+        data => {
+          movie.listMovieStatus = this.listMovieStatusEnum.NONE;
+          console.log('Removed movie ' + movie.imdbId + ' from wish list');
+        },
+        error => {
+          this.toastr.error('Please Login!');
+          $('.modal-wrapper').toggleClass('open');
+        }
+      );
+  }
 
-        $('#bar-ten').animate({
-            width: '100%'
-        }, 1000);
-        $('#bar-nine').animate({
-            width: '90%'
-        }, 1000);
-        $('#bar-eight').animate({
-            width: '60%'
-        }, 1000);
-        $('#bar-seven').animate({
-            width: '50%'
-        }, 1000);
-        $('#bar-six').animate({
-            width: '20%'
-        }, 1000);
-
-        setTimeout(function () {
-            $('.bar span').fadeIn('slow');
-        }, 500);
-
+  addToNotInterestedList(movie: Movie) {
+    if (movie.listMovieStatus === this.listMovieStatusEnum.WISHLIST) {
+      this.toastr.error('Already in Wish List');
+    } else {
+      this.movieService.addToNotInterestedList(movie.imdbId)
+        .subscribe(
+          data => {
+            movie.listMovieStatus = this.listMovieStatusEnum.NOT_INTERESTED_LIST;
+            console.log('Added movie ' + movie.imdbId + ' to not interested list');
+          },
+          error => {
+            this.toastr.error('Please Login!');
+            $('.modal-wrapper').toggleClass('open');
+          }
+        );
     }
+  }
 
+  removeFromNotInterestedList(movie: Movie) {
+    this.movieService.removeFromNotInterestedList(movie.imdbId)
+      .subscribe(
+        data => {
+          movie.listMovieStatus = this.listMovieStatusEnum.NONE;
+          console.log('Removed movie ' + movie.imdbId + ' from not interested list');
+        },
+        error => {
+          this.toastr.error('Please Login!');
+          $('.modal-wrapper').toggleClass('open');
+        }
+      );
+  }
 
 }

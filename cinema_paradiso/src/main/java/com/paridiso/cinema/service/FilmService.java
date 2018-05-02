@@ -3,6 +3,7 @@ package com.paridiso.cinema.service;
 import com.paridiso.cinema.entity.Film;
 import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.entity.Trailer;
+import com.paridiso.cinema.entity.User;
 import org.springframework.data.domain.Page;
 
 import java.util.Calendar;
@@ -15,6 +16,11 @@ public interface FilmService {
     <T extends Film> T addFilm(Film movie);
 
     <T extends Film> T getFilm(String filmId);
+
+    /**
+     * Set whether the movie in Wish List, Not Interested List, or neither
+     */
+    <T extends Film> T getCustomFilm(String filmId, Integer userId);
 
     List<? extends Film> getMovies();
 
@@ -69,4 +75,7 @@ public interface FilmService {
     Double deleteRating(Integer userId, String filmId);
 
     Double updateRating(Integer userId, String filmId, Double rating);
+
+    Movie setInitialMovieStatus(Movie movie, User user);
+
 }

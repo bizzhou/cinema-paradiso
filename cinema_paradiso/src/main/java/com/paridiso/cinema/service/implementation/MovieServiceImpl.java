@@ -4,8 +4,10 @@ import com.paridiso.cinema.constants.ExceptionConstants;
 import com.paridiso.cinema.constants.LimitationConstants;
 import com.paridiso.cinema.constants.MapKeyConstants;
 import com.paridiso.cinema.entity.*;
+import com.paridiso.cinema.entity.enumerations.ListMovieStatus;
 import com.paridiso.cinema.persistence.MovieRepository;
 import com.paridiso.cinema.persistence.UserRatingRepository;
+import com.paridiso.cinema.persistence.UserRepository;
 import com.paridiso.cinema.service.FilmService;
 import com.paridiso.cinema.service.UtilityService;
 import com.paridiso.cinema.utility.MovieUtility;
@@ -48,6 +50,9 @@ public class MovieServiceImpl implements FilmService {
     @Autowired
     UserRatingRepository userRatingRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     private static Logger logger = LogManager.getLogger(MovieServiceImpl.class);
 
     @Transactional
@@ -63,6 +68,17 @@ public class MovieServiceImpl implements FilmService {
         return movieRepository
                 .findMovieByImdbId(filmId)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieDoesNotExist()));
+    }
+
+    @Override
+    public Movie getCustomFilm(String filmId, Integer userId) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserNotFound()));
+
+        Movie movie = movieRepository
+                .findMovieByImdbId(filmId)
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieDoesNotExist()));
+        return setInitialMovieStatus(movie, user);
     }
 
     @Transactional
@@ -136,6 +152,22 @@ public class MovieServiceImpl implements FilmService {
         movieRepository.save(movie);
         userRatingRepository.save(userRating);
         return newRating;
+    }
+
+    @Transactional
+    @Override
+    public Movie setInitialMovieStatus(Movie movie, User user) {
+        List<Movie> wishListMovies = user.getUserProfile().getWishList().getMovies();
+        List<Movie> notInterestedMovies = user.getUserProfile().getNotInterestedList().getMovies();
+
+        if (wishListMovies.stream().anyMatch(m -> movie.equals(movie)))
+            movie.setListMovieStatus(ListMovieStatus.WISHLIST);
+        else if (notInterestedMovies.stream().anyMatch(m -> movie.equals(movie)))
+            movie.setListMovieStatus(ListMovieStatus.NOT_INTERESTED_LIST);
+        else
+            movie.setListMovieStatus(ListMovieStatus.NONE);
+
+        return movie;
     }
 
     private Double calculateOldRating(Movie movie, UserRating userRating, boolean isCritic) {
