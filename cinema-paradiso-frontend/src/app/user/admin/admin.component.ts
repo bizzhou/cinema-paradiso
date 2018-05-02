@@ -1,108 +1,59 @@
 import {Component, OnInit} from '@angular/core';
+import {UserService} from '../reg-user/user.service';
+import {User} from '../user/user.model';
+import {MovieService} from '../../global/movie-detail/movie.service';
+import {Movie} from '../../global/models/movie.model';
+import 'rxjs/add/operator/toPromise';
+
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.scss']
+  styleUrls: ['./admin.component.scss'],
+  providers: [UserService]
 })
 export class AdminComponent implements OnInit {
 
-  constructor() {
+  constructor(private userService: UserService, private movieService: MovieService) {
   }
+
+  movie: Movie;
 
   ngOnInit() {
-    $(document).ready(function () {
-
-      $('.mp-users').show();
-      $('.mp-movies').hide();
-      $('.mp-application').hide();
-      $('.mp-carousel').hide();
-      $('.mp-reviews').hide();
-      $('.mp-celebrity').hide();
-
-      $('body').on('click', '.larg div h3', function () {
-        if ($(this).children('span').hasClass('close')) {
-          $(this).children('span').removeClass('close');
-        } else {
-          $(this).children('span').addClass('close');
-        }
-        $(this).parent().children('p').slideToggle(250);
-      });
-
-      $('body').on('click', 'nav ul li a', function () {
-        let title = $(this).data('title');
-        $('.title').children('h2').html(title);
-
-      });
-
-
-      $('#manage-user').click(e => {
-        $('.mp-users').show();
-        $('.mp-movies').hide();
-        $('.mp-application').hide();
-        $('.mp-carousel').hide();
-        $('.mp-reviews').hide();
-        $('.mp-celebrity').hide();
-      });
-
-      $('#manage-movies').click(e => {
-
-        $('.mp-users').hide();
-        $('.mp-movies').show();
-        $('.mp-application').hide();
-        $('.mp-carousel').hide();
-        $('.mp-reviews').hide();
-        $('.mp-celebrity').hide();
-      });
-
-
-      $('#manage-reviews').click(e => {
-
-        $('.mp-users').hide();
-        $('.mp-movies').hide();
-        $('.mp-application').hide();
-        $('.mp-carousel').hide();
-        $('.mp-reviews').show();
-        $('.mp-celebrity').hide();
-
-      });
-
-      $('#manage-celebrities').click(e => {
-
-        $('.mp-users').hide();
-        $('.mp-movies').hide();
-        $('.mp-application').hide();
-        $('.mp-carousel').hide();
-        $('.mp-reviews').hide();
-        $('.mp-celebrity').show();
-      });
-
-
-      $('#manage-carousel').click(e => {
-
-        $('.mp-users').hide();
-        $('.mp-movies').hide();
-        $('.mp-application').hide();
-        $('.mp-carousel').show();
-        $('.mp-reviews').hide();
-        $('.mp-celebrity').hide();
-      });
-
-      $('#manage-application').click(e => {
-
-        $('.mp-users').hide();
-        $('.mp-movies').hide();
-        $('.mp-application').show();
-        $('.mp-carousel').hide();
-        $('.mp-reviews').hide();
-        $('.mp-celebrity').hide();
-      });
-
-
-
-    });
+    this.getUsers();
 
 
   }
+
+  private getMovie(imdbId: string) {
+    this.movieService.getMovieDetails('tt2194499').toPromise().then(data => {
+      this.movie = data as Movie;
+    });
+  }
+
+  private addMovie(movie: Movie) {
+    this.movieService.addMovie(movie).subscribe(data => {
+      console.log('', data);
+    });
+  }
+
+  private updateMovie(movie: Movie) {
+    this.movieService.updateMovie(movie).subscribe(data => {
+      console.log('', data);
+    });
+  }
+
+  private deleteMovie(filmId) {
+    this.movieService.deleteMovie(filmId).subscribe(data => {
+      console.log('', data);
+    });
+  }
+
+  private getUsers() {
+    this.userService.getAllUsers().subscribe(data => {
+      console.log(data);
+    });
+  }
+
 
 }

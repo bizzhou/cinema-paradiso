@@ -82,4 +82,21 @@ export class MovieService {
   }
 
 
+  getAllMovies() {
+    return this.http.get(AppConstant.API_ENDPOINT + `movie/get/all`);
+  }
+
+  deleteMovie(filmId: string) {
+    return this.http.delete(AppConstant.API_ENDPOINT + `movie/delete/${filmId}`);
+  }
+
+
+  addMovie(movie: Movie) {
+    return this.http.post(AppConstant.API_ENDPOINT + `movie/add`, movie);
+  }
+
+
+  updateMovie(movie: Movie) {
+    return this.http.post(AppConstant.API_ENDPOINT + `movie/update`, movie);
+  }
 }
