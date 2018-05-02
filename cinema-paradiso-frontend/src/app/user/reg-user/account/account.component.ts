@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NgForm} from '@angular/forms';
-import {UserService} from '../user.service';
+import {RegUserService} from '../reg-user.service';
 import {ToastrService} from 'ngx-toastr';
 import {LoginService} from '../../../global/login/login.service';
 
@@ -17,7 +17,7 @@ export class AccountComponent implements OnInit {
   changePasswordSuccess: boolean;
   changePasswordFailure: boolean;
 
-  constructor(private userService: UserService,
+  constructor(private userService: RegUserService,
               private loginService: LoginService,
               private toastr: ToastrService) { }
 

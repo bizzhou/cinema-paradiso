@@ -1,5 +1,5 @@
 import {Component, OnChanges, OnInit} from '@angular/core';
-import {UserService} from '../reg-user/user.service';
+import {RegUserService} from '../reg-user/reg-user.service';
 import {MovieService} from '../../global/movie-detail/movie.service';
 import {Movie} from '../../global/models/movie.model';
 import 'rxjs/add/operator/toPromise';
@@ -12,7 +12,7 @@ import {ModalDismissReasons, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-boots
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss'],
-  providers: [UserService]
+  providers: [RegUserService]
 })
 export class AdminComponent implements OnInit {
 
@@ -24,7 +24,7 @@ export class AdminComponent implements OnInit {
   modalRef: NgbModalRef;
   addMovieFlag = false;
 
-  constructor(private userService: UserService, private movieService: MovieService,
+  constructor(private userService: RegUserService, private movieService: MovieService,
               private toastrService: ToastrService, private modalService: NgbModal) {
   }
 

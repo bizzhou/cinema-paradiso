@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Movie} from '../../../global/models/movie.model';
-import {RegUserService} from '../reg-user.service';
 import {ToastrService} from 'ngx-toastr';
+import {RegUserService} from '../reg-user.service';
 import {ListMovieStatus} from '../../../global/models/ListMovieStatus.model';
 
 @Component({

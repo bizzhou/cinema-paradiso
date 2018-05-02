@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ModalDismissReasons, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-import {UserService} from './user.service';
+import {RegUserService} from './reg-user.service';
 import {Token} from '../../global/models/token.model';
 import {LoginStatusService} from '../../global/login/login.status.service';
 import {JwtHelperService} from '@auth0/angular-jwt';
@@ -30,7 +30,7 @@ class Profile {
   selector: 'app-reg-user',
   templateUrl: './reg-user.component.html',
   styleUrls: ['./reg-user.component.scss'],
-  providers: [UserService, LoginService],
+  providers: [RegUserService, LoginService],
 })
 export class RegUserComponent implements OnInit {
   currentIndex = 1;
@@ -43,7 +43,7 @@ export class RegUserComponent implements OnInit {
   modalRef: NgbModalRef;
 
   constructor(private router: Router, private loginService: LoginService, private modalService: NgbModal,
-              private regUserService: UserService, private loginStatusService: LoginStatusService, private toastr: ToastrService) {
+              private regUserService: RegUserService, private loginStatusService: LoginStatusService, private toastr: ToastrService) {
   }
 
   showDiv(index) {
