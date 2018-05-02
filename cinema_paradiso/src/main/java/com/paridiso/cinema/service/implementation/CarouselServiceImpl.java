@@ -34,7 +34,10 @@ public class CarouselServiceImpl implements CarouselService {
     @Transactional
     @Override
     public List<Slide> getCarousel() {
-        return slideRepository.findAll();
+        List<Slide> slides = slideRepository.findAll();
+        for (Slide slide: slides)
+            slide.getMovie().setListMovieStatus(ListMovieStatus.NONE);
+        return slides;
     }
 
     @Transactional

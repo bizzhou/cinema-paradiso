@@ -29,8 +29,6 @@ public class CarouselController {
 
     @GetMapping(value = "/getCustomCarousel")
     public ResponseEntity<List<Slide>> getCustomCarousel(@RequestHeader(value = "Authorization") String jwtToken) {
-        System.out.println("Fetching custom carousel");
-
         Integer userId = jwtTokenService.getUserProfileIdFromToken(jwtToken);
 
         List<Slide> slides = carouselService.setInitialMovieStatus(carouselService.getCarousel(), userId);

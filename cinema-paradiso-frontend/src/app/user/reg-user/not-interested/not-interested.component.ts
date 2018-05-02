@@ -2,7 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Movie} from '../../../global/models/movie.model';
 import {RegUserService} from '../reg-user.service';
 import {ToastrService} from 'ngx-toastr';
-import {ListMovieStatus} from "../../../global/models/ListMovieStatus.model";
+import {ListMovieStatus} from '../../../global/models/ListMovieStatus.model';
 
 @Component({
   selector: 'app-not-interested',
@@ -24,7 +24,7 @@ export class NotInterestedComponent implements OnInit {
     this.regUserService.removeFromNotInterestedList(movie.imdbId).subscribe(data => {
       movie.listMovieStatus = this.listMovieStatusEnum.NONE;
       this.profile.notInterestedList.splice(this.profile.notInterestedList.indexOf(movie), 1);
-      this.toastrService.success('SUCCESS');
+      this.toastrService.success('Successfully Removed');
 
     }, error1 => {
       console.log(error1);

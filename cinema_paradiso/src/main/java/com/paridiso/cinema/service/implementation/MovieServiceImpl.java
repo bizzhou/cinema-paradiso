@@ -65,9 +65,13 @@ public class MovieServiceImpl implements FilmService {
 
     @Override
     public Movie getFilm(String filmId) {
-        return movieRepository
+        Movie movie = movieRepository
                 .findMovieByImdbId(filmId)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieDoesNotExist()));
+
+        movie.setListMovieStatus(ListMovieStatus.NONE);
+
+        return movie;
     }
 
     @Override
