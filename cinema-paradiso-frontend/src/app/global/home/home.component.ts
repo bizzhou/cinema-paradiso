@@ -180,7 +180,7 @@ export class HomeComponent implements OnInit {
         data => {
           this.moviesTopRated = data['movie'] as Movie[];
           console.log(this.moviesTopRated);
-          localStorage.setItem('topRated', JSON.stringify(this.moviesTopBoxOffice));
+          localStorage.setItem('topRated', JSON.stringify(this.moviesTopRated));
         },
         error => console.log('Failed to fetch movies top rated')
       );
