@@ -37,7 +37,8 @@
           <button (click)="addMovie(content)">Create New</button>
 
           <br>
-          <input type="text" (input)="filmId = $event.target.value;">
+          <label for="search_movie">Enter Movie ID</label>
+          <input id='search_movie' type="text" (input)="filmId = $event.target.value;">
           <button class="btn btn-primary" (click)="getMovie(filmId)">Search Film</button>
 
           <div class="row mp-movies__item" *ngIf="movie != undefined">
@@ -49,18 +50,15 @@
         </div>
 
         <div class="container mp-reviews" *ngIf="selectedTab === 'manage-reviews'">
+
+          <label for='search_review'>Enter Review ID</label>
+          <input id='search_review' type="text" (input)="reviewId = $event.target.value;">
+          <button class="btn btn-primary" (click)="deleteReview(reviewId)">Delete Review</button>
+
+           <!--TODO: reported user review goes here-->
           <div class="row mp-reviews__item">
-            <h3 class="col-reviews-title">Review 1 <span class="entypo-down-open"></span></h3>
-            <button class="col-reviews-item">Delete</button>
           </div>
-          <div class="row mp-reviews__item">
-            <h3 class="col-reviews-title">Review 2 <span class="entypo-down-open"></span></h3>
-            <button class="col-reviews-item">Delete</button>
-          </div>
-          <div class="row mp-reviews__item">
-            <h3 class="col-reviews-title">Review 3 <span class="entypo-down-open"></span></h3>
-            <button class="col-reviews-item">Delete</button>
-          </div>
+
         </div>
 
         <div class="container mp-application" *ngIf="selectedTab === 'manage-application'">
