@@ -26,21 +26,25 @@ export class MdReviewComponent implements OnInit, OnChanges {
 
         console.log('reviews in component ', this.reviews);
 
-        this.reviews.forEach(review => {
+        if (this.reviews !== undefined && this.reviews !== null) {
+
+          this.reviews.forEach(review => {
 
             const img_link = AppConstant.API_ENDPOINT + `user/avatar/${review.authorId}.jpeg`;
             // review.authorImage = img_link;
             review['authorImage'] = img_link;
 
             if (review.criticReview === true) {
-                this.criticReviews.push(review);
+              this.criticReviews.push(review);
             } else {
-                this.userReviews.push(review);
+              this.userReviews.push(review);
             }
 
             console.log('critic review ', this.criticReviews);
             console.log('user review ', this.userReviews);
-        });
+          });
+
+        }
 
     }
 
