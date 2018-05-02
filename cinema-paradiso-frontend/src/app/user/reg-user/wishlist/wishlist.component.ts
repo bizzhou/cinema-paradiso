@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Movie} from '../../../global/models/movie.model';
 import {RegUserService} from '../reg-user.service';
 import {ToastrService} from 'ngx-toastr';
+import {ListMovieStatus} from "../../../global/models/ListMovieStatus.model";
 
 @Component({
   selector: 'app-wishlist',
@@ -11,6 +12,7 @@ import {ToastrService} from 'ngx-toastr';
 export class WishlistComponent implements OnInit {
 
   @Input() profile;
+  listMovieStatusEnum = ListMovieStatus;
 
   constructor(private  regUserService: RegUserService, private toastrService: ToastrService) {
   }
@@ -20,7 +22,7 @@ export class WishlistComponent implements OnInit {
 
   removeFromWishList(movie: Movie) {
     this.regUserService.removeFromWishList(movie.imdbId).subscribe(data => {
-
+      movie.listMovieStatus = this.listMovieStatusEnum.NONE;
       this.profile.wishList.splice(this.profile.wishList.indexOf(movie), 1);
       this.toastrService.success('SUCCESS');
 

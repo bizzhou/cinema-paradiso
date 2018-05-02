@@ -22,7 +22,7 @@ class Profile {
   username: string;
   email: string;
   wishList: Movie[];
-  watchList: Movie[];
+  notInterestedList: Movie[];
   userRatings: Rating[];
 }
 
@@ -63,6 +63,7 @@ export class RegUserComponent implements OnInit {
         this.profile.username = decodedToken['username'];
         this.profile.profileImage = profileDetails['profileImage'];
         this.profile.wishList = profileDetails['wishList'] as Movie[];
+        this.profile.notInterestedList = profileDetails['notInterestedList'] as Movie[];
         this.profile.userRatings = profileDetails['userRatings'] as Rating[];
 
         if (this.profile.profileImage === undefined) {

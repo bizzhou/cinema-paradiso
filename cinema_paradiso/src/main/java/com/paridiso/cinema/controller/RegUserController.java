@@ -121,6 +121,7 @@ public class RegUserController {
         objectObjectHashMap.put("biography", profile.getBiography());
         objectObjectHashMap.put("isCritic", profile.getCritic());
         objectObjectHashMap.put("wishList", profile.getWishList().getMovies());
+        objectObjectHashMap.put("notInterestedList", profile.getNotInterestedList().getMovies());
         objectObjectHashMap.put("userRatings", userService.getUserRatings(jwtTokenService.getUserProfileIdFromToken(jwtToken)));
         return ResponseEntity.ok(objectObjectHashMap);
     }
