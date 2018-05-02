@@ -15,8 +15,9 @@ import {ToastrService} from 'ngx-toastr';
 })
 export class AdminComponent implements OnInit {
 
-  selectedTab = 'manage-user';
+  selectedTab = 'manage-movies';
   users: User[];
+  filmId: string;
 
   constructor(private userService: UserService, private movieService: MovieService,
               private toastrService: ToastrService) {
@@ -29,7 +30,7 @@ export class AdminComponent implements OnInit {
   }
 
   private getMovie(imdbId: string) {
-    this.movieService.getMovieDetails('tt2194499').toPromise().then(data => {
+    this.movieService.getMovieDetails(imdbId).toPromise().then(data => {
       this.movie = data as Movie;
     });
   }
@@ -48,7 +49,10 @@ export class AdminComponent implements OnInit {
 
   private deleteMovie(filmId) {
     this.movieService.deleteMovie(filmId).subscribe(data => {
-      console.log('', data);
+      this.movie = undefined;
+      this.toastrService.success('SUCCESS');
+    }, error => {
+      this.toastrService.error('FAIL');
     });
   }
 
@@ -60,7 +64,7 @@ export class AdminComponent implements OnInit {
   }
 
   private deleteUser(user: User) {
-    this.userService.deleteUser(user.userID).subscribe(data => {
+    this.userService.deleteUser(user.userId).subscribe(data => {
 
       this.users.splice(this.users.indexOf(user), 1);
       this.toastrService.success('SUCCESS');
@@ -69,9 +73,8 @@ export class AdminComponent implements OnInit {
   }
 
   private tabChangeHandler(event) {
-    console.log('', event);
     this.selectedTab = event['nextId'];
-    console.log('', this.selectedTab);
   }
+
 
 }

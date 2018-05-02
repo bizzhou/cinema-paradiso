@@ -33,26 +33,22 @@
           </div>
         </div>
 
-        <div class="container mp-movies"  *ngIf="selectedTab === 'manage-movies'">
+        <div class="container mp-movies" *ngIf="selectedTab === 'manage-movies'">
           <button class="">Create New</button>
-          <div class="row mp-movies__item">
-            <h3 class="col-movies-title">Movie 1 <span class="entypo-down-open"></span></h3>
+
+          <br>
+          <input type="text" (input)="filmId = $event.target.value;">
+          <button class="btn btn-primary" (click)="getMovie(filmId)">Search Film</button>
+
+          <div class="row mp-movies__item" *ngIf="movie != undefined">
+            <h3 class="col-movies-title">{{movie.title}} <span class="entypo-down-open"></span></h3>
             <button class="col-movies-item">Update</button>
-            <button class="col-movies-item">Delete</button>
+            <button class="col-movies-item" (click)="deleteMovie(movie.imdbId)">Delete</button>
           </div>
-          <div class="row mp-movies__item">
-            <h3 class="col-movies-title">Movie 2 <span class="entypo-down-open"></span></h3>
-            <button class="col-movies-item">Update</button>
-            <button class="col-movies-item">Delete</button>
-          </div>
-          <div class="row mp-movies__item">
-            <h3 class="col-movies-title">Movie 3 <span class="entypo-down-open"></span></h3>
-            <button class="col-movies-item">Update</button>
-            <button class="col-movies-item">Delete</button>
-          </div>
+
         </div>
 
-        <div class="container mp-reviews"  *ngIf="selectedTab === 'manage-reviews'">
+        <div class="container mp-reviews" *ngIf="selectedTab === 'manage-reviews'">
           <div class="row mp-reviews__item">
             <h3 class="col-reviews-title">Review 1 <span class="entypo-down-open"></span></h3>
             <button class="col-reviews-item">Delete</button>
