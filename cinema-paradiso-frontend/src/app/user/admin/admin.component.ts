@@ -112,7 +112,7 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  private tabChangeHandler(event) {
+  tabChangeHandler(event) {
     this.selectedTab = event['nextId'];
   }
 
