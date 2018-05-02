@@ -33,22 +33,8 @@ export class UserService {
     return this.http.delete(AppConstant.API_ENDPOINT + `movie/delete/rating/${imdbId}`);
   }
 
-  addToWishList(imdbId: string) {
-    const params = new HttpParams().set('filmId', imdbId);
-    return this.http.post(AppConstant.API_ENDPOINT + 'wishlist/add', params);
-  }
-
   removeFromWishList(imdbId: string) {
     return this.http.delete(AppConstant.API_ENDPOINT + `wishlist/delete/${imdbId}`);
-  }
-
-  addToNotInterestedList(imdbId: string) {
-    const params = new HttpParams().set('filmId', imdbId);
-    return this.http.post(AppConstant.API_ENDPOINT + 'not-interested/add', params);
-  }
-
-  removeFromNotInterestedList(imdbId: string) {
-    return this.http.delete(AppConstant.API_ENDPOINT + `not-interested/delete/${imdbId}`);
   }
 
   deleteUser(userId: number) {
