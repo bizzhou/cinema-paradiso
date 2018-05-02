@@ -302,31 +302,4 @@ public class MovieServiceImpl implements FilmService {
         return top50ByRatingOrderByRating;
     }
 
-    /**
-     * The formula for calculating the Top Rated 250 Titles gives a true Bayesian estimate:
-
-         weighted rank (WR) = (v ÷ (v+m)) × R + (m ÷ (v+m)) × C
-
-         where:
-         R = average rating for the movie (mean)
-         v = number of ratings for the movie
-         m = minimum votes required to be listed in the Top 250 (currently 20)
-         C = the mean number of ratings across the whole report
-     */
-    private void setRatedScores() {
-        List<Movie> movies = movieRepository.findAll();
-        double v, m, r, weightedRank;
-        double c = movieRepository.findAvgNumOfCriticRatings() + movieRepository.findAvgNumOfRegUserRatings();
-
-        for (Movie movie: movies) {
-            v = movie.getNumOfCriticRatings() + movie.getNumOfRegUserRatings();
-            r = movie.getCriticRating() + movie.getRegUserRating();
-            m = limitationConstants.getMinNumOfRatingsForWeightedRank();
-
-            weightedRank = (v / (v + m)) * r + (m / (v + m)) * c;
-            movie.setWeightedRank(weightedRank);
-            movieRepository.save(movie);
-        }
-    }
-
 }
