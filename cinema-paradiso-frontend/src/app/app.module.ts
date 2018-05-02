@@ -45,6 +45,7 @@ import {RegUserReviewsComponent} from './global/review-collection/reg-user-revie
 import {CriticPortfolioComponent} from './global/public-portfolio/critic/critic.component';
 import {RegUserPortfolioComponent} from './global/public-portfolio/reg-user/reg-user.component';
 import { SidebarComponent } from './global/categories/sidebar/sidebar.component';
+import {CategoriesService} from "./global/categories/categories.service";
 
 @NgModule({
   declarations: [
@@ -93,6 +94,7 @@ import { SidebarComponent } from './global/categories/sidebar/sidebar.component'
     SearchService,
     HomeService,
     MovieService,
+    CategoriesService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

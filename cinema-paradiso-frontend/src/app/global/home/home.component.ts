@@ -13,6 +13,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {Slide} from '../models/slide.model';
 import {ToastrService} from 'ngx-toastr';
 import {ListMovieStatus} from '../models/ListMovieStatus.model';
+import {CategoriesService} from "../categories/categories.service";
+import {Sidebar} from "../models/sidebar.model";
 
 @Component({
   selector: 'app-home',
@@ -21,6 +23,7 @@ import {ListMovieStatus} from '../models/ListMovieStatus.model';
 })
 export class HomeComponent implements OnInit {
 
+  sidebarEnum = Sidebar;
   loginStatus = false;
   carousel: Slide[];
   moviesPlaying: Movie[];
@@ -35,6 +38,7 @@ export class HomeComponent implements OnInit {
               private homeService: HomeService,
               private movieService: MovieService,
               private toastr: ToastrService,
+              private categoriesService: CategoriesService,
               config: NgbCarouselConfig) {
     config.interval = 3000;
     config.wrap = true;
@@ -224,7 +228,16 @@ export class HomeComponent implements OnInit {
       );
   }
 
+  selectTab(tab) {
+    this.categoriesService.setSelectedTab(tab);
+  }
 
+  isTabActive(tab) {
+    return this.categoriesService.getTabActive(tab);
+  }
 
+  setCurrentTab(tab) {
+    this.categoriesService.setCurrentTab(tab);
+  }
 
 }

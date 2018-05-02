@@ -104,7 +104,9 @@
     <!-- 	movies now playing	 -->
     <section class="l-cards">
       <div class="l-cards__title-wrap">
-        <h2 class="l-cards__title">Now Playing</h2>
+        <h2 class="l-cards__title" (click)="selectTab(1)" [ngClass]="{active: isTabActive(1)}">
+          <a routerLink="/movies" (click)="setCurrentTab(sidebarEnum.moviesPlaying)">Now Playing</a>
+        </h2>
         <a class="l-cards__nav-left" href="#"><i class="fa fa-angle-right"></i></a><a class="l-cards__nav-right" href="#">
         <i class="fa fa-angle-left"></i></a>
       </div>
@@ -123,15 +125,17 @@
     </section>
     <!-- 	end movies now playing	 -->
 
-    <!-- movies coming soon -->
+    <!-- top box office -->
     <section class="l-cards">
       <div class="l-cards__title-wrap">
-        <h2 class="l-cards__title">Coming Soon</h2>
+        <h2 class="l-cards__title" (click)="selectTab(2)" [ngClass]="{active: isTabActive(2)}" >
+          <a routerLink="/movies" (click)="setCurrentTab(sidebarEnum.moviesTopBoxOffice)">Top Box Office</a>
+        </h2>
         <a class="l-cards__nav-left" href="#"><i class="fa fa-angle-right"></i></a><a class="l-cards__nav-right" href="#"><i class="fa fa-angle-left"></i></a>
       </div>
       <ul class="l-cards__list">
 
-        <li class="l-cards__item" *ngFor="let movie of moviesComingSoon | slice:0:6">
+        <li class="l-cards__item" *ngFor="let movie of moviesTopBoxOffice | slice:0:6">
           <a routerLink="/movie/{{movie.imdbId}}" routerLinkActive="active" class="l-cards__image fill">
             <img [src]="movie.poster" [alt]="movie.title">
           </a>
@@ -143,12 +147,14 @@
 
       </ul>
     </section>
-    <!-- end coming soon -->
+    <!-- end top box office-->
 
     <!-- movies trending -->
     <section class="l-cards">
       <div class="l-cards__title-wrap">
-        <h2 class="l-cards__title">Trending Now</h2>
+        <h2 class="l-cards__title" (click)="selectTab(3)"  [ngClass]="{active: isTabActive(3)}">
+          <a routerLink="/movies" (click)="setCurrentTab(sidebarEnum.moviesTrending)">Trending Now</a>
+        </h2>
         <a class="l-cards__nav-left" href="#"><i class="fa fa-angle-right"></i></a><a class="l-cards__nav-right" href="#"><i class="fa fa-angle-left"></i></a>
       </div>
       <ul class="l-cards__list">
@@ -167,15 +173,17 @@
     </section>
     <!-- end movies trending -->
 
-    <!-- top box office -->
+    <!-- movies coming soon -->
     <section class="l-cards">
       <div class="l-cards__title-wrap">
-        <h2 class="l-cards__title">Top Box Office</h2>
+        <h2 class="l-cards__title" (click)="selectTab(4)"  [ngClass]="{active: isTabActive(4)}">
+          <a routerLink="/movies" (click)="setCurrentTab(sidebarEnum.moviesComingSoon)">Coming Soon</a>
+        </h2>
         <a class="l-cards__nav-left" href="#"><i class="fa fa-angle-right"></i></a><a class="l-cards__nav-right" href="#"><i class="fa fa-angle-left"></i></a>
       </div>
       <ul class="l-cards__list">
 
-        <li class="l-cards__item" *ngFor="let movie of moviesTopBoxOffice | slice:0:6">
+        <li class="l-cards__item" *ngFor="let movie of moviesComingSoon | slice:0:6">
           <a routerLink="/movie/{{movie.imdbId}}" routerLinkActive="active" class="l-cards__image fill">
             <img [src]="movie.poster" [alt]="movie.title">
           </a>
@@ -187,7 +195,7 @@
 
       </ul>
     </section>
-    <!-- end top box office-->
+    <!-- end coming soon -->
 
 
     <section class="l-cards">

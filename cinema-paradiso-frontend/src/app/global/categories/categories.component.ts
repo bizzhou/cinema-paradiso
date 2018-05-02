@@ -1,14 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {Movie} from '../models/movie.model';
 import {MovieService} from '../movie-detail/movie.service';
+import {CategoriesService} from "./categories.service";
+import {Sidebar} from "../models/sidebar.model";
 
 
-export enum Sidebar {
-  moviesPlaying = 'now playing',
-  moviesTopBoxOffice = 'top box office',
-  moviesComingSoon = 'coming soon',
-  moviesTrending = 'trending now'
-}
 @Component({
   selector: 'app-categories',
   templateUrl: './categories.component.html',
@@ -17,8 +13,8 @@ export enum Sidebar {
 export class CategoriesComponent implements OnInit {
 
   public sidebarEnum = Sidebar;
-
   selectedTab: any;
+
   page = 1;
   moviePage = 1;
   isListView: boolean;
@@ -39,11 +35,12 @@ export class CategoriesComponent implements OnInit {
   moviesTrending: Movie[];
   numOfMoviesTrending: number;
 
-  constructor(private movieService: MovieService) { }
+  constructor(private movieService: MovieService,
+              private categoriesService: CategoriesService) { }
 
   ngOnInit() {
 
-    this.getMoviesPlaying();
+    this.setCurrentTab(this.categoriesService.getCurrentTab().getValue());
 
   }
 
@@ -73,8 +70,14 @@ export class CategoriesComponent implements OnInit {
         this.currentTab = this.sidebarEnum.moviesTrending;
         break;
       }
+      default: {
+        this.getMoviesPlaying();
+        this.currentTab = this.sidebarEnum.moviesPlaying;
+        break;
+      }
     }
     this.moviePage = 1;
+    window.scroll(0, 0);
 
   }
 
@@ -206,12 +209,20 @@ export class CategoriesComponent implements OnInit {
     this.isListView = isListView;
   }
 
-  // styling tab
   selectTab(tab) {
-    this.selectedTab = tab;
+    this.categoriesService.setSelectedTab(tab);
   }
-  isActive(tab) {
-    return this.selectedTab === tab;
+
+  isTabActive(tab) {
+    return this.categoriesService.getTabActive(tab);
   }
+
+  // styling tab
+  // selectTab(tab) {
+  //   this.selectedTab = tab;
+  // }
+  // isTabActive(tab) {
+  //   return this.selectedTab === tab;
+  // }
 
 }
