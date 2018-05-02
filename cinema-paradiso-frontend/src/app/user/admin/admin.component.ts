@@ -18,10 +18,10 @@ export class AdminComponent implements OnInit {
 
   selectedTab = 'manage-movies';
   users: User[];
-  filmId: string;
+  filmId = 'tt1655442';
   closeReason: string;
   modalRef: NgbModalRef;
-
+  addMovieFlag = false;
 
   constructor(private userService: UserService, private movieService: MovieService,
               private toastrService: ToastrService, private modalService: NgbModal) {
@@ -39,16 +39,41 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  private addMovie(movie: Movie) {
-    this.movieService.addMovie(movie).subscribe(data => {
+  private addMovie(content) {
+    this.movie = new Movie();
+    this.open(content);
+    this.addMovieFlag = true;
+  }
+
+  private insertMovieIntoDB() {
+    console.log('this movie', this.movie);
+    this.formatStringIntoArray();
+    console.log('this movie', this.movie);
+    this.movieService.addMovie(this.movie).subscribe(data => {
       console.log('', data);
+      // this.movie = undefined;
     });
   }
 
+  private formatStringIntoArray() {
+    if (this.movie.genres != null) {
+      this.movie.genres = this.movie.genres.toString().split(',');
+    }
+
+    if (this.movie.awards != null) {
+      this.movie.awards = this.movie.awards.toString().split(';');
+    }
+  }
+
   private updateMovie(movie: Movie) {
+
+    this.addMovieFlag = false;
+    this.formatStringIntoArray();
+
     this.movieService.updateMovie(movie).subscribe(data => {
       this.modalRef.close();
       console.log(data);
+      console.log(this.movie);
       this.movie = undefined;
       this.toastrService.success('SUCCESS');
     }, error => {
@@ -87,7 +112,7 @@ export class AdminComponent implements OnInit {
   }
 
   open(content) {
-    this.modalRef = this.modalService.open(content, { size: 'lg' });
+    this.modalRef = this.modalService.open(content, {size: 'lg'});
     console.log(this.modalRef);
     this.modalRef.result.then(result => {
       this.closeReason = `Reason ${result}`;
@@ -102,7 +127,7 @@ export class AdminComponent implements OnInit {
     } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
       return 'by clicking on a backdrop';
     } else {
-      return  `with: ${reason}`;
+      return `with: ${reason}`;
     }
   }
 

@@ -60,6 +60,12 @@ public class MovieServiceImpl implements FilmService {
     public Movie addFilm(Film movie) {
 //        if (movieRepository.findMovieByImdbId(movie.getImdbId()).get() != null)
 //            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieExists());
+        if (movie.getImdbId() == null) {
+            String imdbId = movieRepository.findTop1ByOrderByImdbIdDesc().getImdbId();
+            long newId = Long.parseLong(imdbId.replace("tt", "")) + 1;
+            movie.setImdbId("tt" + String.valueOf(newId));
+            System.out.println(movie);
+        }
         return movieRepository.save((Movie) movie);
     }
 

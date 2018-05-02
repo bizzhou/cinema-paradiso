@@ -36,4 +36,5 @@ public interface MovieRepository extends JpaRepository<Movie, String> {
     Page<Movie> findTop20ByOrderByWeightedRankDesc(Pageable page);
 
 
+    Movie findTop1ByOrderByImdbIdDesc();
 }
