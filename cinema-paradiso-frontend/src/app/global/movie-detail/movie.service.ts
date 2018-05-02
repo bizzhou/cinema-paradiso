@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {Review} from '../models/review.model';
 import {AppConstant} from '../../app.constant';
+import {Movie} from '../models/movie.model';
 
 const MOVIE_SERVER = AppConstant.API_ENDPOINT + 'movie/';
 const WISH_LIST_SERVER = AppConstant.API_ENDPOINT + 'wishlist/';

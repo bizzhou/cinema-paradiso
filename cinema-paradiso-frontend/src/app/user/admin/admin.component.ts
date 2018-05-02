@@ -1,9 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnChanges, OnInit} from '@angular/core';
 import {UserService} from '../reg-user/user.service';
-import {User} from '../user/user.model';
 import {MovieService} from '../../global/movie-detail/movie.service';
 import {Movie} from '../../global/models/movie.model';
 import 'rxjs/add/operator/toPromise';
+import {User} from '../user/user.model';
+import {ToastrService} from 'ngx-toastr';
 
 
 @Component({
@@ -14,15 +15,17 @@ import 'rxjs/add/operator/toPromise';
 })
 export class AdminComponent implements OnInit {
 
-  constructor(private userService: UserService, private movieService: MovieService) {
+  selectedTab = 'manage-user';
+  users: User[];
+
+  constructor(private userService: UserService, private movieService: MovieService,
+              private toastrService: ToastrService) {
   }
 
   movie: Movie;
 
   ngOnInit() {
     this.getUsers();
-
-
   }
 
   private getMovie(imdbId: string) {
@@ -51,9 +54,24 @@ export class AdminComponent implements OnInit {
 
   private getUsers() {
     this.userService.getAllUsers().subscribe(data => {
-      console.log(data);
+      this.users = data['users'] as User[];
+      console.log('', this.users);
     });
   }
 
+  private deleteUser(user: User) {
+    this.userService.deleteUser(user.userID).subscribe(data => {
+
+      this.users.splice(this.users.indexOf(user), 1);
+      this.toastrService.success('SUCCESS');
+
+    });
+  }
+
+  private tabChangeHandler(event) {
+    console.log('', event);
+    this.selectedTab = event['nextId'];
+    console.log('', this.selectedTab);
+  }
 
 }
