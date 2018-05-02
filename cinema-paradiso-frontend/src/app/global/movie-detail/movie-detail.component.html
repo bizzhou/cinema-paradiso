@@ -4,19 +4,30 @@
       <!--   left panel   -->
       <div class="col-sidebar sidebar">
         <!--  sidebar: movies category  -->
-        <ul class="s-explore">
+        <ul class="s-explore" id="category-sidebar">
           <!--     in theaters -->
+          <!--TODO: set to page 1, otherwise bug-->
           <li class="s-explore__title"><h3>In Theaters</h3></li>
-          <li class="s-explore__item"><a href="#">opening this week</a></li>
-          <li class="s-explore__item"><a href="#">top box office</a></li>
-          <li class="s-explore__item"><a href="#">coming soon</a></li>
-          <li class="s-explore__item"><a href="#">certified fresh movies</a></li>
+          <li class="s-explore__item" (click)="selectTab(1)" [ngClass]="{active: isTabActive(1)}">
+            <a routerLink="/movies" (click)="setCurrentTab(sidebarEnum.moviesPlaying)">now playing</a>
+          </li>
+          <li class="s-explore__item" (click)="selectTab(2)" [ngClass]="{active: isTabActive(2)}">
+            <a routerLink="/movies" (click)="setCurrentTab(sidebarEnum.moviesTopBoxOffice)">top box office</a>
+          </li>
+          <li class="s-explore__item"  (click)="selectTab(3)" [ngClass]="{active: isTabActive(3)}">
+            <a routerLink="/movies" (click)="setCurrentTab(sidebarEnum.moviesTrending)">trending now</a>
+          </li>
+          <li class="s-explore__item"  (click)="selectTab(4)" [ngClass]="{active: isTabActive(4)}">
+            <a routerLink="/movies" (click)="setCurrentTab(sidebarEnum.moviesComingSoon)">coming soon</a>
+          </li>
+          <li class="s-explore__item"  (click)="selectTab(5)" [ngClass]="{active: isTabActive(5)}">
+            <a routerLink="/movies" (click)="setCurrentTab(sidebarEnum.moviesTopRated)">top rated</a>
+          </li>
 
           <!--     dvds -->
           <li class="s-explore__title"><h3>dvd & streaming movies</h3></li>
           <li class="s-explore__item"><a href="#">browser all</a></li>
           <li class="s-explore__item"><a href="#">top DVD & streaming</a></li>
-          <li class="s-explore__item"><a href="#">coming soon</a></li>
           <li class="s-explore__item"><a href="#">certified fresh movies</a></li>
 
           <!--     tv -->
@@ -24,7 +35,6 @@
           <li class="s-explore__item"><a href="#">new TV tonight</a></li>
           <li class="s-explore__item"><a href="#">most popular tv on RT</a></li>
           <li class="s-explore__item"><a href="#">certified fresh TV</a></li>
-
         </ul>
 
         <!--  2nd box  -->

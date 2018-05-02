@@ -13,8 +13,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {Slide} from '../models/slide.model';
 import {ToastrService} from 'ngx-toastr';
 import {ListMovieStatus} from '../models/ListMovieStatus.model';
-import {CategoriesService} from "../categories/categories.service";
-import {Sidebar} from "../models/sidebar.model";
+import {CategoriesService} from '../categories/categories.service';
+import {Sidebar} from '../models/sidebar.model';
 
 @Component({
   selector: 'app-home',
@@ -185,7 +185,7 @@ export class HomeComponent implements OnInit {
 
   addToWishList(movie: Movie) {
     if (movie.listMovieStatus === this.listMovieStatusEnum.NOT_INTERESTED_LIST) {
-      this.toastr.error('Already in Not Interested List')
+      this.toastr.error('Already in Not Interested List');
     } else {
       this.movieService.addToWishList(movie.imdbId)
         .subscribe(

@@ -6,6 +6,8 @@ import {LoginStatusService} from '../login/login.status.service';
 import {ToastrService} from 'ngx-toastr';
 import {Review} from '../models/review.model';
 import {ListMovieStatus} from '../models/ListMovieStatus.model';
+import {Sidebar} from '../models/sidebar.model';
+import {CategoriesService} from '../categories/categories.service';
 
 @Component({
     selector: 'app-movie-detail',
@@ -24,11 +26,13 @@ export class MovieDetailComponent implements OnInit {
     loggedInFlag: boolean;
     trailer: string;
     listMovieStatusEnum = ListMovieStatus;
+    sidebarEnum = Sidebar;
 
     constructor(private movieService: MovieService,
                 private loginStatusService: LoginStatusService,
                 private route: ActivatedRoute,
                 private toastr: ToastrService,
+                private categoriesService: CategoriesService,
                 private toastrService: ToastrService) {
 
         this.selectedMovieId = route.snapshot.params['id'];
@@ -227,5 +231,18 @@ export class MovieDetailComponent implements OnInit {
         }
       );
   }
+
+  selectTab(tab) {
+    this.categoriesService.setSelectedTab(tab);
+  }
+
+  isTabActive(tab) {
+    return this.categoriesService.getTabActive(tab);
+  }
+
+  setCurrentTab(tab) {
+    this.categoriesService.setCurrentTab(tab);
+  }
+
 
 }

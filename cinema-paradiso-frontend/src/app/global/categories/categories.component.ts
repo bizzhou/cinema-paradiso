@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Movie} from '../models/movie.model';
 import {MovieService} from '../movie-detail/movie.service';
-import {CategoriesService} from "./categories.service";
-import {Sidebar} from "../models/sidebar.model";
+import {CategoriesService} from './categories.service';
+import {Sidebar} from '../models/sidebar.model';
 
 
 @Component({

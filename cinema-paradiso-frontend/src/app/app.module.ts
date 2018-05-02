@@ -44,8 +44,7 @@ import {CriticReviewsComponent} from './global/review-collection/critic-reviews/
 import {RegUserReviewsComponent} from './global/review-collection/reg-user-reviews/reg-user-reviews.component';
 import {CriticPortfolioComponent} from './global/public-portfolio/critic/critic.component';
 import {RegUserPortfolioComponent} from './global/public-portfolio/reg-user/reg-user.component';
-import { SidebarComponent } from './global/categories/sidebar/sidebar.component';
-import {CategoriesService} from "./global/categories/categories.service";
+import {CategoriesService} from './global/categories/categories.service';
 
 @NgModule({
   declarations: [
@@ -71,8 +70,7 @@ import {CategoriesService} from "./global/categories/categories.service";
     CriticReviewsComponent,
     RegUserReviewsComponent,
     CriticPortfolioComponent,
-    RegUserPortfolioComponent,
-    SidebarComponent
+    RegUserPortfolioComponent
   ],
   imports: [
     BrowserModule,
