@@ -124,4 +124,9 @@ public class ReviewServiceImpl implements ReviewService {
     public boolean detectBadReview(Review review) {
         return false;
     }
+
+    @Override
+    public List<Review> getAllReviews() {
+        return reviewRepository.findAll();
+    }
 }

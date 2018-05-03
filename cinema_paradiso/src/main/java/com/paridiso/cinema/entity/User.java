@@ -29,18 +29,18 @@ public class User {
         return userId;
     }
 
-    @Size(max = 100)
+    //    @Size(max = 100)
     public String getUsername() {
         return username;
     }
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Size(min = 8)
+//    @Size(min = 8)
     public String getPassword() {
         return password;
     }
 
-    @Size(max = 100)
+    //    @Size(max = 100)
     public String getEmail() {
         return email;
     }

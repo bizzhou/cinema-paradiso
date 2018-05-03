@@ -49,15 +49,27 @@
 
         </div>
 
-        <div class="container mp-reviews" *ngIf="selectedTab === 'manage-reviews'">
+        <div class="container mp-reviews" *ngIf="selectedTab === 'manage-reviews' && reviews !=null">
 
-          <label for='search_review'>Enter Review ID</label>
-          <input id='search_review' type="text" (input)="reviewId = $event.target.value;">
-          <button class="btn btn-primary" (click)="deleteReview(reviewId)">Delete Review</button>
+          <!--<label for='search_review'>Enter Review ID</label>-->
+          <!--<input id='search_review' type="text" (input)="reviewId = $event.target.value;">-->
+          <!--<button class="btn btn-primary" (click)="deleteReview(reviewId)">Delete Review</button>-->
 
-           <!--TODO: reported user review goes here-->
-          <div class="row mp-reviews__item">
+          <div *ngFor="let review of reviews">
+
+            <div class="row">
+              <div class="col-md-8">
+                <h3 *ngIf="review.criticReview === true">{{review.title}} | CRITIC</h3>
+                <h3 *ngIf="review.criticReview === false">{{review.title}}</h3>
+                <h3>{{review.reviewContent}}</h3>
+              </div>
+              <div class="col-md-4">
+                <button class="btn btn-primary" (click)="deleteReview(review)">Delete</button>
+              </div>
+            </div>
+
           </div>
+
 
         </div>
 

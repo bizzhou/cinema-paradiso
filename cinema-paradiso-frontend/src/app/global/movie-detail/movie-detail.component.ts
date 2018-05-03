@@ -56,7 +56,6 @@ export class MovieDetailComponent implements OnInit {
     } else {
       this.getMovie(this.selectedMovieId);
     }
-
   }
 
 

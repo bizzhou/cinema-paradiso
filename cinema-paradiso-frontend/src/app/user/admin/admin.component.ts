@@ -6,7 +6,7 @@ import 'rxjs/add/operator/toPromise';
 import {User} from '../user/user.model';
 import {ToastrService} from 'ngx-toastr';
 import {ModalDismissReasons, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
-
+import {Review} from '../../global/models/review.model';
 
 @Component({
   selector: 'app-admin',
@@ -23,6 +23,7 @@ export class AdminComponent implements OnInit {
   reviewId: number;
   modalRef: NgbModalRef;
   addMovieFlag = false;
+  reviews: Review[];
 
   constructor(private userService: RegUserService, private movieService: MovieService,
               private toastrService: ToastrService, private modalService: NgbModal) {
@@ -32,6 +33,7 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {
     this.getUsers();
+    this.getAllReviews();
   }
 
   private getMovie(imdbId: string) {
@@ -136,13 +138,19 @@ export class AdminComponent implements OnInit {
     }
   }
 
-  private deleteReview(reviewId: number) {
-    this.movieService.deleteReviewForMovie(reviewId).subscribe(data => {
-      this.reviewId = undefined;
+  private deleteReview(review) {
+    this.movieService.deleteReviewForMovie(review.reviewId).subscribe(data => {
+      // this.reviewId = undefined;
+      this.reviews.splice(this.reviews.indexOf(review), 1);
       this.toastrService.success('SUCCESS');
     });
   }
 
-
+  private getAllReviews() {
+    this.movieService.getAllReviews().subscribe(data => {
+      console.log(data);
+      this.reviews = data as Review[];
+    });
+  }
 
 }
