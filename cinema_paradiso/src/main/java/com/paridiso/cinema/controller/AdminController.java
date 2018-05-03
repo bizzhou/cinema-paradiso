@@ -63,7 +63,7 @@ public class AdminController {
     @PostMapping(value = "/verify/critic")
     public ResponseEntity<?> verifyCritic(@RequestParam Integer userId) {
         userService.makeCritic(userId);
-        return ResponseEntity.ok("SUCCESS");
+        return ResponseEntity.ok(true);
     }
 
     @GetMapping(value = "/get/critic_applications")

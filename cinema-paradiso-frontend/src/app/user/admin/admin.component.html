@@ -74,22 +74,12 @@
         </div>
 
         <div class="container mp-application" *ngIf="selectedTab === 'manage-application'">
-          <div class="row mp-application__item">
-            <h3 class="col-application-title">Application 1 <span class="entypo-down-open"></span></h3>
-            <button class="col-application-item">Approve</button>
-            <button class="col-application-item">Decline</button>
+          <div class="row mp-application__item" *ngFor="let app of criticApplications">
+            <h3 class="col-application-title">{{app.email}} <span
+              class="entypo-down-open"></span></h3>
+            <h3 class="col-application-title">{{app.reason}} <span class="entypo-down-open"></span></h3>
+            <button class="col-application-item" (click)="verifyApplication(app)">Approve</button>
           </div>
-          <div class="row mp-application__item">
-            <h3 class="col-application-title">Application 2 <span class="entypo-down-open"></span></h3>
-            <button class="col-application-item">Approve</button>
-            <button class="col-application-item">Decline</button>
-          </div>
-          <div class="row mp-application__item">
-            <h3 class="col-application-title">Application 3 <span class="entypo-down-open"></span></h3>
-            <button class="col-application-item">Approve</button>
-            <button class="col-application-item">Decline</button>
-          </div>
-
         </div>
 
       </div>

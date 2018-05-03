@@ -7,6 +7,7 @@ import {User} from '../user/user.model';
 import {ToastrService} from 'ngx-toastr';
 import {ModalDismissReasons, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {Review} from '../../global/models/review.model';
+import {CriticApplication} from "../../global/models/critic-application.model";
 
 @Component({
   selector: 'app-admin',
@@ -24,6 +25,8 @@ export class AdminComponent implements OnInit {
   modalRef: NgbModalRef;
   addMovieFlag = false;
   reviews: Review[];
+  criticApplications: CriticApplication[];
+
 
   constructor(private userService: RegUserService, private movieService: MovieService,
               private toastrService: ToastrService, private modalService: NgbModal) {
@@ -34,6 +37,7 @@ export class AdminComponent implements OnInit {
   ngOnInit() {
     this.getUsers();
     this.getAllReviews();
+    this.getAllCriticApplictions();
   }
 
   private getMovie(imdbId: string) {
@@ -150,6 +154,22 @@ export class AdminComponent implements OnInit {
     this.movieService.getAllReviews().subscribe(data => {
       console.log(data);
       this.reviews = data as Review[];
+    });
+  }
+
+  private getAllCriticApplictions() {
+    this.userService.getAllCriticApplications().subscribe(data => {
+      console.log(data);
+      this.criticApplications = data as CriticApplication[];
+    });
+  }
+
+  private verifyApplication(criticApplication: CriticApplication) {
+    const userId = criticApplication.id;
+    this.userService.verifyCriticApplications(userId).subscribe(data => {
+      this.criticApplications.splice(this.criticApplications.indexOf(criticApplication), 1);
+      console.log(this.criticApplications);
+      this.toastrService.success('SUCCESS');
     });
   }
 
