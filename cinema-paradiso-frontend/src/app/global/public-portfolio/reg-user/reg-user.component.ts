@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-reg-user-portfolio',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegUserPortfolioComponent implements OnInit {
 
-  constructor() { }
+  selectedUsername: string;
+
+  constructor(private route: ActivatedRoute) {
+    this.selectedUsername = route.snapshot.params['username'];
+  }
 
   ngOnInit() {
+    window.scroll(0, 0);
   }
 
 }

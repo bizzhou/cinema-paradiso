@@ -17,7 +17,7 @@ public class Review {
     private Calendar postedDate;
     private boolean isCriticReview;
     private String reviewContent;
-    private Double rating;             // TODO sync with UserRating.rating
+    private Double rating;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

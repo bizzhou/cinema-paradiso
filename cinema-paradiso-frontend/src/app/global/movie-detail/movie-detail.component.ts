@@ -143,7 +143,7 @@ export class MovieDetailComponent implements OnInit {
           this.movie.reviews = reviews as Review[];
           console.log(this.movie.reviews);
         }, error1 => {
-          this.toastrService.error('FAILED TO FETCH REVIEWS');
+          this.toastrService.error('Failed to fetch reviews');
         });
 
       },

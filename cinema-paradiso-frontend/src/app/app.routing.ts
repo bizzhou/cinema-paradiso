@@ -26,7 +26,7 @@ const appRoutes: Routes = [
   {path: 'admin', component: AdminComponent},
   {path: 'about', component: AboutComponent},
   {path: 'portfolio/critic', component: CriticPortfolioComponent},
-  {path: 'portfolio/user', component: RegUserPortfolioComponent},
+  {path: 'portfolio/:username', component: RegUserPortfolioComponent},
 ];
 
 @NgModule({
