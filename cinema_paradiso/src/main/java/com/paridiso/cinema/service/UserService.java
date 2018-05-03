@@ -42,19 +42,14 @@ public abstract class UserService {
     }
 
     public void forgotPassword(String email) {
-
         try {
-
             Mail mail = new Mail(email, "Reset Password - Cinema Paradiso"
                     , "Hello World");
             emailService.sendMessage(mail);
-
             // TODO: get an email server for sending emails
-
         } catch (MessagingException e) {
             e.printStackTrace();
         }
-
     }
 
 }

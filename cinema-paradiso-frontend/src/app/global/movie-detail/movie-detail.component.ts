@@ -246,5 +246,4 @@ export class MovieDetailComponent implements OnInit {
     this.categoriesService.setCurrentTab(tab);
   }
 
-
 }

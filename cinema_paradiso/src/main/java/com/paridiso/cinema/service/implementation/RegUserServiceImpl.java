@@ -44,6 +44,9 @@ public class RegUserServiceImpl extends UserService {
     MovieRepository movieRepository;
 
     @Autowired
+    CriticApplictionRepository criticApplictionRepository;
+
+    @Autowired
     ExceptionConstants exceptionConstants;
 
     @Autowired
@@ -111,6 +114,12 @@ public class RegUserServiceImpl extends UserService {
             user.setPassword(utilityService.getHashedPassword(newPassword, salt));
             return userRepository.save(user).getPassword() != null;
         }
+    }
+
+    @Transactional
+    public void saveCriticAppliction(Integer id, CriticApplication criticApplication) {
+        criticApplication.setUser(utilityService.getUser(id));
+        criticApplictionRepository.save(criticApplication);
     }
 
     public boolean checkUserNameTaken(String userName) {
