@@ -33,6 +33,12 @@ public interface MovieRepository extends JpaRepository<Movie, String> {
     @Query(value = "SELECT AVG(m.numOfCriticRatings) FROM Movie m")
     Double findAvgNumOfCriticRatings();
 
+    @Query(value = "SELECT AVG(m.regUserRating) FROM Movie m")
+    Double findAvgRegUserRatings();
+
+    @Query(value = "SELECT AVG(m.criticRating) FROM Movie m")
+    Double findAvgCriticRatings();
+
     Page<Movie> findTop20ByOrderByWeightedRankDesc(Pageable page);
 
 
