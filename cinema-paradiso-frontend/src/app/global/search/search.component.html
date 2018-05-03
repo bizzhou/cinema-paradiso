@@ -11,21 +11,20 @@
         <div class="container l-cards movie_results">
 
           <!-- selectors -->
-          <div class="row selector">
-            <div class="col-2"></div>
+          <div class="row selector" style="border: 1px solid white; width: 80%; margin-left: 10%;">
             <!-- dropdown -->
-              <div ngbDropdown class="d-inline-block col-8">
+              <div ngbDropdown class="d-inline-block col-10">
                 <span>Sort by </span><button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Relevance</button>
                 <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-item-wrap">
                   <button class="dropdown-item">Rating</button>
                   <button class="dropdown-item">Top Box Office</button>
-                  <button class="dropdown-item">Alphabetical</button>
                   <button class="dropdown-item">Release Date</button>
+                  <button class="dropdown-item">A - Z</button>
                 </div>
               </div>
 
             <!-- list/grid -->
-            <div class="col-1">
+            <div class="col-2">
               <a class="l-cards__more" (click)="setListView(true)"><i class="fa fa-list-ul"></i> </a>
               <a class="l-cards__more" (click)="setListView(false)"><i class="fa fa-th-large"></i> </a>
             </div>
@@ -34,11 +33,11 @@
           <div *ngIf="isListView">
             <div *ngFor="let movie of moviesResults">
             <div class="row s-item">
-              <div class="col-2"></div>
+              <div class="col-1"></div>
               <div class="col-2 s_img-wrap">
                 <img src={{movie?.poster}} alt="{{movie?.title}}">
               </div>
-              <div class="col-7">
+              <div class="col-8">
                 <a routerLink="/movie/{{movie.imdbId}}" class="s-item__title">{{movie?.title}}
                   ({{movie?.releaseDate.toString().substring(0, 4)}})</a>
 
@@ -53,12 +52,12 @@
                   <p> ({{movie?.numOfCriticRatings + movie?.numOfRegUserRatings}} Ratings)</p>
                 </div>
 
-                <p class="s-plot">{{movie?.plot.substring(0, 150)}}</p>
+                <p class="s-plot">{{movie?.plot.substring(0, 200)}}</p>
 
                 <div>
                   <p>
                     Starring
-                    <span *ngFor="let actor of movie.casts | slice:0:4" routerLink="/celebrity/{{actor?.celebrityId}}">
+                    <span *ngFor="let actor of movie.casts | slice:0:5" routerLink="/celebrity/{{actor?.celebrityId}}">
                       {{actor?.name}} ,
                     </span>
                   </p>

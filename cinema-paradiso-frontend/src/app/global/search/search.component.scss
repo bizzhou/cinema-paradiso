@@ -32,7 +32,7 @@ main{
 }
 // image wrap
 .s_img-wrap {
-  padding-left: 4em;
+  padding-left: 35px;
   img {
     height: 150px;
     width: auto;
@@ -122,14 +122,21 @@ p {
 
   .l-cards__more:first-of-type, .l-cards__more:last-of-type {
     cursor: pointer;
-    font-size: 16px
+    font-size: 18px;
+    padding-left:5px;
+    position: absolute;
+    right: 7%;
+    top: 5px;
+  }
+  .l-cards__more:first-of-type {
+    right: 30%;
   }
 
 }
 
 // grid view
 .l-cards__table {
-  margin-top: 0.6rem;
+  margin-top: 0.7em;
   padding: 0 20px;
   width: 90%;
   margin-left: 5%;
@@ -160,6 +167,7 @@ p {
 }
 
 .selector {
-  padding-left: 4em;
+  //padding-left: 4em;
+
 }
 

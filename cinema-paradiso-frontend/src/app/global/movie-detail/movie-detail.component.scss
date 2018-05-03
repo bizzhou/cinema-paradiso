@@ -215,7 +215,7 @@ main{
   span {
     margin-left: 1em;
     padding: 10px;
-    background-color: lighten(black, 7%);;
+    background-color: $main-background;
   }
 }
 .md-plot {

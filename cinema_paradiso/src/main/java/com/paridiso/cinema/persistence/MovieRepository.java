@@ -23,6 +23,12 @@ public interface MovieRepository extends JpaRepository<Movie, String> {
 
     Page<Movie> findMoviesByTitleContains(String filmTitle, Pageable pageable);
 
+    Page<Movie> findMoviesByTitleContainsOrderByTitleDesc(String filmTitle, Pageable pageable);
+
+    Page<Movie> findMoviesByTitleContainsOrderByCriticRatingDesc(String filmTitle, Pageable pageable);
+
+    Page<Movie> findMoviesByTitleContainsOrderByBoxOfficeDesc(String filmTitle, Pageable pageable);
+
     Page<Movie> findMoviesByReleaseDateBetweenOrderByBoxOfficeDesc(Calendar startDate, Calendar endDate, Pageable page);
 
     Set<Movie> findTop50ByOrderByNumOfRegUserRatingsDescRegUserRatingDesc();
@@ -41,6 +47,8 @@ public interface MovieRepository extends JpaRepository<Movie, String> {
 
     Page<Movie> findTop20ByOrderByWeightedRankDesc(Pageable page);
 
-
     Movie findTop1ByOrderByImdbIdDesc();
+
+
+
 }

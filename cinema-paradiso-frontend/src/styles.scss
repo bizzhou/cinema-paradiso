@@ -120,8 +120,11 @@ a{
 }
 .btn-outline-primary:focus, .btn-outline-primary:active,
 .btn-outline-primary:hover {
-  background-color: black;
+  background-color: black !important;
 }
 .dropdown-item-wrap {
   background-color: black;
+}
+.dropdown-item {
+  cursor: pointer;
 }

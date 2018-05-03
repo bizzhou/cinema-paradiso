@@ -28,6 +28,7 @@ export class SearchComponent implements OnInit {
   keyword: string;
 
   isListView = true;
+  moviesSortByRating: Movie[];
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -85,5 +86,8 @@ export class SearchComponent implements OnInit {
     this.isListView = isListView;
   }
 
+  sortMoviesByRating(movies: Movie[]): any {
+
+  }
 
 }
