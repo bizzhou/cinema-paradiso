@@ -71,6 +71,11 @@ export class RegUserComponent implements OnInit {
         } else {
           this.profile_url = AppConstant.API_ENDPOINT + '/user/avatar/' + profileDetails['profileImage'];
         }
+
+        // setters for another components to retrieve user information
+        // this.setUsername(this.profile.username);
+        // this.setProfileImage(this.profile.profileImage);
+
       });
     } else {
       this.router.navigateByUrl('home');
@@ -148,4 +153,14 @@ export class RegUserComponent implements OnInit {
     });
 
   }
+  //
+  // setProfileImage(profileImage: string) {
+  //   this.regUserService.setProfileImage(profileImage);
+  // }
+  //
+  // setUsername(username: string) {
+  //   this.regUserService.setUsername(username);
+  // }
+
+
 }

@@ -67,10 +67,11 @@ public class ReviewController {
             map.put("reviewId", review.getReviewId());
             map.put("title", review.getTitle());
             map.put("authorId", review.getAuthor().getId());
-            map.put("authorName", review.getAuthor().getName());
+            map.put("authorName", review.getAuthor().getUsername());
             map.put("criticReview", review.isCriticReview());
             map.put("postDate", review.getPostedDate());
             map.put("reviewContent", review.getReviewContent());
+            map.put("userRating", review.getRating());
             list.add(map);
         }
         return ResponseEntity.ok(list);

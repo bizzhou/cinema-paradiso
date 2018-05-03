@@ -37,7 +37,7 @@ $p-content: darken(white, 15%);
 }
 // reviews
 .testimonial{
-  //width: 100%;
+  width: 100%;
   img {
     width: 30px;
     height: 30px;
@@ -47,7 +47,7 @@ $p-content: darken(white, 15%);
 }
 .t_title {
   color: lighten(gray, 20%) !important;
-  margin-top: -5px !important;
+  //margin-top: -5px !important;
 
   h6 {
     font-size: 14px;

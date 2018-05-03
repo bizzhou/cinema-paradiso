@@ -51,8 +51,6 @@ export class CategoriesComponent implements OnInit {
   // click on tab, get corresponding movies and page header
   setCurrentTab(tab: string) {
 
-    console.log('fetching ' + tab);
-
     switch (tab) {
       case this.sidebarEnum.moviesPlaying: {
         this.getMoviesPlaying();
@@ -158,8 +156,6 @@ export class CategoriesComponent implements OnInit {
           this.currentMovies = this.moviesPlaying;
           this.numOfCurrentMovies = this.numOfMoviesPlayingPages;
 
-          console.log(this.moviesPlaying);
-          console.log(this.numOfMoviesPlayingPages);
           localStorage.setItem('nowPlaying', JSON.stringify(this.moviesPlaying));
         },
         error => console.log('Failed to fetch movies playing')
@@ -178,8 +174,6 @@ export class CategoriesComponent implements OnInit {
           this.currentMovies = this.moviesTopBoxOffice;
           this.numOfCurrentMovies = this.numOfMoviesPlayingPages;
 
-          console.log(this.moviesTopBoxOffice);
-          console.log(this.numOfMoviesTopBoxOffice);
           localStorage.setItem('topBoxOffice', JSON.stringify(this.moviesTopBoxOffice));
         },
         error => console.log('Failed to fetch movies with top box office')
@@ -198,7 +192,6 @@ export class CategoriesComponent implements OnInit {
           this.currentMovies = this.moviesComingSoon;
           this.numOfCurrentMovies = this.numOfMoviesComingSoon;
 
-          console.log(this.moviesComingSoon);
           localStorage.setItem('comingSoon', JSON.stringify(this.moviesComingSoon));
         },
         error => console.log('Failed to fetch movies coming soon')
@@ -216,7 +209,6 @@ export class CategoriesComponent implements OnInit {
           this.currentMovies = this.moviesTopRated;
           this.numOfCurrentMovies = this.numofMoviesTopRated;
 
-          console.log(this.moviesTopRated);
           localStorage.setItem('topRated', JSON.stringify(this.moviesTopRated));
         },
         error => console.log('Failed to fetch movies top rated')
@@ -233,7 +225,6 @@ export class CategoriesComponent implements OnInit {
           this.currentMovies = this.moviesTrending;
           this.numOfCurrentMovies = this.numOfMoviesTrending;
 
-          console.log(this.moviesTrending);
           localStorage.setItem('movieTrending', JSON.stringify(this.moviesTrending));
         },
         error => console.log('Failed to fetch movies trending')

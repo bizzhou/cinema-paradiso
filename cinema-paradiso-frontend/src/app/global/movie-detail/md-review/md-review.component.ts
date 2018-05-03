@@ -1,6 +1,7 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Review} from '../../models/review.model';
 import {AppConstant} from '../../../app.constant';
+import {RegUserService} from "../../../user/reg-user/reg-user.service";
 
 @Component({
     selector: 'app-md-review',
@@ -47,5 +48,7 @@ export class MdReviewComponent implements OnInit, OnChanges {
         }
 
     }
+
+
 
 }

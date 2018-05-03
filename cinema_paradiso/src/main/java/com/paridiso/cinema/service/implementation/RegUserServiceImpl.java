@@ -61,6 +61,7 @@ public class RegUserServiceImpl extends UserService {
         user.setUserProfile(userProfileRepository.save(new UserProfile()));
 
         // create a new wish list/ watch list
+        user.getUserProfile().setUsername(user.getUsername());
         user.getUserProfile().setCritic(false);
         user.getUserProfile().setWishList(wishListRepository.save(new WishList()));
         user.getUserProfile().setNotInterestedList(notInterestedListRepository.save(new NotInterestedList()));

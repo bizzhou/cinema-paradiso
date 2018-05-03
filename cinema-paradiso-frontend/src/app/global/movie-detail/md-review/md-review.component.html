@@ -79,13 +79,8 @@
                         [defaultImage]="'../../../../assets/images/default_profile.png'"
                              [lazyLoad]="review?.authorImage"/>
 
-                        <!--src="{{review?.authorImage}}"-->
-                        <!--alt="user"-->
-
-
-                        <!--TODO: USERNAME rated USER_RATING on RATED_DATE-->
                         <h6>
-                            <a routerLink="/portfolio/user">{{review.authorName}}</a> rated
+                            <a routerLink="/portfolio/user">{{review.authorName}}</a> rated {{review.userRating}}
                             <span>
               <i class="fa fa-star"></i>
               <i class="fa fa-star"></i>
@@ -93,7 +88,7 @@
               <i class="fa fa-star"></i>
               <i class="fa fa-star"></i>
             </span>
-                            on {{review.postedDate | date}}
+                            on {{review.postDate | date  }}
                         </h6>
 
                         <div class="t_buttons">
@@ -106,7 +101,6 @@
                         <h6 class="content_title"><a>{{review.title}} </a></h6>
                         <p class="content_text">
                             {{review.reviewContent}}
-                            <a class="t_full-text">(Expand)</a>
                         </p>
 
                     </div>

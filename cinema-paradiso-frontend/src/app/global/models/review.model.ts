@@ -3,15 +3,16 @@ import {Movie} from './movie.model';
 export class Review {
   reviewId: number;
   authorId: number;
+
   authorName: string;
   criticReview: boolean;
   likeCount: number;
-  postedDate: Date;
+  postDate: Date;
   reviewContent: string;
   title: string;
-  // movie: Movie;
   imdbId: string;
-  // authorImage: string;
+  authorImage: string;
+  userRating: number;
 
   constructor(values: Object = {}) {
     Object.assign(this, values);

@@ -14,7 +14,7 @@ import {RegUserService} from '../../user/reg-user/reg-user.service';
   selector: 'app-movie-detail',
   templateUrl: './movie-detail.component.html',
   styleUrls: ['./movie-detail.component.scss'],
-  providers: [CategoriesService]
+  providers: []
 })
 export class MovieDetailComponent implements OnInit {
 
@@ -29,6 +29,9 @@ export class MovieDetailComponent implements OnInit {
   trailer: string;
   listMovieStatusEnum = ListMovieStatus;
   sidebarEnum = Sidebar;
+
+  currentUsername: string;
+  currentProfileImage: string;
 
   constructor(private movieService: MovieService,
               private loginStatusService: LoginStatusService,
@@ -53,23 +56,26 @@ export class MovieDetailComponent implements OnInit {
 
     if (this.loggedInFlag) {
       this.getCustomMovie(this.selectedMovieId);
+      this.currentUsername = JSON.parse(localStorage.getItem('credential'))['username'];
+
     } else {
       this.getMovie(this.selectedMovieId);
     }
-
   }
 
 
   addReview() {
     this.review.imdbId = this.selectedMovieId;
+
+    // this.review.authorImage = this.getCurrentUserProfileImage();
     this.movieService.addReview(this.review).subscribe(data => {
-      this.toastrService.success('SUCCESS');
+      this.toastrService.success('Review added');
       this.movie.reviews.push(data as Review);
 
       // update the object reference so Input can reload.
       this.movie.reviews = this.movie.reviews.slice();
     }, error1 => {
-      this.toastrService.error(error1['error']['message']);
+      this.toastrService.error('You\'ve reviewed');
     });
   }
 
@@ -92,7 +98,7 @@ export class MovieDetailComponent implements OnInit {
           this.movie.criticRating = parseFloat(newRating.toString());
         }
 
-        this.toastrService.success('SUCCESS, new rating:' + newRating);
+        this.toastrService.success('Rated:' + newRating);
 
       }, error1 => {
 
@@ -108,10 +114,10 @@ export class MovieDetailComponent implements OnInit {
               this.movie.criticRating = parseFloat(newRating.toString());
             }
 
-            this.toastrService.success('You have edited your previous rating, new Rating: ' +
+            this.toastrService.success('Rated: ' +
               newRating);
           }, error2 => {
-            this.toastrService.error('FAILED TO CHANGE YOUR PREVIOUS RATING');
+            this.toastrService.error('Failed to change your rating');
           });
         } else {
           this.toastrService.error(error1['error']['message']);
@@ -120,7 +126,7 @@ export class MovieDetailComponent implements OnInit {
       });
 
     } else {
-      this.toastrService.error('PLEASE LOGIN TO PERFORM THIS ACTION');
+      this.toastrService.error('Please log in!');
     }
 
   }
@@ -129,12 +135,9 @@ export class MovieDetailComponent implements OnInit {
     this.movieService.getMovieDetails(imdbId).subscribe(data => {
         this.movie = data as Movie;
 
-        console.log(this.movie);
-
         // const shrinked_photo = this.movie.photos.map(ele => this.shrinkPhoto(ele));
         // this.movie.photos = shrinked_photo;
         this.trailer = `../../../assets/trailers/${this.movie.imdbId}.mp4`;
-
 
         this.movieService.getMovieReviews(this.selectedMovieId).subscribe(reviews => {
           this.movie.reviews = reviews as Review[];
@@ -152,16 +155,14 @@ export class MovieDetailComponent implements OnInit {
     this.movieService.getCustomMovieDetails(imdbId).subscribe(data => {
         this.movie = data as Movie;
 
-        console.log(this.movie);
         this.trailer = `../../../assets/trailers/${this.movie.imdbId}.mp4`;
 
         this.movieService.getMovieReviews(this.selectedMovieId).subscribe(reviews => {
           this.movie.reviews = reviews as Review[];
           console.log(this.movie.reviews);
         }, error1 => {
-          this.toastrService.error('FAILED TO FETCH REVIEWS');
+          this.toastrService.error('Failed to fetch reviews');
         });
-
       },
       error => console.log('Failed to fetch movie with id')
     );
@@ -173,13 +174,12 @@ export class MovieDetailComponent implements OnInit {
 
   addToWishList(movie: Movie) {
     if (movie.listMovieStatus === this.listMovieStatusEnum.NOT_INTERESTED_LIST) {
-      this.toastr.error('Already in Not Interested List');
+      this.toastr.error('Already in Uninterested List');
     } else {
       this.regUserService.addToWishList(movie.imdbId)
         .subscribe(
           data => {
             movie.listMovieStatus = this.listMovieStatusEnum.WISHLIST;
-            console.log('Added movie ' + movie.imdbId + ' to wish list');
           },
           error => {
             this.toastr.error('Please Login!');
@@ -194,7 +194,6 @@ export class MovieDetailComponent implements OnInit {
       .subscribe(
         data => {
           movie.listMovieStatus = this.listMovieStatusEnum.NONE;
-          console.log('Removed movie ' + movie.imdbId + ' from wish list');
         },
         error => {
           this.toastr.error('Please Login!');
@@ -211,7 +210,6 @@ export class MovieDetailComponent implements OnInit {
         .subscribe(
           data => {
             movie.listMovieStatus = this.listMovieStatusEnum.NOT_INTERESTED_LIST;
-            console.log('Added movie ' + movie.imdbId + ' to not interested list');
           },
           error => {
             this.toastr.error('Please Login!');
@@ -226,7 +224,6 @@ export class MovieDetailComponent implements OnInit {
       .subscribe(
         data => {
           movie.listMovieStatus = this.listMovieStatusEnum.NONE;
-          console.log('Removed movie ' + movie.imdbId + ' from not interested list');
         },
         error => {
           this.toastr.error('Please Login!');
@@ -246,6 +243,14 @@ export class MovieDetailComponent implements OnInit {
   setCurrentTab(tab) {
     this.categoriesService.setCurrentTab(tab);
   }
+  //
+  // getCurrentUsername() {
+  //   return this.regUserService.getUsername();
+  // }
+  //
+  // getCurrentUserProfileImage(): any {
+  //   return this.regUserService.getProfileImage();
+  // }
 
 
 }

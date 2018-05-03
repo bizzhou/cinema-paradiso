@@ -108,16 +108,16 @@
 
 
             <div class="col-rate">
-              <!-- style not interested list accordingly -->
+              <!-- style uninterested list accordingly -->
               <button *ngIf="movie.listMovieStatus !== listMovieStatusEnum.NOT_INTERESTED_LIST;else removeFromNotInterested"
                       (click)="addToNotInterestedList(movie)"
                       class="o-button color-gray">
-                <i class="fa fa-plus"></i> Not interested
+                <i class="fa fa-plus"></i> Uninterested
               </button>
               <ng-template #removeFromNotInterested>
                 <button (click)="removeFromNotInterestedList(movie)"
                         class="o-button color-red">
-                  <i class="fa fa-minus"></i> Not interested
+                  <i class="fa fa-minus"></i> Uninterested
                 </button>
               </ng-template>
 
@@ -138,7 +138,6 @@
               <app-stars [readonly]="ngbRatingReadOnly" [currentRate]="currentRating"
                          (eventEmitter)="ratingOperations($event)"></app-stars>
 
-              <!--TODO: post review here-->
               <form>
                 <input placeholder="Review title" [(ngModel)]="review.title" name="review_title">
                 <textarea placeholder="What do you think about this movie?" [(ngModel)]="review.reviewContent"

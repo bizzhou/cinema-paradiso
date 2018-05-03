@@ -1,19 +1,19 @@
 package com.paridiso.cinema.service.implementation;
 
 import com.paridiso.cinema.constants.ExceptionConstants;
-import com.paridiso.cinema.entity.Movie;
-import com.paridiso.cinema.entity.Review;
-import com.paridiso.cinema.entity.User;
-import com.paridiso.cinema.entity.UserProfile;
+import com.paridiso.cinema.entity.*;
 import com.paridiso.cinema.entity.enumerations.Role;
 import com.paridiso.cinema.persistence.MovieRepository;
 import com.paridiso.cinema.persistence.ReviewRepository;
 import com.paridiso.cinema.persistence.UserProfileRepository;
+import com.paridiso.cinema.persistence.UserRatingRepository;
+import com.paridiso.cinema.service.FilmService;
 import com.paridiso.cinema.service.ReviewService;
 import com.paridiso.cinema.service.UtilityService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -32,6 +32,10 @@ public class ReviewServiceImpl implements ReviewService {
     MovieRepository movieRepository;
 
     @Autowired
+    @Qualifier("MovieServiceImpl")
+    FilmService filmService;
+
+    @Autowired
     UtilityService utilityService;
 
     @Autowired
@@ -42,6 +46,9 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Autowired
     ExceptionConstants exceptionConstants;
+
+    @Autowired
+    UserRatingRepository userRatingRepository;
 
     private static final Logger logger = LogManager.getLogger(ReviewServiceImpl.class);
 
@@ -66,10 +73,12 @@ public class ReviewServiceImpl implements ReviewService {
         if (reviewRepository.findReviewByMovieAndAuthor(movie, user.getUserProfile()).isPresent()) {
             throw new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getReviewExists());
         }
+
         review.setAuthor(user.getUserProfile());
         review.setPostedDate(Calendar.getInstance());
         review.setMovie(movie);
         review.setCriticReview(user.getUserProfile().getCritic());
+        review.setRating(this.getRating(movieId, user.getUserProfile().getId()));
         return reviewRepository.save(review);
     }
 
@@ -125,5 +134,14 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public boolean detectBadReview(Review review) {
         return false;
+    }
+
+    private Double getRating(String filmId, Integer userProfileId) {
+        Movie movie = filmService.getFilm(filmId);
+        UserProfile userProfile = utilityService.getUserProfile(userProfileId);
+        UserRating userRating = userRatingRepository.findUserRatingsByUserAndRatedMovie(userProfile, movie)
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserRatingNotExists()));
+
+        return userRating.getUserRating();
     }
 }

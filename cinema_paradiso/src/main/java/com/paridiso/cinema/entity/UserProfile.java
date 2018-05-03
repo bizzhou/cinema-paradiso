@@ -10,7 +10,8 @@ import java.util.List;
 public class UserProfile {
 
     private Integer id;
-    private String name;
+    private String name;            // real name
+    private String username;        // same as User.username
     private String profileImage;
     private String biography;
     private Boolean isCritic;
@@ -151,5 +152,13 @@ public class UserProfile {
                 ", likedReviews=" + likedReviews +
                 ", userRatings=" + userRatings +
                 '}';
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

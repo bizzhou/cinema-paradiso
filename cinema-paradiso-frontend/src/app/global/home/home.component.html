@@ -67,13 +67,13 @@
                 <button *ngIf="carouselSlide.movie.listMovieStatus !== listMovieStatusEnum.NOT_INTERESTED_LIST"
                         (click)="addToNotInterestedList(carouselSlide.movie)"
                   class="o-button color-gray">
-                  <i class="fa fa-plus"></i> Not interested
+                  <i class="fa fa-plus"></i> Uninterested
                 </button>
 
                 <button *ngIf="carouselSlide.movie.listMovieStatus === listMovieStatusEnum.NOT_INTERESTED_LIST"
                         (click)="removeFromNotInterestedList(carouselSlide.movie)"
                         class="o-button color-red">
-                  <i class="fa fa-minus"></i> Not interested
+                  <i class="fa fa-minus"></i> Uninterested
                 </button>
 
 

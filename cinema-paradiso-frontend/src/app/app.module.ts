@@ -94,6 +94,7 @@ import {RegUserService} from './user/reg-user/reg-user.service';
     HomeService,
     MovieService,
     RegUserService,
+    CategoriesService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,
