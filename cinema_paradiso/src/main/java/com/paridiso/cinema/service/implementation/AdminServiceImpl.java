@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -61,12 +62,15 @@ public class AdminServiceImpl extends UserService {
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserNotFound()));
     }
 
+    @Transactional
     public void makeCritic(Integer userID) {
         User user = utilityService.getUser(userID);
         user.getUserProfile().setCritic(true);
+        user.setRole(Role.ROLE_CRITIC);
         CriticApplication criticApplication = criticApplicationRepository
                 .findByUser(user).orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getAppNotFound()));
         criticApplication.setApproved(true);
+        userRepository.save(user);
         userProfileRepository.save(user.getUserProfile());
         criticApplicationRepository.save(criticApplication);
     }
