@@ -184,7 +184,7 @@ public class RegUserController {
         criticApplication.setApproved(false);
         criticApplication.setReason(reason);
         userService.saveCriticAppliction(jwtTokenService.getUserIdFromToken(jwtToken), criticApplication);
-        return ResponseEntity.ok("SUCCESS");
+        return ResponseEntity.ok(true);
     }
 
 }

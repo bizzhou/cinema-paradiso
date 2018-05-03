@@ -52,6 +52,20 @@
             <textarea [(ngModel)]="profile.biography" name="biography">{{profile.biography}}</textarea>
           </div>
           <button class="c-update-btn" (click)="updateProfile()">Update profile</button>
+
+          <div *ngIf="profile.isCritic == false">
+            <br>
+            <br>
+            <h5 class="c-header">Critic Application</h5>
+
+            <div class="c-inputs">
+              <label>Reasons:</label>
+              <textarea [(ngModel)]="reason" name="reason"></textarea>
+            </div>
+
+            <button class="c-update-btn" (click)="submitCriticApplication(reason)">Submit</button>
+          </div>
+
         </section>
 
         <!--wish list-->

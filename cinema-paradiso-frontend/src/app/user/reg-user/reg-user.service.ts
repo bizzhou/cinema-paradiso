@@ -73,4 +73,8 @@ export class RegUserService {
   }
 
 
+  applyForCritc(reason: string) {
+    const params = new HttpParams().set('reason', reason);
+    return this.http.post(AppConstant.API_ENDPOINT + `user/submit/critic_application`, params);
+  }
 }
