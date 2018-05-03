@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {RegUserService} from '../reg-user/reg-user.service';
 import {MovieService} from '../../global/movie-detail/movie.service';
 import {Movie} from '../../global/models/movie.model';
