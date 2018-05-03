@@ -98,7 +98,7 @@ export class MovieDetailComponent implements OnInit {
           this.movie.criticRating = parseFloat(newRating.toString());
         }
 
-        this.toastrService.success('Rated:' + newRating);
+        this.toastrService.success('New rating:' + newRating);
 
       }, error1 => {
 
@@ -114,7 +114,7 @@ export class MovieDetailComponent implements OnInit {
               this.movie.criticRating = parseFloat(newRating.toString());
             }
 
-            this.toastrService.success('Rated: ' +
+            this.toastrService.success('New rating: ' +
               newRating);
           }, error2 => {
             this.toastrService.error('Failed to change your rating');

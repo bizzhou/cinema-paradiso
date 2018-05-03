@@ -6,10 +6,8 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 @Injectable()
 export class RegUserService {
 
-  private username: BehaviorSubject<string> = new BehaviorSubject<string>(null);
-  // currentUser = this.username.asObservable();
-
-  private profileImage: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+  // private username: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+  // private profileImage: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
   constructor(private http: HttpClient) {
   }
@@ -68,21 +66,9 @@ export class RegUserService {
   getAllUsers() {
     return this.http.get(AppConstant.API_ENDPOINT + `admin/get/users`);
   }
-  //
-  // getUsername() {
-  //   return this.username.getValue();
-  // }
-  //
-  // setUsername(newUsername: string) {
-  //   this.username.next(newUsername);
-  // }
-  //
-  // getProfileImage() {
-  //   return this.profileImage.getValue();
-  // }
-  //
-  // setProfileImage(newProfileImage: any) {
-  //   this.profileImage.next(newProfileImage);
-  // }
+
+  getPublicProfile(username: string) {
+    return this.http.get(AppConstant.API_ENDPOINT + `user/get/publicProfile`);
+  }
 
 }

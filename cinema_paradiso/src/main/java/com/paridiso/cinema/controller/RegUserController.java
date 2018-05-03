@@ -126,6 +126,10 @@ public class RegUserController {
         return ResponseEntity.ok(objectObjectHashMap);
     }
 
+    @GetMapping(value = "/get/publicProfile")
+    public ResponseEntity<?> getProfileByUsername(@RequestParam String username) {
+        return new ResponseEntity<Object>(userService.getProfileByUsername(username), HttpStatus.OK);
+    }
 
     @GetMapping(value = "/avatar/{fileName}", produces = MediaType.IMAGE_JPEG_VALUE)
     public ResponseEntity<byte[]> getAvatar(@PathVariable String fileName) throws IOException {

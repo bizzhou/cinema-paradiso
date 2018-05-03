@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -134,6 +135,38 @@ public class RegUserServiceImpl extends UserService {
         return userProfile;
     }
 
+    public HashMap<Object, Object> getProfileByUsername(String username) {
+        UserProfile userProfile = userProfileRepository.findByUsername(username)
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserNotFound()));
+
+        HashMap<Object, Object> objectObjectHashMap = new HashMap<>();
+
+        // general: profile image, account status
+        if (userProfile.getProfileImage() == null)
+            objectObjectHashMap.put("profileImage", "default.jpeg");
+        else
+            objectObjectHashMap.put("profileImage", userProfile.getProfileImage());
+
+        if (userProfile.getCritic() == null || !userProfile.getCritic())
+            objectObjectHashMap.put("isCritic", false);
+        else
+            objectObjectHashMap.put("isCritic", true);
+
+        // if not private, put everything
+        if (userProfile.getPrivate() == null || !userProfile.getPrivate()) {
+            objectObjectHashMap.put("biography", userProfile.getBiography());
+            objectObjectHashMap.put("isCritic", userProfile.getCritic());
+            objectObjectHashMap.put("wishList", userProfile.getWishList().getMovies());
+            objectObjectHashMap.put("notInterestedList", userProfile.getNotInterestedList().getMovies());
+            objectObjectHashMap.put("userRatings", getUserRatings(userProfile.getId()));
+            return objectObjectHashMap;
+        }
+
+        objectObjectHashMap.put("isPrivate", true);
+        return objectObjectHashMap;
+
+    }
+
 
     public User getUser(Integer id) {
         return userRepository.findById(id)
@@ -144,6 +177,7 @@ public class RegUserServiceImpl extends UserService {
         return userProfileRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserNotFound() + id));
     }
+
 
 
     public List<UserRating> getUserRatings(Integer userProfileId) {
