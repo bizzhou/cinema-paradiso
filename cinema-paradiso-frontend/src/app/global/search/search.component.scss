@@ -120,15 +120,9 @@ p {
     font-weight: 400;
   }
 
-  .l-cards__more:first-of-type {
-    position: absolute;
-    right: 4.5%;
-    font-size: 1.1em;
-  }
-  .l-cards__more:last-of-type {
-    position: absolute;
-    right: 0;
-    font-size: 1.1em;
+  .l-cards__more:first-of-type, .l-cards__more:last-of-type {
+    cursor: pointer;
+    font-size: 16px
   }
 
 }
@@ -164,3 +158,8 @@ p {
   }
 
 }
+
+.selector {
+  padding-left: 4em;
+}
+
