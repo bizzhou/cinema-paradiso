@@ -111,3 +111,17 @@ a{
   }
 
 }
+
+// search page
+.d-inline-block span, .btn-outline-primary, .dropdown-item {
+  font-size: 14px;
+  color: white;
+  border: none;
+}
+.btn-outline-primary:focus, .btn-outline-primary:active,
+.btn-outline-primary:hover {
+  background-color: black;
+}
+.dropdown-item-wrap {
+  background-color: black;
+}

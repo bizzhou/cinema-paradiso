@@ -27,6 +27,7 @@ export class SearchComponent implements OnInit {
   tvResults: Movie[];
   keyword: string;
 
+  isListView = true;
 
   ngOnInit() {
     this.route.params.subscribe((params: Params) => {
@@ -80,6 +81,9 @@ export class SearchComponent implements OnInit {
     });
   }
 
+  setListView(isListView: boolean) {
+    this.isListView = isListView;
+  }
 
 
 }

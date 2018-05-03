@@ -8,8 +8,30 @@
       </ng-template>
 
       <ng-template ngbTabContent>
-        <div class="container movie_results">
-          <div *ngFor="let movie of moviesResults">
+        <div class="container l-cards movie_results">
+
+          <!-- selectors -->
+          <div class="row selector">
+
+            <!-- dropdown -->
+              <div ngbDropdown class="d-inline-block">
+                <span>Sort by </span><button class="btn btn-outline-primary" id="dropdownBasic1" ngbDropdownToggle>Popularity</button>
+                <div ngbDropdownMenu aria-labelledby="dropdownBasic1" class="dropdown-item-wrap">
+                  <button class="dropdown-item">Action - 1</button>
+                  <button class="dropdown-item">Another Action</button>
+                  <button class="dropdown-item">Something else is here</button>
+                </div>
+              </div>
+
+            <!-- list/grid -->
+            <div>
+              <a class="col-1 l-cards__more" (click)="setListView(true)"><i class="fa fa-list-ul"></i> </a>
+              <a class="col-1 l-cards__more" (click)="setListView(false)"><i class="fa fa-th-large"></i> </a>
+            </div>
+          </div>
+
+          <div *ngIf="isListView">
+            <div *ngFor="let movie of moviesResults">
             <div class="row s-item">
               <div class="col-1"></div>
               <div class="col-3 s_img-wrap">
@@ -25,8 +47,9 @@
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
-                  <p>{{movie?.rating}}/5.0</p>
-                  <p>{{movie?.rated}}</p>
+                  <p>{{movie?.criticRating}}/5.0</p>
+                  <!--<p>{{movie?.rated}}</p>-->
+                  <p> ({{movie?.numOfCriticRatings + movie?.numOfRegUserRatings}} Ratings)</p>
                 </div>
 
                 <p class="s-plot">{{movie?.plot}}</p>
@@ -54,6 +77,16 @@
               </div>
             </div>
           </div>
+          </div>
+          <!-- grid view-->
+          <ul *ngIf="!isListView" class="row l-cards__table">
+
+            <li  *ngFor="let movie of moviesResults"  class="col-3 l-cards__item">
+              <a routerLink="/movie/{{movie?.imdbId}}" class="l-cards__image fill"><img [src]="movie?.poster"></a>
+              <a href="/movie/{{movie?.imdbId}}" class="l-cards__text">{{movie?.title.substring(0, 20)}} <i class="item__rating"> {{movie?.criticRating}}</i></a>
+            </li>
+
+          </ul>
         </div>
 
         <ngb-pagination class="d-flex justify-content-center" [collectionSize]="movieNumberOfPages" [maxSize]=10
@@ -61,6 +94,7 @@
       </ng-template>
     </ngb-tab>
 
+    <!-- Celebrities tab -->
     <ngb-tab>
       <ng-template ngbTabTitle>
         <i class="fa fa-user"></i> Celebrities
@@ -98,6 +132,7 @@
 
     </ngb-tab>
 
+    <!-- TVs -->
     <ngb-tab>
       <ng-template ngbTabTitle>
         <i class="fa fa-tv"></i> TV-Series
@@ -124,7 +159,7 @@
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
                   <i class="fa fa-star"></i>
-                  <p>{{movie?.rating}}/5.0</p>
+                  <p>{{movie?.criticRating}}/5.0</p>
                   <p>{{movie?.rated}}</p>
                 </div>
 
