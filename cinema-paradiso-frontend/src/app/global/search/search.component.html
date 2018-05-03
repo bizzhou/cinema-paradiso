@@ -33,8 +33,8 @@
           <div *ngIf="isListView">
             <div *ngFor="let movie of moviesResults">
             <div class="row s-item">
-              <div class="col-1"></div>
-              <div class="col-3 s_img-wrap">
+              <div class="col-2"></div>
+              <div class="col-2 s_img-wrap">
                 <img src={{movie?.poster}} alt="{{movie?.title}}">
               </div>
               <div class="col-7">
@@ -52,12 +52,12 @@
                   <p> ({{movie?.numOfCriticRatings + movie?.numOfRegUserRatings}} Ratings)</p>
                 </div>
 
-                <p class="s-plot">{{movie?.plot}}</p>
+                <p class="s-plot">{{movie?.plot.substring(0, 150)}}</p>
 
                 <div>
                   <p>
                     Starring
-                    <span *ngFor="let actor of movie.casts | slice:0:5" routerLink="/celebrity/{{actor?.celebrityId}}">
+                    <span *ngFor="let actor of movie.casts | slice:0:4" routerLink="/celebrity/{{actor?.celebrityId}}">
                       {{actor?.name}} ,
                     </span>
                   </p>
@@ -66,13 +66,6 @@
                 <p>
                   Director
                   <span routerLink="/celebrity/{{movie?.director.celebrityId}}">{{movie?.director.name}}</span>
-                </p>
-                <p>
-                  Genres
-                  <span *ngFor="let genre of movie?.genres | slice: 0:5" class="c-genres"
-                        style="text-transform: lowercase">
-                  {{genre}},
-                </span>
                 </p>
               </div>
             </div>

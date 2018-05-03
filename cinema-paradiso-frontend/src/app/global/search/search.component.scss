@@ -34,7 +34,7 @@ main{
 .s_img-wrap {
   padding-left: 4em;
   img {
-    height: 200px;
+    height: 150px;
     width: auto;
   }
 
@@ -48,7 +48,7 @@ main{
 }
 
 .s-plot {
-  margin: 5px 0;
+  margin: 4px 0;
 }
 p {
   font-size: 14px;
@@ -121,13 +121,13 @@ p {
   }
 
   .l-cards__more:first-of-type {
-    //position: absolute;
-    //right: 4.5%;
+    position: absolute;
+    right: 4.5%;
     font-size: 1.1em;
   }
   .l-cards__more:last-of-type {
-    //position: absolute;
-    //right: 0;
+    position: absolute;
+    right: 0;
     font-size: 1.1em;
   }
 
