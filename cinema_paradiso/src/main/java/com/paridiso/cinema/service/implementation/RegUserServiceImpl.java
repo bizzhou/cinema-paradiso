@@ -164,6 +164,7 @@ public class RegUserServiceImpl extends UserService {
             objectObjectHashMap.put("wishList", userProfile.getWishList().getMovies());
             objectObjectHashMap.put("notInterestedList", userProfile.getNotInterestedList().getMovies());
             objectObjectHashMap.put("userRatings", getUserRatings(userProfile.getId()));
+            objectObjectHashMap.put("userReviews", userProfile.getReviews());
             return objectObjectHashMap;
         }
         objectObjectHashMap.put("isPrivate", true);
@@ -181,8 +182,6 @@ public class RegUserServiceImpl extends UserService {
         return userProfileRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserNotFound() + id));
     }
-
-
 
     public List<UserRating> getUserRatings(Integer userProfileId) {
         List<UserRating> userRatings = getUserProfile(userProfileId).getUserRatings();

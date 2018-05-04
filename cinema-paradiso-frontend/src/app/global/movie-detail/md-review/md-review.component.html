@@ -24,7 +24,7 @@
                               <i class="fa fa-star"></i>
                               <i class="fa fa-star"></i>
                             </span>
-                            on {{criticReview.postedDate | date}}
+                            on {{criticReview.postDate | date}}
                         </h6>
 
                         <div class="t_buttons">
@@ -80,7 +80,7 @@
                              [lazyLoad]="review?.authorImage"/>
 
                         <h6>
-                            <a routerLink="/portfolio/{{review.authorName}}">{{review.authorName}}</a> rated {{review.userRating}}
+                            <a routerLink="/portfolio/{{review.authorName}}">{{review.authorName}}</a> rated {{review.userRating}}.0
                             <span>
               <i class="fa fa-star"></i>
               <i class="fa fa-star"></i>
@@ -88,7 +88,7 @@
               <i class="fa fa-star"></i>
               <i class="fa fa-star"></i>
             </span>
-                            on {{review.postDate | date  }}
+                            on {{review.postedDate | date  }}
                         </h6>
 
                         <div class="t_buttons">

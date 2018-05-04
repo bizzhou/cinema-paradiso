@@ -38,12 +38,8 @@ $p-content: darken(white, 15%);
 // reviews
 .testimonial{
   width: 100%;
-  img {
-    width: 30px;
-    height: 30px;
-    display: inline;
-    margin-top: 5px;
-  }
+
+
 }
 .t_title {
   color: lighten(gray, 20%) !important;
@@ -92,7 +88,7 @@ $p-content: darken(white, 15%);
   }
 
   .content_text {
-    margin-top: -5px;
+    margin-top: -20px;
     color: $p-content;
     //display: inline;
     white-space: pre-line;

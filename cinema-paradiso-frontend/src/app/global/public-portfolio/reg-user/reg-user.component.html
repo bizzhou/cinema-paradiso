@@ -38,30 +38,45 @@
 
     </div>
 
+    <!-- uninterested list-->
+    <div class="row portfolio">
+      <h5 class="p_header"><span>{{publicProfile.username}}'s uninterested list</span></h5>
+
+      <div class="container">
+        <div class="row">
+          <div *ngFor="let movie of publicProfile.notInterestedList" class="col-2 r_wishlist">
+            <img [src]="movie.poster" [alt]="movie.title">
+            <p class="wishlist--title">{{movie.title}}</p>
+            <i class="wishlist--rating">{{movie.criticRating}}/5.0</i>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
     <!--Latest reviews-->
     <div class="row portfolio">
-      <h5 class="p_header"><span>Bin's reviews</span></h5>
+      <h5 class="p_header"><span>{{publicProfile.username}}'s reviews</span></h5>
 
       <div class="container reviews">
-        <!--TODO: display 3 rows only-->
-        <div class="row">
-          <div class="col-2 r_img-wrap">
-            <!--TODO: movie poster here-->
-            <img src="https://images-na.ssl-images-amazon.com/images/M/MV5BNzA1Njg4NzYxOV5BMl5BanBnXkFtZTgwODk5NjU3MzI@._V1_SX300.jpg" alt="poster">
-          </div>
-          <div class="col-10 testimonial">
+        <div *ngFor="let review of publicProfile.userReviews" class="row">
+          <!--<div class="col-2">-->
+            <!--<img [src]="review.movie.poster" alt="poster">-->
+          <!--</div>-->
+          <div class="col-12 testimonial">
             <div class="t_title">
-              <!--TODO: USERNAME rated MOVIE_NAME USER_RATING on RATED_DATE-->
               <h6>
-                Bin rated <i class="r_movie--title">Blade Runner 2049</i>
+                <a class="r_movie--title" routerLink="/movie/{{review.movie.imdbId}}">{{review.movie.title}}</a>
                 <span>
               <i class="fa fa-star"></i>
               <i class="fa fa-star"></i>
               <i class="fa fa-star"></i>
               <i class="fa fa-star"></i>
               <i class="fa fa-star"></i>
+                  <i style="margin-left: 5px">{{review.userRating}}.0</i>
             </span>
-                on 2018-04-20
+                on {{review.postedDate | date}}
               </h6>
 
               <div class="t_buttons">
@@ -73,13 +88,50 @@
             </div>
             <div class="t_content">
               <!--TODO: user review content goes here. review content show first 3 lines-->
-              <h6 class="content_title"><a>This is a review title </a></h6>
+              <h6 class="content_title"><a>{{review.title}} </a></h6>
               <p class="content_text">
-                review content goes here. the movie's worldview is as easy to like as the protagonist and her friends, but del toro lays it on so thick that there's
-                no room for the movie's worldview is as easy to like as the protagonist...
-                <a class="t_full-text">(Expand)</a>
+                {{review.reviewContent}}
               </p>
 
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- latest ratings -->
+    <div class="row portfolio">
+      <h5 class="p_header"><span>{{publicProfile.username}}'s ratings</span></h5>
+
+      <div class="container reviews">
+        <div *ngFor="let row of publicProfile.userRatings | row:2" class="row r_ratings" >
+          <div *ngFor="let userRating of row" class="col-6">
+            <div class="row">
+              <div class="col-2">
+                <img [src]="userRating.ratedMovie.poster" alt="poster">
+              </div>
+
+              <div class="col-10 testimonial">
+                <div class="t_title">
+                  <h6>
+                    <a class="r_movie--title" routerLink="/movie/{{userRating.ratedMovie.imdbId}}">{{userRating.ratedMovie.title}}</a>
+                  </h6>
+                </div>
+                <div class="t_title">
+                  <h6>
+                  <span style="margin-left: 0">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                    <i style="margin-left: 5px">{{userRating.userRating}}.0</i>
+              </span>
+                    on {{userRating.ratedDate | date}}
+                  </h6>
+                </div>
+              </div>
             </div>
           </div>
         </div>

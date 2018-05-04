@@ -359,92 +359,6 @@ main{
   }
 
 }
-.histo {
-  float: left;
-  width: 60%;
-  font-size: 13px;
-  color: white;
-}
-
-.histo-star {
-  float: left;
-  padding: 3px;
-
-}
-
-.histo-rate {
-  width: 100%;
-  display: block;
-  clear: both;
-  padding-top: 2px;
-}
-
-.bar-block {
-  /*margin-left: 5px;*/
-  color: white;
-  display: block;
-  float: left;
-  width: 90%;
-  position: relative;
-}
-
-.bar {
-  padding: 4px;
-  /*display: block;*/
-}
-
-#bar-five {
-  width: 0;
-  background-color: #9FC05A;
-}
-
-#bar-four {
-  width: 0;
-  background-color: #ADD633;
-}
-
-#bar-three {
-  width: 0;
-  background-color: #FFD834;
-}
-
-#bar-two {
-  width: 0;
-  background-color: #FFB234;
-}
-
-#bar-one {
-  width: 0;
-  background-color: #FF8B5A;
-  margin-left: 2px;
-}
-
-
-#bar-ten {
-  width: 0;
-  background-color: #9FC05A;
-}
-
-#bar-nine {
-  width: 0;
-  background-color: #ADD633;
-}
-
-#bar-eight {
-  width: 0;
-  background-color: #FFD834;
-}
-
-#bar-seven {
-  width: 0;
-  background-color: #FFB234;
-}
-
-#bar-six {
-  width: 0;
-  background-color: #FF8B5A;
-  margin-left: 2px;
-}
 
 a {
   color: white;
@@ -456,11 +370,6 @@ a {
 }
 ngb-rating{
   color: #fff;
-}
-
-
-#movie_poster {
-  //margin-left: 3%;
 }
 
 .rating_words {

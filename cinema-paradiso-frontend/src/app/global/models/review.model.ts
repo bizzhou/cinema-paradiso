@@ -7,12 +7,13 @@ export class Review {
   authorName: string;
   criticReview: boolean;
   likeCount: number;
-  postDate: Date;
+  postedDate: Date;
   reviewContent: string;
   title: string;
   imdbId: string;
   authorImage: string;
   userRating: number;
+  movie: Movie;
 
   constructor(values: Object = {}) {
     Object.assign(this, values);

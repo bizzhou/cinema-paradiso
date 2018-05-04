@@ -79,7 +79,6 @@ main {
       background-color: $main-background;
     }
   }
-
 }
 
 
@@ -87,7 +86,7 @@ main {
   text-align: center;
   font-size: 12px;
   img {
-    //height: 220px;
+    height: 190px;
   }
   .wishlist--title {
     margin-top: 5px;
@@ -104,19 +103,6 @@ main {
     font-size: 16px;
     font-weight: 400;
   }
-  .r-title__sub {
-    font-size: 14px;
-    color: $color-p;
-    margin: 0;
-    padding: 0;
-    i {
-      margin-right: -5px;
-      color: $color-red;
-    }
-    span {
-      margin-left: 5px;
-    }
-  }
   .review__content {
     font-size: 14px;
     color: $p-content !important;
@@ -128,3 +114,10 @@ main {
   }
 }
 
+.r_ratings {
+  height: 120px;
+  img {
+    height: 90px;
+    width: auto;
+  }
+}

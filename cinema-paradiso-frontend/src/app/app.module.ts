@@ -46,6 +46,7 @@ import {CriticPortfolioComponent} from './global/public-portfolio/critic/critic.
 import {RegUserPortfolioComponent} from './global/public-portfolio/reg-user/reg-user.component';
 import {CategoriesService} from './global/categories/categories.service';
 import {RegUserService} from './user/reg-user/reg-user.service';
+import {RowPipe} from "./global/models/Pipes.model";
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import {RegUserService} from './user/reg-user/reg-user.service';
     CriticReviewsComponent,
     RegUserReviewsComponent,
     CriticPortfolioComponent,
-    RegUserPortfolioComponent
+    RegUserPortfolioComponent,
+    RowPipe,
   ],
   imports: [
     BrowserModule,

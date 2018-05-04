@@ -17,7 +17,7 @@ public class Review {
     private Calendar postedDate;
     private boolean isCriticReview;
     private String reviewContent;
-    private Double rating;
+    private Double userRating;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -97,11 +97,11 @@ public class Review {
                 '}';
     }
 
-    public Double getRating() {
-        return rating;
+    public Double getUserRating() {
+        return userRating;
     }
 
-    public void setRating(Double rating) {
-        this.rating = rating;
+    public void setUserRating(Double userRating) {
+        this.userRating = userRating;
     }
 }

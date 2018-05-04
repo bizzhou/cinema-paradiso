@@ -4,6 +4,9 @@ import {RegUserService} from '../../../user/reg-user/reg-user.service';
 import {Movie} from '../../models/movie.model';
 import {Rating} from '../../models/rating.model';
 import {AppConstant} from '../../../app.constant';
+import {Review} from '../../models/review.model';
+import {Pipe, PipeTransform} from '@angular/core';
+
 
 class PublicProfile {
   profileImage: string;
@@ -15,7 +18,9 @@ class PublicProfile {
   wishList: Movie[];
   notInterestedList: Movie[];
   userRatings: Rating[];
+  userReviews: Review[];
 }
+
 @Component({
   selector: 'app-reg-user-portfolio',
   templateUrl: './reg-user.component.html',
@@ -52,6 +57,7 @@ export class RegUserPortfolioComponent implements OnInit {
         this.publicProfile.wishList = data['wishList'] as Movie[];
         this.publicProfile.notInterestedList = data['notInterestedList'] as Movie[];
         this.publicProfile.userRatings = data['userRatings'] as Rating[];
+        this.publicProfile.userReviews = data['userReviews'] as Review[];
       }
 
       console.log(this.publicProfile);

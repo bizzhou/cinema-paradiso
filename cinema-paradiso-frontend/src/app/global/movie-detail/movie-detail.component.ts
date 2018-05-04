@@ -67,7 +67,6 @@ export class MovieDetailComponent implements OnInit {
   addReview() {
     this.review.imdbId = this.selectedMovieId;
 
-    // this.review.authorImage = this.getCurrentUserProfileImage();
     this.movieService.addReview(this.review).subscribe(data => {
       this.toastrService.success('Review added');
       this.movie.reviews.push(data as Review);
@@ -243,14 +242,6 @@ export class MovieDetailComponent implements OnInit {
   setCurrentTab(tab) {
     this.categoriesService.setCurrentTab(tab);
   }
-  //
-  // getCurrentUsername() {
-  //   return this.regUserService.getUsername();
-  // }
-  //
-  // getCurrentUserProfileImage(): any {
-  //   return this.regUserService.getProfileImage();
-  // }
 
 
 }

@@ -78,7 +78,7 @@ public class ReviewServiceImpl implements ReviewService {
         review.setPostedDate(Calendar.getInstance());
         review.setMovie(movie);
         review.setCriticReview(user.getUserProfile().getCritic());
-        review.setRating(this.getRating(movieId, user.getUserProfile().getId()));
+        review.setUserRating(this.getRating(movieId, user.getUserProfile().getId()));
         return reviewRepository.save(review);
     }
 
