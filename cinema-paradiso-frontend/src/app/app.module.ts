@@ -73,7 +73,7 @@ import {RowPipe} from "./global/models/Pipes.model";
     RegUserReviewsComponent,
     CriticPortfolioComponent,
     RegUserPortfolioComponent,
-    RowPipe,
+    RowPipe
   ],
   imports: [
     BrowserModule,

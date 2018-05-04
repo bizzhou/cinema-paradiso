@@ -30,6 +30,8 @@ export class RegUserPortfolioComponent implements OnInit {
 
   selectedUsername: string;
   publicProfile = new PublicProfile();
+  bestReviews: Review[];
+  worstReviews: Review[];
 
   constructor(private route: ActivatedRoute,
               private regUserService: RegUserService) {
@@ -59,6 +61,11 @@ export class RegUserPortfolioComponent implements OnInit {
         this.publicProfile.notInterestedList = data['notInterestedList'] as Movie[];
         this.publicProfile.userRatings = data['userRatings'] as Rating[];
         this.publicProfile.userReviews = data['userReviews'] as Review[];
+
+        if (this.publicProfile.isCritic) {
+          this.bestReviews = this.getBestReviews();
+          this.worstReviews = this.getWorstReviews();
+        }
       }
 
       console.log(this.publicProfile);
@@ -67,6 +74,18 @@ export class RegUserPortfolioComponent implements OnInit {
       // in case the user has deleted the account, or changed username
       console.log(error);
     });
+  }
+
+  getBestReviews(): Review[] {
+    return this.publicProfile.userReviews.filter(
+      review => review.userRating >= 3
+    );
+  }
+
+  getWorstReviews(): Review[] {
+    return this.publicProfile.userReviews.filter(
+      review => review.userRating < 3
+    );
   }
 
 }

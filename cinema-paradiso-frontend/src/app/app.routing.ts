@@ -10,9 +10,7 @@ import {AdminComponent} from './user/admin/admin.component';
 import {AboutComponent} from './global/about/about.component';
 import {CriticReviewsComponent} from './global/review-collection/critic-reviews/critic-reviews.component';
 import {RegUserReviewsComponent} from './global/review-collection/reg-user-reviews/reg-user-reviews.component';
-import {CriticPortfolioComponent} from './global/public-portfolio/critic/critic.component';
 import {RegUserPortfolioComponent} from './global/public-portfolio/reg-user/reg-user.component';
-import {UserRatingComponent} from "./user/reg-user/user-rating/user-rating.component";
 
 const appRoutes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'home'},
@@ -27,7 +25,6 @@ const appRoutes: Routes = [
   {path: 'search', component: SearchComponent},
   {path: 'admin', component: AdminComponent},
   {path: 'about', component: AboutComponent},
-  {path: 'portfolio/critic', component: CriticPortfolioComponent},
   {path: 'portfolio/:username', component: RegUserPortfolioComponent},
 ];
 
