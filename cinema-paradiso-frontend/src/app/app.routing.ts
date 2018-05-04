@@ -21,7 +21,6 @@ const appRoutes: Routes = [
   {path: 'movie/:id/reviews/temp', component: RegUserReviewsComponent},
   {path: 'celebrity/:id', component: CelebrityComponent},
   {path: 'user', component: RegUserComponent},
-  // {path: 'user/rating', component: UserRatingComponent},
   {path: 'search', component: SearchComponent},
   {path: 'admin', component: AdminComponent},
   {path: 'about', component: AboutComponent},

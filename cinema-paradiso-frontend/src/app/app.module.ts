@@ -42,11 +42,10 @@ import {UserRatingComponent} from './user/reg-user/user-rating/user-rating.compo
 import {MdReviewComponent} from './global/movie-detail/md-review/md-review.component';
 import {CriticReviewsComponent} from './global/review-collection/critic-reviews/critic-reviews.component';
 import {RegUserReviewsComponent} from './global/review-collection/reg-user-reviews/reg-user-reviews.component';
-import {CriticPortfolioComponent} from './global/public-portfolio/critic/critic.component';
 import {RegUserPortfolioComponent} from './global/public-portfolio/reg-user/reg-user.component';
 import {CategoriesService} from './global/categories/categories.service';
 import {RegUserService} from './user/reg-user/reg-user.service';
-import {RowPipe} from "./global/models/Pipes.model";
+import {RowPipe} from './global/models/Pipes.model';
 
 @NgModule({
   declarations: [
@@ -71,7 +70,6 @@ import {RowPipe} from "./global/models/Pipes.model";
     MdReviewComponent,
     CriticReviewsComponent,
     RegUserReviewsComponent,
-    CriticPortfolioComponent,
     RegUserPortfolioComponent,
     RowPipe
   ],

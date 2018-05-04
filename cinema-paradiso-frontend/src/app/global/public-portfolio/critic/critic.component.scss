@@ -1,34 +1,6 @@
-$color-red: rgb(229, 9, 20);
-$main-background: lighten(black, 11%);
-$color-p: lighten(black, 60%);
 $btn-hover: lighten(black, 40%);
 $btn-normal: lighten(black, 20%);
-$link-hover: lighten(black, 40%);
-$p-content: darken(white, 15%);
 
-@mixin cols ($width, $padding-left, $padding-right){
-  width: $width;
-  float:left;
-  position: relative;
-  min-height: 1px;
-  padding-right: $padding-right;
-  padding-left: $padding-left;
-}
-
-.col-avatar {
-  @include cols(8%, 1px, 1px);
-}
-
-.col-bio {
-  @include cols(91.5%, 20px, 0);
-}
-
-
-main {
-  background-color: $main-background;
-  padding: 3% 5% 5%;
-  color: white;
-}
 .btn-follow {
   cursor: pointer;
   border: 1px solid lighten(black, 25%);
@@ -41,93 +13,6 @@ main {
   background-color: $btn-hover;
 }
 
-.avatar {
-  img {
-    width: 80px;
-    height: auto;
-  }
-}
-.bio {
-  h5 {
-    font-weight: 300;
-    button {
-      font-size: 14px;
-      position: absolute;
-      margin-top: 3px;
-      margin-left: 10px;
-    }
-  }
-  p {
-    font-size: 14px;
-    color: $color-p;
-    margin: 0;
-  }
-
-}
-
-.portfolio {
-
-  .p_header {
-    font-weight: 300;
-    font-size: 1.0em;
-    margin: 2.5em 0 1em;
-    width: 100%;
-    background-color: $color-red;
-    a {
-
-    }
-    span {
-      margin-left: 1em;
-      padding: 10px;
-      background-color: $main-background;
-    }
-
-  }
-
-
-}
-
-.reviews {
-  .row {
-    margin-bottom: -10px;
-  }
-}
-// reviews poster
-.r_img-wrap {
-  img {
-    height: 130px;
-    width: auto;
-  }
-}
-.review {
-  color: white;
-  .r-title {
-    font-size: 16px;
-    font-weight: 400;
-  }
-  .r-title__sub {
-    font-size: 14px;
-    color: $color-p;
-    margin: 0;
-    padding: 0;
-    i {
-      margin-right: -5px;
-      color: $color-red;
-    }
-    span {
-      margin-left: 5px;
-    }
-  }
-  .review__content {
-    font-size: 14px;
-    color: $p-content !important;
-    //white-space: pre-line;
-    a {
-      text-decoration: underline !important;
-      cursor: pointer;
-    }
-  }
-}
 .c-update-btn {
   cursor: pointer;
   border: 1px solid lighten(black, 25%);
@@ -154,7 +39,3 @@ main {
     color: lighten(gray, 40%);
   }
 }
-//
-//.r_img-text {
-//  font-size: 12px !important;
-//}
