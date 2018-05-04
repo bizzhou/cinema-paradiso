@@ -126,7 +126,7 @@ public class RegUserController {
         return ResponseEntity.ok(objectObjectHashMap);
     }
 
-    @GetMapping(value = "/get/publicProfile")
+    @PostMapping(value = "/get/publicProfile")
     public ResponseEntity<?> getProfileByUsername(@RequestParam String username) {
         return new ResponseEntity<Object>(userService.getProfileByUsername(username), HttpStatus.OK);
     }

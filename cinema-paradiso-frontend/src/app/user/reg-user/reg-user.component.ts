@@ -56,6 +56,7 @@ export class RegUserComponent implements OnInit {
       this.regUserService.getProfile().subscribe(profileDetails => {
         console.log(profileDetails);
 
+        // TODO add biography
         this.profile = profileDetails as Profile;
         const decodedToken = this.tokenHelper.decodeToken(localStorage.getItem('token'));
         this.profile.email = decodedToken['email'];
@@ -71,11 +72,6 @@ export class RegUserComponent implements OnInit {
         } else {
           this.profile_url = AppConstant.API_ENDPOINT + '/user/avatar/' + profileDetails['profileImage'];
         }
-
-        // setters for another components to retrieve user information
-        // this.setUsername(this.profile.username);
-        // this.setProfileImage(this.profile.profileImage);
-
       });
     } else {
       this.router.navigateByUrl('home');
@@ -140,7 +136,7 @@ export class RegUserComponent implements OnInit {
         this.modalRef.close();
         window.location.reload();
       }, error => {
-        this.toastr.success('Failure');
+        this.toastr.error('Failed');
         console.log(error);
       });
     }
@@ -148,7 +144,7 @@ export class RegUserComponent implements OnInit {
 
   deleteRating(rating: Rating) {
     this.regUserService.deleteUserRating(rating.ratedMovie.imdbId).subscribe(data => {
-      this.toastr.success('SUCCESS');
+      this.toastr.success('Successfully deleted');
       this.profile.userRatings.splice(this.profile.userRatings.indexOf(rating), 1);
     });
 

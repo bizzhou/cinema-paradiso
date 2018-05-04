@@ -26,7 +26,7 @@ public abstract class UserService {
     protected String salt;
 
     @Value("${application.exception.userNotFound")
-    protected String userNotFind;
+    protected String userNotFound;
 
     @Autowired
     UtilityServiceImpl utilityService;
@@ -36,7 +36,7 @@ public abstract class UserService {
         String hashedPassword = utilityService.getHashedPassword(password, salt);
         User user = userRepository.findUserByEmailAndPassword(email, hashedPassword);
         if (user.getAccountSuspended()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, userNotFind);
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, userNotFound);
         }
         return Optional.of(user);
     }

@@ -3,6 +3,7 @@ package com.paridiso.cinema.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import java.util.Calendar;
 import java.util.List;
 
 @Entity
@@ -16,6 +17,7 @@ public class UserProfile {
     private String biography;
     private Boolean isCritic;
     private Boolean isPrivate;
+    private Calendar accountCreatedDate;
 
     @JsonIgnore
     private NotInterestedList notInterestedList;
@@ -93,6 +95,14 @@ public class UserProfile {
         return userRatings;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public Calendar getAccountCreatedDate() {
+        return accountCreatedDate;
+    }
+
     public void setId(Integer id) {
         this.id = id;
     }
@@ -137,6 +147,14 @@ public class UserProfile {
         this.userRatings = userRatings;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setAccountCreatedDate(Calendar accountCreatedDate) {
+        this.accountCreatedDate = accountCreatedDate;
+    }
+
     @Override
     public String toString() {
         return "UserProfile{" +
@@ -154,11 +172,5 @@ public class UserProfile {
                 '}';
     }
 
-    public String getUsername() {
-        return username;
-    }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
 }

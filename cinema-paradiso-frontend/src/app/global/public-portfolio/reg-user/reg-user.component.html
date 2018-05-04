@@ -1,37 +1,36 @@
 <main>
 
-  <div class="container">
+  <!-- if reg user profile not private -->
+  <div class="container" *ngIf="!publicProfile.isPrivate">
     <div class="row">
       <div class="col-avatar avatar">
-        <!--TODO profile image-->
-        <img src="https://user-images.githubusercontent.com/20979257/36620076-68d7d546-18bf-11e8-9fd9-e2c313cac2fc.jpeg" alt="user"
-        />
+        <img [src]="publicProfile.profileImage" [alt]="publicProfile.username"/>
       </div>
 
 
       <div class="col-bio bio">
         <!--TODO username, bio, account creation date-->
-        <h5>Bin <button class="btn-follow"> <i class="fa fa-user-plus"></i> 666</button> </h5>
-        <p>The greatest invention has yet to come</p>
-        <p>Join on: 2018-04-10</p>
+        <h5>{{publicProfile.username}}
+          <span *ngIf="publicProfile.isCritic">
+            <button class="btn-follow">Critic</button>
+          </span>
+        </h5>
+        <p>biography: {{publicProfile.biography}}</p>
+        <p>Joined on: {{publicProfile.accountCreatedDate | date}}</p>
       </div>
     </div>
     <!--./row-->
 
     <!-- wish list-->
     <div class="row portfolio">
-      <!--TODO: username required-->
-      <!--TODO: click this header to view full list-->
-      <h5 class="p_header"><span>Bin's wish list</span></h5>
+      <h5 class="p_header"><span>{{publicProfile.username}}'s wish list</span></h5>
 
       <div class="container">
         <div class="row">
-          <!--TODO: maximum 6 movies in a row-->
-          <div class="col-2 r_img-wrap">
-            <!--TODO: movie poster here-->
-            <img src="https://images-na.ssl-images-amazon.com/images/M/MV5BNzA1Njg4NzYxOV5BMl5BanBnXkFtZTgwODk5NjU3MzI@._V1_SX300.jpg" alt="poster">
-            <p  style="font-size: 12px; margin-top: 5px">Blade Runner 2049</p>
-            <p style="font-size: 12px; text-align: center; color: rgb(229, 9, 20);">4.2/5.0</p>
+          <div *ngFor="let movie of publicProfile.wishList" class="col-2 r_wishlist">
+            <img [src]="movie.poster" [alt]="movie.title">
+            <p class="wishlist--title">{{movie.title}}</p>
+            <i class="wishlist--rating">{{movie.criticRating}}/5.0</i>
           </div>
 
         </div>

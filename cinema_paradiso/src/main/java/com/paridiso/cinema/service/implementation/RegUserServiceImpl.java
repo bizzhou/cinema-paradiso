@@ -16,6 +16,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -64,6 +65,8 @@ public class RegUserServiceImpl extends UserService {
         // create a new wish list/ watch list
         user.getUserProfile().setUsername(user.getUsername());
         user.getUserProfile().setCritic(false);
+        user.getUserProfile().setPrivate(false);
+        user.getUserProfile().setAccountCreatedDate(Calendar.getInstance());
         user.getUserProfile().setWishList(wishListRepository.save(new WishList()));
         user.getUserProfile().setNotInterestedList(notInterestedListRepository.save(new NotInterestedList()));
         // set size limit
@@ -143,25 +146,26 @@ public class RegUserServiceImpl extends UserService {
 
         // general: profile image, account status
         if (userProfile.getProfileImage() == null)
-            objectObjectHashMap.put("profileImage", "default.jpeg");
+            objectObjectHashMap.put("profileImage", "undefined");
         else
             objectObjectHashMap.put("profileImage", userProfile.getProfileImage());
 
-        if (userProfile.getCritic() == null || !userProfile.getCritic())
+        if (!userProfile.getCritic())
             objectObjectHashMap.put("isCritic", false);
         else
             objectObjectHashMap.put("isCritic", true);
 
         // if not private, put everything
         if (userProfile.getPrivate() == null || !userProfile.getPrivate()) {
+            objectObjectHashMap.put("isPrivate", false);
             objectObjectHashMap.put("biography", userProfile.getBiography());
             objectObjectHashMap.put("isCritic", userProfile.getCritic());
+            objectObjectHashMap.put("accountCreatedDate", userProfile.getAccountCreatedDate());
             objectObjectHashMap.put("wishList", userProfile.getWishList().getMovies());
             objectObjectHashMap.put("notInterestedList", userProfile.getNotInterestedList().getMovies());
             objectObjectHashMap.put("userRatings", getUserRatings(userProfile.getId()));
             return objectObjectHashMap;
         }
-
         objectObjectHashMap.put("isPrivate", true);
         return objectObjectHashMap;
 

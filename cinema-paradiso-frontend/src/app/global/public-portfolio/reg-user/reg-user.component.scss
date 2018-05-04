@@ -81,41 +81,49 @@ main {
   }
 
 }
-.r_item {
-  margin-bottom: 1em;
-  .r_img-wrap {
-    img {
-      height: 130px;
-      width: auto;
+
+
+.r_wishlist {
+  text-align: center;
+  font-size: 12px;
+  img {
+    //height: 220px;
+  }
+  .wishlist--title {
+    margin-top: 5px;
+    color: $p-content;
+  }
+  .wishlist--rating {
+    color: $color-red;
+  }
+}
+
+.review {
+  color: white;
+  .r-title {
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .r-title__sub {
+    font-size: 14px;
+    color: $color-p;
+    margin: 0;
+    padding: 0;
+    i {
+      margin-right: -5px;
+      color: $color-red;
+    }
+    span {
+      margin-left: 5px;
     }
   }
-  .review {
-    color: white;
-    .r-title {
-      font-size: 16px;
-      font-weight: 400;
-    }
-    .r-title__sub {
-      font-size: 14px;
-      color: $color-p;
-      margin: 0;
-      padding: 0;
-      i {
-        margin-right: -5px;
-        color: $color-red;
-      }
-      span {
-        margin-left: 5px;
-      }
-    }
-    .review__content {
-      font-size: 14px;
-      color: $p-content !important;
-      white-space: pre-line;
-      a {
-        text-decoration: underline !important;
-        cursor: pointer;
-      }
+  .review__content {
+    font-size: 14px;
+    color: $p-content !important;
+    white-space: pre-line;
+    a {
+      text-decoration: underline !important;
+      cursor: pointer;
     }
   }
 }

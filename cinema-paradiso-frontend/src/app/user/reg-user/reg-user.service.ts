@@ -68,7 +68,8 @@ export class RegUserService {
   }
 
   getPublicProfile(username: string) {
-    return this.http.get(AppConstant.API_ENDPOINT + `user/get/publicProfile`);
+    const params = new HttpParams().set('username', username);
+    return this.http.post(AppConstant.API_ENDPOINT + `user/get/publicProfile`, params);
   }
 
 }
