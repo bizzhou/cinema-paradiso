@@ -3,10 +3,7 @@ package com.paridiso.cinema.service.implementation;
 import com.paridiso.cinema.constants.AlgorithmConstants;
 import com.paridiso.cinema.constants.ExceptionConstants;
 import com.paridiso.cinema.entity.*;
-import com.paridiso.cinema.persistence.CelebrityRepository;
-import com.paridiso.cinema.persistence.MovieRepository;
-import com.paridiso.cinema.persistence.UserProfileRepository;
-import com.paridiso.cinema.persistence.UserRepository;
+import com.paridiso.cinema.persistence.*;
 import com.paridiso.cinema.service.UtilityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,6 +37,10 @@ public class UtilityServiceImpl implements UtilityService {
     @Autowired
     private CelebrityRepository celebrityRepository;
 
+    @Autowired
+    private ReviewRepository reviewRepository;
+
+
     @Override
     public Movie getMoive(String movieId) {
         return movieRepository
@@ -64,7 +65,6 @@ public class UtilityServiceImpl implements UtilityService {
         return celebrityRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getCelebrityNotFound()));
     }
-
 
     @Override
     public String getHashedPassword(String passwordToHash, String salt) {

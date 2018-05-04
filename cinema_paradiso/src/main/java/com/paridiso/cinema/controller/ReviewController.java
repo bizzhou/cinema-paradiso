@@ -58,6 +58,12 @@ public class ReviewController {
         return ResponseEntity.ok(true);
     }
 
+    @GetMapping(value = "get/all")
+    public ResponseEntity<List> getAllReviews() {
+        List<Review> reviews = reviewService.getAllReviews();
+        return ResponseEntity.ok(reviews);
+    }
+
     @GetMapping(value = "get/{filmId}")
     public ResponseEntity<List> getMovieReviews(@PathVariable String filmId) {
         List<Review> movieReviews = reviewService.getMovieReviews(filmId);

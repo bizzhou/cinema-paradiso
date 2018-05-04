@@ -24,4 +24,5 @@ public interface ReviewService {
 
     boolean detectBadReview(Review review);
 
+    List<Review> getAllReviews();
 }

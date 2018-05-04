@@ -65,10 +65,8 @@ public class CelebrityServiceImpl implements CelebrityService {
     @Transactional
     @Override
     public boolean addFilmography(FilmographyWrapper filmography) {
-
         List<Movie> celebFilmgraphy = new ArrayList<>();
         Celebrity celebrity = utilityService.getCelebrity(filmography.getId());
-
         filmography.getFilmography().forEach(movieId -> {
             try {
                 celebFilmgraphy.add(utilityService.getMoive(movieId));
@@ -76,7 +74,6 @@ public class CelebrityServiceImpl implements CelebrityService {
                 logger.info("Cannot find moive " + movieId);
             }
         });
-
         celebrity.setFilmography(celebFilmgraphy);
         return celebrityRepository.save(celebrity).getFilmography() != null;
 

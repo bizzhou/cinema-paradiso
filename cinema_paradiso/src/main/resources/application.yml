@@ -63,6 +63,7 @@ application:
     alreadyInNotInterestedList: "MOVIE ALREADY EXIST IN NOT INTERESTED LIST"
     adminCannotRate: "ADMIN CANNOT RATE MOVIES"
     adminCannotReview: "ADMIN CANNOT REVIEW MOVIES"
+    appNotFound: "CRITIC APPLICATION NOT FOUND"
 
   limitation:
     wishListSize: 999

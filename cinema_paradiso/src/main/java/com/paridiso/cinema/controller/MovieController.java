@@ -106,31 +106,15 @@ public class MovieController {
         return ResponseEntity.ok(newRating);
     }
 
-
-    @PostMapping(value = "/update/poster/{id}")
-    public ResponseEntity<Boolean> updatePoster(@PathVariable Integer id, @RequestBody String poster) {
-        return null;
-    }
-
-    @PostMapping(value = "/update/trailer/{id}")
-    public ResponseEntity<Boolean> updateTrailer(@PathVariable Integer id, @RequestBody String trailer) {
-        return null;
-    }
-
-    @GetMapping(value = "/get/trailer/{id}")
-    public ResponseEntity<Boolean> getTrailers(@PathVariable Integer id) {
-        return null;
-    }
-
     @PostMapping(value = "/trending")
     public ResponseEntity<?> getMoviesTrending(@RequestParam Integer pageNo,
-                                                 @RequestParam Integer pageSize) {
+                                               @RequestParam Integer pageSize) {
         return new ResponseEntity<>(filmService.getMoviesTrending(pageNo, pageSize), HttpStatus.OK);
     }
 
     @PostMapping(value = "/comingSoon")
     public ResponseEntity<?> getMoviesComingSoon(@RequestParam Integer pageNo,
-                                                   @RequestParam Integer pageSize) {
+                                                 @RequestParam Integer pageSize) {
         return new ResponseEntity<>(filmService.getMoviesComingSoon(pageNo, pageSize), HttpStatus.OK);
     }
 
@@ -142,7 +126,7 @@ public class MovieController {
 
     @PostMapping(value = "/topBoxOffice")
     public ResponseEntity<?> getTopBoxOffice(@RequestParam Integer pageNo,
-                                                @RequestParam Integer pageSize) {
+                                             @RequestParam Integer pageSize) {
         return new ResponseEntity<>(filmService.getMoviesTopBoxOffice(pageNo, pageSize), HttpStatus.OK);
     }
 

@@ -3,7 +3,6 @@ package com.paridiso.cinema.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.paridiso.cinema.entity.enumerations.Role;
-import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -30,19 +29,18 @@ public class User {
         return userId;
     }
 
-    @Size(max = 100)
+    //    @Size(max = 100)
     public String getUsername() {
         return username;
     }
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Size(min = 8)
+//    @Size(min = 8)
     public String getPassword() {
         return password;
     }
 
-    @Email
-    @Size(max = 100)
+    //    @Size(max = 100)
     public String getEmail() {
         return email;
     }

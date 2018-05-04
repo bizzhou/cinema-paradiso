@@ -46,6 +46,8 @@ import {RegUserPortfolioComponent} from './global/public-portfolio/reg-user/reg-
 import {CategoriesService} from './global/categories/categories.service';
 import {RegUserService} from './user/reg-user/reg-user.service';
 import {RowPipe} from './global/models/Pipes.model';
+import { TosComponent } from './global/tos/tos.component';
+import { ContactComponent } from './global/contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -71,7 +73,10 @@ import {RowPipe} from './global/models/Pipes.model';
     CriticReviewsComponent,
     RegUserReviewsComponent,
     RegUserPortfolioComponent,
-    RowPipe
+    RowPipe,
+    RegUserPortfolioComponent,
+    TosComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,

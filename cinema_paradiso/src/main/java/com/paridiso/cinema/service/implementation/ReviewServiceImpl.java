@@ -91,8 +91,7 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public Review editReview(Integer userProfileId, Review review) {
         UserProfile userProfile = utilityService.getUserProfile(userProfileId);
-        Review review1 = reviewRepository.findById(review.getReviewId())
-                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getReviewNotFound()));
+        Review review1 = getReview(review.getReviewId());
         Review newReview = null;
         // update review when find same in user profile.
         for (Review tempReview : userProfile.getReviews()) {
@@ -110,8 +109,7 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public void removeReview(Integer profileId, Long reviewId) {
         logger.info(reviewId);
-        Review review = reviewRepository.findReviewByReviewId(reviewId)
-                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getReviewNotFound()));
+        Review review = getReview(reviewId);
         reviewRepository.delete(review);
     }
 
@@ -143,5 +141,10 @@ public class ReviewServiceImpl implements ReviewService {
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserRatingNotExists()));
 
         return userRating.getUserRating();
+    }
+
+    @Override
+    public List<Review> getAllReviews() {
+        return reviewRepository.findAll();
     }
 }

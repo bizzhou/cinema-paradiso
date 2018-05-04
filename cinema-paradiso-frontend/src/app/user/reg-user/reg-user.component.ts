@@ -40,6 +40,7 @@ export class RegUserComponent implements OnInit {
   tokenHelper = new JwtHelperService();
   profile_url: string;
   myReviews: Review[];
+  reason: string;
 
   modalRef: NgbModalRef;
 
@@ -150,14 +151,17 @@ export class RegUserComponent implements OnInit {
       this.profile.userRatings.splice(this.profile.userRatings.indexOf(rating), 1);
     });
   }
-  //
-  // setProfileImage(profileImage: string) {
-  //   this.regUserService.setProfileImage(profileImage);
-  // }
-  //
-  // setUsername(username: string) {
-  //   this.regUserService.setUsername(username);
-  // }
+
+  submitCriticApplication(reason: string) {
+    this.regUserService.applyForCritc(reason).subscribe(data => {
+      console.log(data);
+      this.reason = undefined;
+      this.toastr.success('SUCCESS');
+    }, error2 => {
+      console.log(error2);
+      this.toastr.error('FAILED: YOU HAVE ALREADY APPLIED');
+    });
+  }
 
 
 }

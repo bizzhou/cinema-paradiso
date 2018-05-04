@@ -11,6 +11,8 @@ import {AboutComponent} from './global/about/about.component';
 import {CriticReviewsComponent} from './global/review-collection/critic-reviews/critic-reviews.component';
 import {RegUserReviewsComponent} from './global/review-collection/reg-user-reviews/reg-user-reviews.component';
 import {RegUserPortfolioComponent} from './global/public-portfolio/reg-user/reg-user.component';
+import {ContactComponent} from "./global/contact/contact.component";
+import {TosComponent} from "./global/tos/tos.component";
 
 const appRoutes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'home'},
@@ -25,6 +27,8 @@ const appRoutes: Routes = [
   {path: 'admin', component: AdminComponent},
   {path: 'about', component: AboutComponent},
   {path: 'portfolio/:username', component: RegUserPortfolioComponent},
+  {path: 'contact', component: ContactComponent},
+  {path: 'tos', component: TosComponent},
 ];
 
 @NgModule({
