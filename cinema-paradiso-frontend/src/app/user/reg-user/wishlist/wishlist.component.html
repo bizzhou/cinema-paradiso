@@ -2,11 +2,11 @@
 
 
 <div class="container" *ngFor="let movie of profile.wishList">
-  <div class="row w__item">
-    <div class="col-3 w__img-wrap">
+  <div class="row w--item">
+    <div class="col-2 item--img">
       <img src={{movie?.poster}} alt="{{movie?.title}}">
     </div>
-    <div class="col-9">
+    <div class="col-10">
       <a routerLink="/movie/{{movie?.imdbId}}" class="s-item__title">{{movie?.title}} ({{movie?.releaseDate.toString().substring(0, 4)}})</a>
 
       <div class="flex">
@@ -16,13 +16,13 @@
         <i class="fa fa-star"></i>
         <i class="fa fa-star"></i>
         <p>{{movie?.criticRating}}/5.0</p>
-        <p>{{movie?.rated}}</p>
       </div>
 
-      <p class="s-plot">{{movie?.plot}}</p>
+      <p class="s-plot">{{movie.plot.substring(0, 70)}}...</p>
 
       <div class="button__group">
-        <button class="c-update-btn r-update-btn button__warning" (click)="removeFromWishList(movie)">Remove</button>
+        <button class="c-update-btn r-update-btn button__warning" (click)="removeFromWishList(movie)"
+        style="margin-top: 0">Remove</button>
       </div>
     </div>
   </div>

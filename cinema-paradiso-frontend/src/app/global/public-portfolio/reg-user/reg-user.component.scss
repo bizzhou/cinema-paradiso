@@ -119,3 +119,20 @@ main {
     width: auto;
   }
 }
+
+
+// private page
+.private-wrap {
+  //height: 200px;
+  text-align: center;
+  h3 {
+    font-weight: 300;
+  }
+}
+.vertical-center {
+  min-height: 100%;  /* Fallback for browsers do NOT support vh unit */
+  min-height: 400px; /* These two lines are counted as one :-)       */
+
+  display: flex;
+  align-items: center;
+}

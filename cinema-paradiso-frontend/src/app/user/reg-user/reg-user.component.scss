@@ -151,6 +151,7 @@ main {
 
 // wish list
 .w--item {
+  margin-bottom: 12px;
   .fa-star{
     color:$color-red;
   }
@@ -160,6 +161,40 @@ main {
       height: 120px;
       width: auto;
     }
+  }
+  .flex {
+    font-size: 12px;
+    i {
+      margin-right: -5px;
+    }
+    p {
+      display: inline-block;
+      font-size: 12px;
+    }
+    // ratings
+    p:nth-of-type(1){
+      margin-left:5px;
+      margin-right:10px;
+      color:white;
+    }
+    // rate
+    p:nth-of-type(2){
+      background:gray;
+      color: #fff;
+      padding: 0 4px;
+    }
+
+  }
+  .s-item__title {
+    font-size: 16px;
+    color: white !important;
+  }
+  .s-item__title:hover {
+    color: $link-hover !important;
+  }
+
+  .s-plot {
+    margin: 5px 0;
   }
 }
 
@@ -177,4 +212,8 @@ p {
 .t_buttons {
   float: right;
   margin-top: -20px;
+}
+
+form {
+  margin-bottom: 1.3em;
 }
