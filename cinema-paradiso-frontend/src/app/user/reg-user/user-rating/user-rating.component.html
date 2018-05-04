@@ -1,13 +1,14 @@
 <h5 class="c-header">My Ratings </h5>
 <div class="container">
-  <div *ngFor="let row of profile.userRatings | row:2" class="row r_ratings" >
-    <div *ngFor="let userRating of row" class="col-6">
+  <div *ngFor="let userRating of profile.userRatings" class="row r_ratings" >
+    <!--<div *ngFor="let userRating of row" class="col-6">-->
       <div class="row">
         <div class="col-2">
           <img [src]="userRating.ratedMovie.poster" alt="poster">
         </div>
 
-        <div class="col-10 testimonial">
+        <div class="col-1"></div>
+        <div class="col-9 testimonial">
           <div class="t_title">
             <h6>
               <a class="r_movie--title" routerLink="/movie/{{userRating.ratedMovie.imdbId}}">{{userRating.ratedMovie.title}}</a>
@@ -28,7 +29,7 @@
           </div>
           <button class="button--del button__warning" (click)="deleteRating(userRating)">Delete</button>
         </div>
-      </div>
+      <!--</div>-->
     </div>
   </div>
 

@@ -149,7 +149,6 @@ export class RegUserComponent implements OnInit {
       this.toastr.success('Successfully deleted');
       this.profile.userRatings.splice(this.profile.userRatings.indexOf(rating), 1);
     });
-
   }
   //
   // setProfileImage(profileImage: string) {
