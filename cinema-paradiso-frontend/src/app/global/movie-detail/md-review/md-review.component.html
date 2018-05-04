@@ -1,65 +1,54 @@
+<!--</section>-->
 <section class="md_wrap">
-    <h2 class="md-title">
-        <span>critic reviews</span>
-    </h2>
+  <h2 class="md-title">
+    <span>Audience reviews</span>
+  </h2>
 
-    <!--critic reviews-->
-    <div class="container" style="margin-top: 30px;">
+  <div class="container" style="margin-top: 30px;">
+    <!--TODO: show 3 rows-->
 
-        <div *ngFor="let criticReview of criticReviews">
+    <div *ngFor="let review of criticReviews">
+      <div class="row">
 
-            <div class="row">
-                <div class="testimonial">
-                    <div class="t_title">
+        <div class="testimonial">
+          <div class="t_title">
+            <!--TODO: user profile image goes here-->
+            <img class="title--profile-img"
+                 [defaultImage]="'../../../../assets/images/default_profile.png'"
+                 [lazyLoad]="review?.authorImage"/>
 
-                        <img [defaultImage]="'../../../../assets/images/default_profile.png'"
-                                [lazyLoad]="review?.authorImage"/>
+            <h6>
+              <a routerLink="/portfolio/{{review.authorName}}">{{review.authorName}}</a> rated {{review.userRating}}.0
+              <span>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+            </span>
+              on {{review.postedDate | date  }}
+            </h6>
 
-                        <h6>
-                            <a routerLink="/portfolio/critic">{{criticReview.authorName}}</a> rated
-                            <span>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                              <i class="fa fa-star"></i>
-                            </span>
-                            on {{criticReview.postDate | date}}
-                        </h6>
-
-                        <div class="t_buttons">
-                            <button class="c-update-btn"><i class="fa fa-flag"></i> Report</button>
-                            <!--TODO: open up a modal, fill out report-->
-                            <button class="c-update-btn"><i class="fa fa-thumbs-up"></i> 222</button>
-                        </div>
-
-                    </div>
-                    <div class="t_content">
-                        <!--TODO: user criticReview content goes here. criticReview content show first 3 lines-->
-                        <h6 class="content_title"><a>{{criticReview.title}}</a></h6>
-                        <p class="content_text">{{criticReview.reviewContent}}
-                            <a class="t_full-text">(Expand)</a>
-                        </p>
-
-                    </div>
-                </div>
+            <div class="t_buttons">
+              <button class="c-update-btn"><i class="fa fa-flag"></i> Report</button>
+              <!--<button class="c-update-btn"><i class="fa fa-thumbs-up"></i> 222</button>-->
             </div>
+
+          </div>
+          <div class="t_content">
+            <h6 class="content_title"><a>{{review.title}} </a></h6>
+            <p class="content_text">
+              {{review.reviewContent}}
+            </p>
+
+          </div>
         </div>
-
-
-        <div class="row">
-            <div class="col-10"></div>
-            <div class="col-2">
-                <!--TODO: router link = /movie/MOVIE_ID/reviews-->
-                <a routerLink="/movie/tt1856101/reviews" class="t_more">More <i
-                        class="fa fa-angle-double-right"></i></a>
-            </div>
-        </div>
-
+      </div>
     </div>
 
-</section>
+  </div>
 
+</section>
 <!-- audience reviews -->
 <section class="md_wrap">
     <h2 class="md-title">
@@ -105,14 +94,6 @@
 
                     </div>
                 </div>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-10"></div>
-            <div class="col-2">
-                <a routerLink="/movie/tt1856101/reviews/temp" class="t_more">More <i
-                        class="fa fa-angle-double-right"></i></a>
             </div>
         </div>
 
