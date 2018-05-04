@@ -19,6 +19,7 @@ class Profile {
   profileImage: string;
   biography: string;
   isCritic: boolean;
+  isPrivate: boolean;
   username: string;
   email: string;
   wishList: Movie[];
@@ -66,7 +67,8 @@ export class RegUserComponent implements OnInit {
         this.profile.wishList = profileDetails['wishList'] as Movie[];
         this.profile.notInterestedList = profileDetails['notInterestedList'] as Movie[];
         this.profile.userRatings = profileDetails['userRatings'] as Rating[];
-
+        this.profile.isPrivate = profileDetails['isPrivate'];
+        this.profile.isCritic = profileDetails['isCritic'];
         if (this.profile.profileImage === undefined) {
           this.profile_url = AppConstant.API_ENDPOINT + 'user/avatar/default.jpeg';
         } else {

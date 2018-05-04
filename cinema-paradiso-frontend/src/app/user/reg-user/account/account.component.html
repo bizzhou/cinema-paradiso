@@ -1,4 +1,21 @@
-<!--TODO: currently using movies from wish list, should retrieve from reviews-->
+  <h5 class="c-header">Profile privacy</h5>
+  <!-- account public -->
+  <form *ngIf="!profile.isPrivate; else thenPublic">
+    <div class="c-inputs">
+      <label>Change your public portfolio to private.</label>
+      <button (click)="setPrivate(true)" class="c-update-btn" style="margin-top: 0;">Set to private</button>
+    </div>
+  </form>
+  <!-- account private -->
+  <ng-template #thenPublic>
+    <form>
+      <div class="c-inputs">
+        <label>Change your private portfolio to public.</label>
+        <button (click)="setPrivate(false)" class="c-update-btn" style="margin-top: 0;">Set to public</button>
+      </div>
+    </form>
+  </ng-template>
+
   <h5 class="c-header">Change password</h5>
   <form target="_blank" #changePasswordForm="ngForm" (submit)="changePassword(changePasswordForm)">
 
@@ -21,7 +38,7 @@
     <div class="c-inputs">
       <label>Changing your username can have unintended side effects.</label>
       <input [placeholder]="profile.username">
-      <button class="c-update-btn">Change username</button>
+      <button class="c-update-btn" >Change username</button>
     </div>
   </form>
 

@@ -9,7 +9,7 @@
           <li class="s-tabs__list"><a>My followings </a></li>
           <li class="s-tabs__list"><a>My followers </a></li>
           <li class="s-tabs__list"><a (click)="showDiv(3)">My wish list </a></li>
-          <li class="s-tabs__list"><a (click)="showDiv(4)">Not interested list </a></li>
+          <li class="s-tabs__list"><a (click)="showDiv(4)">My uninterested list </a></li>
           <li class="s-tabs__list"><a (click)="showDiv(5)">My reviews </a></li>
           <li class="s-tabs__list"><a (click)="showDiv(6)">My ratings </a></li>
           <li class="s-tabs__list"><a (click)="showDiv(7)">Account settings </a></li>
@@ -31,7 +31,7 @@
             <label>Account status: <span class="span-title">regular user</span></label>
           </div>
           <div class="c-inputs">
-            <label>Joined on: <span class="span-title">2017-03-03</span></label>
+            <label>Joined on: <span class="span-title">{{profile.accountCreatedDate | date}}</span></label>
           </div>
 
           <div class="c-avatar">
@@ -44,7 +44,7 @@
             <input [(ngModel)]="profile.username" [placeholder]="profile.username">
           </div>
           <div class="c-inputs">
-            <label>Public email</label>
+            <label>email</label>
             <input [placeholder]="profile.email">
           </div>
           <div class="c-inputs">

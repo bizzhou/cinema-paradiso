@@ -120,6 +120,8 @@ public class RegUserController {
         }
         objectObjectHashMap.put("biography", profile.getBiography());
         objectObjectHashMap.put("isCritic", profile.getCritic());
+        objectObjectHashMap.put("isPrivate", profile.getPrivate());
+        objectObjectHashMap.put("accountCreatedDate", profile.getAccountCreatedDate());
         objectObjectHashMap.put("wishList", profile.getWishList().getMovies());
         objectObjectHashMap.put("notInterestedList", profile.getNotInterestedList().getMovies());
         objectObjectHashMap.put("userRatings", userService.getUserRatings(jwtTokenService.getUserProfileIdFromToken(jwtToken)));
@@ -179,6 +181,13 @@ public class RegUserController {
         Integer userProfileIdFromToken = jwtTokenService.getUserProfileIdFromToken(jwtToken);
         List<UserRating> ratingList = userService.getUserRatings(userProfileIdFromToken);
         return ResponseEntity.ok(ratingList);
+    }
+
+    @PostMapping(value = "/setPrivate")
+    public ResponseEntity<Boolean> setPrivate(@RequestHeader(value = "Authorization") String jwtToken,
+                                              @RequestParam Boolean isPrivate) {
+        Boolean result = userService.setPrivate(jwtTokenService.getUserProfileIdFromToken(jwtToken), isPrivate);
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
 }

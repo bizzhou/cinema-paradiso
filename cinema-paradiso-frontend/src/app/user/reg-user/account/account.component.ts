@@ -48,4 +48,17 @@ export class AccountComponent implements OnInit {
       }
     });
   }
+
+  setPrivate(isPrivate: boolean) {
+    this.userService.setPrivate(isPrivate).subscribe(result => {
+      if (result === true) {
+        this.profile.isPrivate = true;
+        this.toastr.success('Your account is private now');
+      } else {
+        this.profile.isPrivate = false;
+        this.toastr.success('Your account is public now');
+      }
+    });
+  }
+
 }

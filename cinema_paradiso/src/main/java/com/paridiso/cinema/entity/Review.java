@@ -18,6 +18,7 @@ public class Review {
     private boolean isCriticReview;
     private String reviewContent;
     private Double userRating;
+    private Integer likeCount;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,6 +56,10 @@ public class Review {
         return reviewContent;
     }
 
+    public Integer getLikeCount() {
+        return likeCount;
+    }
+
     public void setReviewId(Long reviewId) {
         this.reviewId = reviewId;
     }
@@ -75,6 +80,9 @@ public class Review {
         this.postedDate = postedDate;
     }
 
+    public void setLikeCount(Integer likeCount) {
+        this.likeCount = likeCount;
+    }
 
     public void setCriticReview(boolean criticReview) {
         isCriticReview = criticReview;
@@ -104,4 +112,5 @@ public class Review {
     public void setUserRating(Double userRating) {
         this.userRating = userRating;
     }
+
 }

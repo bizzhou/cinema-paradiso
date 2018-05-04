@@ -44,6 +44,11 @@ $p-content: darken(white, 15%);
 .t_title {
   color: lighten(gray, 20%) !important;
   //margin-top: -5px !important;
+  .title--profile-img {
+    height: 30px;
+    width: 30px;
+    display: inline;
+  }
 
   h6 {
     font-size: 14px;

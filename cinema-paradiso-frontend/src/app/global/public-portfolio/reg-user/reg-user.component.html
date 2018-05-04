@@ -1,7 +1,8 @@
 <main>
 
   <!-- if reg user profile not private -->
-  <div class="container" *ngIf="!publicProfile.isPrivate">
+  <div class="container" *ngIf="!publicProfile.isPrivate;else showPrivatePage">
+    <div *ngIf="!publicProfile.isCritic; else showCriticPublicPage">
     <div class="row">
       <div class="col-avatar avatar">
         <img [src]="publicProfile.profileImage" [alt]="publicProfile.username"/>
@@ -15,7 +16,7 @@
             <button class="btn-follow">Critic</button>
           </span>
         </h5>
-        <p>biography: {{publicProfile.biography}}</p>
+        <p>{{publicProfile.biography}}</p>
         <p>Joined on: {{publicProfile.accountCreatedDate | date}}</p>
       </div>
     </div>
@@ -61,9 +62,6 @@
 
       <div class="container reviews">
         <div *ngFor="let review of publicProfile.userReviews" class="row">
-          <!--<div class="col-2">-->
-            <!--<img [src]="review.movie.poster" alt="poster">-->
-          <!--</div>-->
           <div class="col-12 testimonial">
             <div class="t_title">
               <h6>
@@ -82,7 +80,6 @@
               <div class="t_buttons">
                 <button class="c-update-btn"><i class="fa fa-flag"></i> Report</button>
                 <!--TODO: open up a modal, fill out report-->
-                <button class="c-update-btn"><i class="fa fa-thumbs-up"></i> 222</button>
               </div>
 
             </div>
@@ -139,13 +136,24 @@
       </div>
     </div>
 
-    <!--followers-->
-    <div class="row portfolio">
-      <h5 class="p_header"><span>Followers</span></h5>
     </div>
 
+    <ng-template #showCriticPublicPage>
+
+    </ng-template>
 
   </div>
   <!--./container-->
+
+  <!---->
+  <ng-template #showPrivatePage>
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <h1>Woops! this account is private</h1>
+        </div>
+      </div>
+    </div>
+  </ng-template>
 
 </main>

@@ -62,7 +62,7 @@ public class RegUserServiceImpl extends UserService {
         // first create a user_profile for the user;
         user.setUserProfile(userProfileRepository.save(new UserProfile()));
 
-        // create a new wish list/ watch list
+        // create a new wish list/ not interested list
         user.getUserProfile().setUsername(user.getUsername());
         user.getUserProfile().setCritic(false);
         user.getUserProfile().setPrivate(false);
@@ -72,6 +72,7 @@ public class RegUserServiceImpl extends UserService {
         // set size limit
         user.getUserProfile().getWishList().setWishListSize(limitationConstants.getWishListSize());
         user.getUserProfile().getNotInterestedList().setNotInterestedListSize(limitationConstants.getWishListSize());
+        userProfileRepository.save(user.getUserProfile());
         return Optional.ofNullable(userRepository.save(user));
     }
 
@@ -194,5 +195,16 @@ public class RegUserServiceImpl extends UserService {
         });
         return userRatings;
     }
+
+    @Transactional
+    public Boolean setPrivate(Integer userId, Boolean isPrivate) {
+        UserProfile userProfile = userProfileRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getProfileNotFound() + userId));
+
+        userProfile.setPrivate(isPrivate);
+        userProfileRepository.save(userProfile);
+        return isPrivate;
+    }
+
 }
 

@@ -53,6 +53,7 @@ export class RegUserPortfolioComponent implements OnInit {
       // get specific if profile is public
       if ((this.publicProfile.isPrivate = data['isPrivate']) === false) {
         this.publicProfile.biography = data['biography'];
+        this.publicProfile.isCritic = data['isCritic'];
         this.publicProfile.accountCreatedDate = data['accountCreatedDate'];
         this.publicProfile.wishList = data['wishList'] as Movie[];
         this.publicProfile.notInterestedList = data['notInterestedList'] as Movie[];

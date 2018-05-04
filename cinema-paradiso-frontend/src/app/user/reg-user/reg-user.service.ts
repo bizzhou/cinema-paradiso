@@ -72,4 +72,9 @@ export class RegUserService {
     return this.http.post(AppConstant.API_ENDPOINT + `user/get/publicProfile`, params);
   }
 
+  setPrivate(isPrivate: boolean) {
+    const params = new HttpParams().set('isPrivate', JSON.stringify(isPrivate));
+    return this.http.post(AppConstant.API_ENDPOINT + `user/setPrivate`, params);
+  }
+
 }
