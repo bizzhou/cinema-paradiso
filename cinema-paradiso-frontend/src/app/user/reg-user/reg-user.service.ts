@@ -62,4 +62,19 @@ export class RegUserService {
   getAllUsers() {
     return this.http.get(AppConstant.API_ENDPOINT + `admin/get/users`);
   }
+
+  getAllCriticApplications() {
+    return this.http.get(AppConstant.API_ENDPOINT + `admin/get/critic_applications`);
+  }
+
+  verifyCriticApplications(userId: number) {
+    const params = new HttpParams().set('userId', userId.toString());
+    return this.http.post(AppConstant.API_ENDPOINT + 'admin/verify/critic', params);
+  }
+
+
+  applyForCritc(reason: string) {
+    const params = new HttpParams().set('reason', reason);
+    return this.http.post(AppConstant.API_ENDPOINT + `user/submit/critic_application`, params);
+  }
 }

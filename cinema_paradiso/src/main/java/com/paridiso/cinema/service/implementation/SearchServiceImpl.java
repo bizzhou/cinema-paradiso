@@ -34,8 +34,6 @@ public class SearchServiceImpl implements SearchService {
     @Autowired
     UtilityServiceImpl utilityService;
 
-    private static Logger logger = LogManager.getLogger(SearchServiceImpl.class);
-
     @Override
     public Page<Movie> getMoviesFromKeyword(String keyword, Integer pageNo, Integer pageSize) {
         Page<Movie> moviePage = movieRepository.findMoviesByTitleContains(keyword, new PageRequest(pageNo, pageSize));

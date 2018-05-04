@@ -23,7 +23,6 @@ public class EmailServiceImpl {
         mimeMessageHelper.setText(mail.getContent());
         mimeMessageHelper.setSubject(mail.getSubject());
         sender.send(mimeMessage);
-
     }
 
 

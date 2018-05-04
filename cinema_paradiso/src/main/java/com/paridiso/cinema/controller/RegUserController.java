@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.paridiso.cinema.constants.ExceptionConstants;
+import com.paridiso.cinema.entity.CriticApplication;
 import com.paridiso.cinema.entity.User;
 import com.paridiso.cinema.entity.UserProfile;
 import com.paridiso.cinema.entity.UserRating;
@@ -14,6 +15,7 @@ import com.paridiso.cinema.service.implementation.RegUserServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -102,13 +104,11 @@ public class RegUserController {
         Integer userId = jwtTokenService.getUserIdFromToken(jwtToken);
         logger.info(userId);
         boolean result = userService.updatePassword(userId, oldPass, newPass);
-
         return result ? ResponseEntity.ok(result) : ResponseEntity.badRequest().body(result);
     }
 
     @GetMapping(value = "/get/profile")
     public ResponseEntity<?> getProfile(@RequestHeader(value = "Authorization") String jwtToken, HttpSession session) throws JsonProcessingException {
-
         UserProfile profile = userService.getProfile(jwtTokenService.getUserProfileIdFromToken(jwtToken));
         HashMap<Object, Object> objectObjectHashMap = new HashMap<>();
         objectObjectHashMap.put("name", profile.getName());
@@ -175,6 +175,16 @@ public class RegUserController {
         Integer userProfileIdFromToken = jwtTokenService.getUserProfileIdFromToken(jwtToken);
         List<UserRating> ratingList = userService.getUserRatings(userProfileIdFromToken);
         return ResponseEntity.ok(ratingList);
+    }
+
+    @PostMapping(value = "submit/critic_application")
+    public ResponseEntity<?> submitCritc(@RequestHeader(value = "Authorization") String jwtToken,
+                                         @RequestParam(value = "reason") String reason) {
+        CriticApplication criticApplication = new CriticApplication();
+        criticApplication.setApproved(false);
+        criticApplication.setReason(reason);
+        userService.saveCriticAppliction(jwtTokenService.getUserIdFromToken(jwtToken), criticApplication);
+        return ResponseEntity.ok(true);
     }
 
 }

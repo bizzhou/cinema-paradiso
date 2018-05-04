@@ -28,6 +28,15 @@ public class ExceptionConstants {
     private String alreadyInNotInterestedList;
     private String adminCannotRate;
     private String adminCannotReview;
+    private String appNotFound;
+
+    public String getAppNotFound() {
+        return appNotFound;
+    }
+
+    public void setAppNotFound(String appNotFound) {
+        this.appNotFound = appNotFound;
+    }
 
     public String getAdminCannotReview() {
         return adminCannotReview;

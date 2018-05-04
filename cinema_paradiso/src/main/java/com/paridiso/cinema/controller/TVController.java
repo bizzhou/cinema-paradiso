@@ -52,22 +52,6 @@ public class TVController {
         return null;
     }
 
-    // TODO how to represent image ?
-    @RequestMapping(value = "/{id}/update_poster", method = POST)
-    public ResponseEntity<Boolean> updatePoster(@PathVariable Integer id, @RequestBody String poster) {
-        return null;
-    }
-
-    @RequestMapping(value = "/{id}/update_trailer", method = POST)
-    public ResponseEntity<Boolean> updateTrailer(@PathVariable Integer id, @RequestBody String trailer) {
-        return null;
-    }
-
-    @RequestMapping(value = "/{id}/trailer", method = GET)
-    public ResponseEntity<Boolean> getTrailers(@PathVariable Integer id) {
-        return null;
-    }
-
     @RequestMapping(value = "/trending", method = GET)
     public ResponseEntity<List> getTVsTrending() {
         return null;
@@ -92,6 +76,5 @@ public class TVController {
     public ResponseEntity<List> getTVsInRange(@RequestParam Date startDate, @RequestParam Date endDate) {
         return null;
     }
-
 
 }

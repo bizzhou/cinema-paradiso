@@ -56,7 +56,6 @@ export class MovieDetailComponent implements OnInit {
     } else {
       this.getMovie(this.selectedMovieId);
     }
-
   }
 
 
@@ -246,6 +245,5 @@ export class MovieDetailComponent implements OnInit {
   setCurrentTab(tab) {
     this.categoriesService.setCurrentTab(tab);
   }
-
 
 }

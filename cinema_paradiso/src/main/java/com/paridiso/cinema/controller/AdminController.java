@@ -1,8 +1,7 @@
 package com.paridiso.cinema.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.paridiso.cinema.constants.ExceptionConstants;
+import com.paridiso.cinema.entity.CriticApplication;
 import com.paridiso.cinema.entity.User;
 import com.paridiso.cinema.security.JwtTokenGenerator;
 import com.paridiso.cinema.security.JwtUser;
@@ -12,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -60,9 +60,26 @@ public class AdminController {
         return ResponseEntity.ok(userMap);
     }
 
-    @PostMapping(value = "/post/critic")
-    public ResponseEntity<Boolean> verifyCritic(@RequestParam Integer userID) {
-        return ResponseEntity.ok(userService.makeCritic(userID));
+    @PostMapping(value = "/verify/critic")
+    public ResponseEntity<?> verifyCritic(@RequestParam Integer userId) {
+        userService.makeCritic(userId);
+        return ResponseEntity.ok(true);
     }
+
+    @GetMapping(value = "/get/critic_applications")
+    public ResponseEntity<?> getCritcApplications() {
+        List<CriticApplication> allCriticApplication = userService.getAllCriticApplication();
+        List<HashMap> list = new ArrayList<>();
+        for (CriticApplication application : allCriticApplication) {
+            HashMap<String, Object> hashMap = new HashMap<>();
+            hashMap.put("username", application.getUser().getUsername());
+            hashMap.put("email", application.getUser().getEmail());
+            hashMap.put("id", application.getUser().getUserID());
+            hashMap.put("reason", application.getReason());
+            list.add(hashMap);
+        }
+        return ResponseEntity.ok(list);
+    }
+
 
 }

@@ -9,10 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
 
 @RequestMapping("/search")
 @RestController
@@ -37,10 +34,6 @@ public class SearchController {
         results.put("movie_page", movies.getTotalPages());
         results.put("celebrities_page", celebrities.getTotalPages());
         results.put("tv_page", tvs.getTotalPages());
-
-//        results.put("movie_total", movies.getTotalElements());
-//        results.put("celebrities_total", celebrities.getTotalElements());
-//        results.put("tv_total", tvs.getTotalElements());
 
         return ResponseEntity.ok(results);
     }
@@ -75,6 +68,5 @@ public class SearchController {
         results.put("tv", tVsFromKeyword.getContent());
         return ResponseEntity.ok(results);
     }
-
 
 }

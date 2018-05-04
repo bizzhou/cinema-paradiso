@@ -100,4 +100,9 @@ export class MovieService {
   updateMovie(movie: Movie) {
     return this.http.post(AppConstant.API_ENDPOINT + `movie/update`, movie);
   }
+
+  getAllReviews() {
+    return this.http.get(AppConstant.API_ENDPOINT + `review/get/all`);
+
+  }
 }

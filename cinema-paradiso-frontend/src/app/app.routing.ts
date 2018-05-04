@@ -12,6 +12,8 @@ import {CriticReviewsComponent} from './global/review-collection/critic-reviews/
 import {RegUserReviewsComponent} from './global/review-collection/reg-user-reviews/reg-user-reviews.component';
 import {CriticPortfolioComponent} from './global/public-portfolio/critic/critic.component';
 import {RegUserPortfolioComponent} from './global/public-portfolio/reg-user/reg-user.component';
+import {ContactComponent} from "./global/contact/contact.component";
+import {TosComponent} from "./global/tos/tos.component";
 
 const appRoutes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'home'},
@@ -25,6 +27,8 @@ const appRoutes: Routes = [
   {path: 'search', component: SearchComponent},
   {path: 'admin', component: AdminComponent},
   {path: 'about', component: AboutComponent},
+  {path: 'contact', component: ContactComponent},
+  {path: 'tos', component: TosComponent},
   {path: 'portfolio/critic', component: CriticPortfolioComponent},
   {path: 'portfolio/user', component: RegUserPortfolioComponent},
 ];
