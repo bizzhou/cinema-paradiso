@@ -1,8 +1,8 @@
-  <h5 class="c-header">Profile privacy</h5>
+  <h5 class="c-header">Privacy setting</h5>
   <!-- account public -->
   <form *ngIf="!profile.isPrivate; else thenPublic">
     <div class="c-inputs">
-      <label>Change your public portfolio to private.</label>
+      <label>Set your public portfolio to private.</label>
       <button (click)="setPrivate(true)" class="c-update-btn" style="margin-top: 0;">Set to private</button>
     </div>
   </form>
@@ -10,7 +10,7 @@
   <ng-template #thenPublic>
     <form>
       <div class="c-inputs">
-        <label>Change your private portfolio to public.</label>
+        <label>Set your private portfolio to public.</label>
         <button (click)="setPrivate(false)" class="c-update-btn" style="margin-top: 0;">Set to public</button>
       </div>
     </form>

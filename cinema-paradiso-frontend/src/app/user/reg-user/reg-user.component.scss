@@ -6,6 +6,7 @@ $color-light-red: #e8716d;
 $color-input-title: darken(white, 25%);
 $btn-hover: lighten(black, 40%);
 $btn-normal: lighten(black, 20%);
+$p-content: darken(white, 15%);
 
 @mixin cols ($width, $padding-left, $padding-right){
   width: $width;
@@ -149,56 +150,17 @@ main {
 }
 
 // wish list
-.w__item {
-  margin-bottom: 1em;
-
-  .w__img-wrap {
-    //padding-left: 4em;
-    img {
-      height: 180px;
-      width: auto;
-    }
-
-  }
+.w--item {
   .fa-star{
     color:$color-red;
   }
-  // rate
-  .flex {
-    font-size: 12px;
-    i {
-      margin-right: -5px;
+  .item--img {
+    margin-top: 5px;
+    img {
+      height: 100px;
+      width: auto;
     }
-    p {
-      display: inline-block;
-      font-size: 12px;
-    }
-    // ratings
-    p:nth-of-type(1){
-      margin-left:5px;
-      margin-right:10px;
-      color:white;
-    }
-    // rate
-    p:nth-of-type(2){
-      background:gray;
-      color: #fff;
-      padding: 0 4px;
-    }
-
   }
-  .s-item__title {
-    font-size: 16px;
-    color: white !important;
-  }
-  .s-item__title:hover {
-    color: $link-hover !important;
-  }
-
-  .s-plot {
-    margin: 5px 0;
-  }
-
 }
 
 p {
@@ -208,129 +170,11 @@ p {
     color: white;
   }
 }
-form {
-  margin-bottom: 40px;
+// overwrite md-review.scss
+.t_content{
+  margin-bottom: 1em;
 }
-
-
-.review {
-  color: white;
-  .r-title {
-    font-size: 16px;
-  }
-  .r-title__sub {
-    font-size: 14px;
-    margin: 0;
-    padding: 0;
-
-    i {
-      margin-right: -5px;
-    }
-  }
-  .review__content {
-    color: darken(white, 10%);
-  }
-
-  .r-update-btn {
-    font-size: 14px;
-  }
-
+.t_buttons {
+  float: right;
+  margin-top: -20px;
 }
-
-//
-//.l-cards__more {
-//  float: right;
-//  font-size: 14px;
-//  margin: 0 0 1em;
-//  color: gray;
-//}
-//
-//.l-cards {
-//  padding-left: 1.2em;
-//  padding-bottom: 12.5em;
-//}
-//
-//.l-cards__title-wrap {
-//  padding-bottom: 5px;
-//}
-//
-//// title of each section
-//.l-cards__title {
-//  font-size: 0.9em;
-//  color: white;
-//  display: inline;
-//  margin-left: 1.5%;
-//  span {
-//    color: $color-red;
-//  }
-//}
-//
-//// the more button on the right
-//.l-cards__nav-left, .l-cards__nav-right {
-//  float: right;
-//  color: white;
-//  background-color: $color-red;
-//  font-size: 0.8em;
-//  padding: 1px 8px;
-//  border-radius: 50%;
-//}
-//
-//.l-cards__nav-left {
-//  margin-right: 3%;
-//}
-//
-//.l-cards__nav-right {
-//  margin-right: 0.5em;
-//}
-//
-//// poster list
-//.l-cards__list {
-//  margin-top: 0.5em;
-//  //padding-bottom: 5em;
-//  display: flex;
-//}
-//
-//.l-cards__text {
-//  text-align: center;
-//  font-weight: 500;
-//  font-size: 0.6em !important;
-//  // ratings
-//  p {
-//    color: $color-red;
-//  }
-//}
-//
-//// individual poster
-//.l-cards__item {
-//  background-color: $color-gray;
-//  height: 3em;
-//  flex: 0 0 7.57em; // size of each poster
-//  margin: 0 1.2em;
-//  text-align: center;
-//  // text under poster
-//  a {
-//    color: darken(white, 40%);
-//    font-size: 0.7em;
-//    // text-decoration: none;
-//  }
-//  img {
-//    //height: 5em !important;
-//  }
-//
-//  & + & {
-//    margin-left: 0.25rem;
-//  }
-//}
-//
-//.film_name {
-//  color: white
-//}
-//
-//p {
-//  color: gray;
-//}
-//
-//#about_me_box , .w3-input{
-//  color: black;
-//}
-//

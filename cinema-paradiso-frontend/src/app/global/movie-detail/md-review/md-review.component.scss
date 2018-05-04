@@ -43,7 +43,6 @@ $p-content: darken(white, 15%);
 }
 .t_title {
   color: lighten(gray, 20%) !important;
-  //margin-top: -5px !important;
   .title--profile-img {
     height: 30px;
     width: 30px;
@@ -104,23 +103,3 @@ $p-content: darken(white, 15%);
     }
   }
 }
-
-.t_more {
-  margin-top: -10px;
-  cursor: pointer;
-  font-size: 14px;
-  color: white !important;
-  text-decoration: underline !important;
-  float: right;
-}
-// triangle
-//.t-content:before{
-//  content: "";
-//  position: absolute;
-//  left: -15px;
-//  top: 5px;
-//  border-top: 15px solid transparent;
-//  border-bottom: 15px solid transparent;
-//  border-right: 20px solid white;
-//}
-//

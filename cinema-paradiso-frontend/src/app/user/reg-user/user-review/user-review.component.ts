@@ -7,7 +7,7 @@ import {ToastrService} from 'ngx-toastr';
 @Component({
   selector: 'app-user-review',
   templateUrl: './user-review.component.html',
-  styleUrls: ['./../reg-user.component.scss', './user-review.component.scss']
+  styleUrls: ['../../../global/movie-detail/md-review/md-review.component.scss', './../reg-user.component.scss', './user-review.component.scss']
 })
 export class UserReviewComponent implements OnInit {
 
@@ -25,7 +25,7 @@ export class UserReviewComponent implements OnInit {
 
   open(content, review: Review) {
     this.clickedReview = review;
-    this.modalRef = this.modalService.open(content);    
+    this.modalRef = this.modalService.open(content);
     this.modalRef.result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {

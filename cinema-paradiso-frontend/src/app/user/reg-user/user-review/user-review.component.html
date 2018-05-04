@@ -1,29 +1,36 @@
 <h5 class="c-header">My reviews </h5>
 <div class="container" *ngFor="let review of reviews">
-  <div class="row w__item">
-    <div class="col-3 w__img-wrap">
-      <img src={{review.movie.poster}} alt="{{review.movie.title}}">
+  <div class="row w--item">
+    <div class="col-2 item--img">
+      <img [src]="review.movie.poster" alt="movie poster">
     </div>
+    <div class="col-10 testimonial">
+      <div class="t_title" style="margin-top: 0">
+        <h6>
+          <a class="r_movie--title" routerLink="/movie/{{review.movie.imdbId}}">{{review.movie.title}}</a>
+          <span>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+              <i class="fa fa-star"></i>
+                  <i style="margin-left: 5px">{{review.userRating}}.0</i>
+            </span>
+          on {{review.postedDate | date}}
+        </h6>
 
-    <div class="col-9 review">
-      <h5 class="r-title">{{review.title}}</h5>
+        <div class="t_buttons">
+          <button class="c-update-btn" (click)="open(content, review)">Update</button>
+          <button class="c-update-btn button__warning" (click)="deleteReview(review)">Delete</button>
+        </div>
 
+      </div>
+      <div class="t_content" >
+        <h6 class="content_title"><a>{{review.title}} </a></h6>
+        <p class="content_text">
+          {{review.reviewContent}}
+        </p>
 
-      <p class="r-title__sub">
-        Rated: {{review.movie.title}}
-        <i class="fa fa-star" style="margin-left: 15px"></i>
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star"></i>
-        <!--TODO: user rating goes here-->
-        <i style="margin-left: 5px;">4.0/5.0</i>
-      </p>
-      <!-- TODO: review content here, use substring(), so only display first 3 lines-->
-      <p class="review__content">{{review.reviewContent}}</p>
-      <div class="button__group">
-        <button class="c-update-btn r-update-btn" (click)="open(content, review)">Update</button>
-        <button class="c-update-btn r-update-btn button__warning" (click)="deleteReview(review)">Delete</button>
       </div>
     </div>
 
