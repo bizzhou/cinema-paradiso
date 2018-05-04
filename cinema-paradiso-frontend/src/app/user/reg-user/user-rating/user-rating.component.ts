@@ -4,7 +4,11 @@ import {Rating} from '../../../global/models/rating.model';
 @Component({
   selector: 'app-user-rating',
   templateUrl: './user-rating.component.html',
-  styleUrls: ['./../reg-user.component.scss', './user-rating.component.scss']
+  styleUrls: ['../../../global/movie-detail/md-review/md-review.component.scss',
+    '../../../global/public-portfolio/critic/critic.component.scss',
+    '../../../global/public-portfolio/reg-user/reg-user.component.scss',
+    './../reg-user.component.scss',
+    './user-rating.component.scss']
 })
 export class UserRatingComponent implements OnInit {
 

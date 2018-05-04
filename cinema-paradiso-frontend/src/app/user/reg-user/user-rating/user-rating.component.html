@@ -1,37 +1,37 @@
 <h5 class="c-header">My Ratings </h5>
-<div class="container" *ngFor="let rating of profile.userRatings">
-  <div class="row w__item">
-    <div class="col-3 w__img-wrap">
+<div class="container">
+  <div *ngFor="let row of profile.userRatings | row:2" class="row r_ratings" >
+    <div *ngFor="let userRating of row" class="col-6">
+      <div class="row">
+        <div class="col-2">
+          <img [src]="userRating.ratedMovie.poster" alt="poster">
+        </div>
 
-      <!--TODO: movie poster here-->
-      <img src={{rating?.ratedMovie.poster}} alt="{{rating?.ratedMovie.title}}">
-    </div>
-
-    <div class="col-9 rating">
-      <p class="r-title__sub">
-        Rated: {{rating?.ratedMovie.title}}
-
-
-        <span style="margin-left: 15px">
-
-        <span *ngFor="let number of range(5)">
-          <i *ngIf="number < rating.userRating; else elseBlock" class="fa fa-star"></i>
-          <ng-template #elseBlock><i id="un_star" class="fa fa-star"></i></ng-template>
-        </span>
-
-        <i>{{rating?.userRating}}/5</i>
-
-
-      </span>
-
-
-      </p>
-      <div class="rating__buttons">
-        <button class="c-update-btn r-update-btn button__warning" (click)="deleteRating(rating)">Delete</button>
+        <div class="col-10 testimonial">
+          <div class="t_title">
+            <h6>
+              <a class="r_movie--title" routerLink="/movie/{{userRating.ratedMovie.imdbId}}">{{userRating.ratedMovie.title}}</a>
+            </h6>
+          </div>
+          <div class="t_title">
+            <h6>
+                  <span style="margin-left: 0">
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                <i class="fa fa-star"></i>
+                    <i style="margin-left: 5px">{{userRating.userRating}}.0</i>
+              </span>
+              on {{userRating.ratedDate | date}}
+            </h6>
+          </div>
+          <button class="button--del button__warning" (click)="deleteRating(userRating)">Delete</button>
+        </div>
       </div>
     </div>
-
   </div>
+
 </div>
 <ngb-pagination class="d-flex justify-content-left" [collectionSize]="20"></ngb-pagination>
 
