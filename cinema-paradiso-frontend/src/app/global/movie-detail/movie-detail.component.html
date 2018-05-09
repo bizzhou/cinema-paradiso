@@ -14,13 +14,13 @@
           <li class="s-explore__item" (click)="selectTab(2)" [ngClass]="{active: isTabActive(2)}">
             <a routerLink="/movies" (click)="setCurrentTab(sidebarEnum.moviesTopBoxOffice)">top box office</a>
           </li>
-          <li class="s-explore__item"  (click)="selectTab(3)" [ngClass]="{active: isTabActive(3)}">
+          <li class="s-explore__item" (click)="selectTab(3)" [ngClass]="{active: isTabActive(3)}">
             <a routerLink="/movies" (click)="setCurrentTab(sidebarEnum.moviesTrending)">trending now</a>
           </li>
-          <li class="s-explore__item"  (click)="selectTab(4)" [ngClass]="{active: isTabActive(4)}">
+          <li class="s-explore__item" (click)="selectTab(4)" [ngClass]="{active: isTabActive(4)}">
             <a routerLink="/movies" (click)="setCurrentTab(sidebarEnum.moviesComingSoon)">coming soon</a>
           </li>
-          <li class="s-explore__item"  (click)="selectTab(5)" [ngClass]="{active: isTabActive(5)}">
+          <li class="s-explore__item" (click)="selectTab(5)" [ngClass]="{active: isTabActive(5)}">
             <a routerLink="/movies" (click)="setCurrentTab(sidebarEnum.moviesTopRated)">top rated</a>
           </li>
 
@@ -99,11 +99,23 @@
 
             <div class="col-profile-img ratings_profile">
 
-              <img class=""
-                   src="https://user-images.githubusercontent.com/20979257/36620069-64e71fbe-18bf-11e8-87e8-565e2fc4d6da.jpeg"
-                   alt="user"/>
+              <div *ngIf="user !== undefined; else no_user">
+                <img class=""
+                     src="{{user['profileImage']}}"
+                     alt="user"/>
 
-              <p>Melanie</p>
+                <p>{{user['name']}}</p>
+              </div>
+
+              <ng-template #no_user>
+                <img class=""
+                     src="../../../assets/images/default_profile.png"
+                     alt="user"/>
+
+                <p>N/A</p>
+              </ng-template>
+
+
             </div>
 
 
