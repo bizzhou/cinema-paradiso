@@ -66,7 +66,6 @@ export class MovieDetailComponent implements OnInit {
 
   addReview() {
     this.review.imdbId = this.selectedMovieId;
-
     this.movieService.addReview(this.review).subscribe(data => {
       this.toastrService.success('Review added');
       this.movie.reviews.push(data as Review);

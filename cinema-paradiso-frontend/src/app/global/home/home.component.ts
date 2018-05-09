@@ -58,6 +58,7 @@ export class HomeComponent implements OnInit {
     // TODO: if in local storage, check here, otherwise check in backend
     if (localStorage.getItem('slides') !== null) {
       this.carousel = JSON.parse(localStorage.getItem('slides')) as Slide[];
+      console.log('carousel ' + this.carousel);
     } else {
       if (this.loginStatus) {
         console.log('Fetching custom carousel');
@@ -107,7 +108,7 @@ export class HomeComponent implements OnInit {
         data => {
           this.carousel = data as Slide[];
           console.log(this.carousel);
-          // localStorage.setItem('slides', JSON.stringify(this.carousel));
+          localStorage.setItem('slides', JSON.stringify(this.carousel));
         },
         error => console.log('Failed to fetch carousel data')
       );
@@ -120,7 +121,7 @@ export class HomeComponent implements OnInit {
         data => {
           this.carousel = data as Slide[];
           console.log(this.carousel);
-          // localStorage.setItem('slides', JSON.stringify(this.carousel));
+          localStorage.setItem('slides', JSON.stringify(this.carousel));
         },
         error => console.log('Failed to fetch custome carousel data')
       );
