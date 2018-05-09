@@ -55,16 +55,12 @@ export class HomeComponent implements OnInit {
       this.loginStatus = true;
     }
 
-    // TODO: if in local storage, check here, otherwise check in backend
     if (localStorage.getItem('slides') !== null) {
       this.carousel = JSON.parse(localStorage.getItem('slides')) as Slide[];
-      console.log('carousel ' + this.carousel);
     } else {
       if (this.loginStatus) {
-        console.log('Fetching custom carousel');
         this.getCustomCarousel();
       } else {
-        console.log('Fetching normal carousel');
         this.getCarousel();
       }
     }

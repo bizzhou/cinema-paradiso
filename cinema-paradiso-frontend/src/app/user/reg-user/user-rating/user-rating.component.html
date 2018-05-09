@@ -17,11 +17,12 @@
           <div class="t_title">
             <h6>
                   <span style="margin-left: 0">
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
-                <i class="fa fa-star"></i>
+                <i class="fa fa-star" [style.color]="userRating.userRating < 0.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+                <i class="fa fa-star" [style.color]="userRating.userRating < 1.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+                <i class="fa fa-star" [style.color]="userRating.userRating < 2.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+                <i class="fa fa-star" [style.color]="userRating.userRating < 3.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+                <i class="fa fa-star" [style.color]="userRating.userRating < 4.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+
                     <i style="margin-left: 5px">{{userRating.userRating}}.0</i>
               </span>
               on {{userRating.ratedDate | date}}

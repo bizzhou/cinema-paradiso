@@ -8,11 +8,11 @@
       <a routerLink="/movie/{{movie.imdbId}}" class="s-item__title">{{movie.title}} ({{movie.releaseDate.toString().substring(0, 4)}})</a>
 
       <div class="flex">
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star"></i>
-        <i class="fa fa-star"></i>
+        <i class="fa fa-star" [style.color]="movie?.criticRating < 0.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+        <i class="fa fa-star" [style.color]="movie?.criticRating < 1.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+        <i class="fa fa-star" [style.color]="movie?.criticRating < 2.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+        <i class="fa fa-star" [style.color]="movie?.criticRating < 3.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+        <i class="fa fa-star" [style.color]="movie?.criticRating < 4.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
         <p>{{movie.criticRating}}/5.0</p>
       </div>
 

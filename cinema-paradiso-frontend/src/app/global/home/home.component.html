@@ -23,11 +23,11 @@
                   <div class="absolute">
                     <a routerLink="/movie/{{carouselSlide.movie.imdbId}}" routerLinkActive="active">
                     <div class="flex">
-                      <i class="fa fa-star "></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
-                      <i class="fa fa-star"></i>
+                      <i class="fa fa-star" [style.color]="carouselSlide.movie.criticRating < 0.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+                      <i class="fa fa-star" [style.color]="carouselSlide.movie.criticRating < 1.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+                      <i class="fa fa-star" [style.color]="carouselSlide.movie.criticRating < 2.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+                      <i class="fa fa-star" [style.color]="carouselSlide.movie.criticRating < 3.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+                      <i class="fa fa-star" [style.color]="carouselSlide.movie.criticRating < 4.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
                       <p>{{carouselSlide.movie.criticRating}}/5.0</p>
                       <p>{{carouselSlide.movie.rated}}</p>
                     </div><!--flex end-->

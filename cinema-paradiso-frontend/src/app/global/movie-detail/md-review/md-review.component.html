@@ -1,7 +1,7 @@
 <!--</section>-->
 <section class="md_wrap">
   <h2 class="md-title">
-    <span>Audience reviews</span>
+    <span>Critic reviews</span>
   </h2>
 
   <div class="container" style="margin-top: 30px;">
@@ -20,11 +20,11 @@
             <h6>
               <a routerLink="/portfolio/{{review.authorName}}">{{review.authorName}}</a> rated {{review.userRating}}.0
               <span>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
+              <i class="fa fa-star" [style.color]="review.userRating < 0.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+              <i class="fa fa-star" [style.color]="review.userRating < 1.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+              <i class="fa fa-star" [style.color]="review.userRating < 2.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+              <i class="fa fa-star" [style.color]="review.userRating < 3.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+              <i class="fa fa-star" [style.color]="review.userRating < 4.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
             </span>
               on {{review.postedDate | date  }}
             </h6>
@@ -71,11 +71,11 @@
                         <h6>
                             <a routerLink="/portfolio/{{review.authorName}}">{{review.authorName}}</a> rated {{review.userRating}}.0
                             <span>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
+              <i class="fa fa-star" [style.color]="review.userRating < 0.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+              <i class="fa fa-star" [style.color]="review.userRating < 1.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+              <i class="fa fa-star" [style.color]="review.userRating < 2.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+              <i class="fa fa-star" [style.color]="review.userRating < 3.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+              <i class="fa fa-star" [style.color]="review.userRating < 4.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
             </span>
                             on {{review.postedDate | date  }}
                         </h6>

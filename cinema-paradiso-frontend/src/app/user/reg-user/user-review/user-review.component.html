@@ -9,11 +9,11 @@
         <h6>
           <a class="r_movie--title" routerLink="/movie/{{review.movie.imdbId}}">{{review.movie.title}}</a>
           <span>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
-              <i class="fa fa-star"></i>
+            <i class="fa fa-star" [style.color]="review.userRating < 0.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+            <i class="fa fa-star" [style.color]="review.userRating < 1.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+            <i class="fa fa-star" [style.color]="review.userRating < 2.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+            <i class="fa fa-star" [style.color]="review.userRating < 3.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+            <i class="fa fa-star" [style.color]="review.userRating < 4.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
                   <i style="margin-left: 5px">{{review.userRating}}.0</i>
             </span>
           on {{review.postedDate | date}}
