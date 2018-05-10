@@ -9,6 +9,8 @@ import {ListMovieStatus} from '../models/ListMovieStatus.model';
 import {Sidebar} from '../models/sidebar.model';
 import {CategoriesService} from '../categories/categories.service';
 import {RegUserService} from '../../user/reg-user/reg-user.service';
+import {User} from '../../user/user/user.model';
+import {AppConstant} from '../../app.constant';
 
 @Component({
   selector: 'app-movie-detail',
@@ -29,6 +31,7 @@ export class MovieDetailComponent implements OnInit {
   trailer: string;
   listMovieStatusEnum = ListMovieStatus;
   sidebarEnum = Sidebar;
+  user: Object;
 
   currentUsername: string;
   currentProfileImage: string;
@@ -50,6 +53,18 @@ export class MovieDetailComponent implements OnInit {
     if (this.loginStatusService.getTokenDetails() !== null) {
       this.loginStatusService.changeStatus(true);
       this.loggedInFlag = true;
+
+      this.regUserService.getProfile().subscribe(data => {
+        console.log('data obj ' , data);
+        if (data['profileImage'] !== 'default.jpeg') {
+          data['profileImage'] = AppConstant.API_ENDPOINT + '/user/avatar/' + data['profileImage'];
+        } else {
+         data['profileImage'] = '../../../assets/images/default_profile.png';
+        }
+        data['name'] = this.loginStatusService.getTokenDetails()['username'];
+        this.user = data;
+      });
+
     }
 
     console.log('id: ' + this.selectedMovieId);
