@@ -70,6 +70,11 @@ public class AdminServiceImpl extends UserService {
         CriticApplication criticApplication = criticApplicationRepository
                 .findByUser(user).orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getAppNotFound()));
         criticApplication.setApproved(true);
+
+        user.getUserProfile().getReviews().forEach(review -> {
+            review.setCriticReview(true);
+        });
+
         userRepository.save(user);
         userProfileRepository.save(user.getUserProfile());
         criticApplicationRepository.save(criticApplication);
