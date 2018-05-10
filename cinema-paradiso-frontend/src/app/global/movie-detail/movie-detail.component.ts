@@ -84,7 +84,6 @@ export class MovieDetailComponent implements OnInit {
     this.movieService.addReview(this.review).subscribe(data => {
       this.toastrService.success('Review added');
       data['authorName'] = this.currentUsername;
-      console.log("review data is ", data);
       this.movie.reviews.push(data as Review);
 
       // update the object reference so Input can reload.

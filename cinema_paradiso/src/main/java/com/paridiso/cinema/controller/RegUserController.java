@@ -165,8 +165,8 @@ public class RegUserController {
 
     @PostMapping(value = "/update/profile")
     public ResponseEntity<?> updateProfile(@RequestHeader(value = "Authorization") String jwtToken,
-                                           @RequestBody UserProfile userProfile) {
-        UserProfile newProfile = userService.updateProfile(userProfile);
+                                           @RequestBody HashMap<String, String> data) {
+        UserProfile newProfile = userService.updateProfile(data);
         return new ResponseEntity<>(newProfile, HttpStatus.OK);
     }
 
