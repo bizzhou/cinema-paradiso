@@ -8,7 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name = "Users", uniqueConstraints = @UniqueConstraint(columnNames = {"username", "email"}))
+@Table(name = "Users", uniqueConstraints = @UniqueConstraint(columnNames = {"userID"}))
 @PersistenceContext(type = PersistenceContextType.EXTENDED)
 public class User {
 
