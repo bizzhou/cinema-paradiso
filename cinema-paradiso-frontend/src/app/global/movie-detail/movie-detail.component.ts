@@ -55,11 +55,11 @@ export class MovieDetailComponent implements OnInit {
       this.loggedInFlag = true;
 
       this.regUserService.getProfile().subscribe(data => {
-        console.log('data obj ' , data);
+        console.log('data obj ', data);
         if (data['profileImage'] !== 'default.jpeg') {
           data['profileImage'] = AppConstant.API_ENDPOINT + '/user/avatar/' + data['profileImage'];
         } else {
-         data['profileImage'] = '../../../assets/images/default_profile.png';
+          data['profileImage'] = '../../../assets/images/default_profile.png';
         }
         data['name'] = this.loginStatusService.getTokenDetails()['username'];
         this.user = data;
@@ -88,7 +88,11 @@ export class MovieDetailComponent implements OnInit {
       // update the object reference so Input can reload.
       this.movie.reviews = this.movie.reviews.slice();
     }, error1 => {
-      this.toastrService.error('You\'ve reviewed');
+      if (error1['error']['message'] === 'USER RATING FOR MOVIE DOES NOT EXISTS') {
+        this.toastrService.error('Please rate movie first');
+      } else {
+        this.toastrService.error('You\'ve reviewed');
+      }
     });
   }
 
