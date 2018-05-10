@@ -120,11 +120,12 @@
 
 
             <div class="col-rate">
-              <!-- style uninterested list accordingly -->
-              <button *ngIf="movie.listMovieStatus !== listMovieStatusEnum.NOT_INTERESTED_LIST;else removeFromNotInterested"
-                      (click)="addToNotInterestedList(movie)"
-                      class="o-button color-gray">
-                <i class="fa fa-plus"></i> Uninterested
+              <!-- style not interested list accordingly -->
+              <button
+                *ngIf="movie.listMovieStatus !== listMovieStatusEnum.NOT_INTERESTED_LIST;else removeFromNotInterested"
+                (click)="addToNotInterestedList(movie)"
+                class="o-button color-gray">
+                <i class="fa fa-plus"></i> Not interested
               </button>
               <ng-template #removeFromNotInterested>
                 <button (click)="removeFromNotInterestedList(movie)"
