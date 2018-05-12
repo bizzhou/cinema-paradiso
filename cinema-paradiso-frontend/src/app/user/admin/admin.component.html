@@ -159,6 +159,11 @@
       </div>
 
       <div class="form-group">
+        <label for="photos">Photos</label>
+        <input type="file" (change)="uploadPhoto($event)" required class="form-control" id="photos" multiple>
+      </div>
+
+      <div class="form-group">
         <label for="celebrity">Celebrity</label>
         <input id="celebrity" name="celebrity" [(ngModel)]="celebrities" class="form-control">
       </div>

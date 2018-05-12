@@ -34,3 +34,7 @@ cinema-paradiso-frontend/package-lock\.json
 \.debris/tmp/
 
 *.jpg
+
+*.png
+
+cinema_paradiso/images/

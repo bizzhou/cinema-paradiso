@@ -108,18 +108,18 @@ export class MovieService {
   }
 
 
-  uploadImages(fileList: FileList) {
+  uploadImages(fileList: FileList, id: string) {
     const formData: FormData = new FormData();
 
     for (let i = 0; i < fileList.length; i++) {
       formData.append('files', fileList[i], fileList[i].name);
     }
 
-    formData.append('movie', 'tt223');
+    formData.append('movie', id);
 
     const req = new HttpRequest('POST', AppConstant.API_ENDPOINT + 'admin/upload/images', formData, {
       reportProgress: true,
-      responseType: 'text'
+      responseType: 'json'
     });
     return this.http.request(req);
 

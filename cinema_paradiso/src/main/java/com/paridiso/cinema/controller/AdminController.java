@@ -95,18 +95,19 @@ public class AdminController {
 
 
     @PostMapping(value = "upload/images")
-    public void uploadMultipleFiles(@RequestParam("files") MultipartFile[] files,
-                                    @RequestParam("movie") String movie) {
-        System.out.println(movie);
+    public ResponseEntity<List<String>> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files,
+                                                            @RequestParam("movie") String movie) {
+        List<String> names = new ArrayList<>();
         for (MultipartFile file : files) {
-            userService.saveFile(file, movie);
+            names.add("http://localhost:8080/admin/" + userService.saveFile(file, movie));
         }
+        return ResponseEntity.ok(names);
     }
 
     @PostMapping(value = "upload/poster")
     public String uploadPoster(@RequestParam("file") MultipartFile file, String movie) {
         String name = userService.saveFile(file, movie);
-        return name.equals("") ? "FALSE" : name;
+        return name.equals("") ? "FALSE" : "http://localhost:8080/admin/" + name;
     }
 
     @GetMapping(value = "/images/{folder}/{imageName}", produces = MediaType.IMAGE_JPEG_VALUE)

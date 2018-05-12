@@ -30,6 +30,7 @@ export class AdminComponent implements OnInit {
   reviews: Review[];
   criticApplications: CriticApplication[];
   fileList: FileList;
+  photoList: FileList;
   celebrities: string;
 
 
@@ -61,55 +62,31 @@ export class AdminComponent implements OnInit {
   private insertMovieIntoDB() {
     this.formatStringIntoArray();
     // const celeb = [];
-    console.log('asdiofjasidfj');
 
     this.movieService.getFilmId().toPromise().then(newId => {
 
       if (this.celebrities !== undefined) {
 
+        const celeb = [];
+        const celebArray = this.celebrities.split(',');
+        let counter = 0;
 
-      const celeb = [];
-      const celebArray = this.celebrities.split(',');
-      let counter = 0;
+        this.movie.casts = celeb;
+        this.movie.imdbId = newId;
 
-      this.movie.casts = celeb;
-      this.movie.imdbId = newId;
+        for (let i = 0; i < celebArray.length; i++) {
+          this.celebrityService.getCelebirty(celebArray[i]).toPromise().then(data => {
+            celeb.push(data as Celebrity);
 
-      // console.log(this.movie);
-      //
-      // this.movieService.uploadPoster(this.fileList, newId).toPromise().then(poster => {
-      //   this.movie.poster = AppConstant.API_ENDPOINT + `admin/${poster['body']}`;
-      //   this.movie.numOfCriticRatings = 0;
-      //   this.movie.numOfRegUserRatings = 0;
-      //   this.movie.criticRating = 0;
-      //   this.movie.regUserRating = 0;
-      //
-      //   this.movieService.addMovie(this.movie).toPromise().then(data => {
-      //     console.log('movie added is ', data);
-      //     // this.modalRef.close();
-      //     this.toastrService.success('SUCCESS');
-      //     return;
-      //   }, error => {
-      //     this.toastrService.error(error['error']['message']);
-      //   });
-      //
-      // });
+            if (counter === celebArray.length - 1) {
+              console.log('triggering event');
+              this.InsertMovieWithCeleb(celeb, newId);
+            } else {
+              counter += 1;
+            }
 
-
-      for (const i = 0; i < celebArray.length; i++) {
-        this.celebrityService.getCelebirty(celebArray[i]).toPromise().then(data => {
-          celeb.push(data as Celebrity);
-
-          if (counter === celebArray.length - 1) {
-            console.log('triggering event');
-            this.InsertMovieWithCeleb(celeb, newId);
-          } else {
-            counter += 1;
-          }
-
-        });
-      }
-
+          });
+        }
 
       }
 
@@ -123,41 +100,32 @@ export class AdminComponent implements OnInit {
     console.log(this.movie);
 
     this.movieService.uploadPoster(this.fileList, newId).toPromise().then(poster => {
-      this.movie.poster = AppConstant.API_ENDPOINT + `admin/${poster['body']}`;
+      this.movie.poster = poster['body'];
 
-      this.movie.numOfCriticRatings = 0;
-      this.movie.numOfRegUserRatings = 0;
-      this.movie.criticRating = 0;
-      this.movie.regUserRating = 0;
+      this.movieService.uploadImages(this.photoList, newId).toPromise().then(images => {
 
-      this.movieService.addMovie(this.movie).toPromise().then(data => {
-        console.log('movie added is ', data);
-        // this.modalRef.close();
-        this.toastrService.success('SUCCESS');
-        return;
-      }, error => {
-        this.toastrService.error(error['error']['message']);
+        console.log(images);
+
+        this.movie.photos = images['body'] as string[];
+        this.movie.numOfCriticRatings = 0;
+        this.movie.numOfRegUserRatings = 0;
+        this.movie.criticRating = 0;
+        this.movie.regUserRating = 0;
+
+        this.movieService.addMovie(this.movie).toPromise().then(data => {
+          console.log('movie added is ', data);
+          // this.modalRef.close();
+          this.toastrService.success('SUCCESS');
+          return;
+        }, error => {
+          this.toastrService.error(error['error']['message']);
+        });
+
       });
+
 
     });
   }
-
-  // extracted() {
-  //   const celeb = [];
-  //   const celebArray = this.celebrities.split(',');
-  //   const counter = 0;
-  //
-  //   for (const i = 0; i < celebArray.length; i++) {
-  //     this.celebrityService.getCelebirty(celebArray[i]).subscribe(data => {
-  //       celeb.push(data as Celebrity);
-  //       counter += 1;
-  //       if (counter === celebArray.length) {
-  //         this.InsertMovieWithCeleb(celeb, newId);
-  //       }
-  //
-  //     });
-  //   }
-  // }
 
   private formatStringIntoArray() {
     if (this.movie.genres != null) {
@@ -266,13 +234,12 @@ export class AdminComponent implements OnInit {
     });
   }
 
+  uploadPhoto(event) {
+    this.photoList = event.target.files;
+  }
+
   upload(event) {
     this.fileList = event.target.files;
-    // if (fileList.length > 0) {
-    //   this.movieService.uploadPoster(fileList).subscribe(data => {
-    //     console.log(data);
-    //   });
-    // }
   }
 
 }
