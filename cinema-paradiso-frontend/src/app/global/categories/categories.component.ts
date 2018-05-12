@@ -9,7 +9,7 @@ import {Sidebar} from '../models/sidebar.model';
   selector: 'app-categories',
   templateUrl: './categories.component.html',
   styleUrls: ['./categories.component.scss'],
-  providers: [CategoriesService]
+  providers: []
 })
 export class CategoriesComponent implements OnInit {
 

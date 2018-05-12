@@ -27,10 +27,10 @@
           <!--     tv -->
           <li class="s-explore__title"><h3>TV</h3></li>
           <li class="s-explore__item" (click)="selectTab(6)" [ngClass]="{active: isTabActive(6)}">
-            <a (click)="setCurrentTab(sidebarEnum.TvTonight)">new TV tonight</a>
+            <a routerLink="/movies" (click)="setCurrentTab(sidebarEnum.TvTonight)">new TV tonight</a>
           </li>
           <li class="s-explore__item"  (click)="selectTab(7)" [ngClass]="{active: isTabActive(7)}">
-            <a (click)="setCurrentTab(sidebarEnum.TvTopRated)">Top rated</a>
+            <a routerLink="/movies" (click)="setCurrentTab(sidebarEnum.TvTopRated)">Top rated</a>
           </li>
         </ul>
 
