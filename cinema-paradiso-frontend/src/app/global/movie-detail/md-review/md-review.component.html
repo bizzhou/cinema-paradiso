@@ -7,7 +7,7 @@
   <div class="container" style="margin-top: 30px;">
     <!--TODO: show 3 rows-->
 
-    <div *ngFor="let review of criticReviews">
+    <div *ngFor="let review of criticReviews.slice().reverse()">
       <div class="row">
 
         <div class="testimonial">
@@ -58,12 +58,11 @@
     <div class="container" style="margin-top: 30px;">
         <!--TODO: show 3 rows-->
 
-        <div *ngFor="let review of userReviews">
+        <div *ngFor="let review of userReviews.slice().reverse()">
             <div class="row">
 
                 <div class="testimonial">
                     <div class="t_title">
-                        <!--TODO: user profile image goes here-->
                         <img class="title--profile-img"
                         [defaultImage]="'../../../../assets/images/default_profile.png'"
                              [lazyLoad]="review?.authorImage"/>

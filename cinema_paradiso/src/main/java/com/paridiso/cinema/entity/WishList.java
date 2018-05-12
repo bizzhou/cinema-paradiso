@@ -12,7 +12,6 @@ public class WishList {
     private Integer wishListSize;
     private List<TV> tvs;
 
-
     public WishList() {
     }
 
@@ -70,5 +69,7 @@ public class WishList {
                 ", wishListSize=" + wishListSize +
                 '}';
     }
+
+    
 
 }
