@@ -136,7 +136,7 @@ main{
 
 .r_poster {
   vertical-align:middle;
-  text-align:center;
+  //text-align:center;
   margin-bottom: 1em;
   position: relative;
   overflow: hidden;
@@ -178,7 +178,7 @@ main{
   font-size: 0.6em;
   line-height: 1;
   letter-spacing: 0.1em;
-  font-weight: bold;
+  font-weight: 500;
   text-transform: uppercase;
   padding: 0.5em 1.125em;
   //background-color: $color-red;
@@ -286,11 +286,16 @@ main{
   text-align: center;
 }
 
-.rating-num {
+.rating_words {
+  color: darken(white, 20%);
+  font-size: 0.8em;
+  font-weight: 200;
+}
+
+.rating_num {
   color: #e50914;
-  font-size: 3em;
-  font-weight: 100;
-  line-height: 1em;
+  font-size: 1em;
+  font-weight: 300;
 }
 
 .rating-stars {
@@ -371,7 +376,18 @@ a {
 ngb-rating{
   color: #fff;
 }
+.heading {
+  i {
+    margin-left: -5px;
+  }
+  p {
+    font-size: 0.8em;
+  }
+}
+.md--casts {
 
-.rating_words {
-  color: white;
+  //font-size: 0.7em;
+  margin-top: 0.4em;
+  color: darken(white, 40%);
+
 }

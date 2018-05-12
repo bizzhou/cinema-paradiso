@@ -275,6 +275,7 @@ export class CategoriesComponent implements OnInit {
           this.currentMovies = this.TvTonight;
           this.numOfCurrentMovies = this.numOfTvTonight;
 
+          console.log(this.TvTonight);
           localStorage.setItem('tvTonight', JSON.stringify(this.TvTonight));
         },
         error => console.log('Failed to fetch tv tonight')
@@ -290,7 +291,7 @@ export class CategoriesComponent implements OnInit {
 
           this.currentMovies = this.TvTopRated;
           this.numOfCurrentMovies = this.numOfTvTopRated;
-
+          console.log(this.TvTopRated);
           localStorage.setItem('tvTopRated', JSON.stringify(this.TvTopRated));
         },
         error => console.log('Failed to fetch tv top rated')
