@@ -217,6 +217,49 @@
       </ul>
     </section>
 
+    <section class="l-cards">
+      <div class="l-cards__title-wrap">
+        <h2 class="l-cards__title" (click)="selectTab(6)"  [ngClass]="{active: isTabActive(6)}">
+          <a routerLink="/movies" (click)="setCurrentTab(sidebarEnum.TvTonight)">New TV Tonight</a>
+        </h2>
+        <a class="l-cards__nav-left" href="#"><i class="fa fa-angle-right"></i></a><a class="l-cards__nav-right" href="#"><i class="fa fa-angle-left"></i></a>
+      </div>
+      <ul class="l-cards__list">
+
+        <li class="l-cards__item" *ngFor="let movie of tvsTonight | slice:0:6">
+          <a routerLink="/tv/{{movie.imdbId}}" routerLinkActive="active" class="l-cards__image fill">
+            <img [src]="movie.poster" [alt]="movie.title">
+          </a>
+          <a routerLink="/tv/{{movie.imdbId}}" routerLinkActive="active"  class="l-cards__text">
+            {{movie.title.substring(0, 20)}}
+            <p>{{movie.criticRating}}/5.0</p>
+          </a>
+        </li>
+
+      </ul>
+    </section>
+
+    <section class="l-cards">
+      <div class="l-cards__title-wrap">
+        <h2 class="l-cards__title" (click)="selectTab(7)"  [ngClass]="{active: isTabActive(7)}">
+          <a routerLink="/movies" (click)="setCurrentTab(sidebarEnum.TvTopRated)">Top Rated TV</a>
+        </h2>
+        <a class="l-cards__nav-left" href="#"><i class="fa fa-angle-right"></i></a><a class="l-cards__nav-right" href="#"><i class="fa fa-angle-left"></i></a>
+      </div>
+      <ul class="l-cards__list">
+
+        <li class="l-cards__item" *ngFor="let movie of tvsTopRated | slice:0:6">
+          <a routerLink="/tv/{{movie.imdbId}}" routerLinkActive="active" class="l-cards__image fill">
+            <img [src]="movie.poster" [alt]="movie.title">
+          </a>
+          <a routerLink="/tv/{{movie.imdbId}}" routerLinkActive="active"  class="l-cards__text">
+            {{movie.title.substring(0, 20)}}
+            <p>{{movie.criticRating}}/5.0</p>
+          </a>
+        </li>
+
+      </ul>
+    </section>
 
     <section class="l-cards">
       <div class="l-cards__title-wrap">
