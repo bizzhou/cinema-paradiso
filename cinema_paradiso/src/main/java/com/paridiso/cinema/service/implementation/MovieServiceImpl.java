@@ -62,12 +62,6 @@ public class MovieServiceImpl implements FilmService {
     public Movie addFilm(Film movie) {
 //        if (movieRepository.findMovieByImdbId(movie.getImdbId()).get() != null)
 //            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieExists());
-        if (movie.getImdbId() == null) {
-            String imdbId = movieRepository.findTop1ByOrderByImdbIdDesc().getImdbId();
-            long newId = Long.parseLong(imdbId.replace("tt", "")) + 1;
-            movie.setImdbId("tt" + String.valueOf(newId));
-            System.out.println(movie);
-        }
         return movieRepository.save((Movie) movie);
     }
 
@@ -76,9 +70,7 @@ public class MovieServiceImpl implements FilmService {
         Movie movie = movieRepository
                 .findMovieByImdbId(filmId)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieDoesNotExist()));
-
         movie.setListMovieStatus(ListMovieStatus.NONE);
-
         return movie;
     }
 
@@ -86,11 +78,9 @@ public class MovieServiceImpl implements FilmService {
     public Movie getCustomFilm(String filmId, Integer userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserNotFound()));
-
         Movie movie = movieRepository
                 .findMovieByImdbId(filmId)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieDoesNotExist()));
-
         return setInitialMovieStatus(movie, user);
     }
 
@@ -176,14 +166,12 @@ public class MovieServiceImpl implements FilmService {
     public Movie setInitialMovieStatus(Movie movie, User user) {
         List<Movie> wishListMovies = user.getUserProfile().getWishList().getMovies();
         List<Movie> notInterestedMovies = user.getUserProfile().getNotInterestedList().getMovies();
-
         if (wishListMovies.stream().anyMatch(m -> m.equals(movie)))
             movie.setListMovieStatus(ListMovieStatus.WISHLIST);
         else if (notInterestedMovies.stream().anyMatch(m -> m.equals(movie)))
             movie.setListMovieStatus(ListMovieStatus.NOT_INTERESTED_LIST);
         else
             movie.setListMovieStatus(ListMovieStatus.NONE);
-
         return movie;
     }
 
@@ -293,7 +281,6 @@ public class MovieServiceImpl implements FilmService {
     public HashMap<String, Object> getMoviesTopRated(Integer pageNo, Integer pageSize) {
         Page<Movie> moviePage = movieRepository
                 .findTop20ByOrderByWeightedRankDesc(new PageRequest(pageNo, pageSize));
-
         HashMap<String, Object> results = new HashMap<>();
         results.put(mapKeyConstants.getMovieLabel(), moviePage.getContent());
         results.put(mapKeyConstants.getMoviePageLabel(), moviePage.getTotalPages());
@@ -316,6 +303,13 @@ public class MovieServiceImpl implements FilmService {
         Set<Movie> top50ByRatingOrderByRating = movieRepository.findTop50ByOrderByNumOfRegUserRatingsDescRegUserRatingDesc();
         logger.info(top50ByRatingOrderByRating);
         return top50ByRatingOrderByRating;
+    }
+
+    @Override
+    public String getFilmId() {
+        String imdbId = movieRepository.findTop1ByOrderByImdbIdDesc().getImdbId();
+        long newId = Long.parseLong(imdbId.replace("tt", "")) + 1;
+        return ("tt" + String.valueOf(newId));
     }
 
 }

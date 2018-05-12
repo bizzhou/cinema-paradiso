@@ -151,5 +151,10 @@ public class MovieController {
         return ResponseEntity.ok(filmService.getTopRating());
     }
 
+    @GetMapping(value = "get/new_film_id")
+    public ResponseEntity<String> getNewFilmId() {
+        String filmId = filmService.getFilmId();
+        return ResponseEntity.ok(filmId);
+    }
 
 }

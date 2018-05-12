@@ -172,9 +172,14 @@
 
           <p>
             Director
-            <span>
+            <span *ngIf="movie.director !== null">
                 <a routerLink="/celebrity/{{movie?.director.celebrityId}}">{{movie?.director.name}}</a>
-              </span>
+            </span>
+            <span *ngIf="movie.director === null">
+                <a>N/A</a>
+            </span>
+
+
           </p>
           <p>
             Starring

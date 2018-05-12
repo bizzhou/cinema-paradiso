@@ -7,13 +7,16 @@ import {User} from '../user/user.model';
 import {ToastrService} from 'ngx-toastr';
 import {ModalDismissReasons, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {Review} from '../../global/models/review.model';
-import {CriticApplication} from "../../global/models/critic-application.model";
+import {CriticApplication} from '../../global/models/critic-application.model';
+import {Celebrity} from '../../global/models/celebrity.model';
+import {CelebrityService} from '../../global/celebrity/celebrity.service';
+import {AppConstant} from '../../app.constant';
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss'],
-  providers: [RegUserService]
+  providers: [RegUserService, CelebrityService]
 })
 export class AdminComponent implements OnInit {
 
@@ -26,10 +29,13 @@ export class AdminComponent implements OnInit {
   addMovieFlag = false;
   reviews: Review[];
   criticApplications: CriticApplication[];
+  fileList: FileList;
+  celebrities: string;
 
 
   constructor(private userService: RegUserService, private movieService: MovieService,
-              private toastrService: ToastrService, private modalService: NgbModal) {
+              private toastrService: ToastrService, private modalService: NgbModal,
+              private celebrityService: CelebrityService) {
   }
 
   movie: Movie;
@@ -53,17 +59,59 @@ export class AdminComponent implements OnInit {
   }
 
   private insertMovieIntoDB() {
-    console.log('this movie', this.movie);
     this.formatStringIntoArray();
-    console.log('this movie', this.movie);
-    this.movieService.addMovie(this.movie).subscribe(data => {
-      console.log('', data);
-      // this.movie = undefined;
-      this.modalRef.close();
-      this.toastrService.success('SUCCESS');
-    }, error => {
-      this.toastrService.error(error['error']['message']);
+    const celeb = [];
+
+    this.movieService.getFilmId().subscribe(newId => {
+
+      if (this.celebrities !== undefined) {
+        const celebArray = this.celebrities.split(',');
+
+        for (let i = 0; i < celebArray.length; i++) {
+          this.celebrityService.getCelebirty(celebArray[i]).subscribe(data => {
+            celeb.push(data as Celebrity);
+
+            if (i === celebArray.length - 1) {
+              this.movie.casts = celeb;
+              this.movie.imdbId = newId;
+
+              console.log(this.movie);
+
+              this.movieService.uploadPoster(this.fileList, newId).subscribe(poster => {
+                this.movie.poster = AppConstant.API_ENDPOINT + `admin/${poster['body']}`;
+
+                this.movie.numOfCriticRatings = 0;
+                this.movie.numOfRegUserRatings = 0;
+                this.movie.criticRating = 0;
+                this.movie.regUserRating = 0;
+
+                this.movieService.addMovie(this.movie).subscribe(data => {
+                  console.log('movie added is ', data);
+                  // this.modalRef.close();
+                  this.toastrService.success('SUCCESS');
+                }, error => {
+                  this.toastrService.error(error['error']['message']);
+                });
+
+              });
+            }
+
+          });
+        }
+
+      }
+
     });
+  }
+
+  async extracted() {
+    const celeb = [];
+    for (const celebrity of this.celebrities.split(',')) {
+      await this.celebrityService.getCelebirty(celebrity).subscribe(data => {
+        celeb.push(data as Celebrity);
+      });
+    }
+    return celeb;
   }
 
   private formatStringIntoArray() {
@@ -171,6 +219,15 @@ export class AdminComponent implements OnInit {
       console.log(this.criticApplications);
       this.toastrService.success('SUCCESS');
     });
+  }
+
+  upload(event) {
+    this.fileList = event.target.files;
+    // if (fileList.length > 0) {
+    //   this.movieService.uploadPoster(fileList).subscribe(data => {
+    //     console.log(data);
+    //   });
+    // }
   }
 
 }

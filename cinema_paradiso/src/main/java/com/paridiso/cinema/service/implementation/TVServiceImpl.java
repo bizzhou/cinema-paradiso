@@ -120,4 +120,12 @@ public class TVServiceImpl implements FilmService {
     public Movie setInitialMovieStatus(Movie movie, User user) {
         return null;
     }
+
+    @Override
+    public String getFilmId() {
+//        String imdbId = tvRepository.findTop1ByOrderByImdbIdDesc().getImdbId();
+//        long newId = Long.parseLong(imdbId.replace("tt", "")) + 1;
+//        return ("tt" + String.valueOf(newId));
+        return null;
+    }
 }

@@ -15,7 +15,6 @@ import com.paridiso.cinema.service.implementation.RegUserServiceImpl;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -108,7 +107,8 @@ public class RegUserController {
     }
 
     @GetMapping(value = "/get/profile")
-    public ResponseEntity<?> getProfile(@RequestHeader(value = "Authorization") String jwtToken, HttpSession session) throws JsonProcessingException {
+    public ResponseEntity<?> getProfile(@RequestHeader(value = "Authorization") String jwtToken,
+                                        HttpSession session) throws JsonProcessingException {
         UserProfile profile = userService.getProfile(jwtTokenService.getUserProfileIdFromToken(jwtToken));
         HashMap<Object, Object> objectObjectHashMap = new HashMap<>();
         objectObjectHashMap.put("name", profile.getName());
@@ -153,7 +153,7 @@ public class RegUserController {
     public ResponseEntity<?> changeAvatar(@RequestParam MultipartFile file,
                                           @RequestHeader(value = "Authorization") String jwtToken) throws IOException {
         Integer id = jwtTokenService.getUserProfileIdFromToken(jwtToken);
-        return ResponseEntity.ok(userService.chagneProfilePicture(id, file));
+        return ResponseEntity.ok(userService.changeProfilePicture(id, file));
     }
 
 

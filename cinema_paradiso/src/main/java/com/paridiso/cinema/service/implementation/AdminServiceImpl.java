@@ -12,9 +12,16 @@ import com.paridiso.cinema.service.UserService;
 import com.paridiso.cinema.service.UtilityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -70,11 +77,9 @@ public class AdminServiceImpl extends UserService {
         CriticApplication criticApplication = criticApplicationRepository
                 .findByUser(user).orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getAppNotFound()));
         criticApplication.setApproved(true);
-
         user.getUserProfile().getReviews().forEach(review -> {
             review.setCriticReview(true);
         });
-
         userRepository.save(user);
         userProfileRepository.save(user.getUserProfile());
         criticApplicationRepository.save(criticApplication);
@@ -87,4 +92,23 @@ public class AdminServiceImpl extends UserService {
                 .collect(Collectors.toList());
     }
 
+    public String saveFile(MultipartFile file, String movie) {
+        if (!file.isEmpty()) {
+            byte[] bytes = new byte[0];
+            try {
+                bytes = file.getBytes();
+                File dir = new File("images/" + movie);
+                if (!dir.exists()) dir.mkdirs();
+                String newFile = "images/" + movie + "/" + file.getOriginalFilename();
+                Path path = Paths.get(newFile);
+                Files.write(path, bytes);
+                return newFile;
+            } catch (IOException e) {
+                e.printStackTrace();
+                return "";
+            }
+        } else {
+            return "";
+        }
+    }
 }
