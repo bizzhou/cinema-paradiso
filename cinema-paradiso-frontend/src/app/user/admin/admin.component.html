@@ -168,6 +168,12 @@
         <input id="celebrity" name="celebrity" [(ngModel)]="celebrities" class="form-control">
       </div>
 
+      <div class="form-group">
+        <label for="director">Director</label>
+        <input id="director" name="celebrity" [(ngModel)]="director" class="form-control">
+      </div>
+
+
 
       <button class="btn btn-primary" *ngIf="addMovieFlag === false" (click)="updateMovie(movie)">Submit</button>
       <button class="btn btn-primary" *ngIf="addMovieFlag === true" (click)="insertMovieIntoDB()">Submit</button>

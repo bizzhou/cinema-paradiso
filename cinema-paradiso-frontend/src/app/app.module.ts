@@ -48,7 +48,6 @@ import {RegUserService} from './user/reg-user/reg-user.service';
 import {RowPipe} from './global/models/Pipes.model';
 import { TosComponent } from './global/tos/tos.component';
 import { ContactComponent } from './global/contact/contact.component';
-import { FileUploadComponent } from './global/file-upload/file-upload.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +77,6 @@ import { FileUploadComponent } from './global/file-upload/file-upload.component'
     RegUserPortfolioComponent,
     TosComponent,
     ContactComponent,
-    FileUploadComponent
   ],
   imports: [
     BrowserModule,

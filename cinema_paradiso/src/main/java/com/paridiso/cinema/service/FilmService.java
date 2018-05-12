@@ -81,4 +81,6 @@ public interface FilmService {
     Movie setInitialMovieStatus(Movie movie, User user);
 
     String getFilmId();
+
+    void addFilmography(Movie movie);
 }

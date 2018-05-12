@@ -6,6 +6,7 @@ import com.paridiso.cinema.entity.Film;
 import com.paridiso.cinema.entity.FilmographyWrapper;
 import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.persistence.CelebrityRepository;
+import com.paridiso.cinema.persistence.MovieRepository;
 import com.paridiso.cinema.service.CelebrityService;
 import com.paridiso.cinema.service.UtilityService;
 import org.apache.logging.log4j.LogManager;
@@ -32,6 +33,9 @@ public class CelebrityServiceImpl implements CelebrityService {
 
     @Autowired
     UtilityService utilityService;
+
+    @Autowired
+    MovieRepository movieRepository;
 
     private static Logger logger = LogManager.getLogger(CelebrityServiceImpl.class);
 
@@ -65,18 +69,26 @@ public class CelebrityServiceImpl implements CelebrityService {
     @Transactional
     @Override
     public boolean addFilmography(FilmographyWrapper filmography) {
-        List<Movie> celebFilmgraphy = new ArrayList<>();
-        Celebrity celebrity = utilityService.getCelebrity(filmography.getId());
-        filmography.getFilmography().forEach(movieId -> {
-            try {
-                celebFilmgraphy.add(utilityService.getMoive(movieId));
-            } catch (ResponseStatusException e) {
-                logger.info("Cannot find moive " + movieId);
-            }
-        });
-        celebrity.setFilmography(celebFilmgraphy);
-        return celebrityRepository.save(celebrity).getFilmography() != null;
+//        List<Movie> celebFilmgraphy = new ArrayList<>();
+//        Celebrity celebrity = utilityService.getCelebrity(filmography.getId());
+//        filmography.getFilmography().forEach(movieId -> {
+//            try {
+//                celebFilmgraphy.add(utilityService.getMoive(movieId));
+//            } catch (ResponseStatusException e) {
+//                logger.info("Cannot find moive " + movieId);
+//            }
+//        });
+//        celebrity.setFilmography(celebFilmgraphy);
+//        return celebrityRepository.save(celebrity).getFilmography() != null;
 
+
+        // get a all movie
+        movieRepository.findAll().forEach(movie -> {
+            movie.getCasts().forEach(celebrity -> {
+                celebrity.getFilmography().add(movie);
+            });
+        });
+        return true;
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.paridiso.cinema.constants.MapKeyConstants;
 import com.paridiso.cinema.entity.*;
 import com.paridiso.cinema.entity.enumerations.Role;
 import com.paridiso.cinema.entity.enumerations.ListMovieStatus;
+import com.paridiso.cinema.persistence.CelebrityRepository;
 import com.paridiso.cinema.persistence.MovieRepository;
 import com.paridiso.cinema.persistence.UserRatingRepository;
 import com.paridiso.cinema.persistence.UserRepository;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.EntityManager;
 import java.util.*;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
@@ -55,14 +57,25 @@ public class MovieServiceImpl implements FilmService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    CelebrityRepository celebrityRepository;
+
     private static Logger logger = LogManager.getLogger(MovieServiceImpl.class);
 
     @Transactional
     @Override
     public Movie addFilm(Film movie) {
-//        if (movieRepository.findMovieByImdbId(movie.getImdbId()).get() != null)
-//            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieExists());
-        return movieRepository.save((Movie) movie);
+        Movie savedMovie = movieRepository.save((Movie) movie);
+        for (Celebrity celebrity : movie.getCasts()) {
+            Celebrity celebrity1 = utilityService.getCelebrity(celebrity.getCelebrityId());
+            System.out.println(celebrity1.getFilmography());
+            if (celebrity1.getFilmography() == null) {
+                celebrity1.setFilmography(new ArrayList<>());
+            }
+            celebrity1.getFilmography().add(savedMovie);
+            celebrityRepository.save(celebrity1);
+        }
+        return savedMovie;
     }
 
     @Override
@@ -310,6 +323,20 @@ public class MovieServiceImpl implements FilmService {
         String imdbId = movieRepository.findTop1ByOrderByImdbIdDesc().getImdbId();
         long newId = Long.parseLong(imdbId.replace("tt", "")) + 1;
         return ("tt" + String.valueOf(newId));
+    }
+
+
+    @Transactional
+    @Override
+    public void addFilmography(Movie movie) {
+//        for (Celebrity celebrity : movie.getCasts()) {
+//            Celebrity celebrity1 = utilityService.getCelebrity(celebrity.getCelebrityId());
+//            if (celebrity1.getFilmography() == null) {
+//                celebrity1.setFilmography(new ArrayList<>());
+//            }
+//            celebrity1.getFilmography().add(movie);
+//            celebrityRepository.save(celebrity1);
+//        }
     }
 
 }

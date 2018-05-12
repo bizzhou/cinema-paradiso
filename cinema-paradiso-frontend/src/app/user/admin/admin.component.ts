@@ -10,7 +10,6 @@ import {Review} from '../../global/models/review.model';
 import {CriticApplication} from '../../global/models/critic-application.model';
 import {Celebrity} from '../../global/models/celebrity.model';
 import {CelebrityService} from '../../global/celebrity/celebrity.service';
-import {AppConstant} from '../../app.constant';
 
 @Component({
   selector: 'app-admin',
@@ -32,6 +31,7 @@ export class AdminComponent implements OnInit {
   fileList: FileList;
   photoList: FileList;
   celebrities: string;
+  director: string;
 
 
   constructor(private userService: RegUserService, private movieService: MovieService,
@@ -73,6 +73,11 @@ export class AdminComponent implements OnInit {
 
         this.movie.casts = celeb;
         this.movie.imdbId = newId;
+
+        this.celebrityService.getCelebirty(this.director).toPromise().then(director => {
+          this.movie.director = director as Celebrity;
+        });
+
 
         for (let i = 0; i < celebArray.length; i++) {
           this.celebrityService.getCelebirty(celebArray[i]).toPromise().then(data => {

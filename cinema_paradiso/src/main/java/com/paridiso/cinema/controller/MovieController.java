@@ -59,6 +59,7 @@ public class MovieController {
     @PostMapping(value = "/add")
     public ResponseEntity<Boolean> addMovie(@RequestBody Movie movie) {
         filmService.addFilm(movie);
+        filmService.addFilmography(movie);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -135,6 +136,7 @@ public class MovieController {
                                                @RequestParam Integer pageSize){
         return new ResponseEntity<>(filmService.getMoviesTopRated(pageNo, pageSize), HttpStatus.OK);
     }
+
 
     @GetMapping(value = "/get/range")
     public ResponseEntity<Set> getMoviesInRange(@RequestParam Calendar startDate, @RequestParam Calendar endDate) {
