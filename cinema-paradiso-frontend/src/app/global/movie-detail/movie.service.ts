@@ -44,6 +44,18 @@ export class MovieService {
     return this.http.post(MOVIE_SERVER + 'topRated', param);
   }
 
+  getTvsTonight(pageNo: string, pageSize: string) {
+    const param = new HttpParams().set('pageNo', pageNo)
+      .set('pageSize', pageSize);
+    return this.http.post(AppConstant.API_ENDPOINT + 'tv/comingSoon', param);
+  }
+
+  getTvsTopRated(pageNo: string, pageSize: string) {
+    const param = new HttpParams().set('pageNo', pageNo)
+      .set('pageSize', pageSize);
+    return this.http.post(AppConstant.API_ENDPOINT + 'tv/topRated', param);
+  }
+
   getMovieDetails(imdbId: string): any {
     return this.http.get(MOVIE_SERVER + `get/${imdbId}`);
   }

@@ -23,12 +23,6 @@ public interface TVRepository extends JpaRepository<TV, String> {
 
     Optional<TV> findTVByImdbId(String imdbId);
 
-    @Query(value = "SELECT AVG(m.numOfRegUserRatings) FROM TV m")
-    Double findAvgNumOfRegUserRatings();
-
-    @Query(value = "SELECT AVG(m.numOfCriticRatings) FROM TV m")
-    Double findAvgNumOfCriticRatings();
-
     @Query(value = "SELECT AVG(m.regUserRating) FROM TV m")
     Double findAvgRegUserRatings();
 

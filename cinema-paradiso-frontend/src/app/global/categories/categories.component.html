@@ -25,18 +25,16 @@
         <li class="s-explore__item"  (click)="selectTab(5)" [ngClass]="{active: isTabActive(5)}">
           <a (click)="setCurrentTab(sidebarEnum.moviesTopRated)">top rated</a>
         </li>
-
-        <!--     dvds -->
-        <li class="s-explore__title"><h3>dvd & streaming movies</h3></li>
-        <li class="s-explore__item"><a href="#">browser all</a></li>
-        <li class="s-explore__item"><a href="#">top DVD & streaming</a></li>
-        <li class="s-explore__item"><a href="#">certified fresh movies</a></li>
+        <!--<li class="s-explore__item"><a href="#">certified fresh movies</a></li>-->
 
         <!--     tv -->
         <li class="s-explore__title"><h3>TV</h3></li>
-        <li class="s-explore__item"><a href="#">new TV tonight</a></li>
-        <li class="s-explore__item"><a href="#">most popular tv on RT</a></li>
-        <li class="s-explore__item"><a href="#">certified fresh TV</a></li>
+        <li class="s-explore__item" (click)="selectTab(6)" [ngClass]="{active: isTabActive(6)}">
+          <a (click)="setCurrentTab(sidebarEnum.TvTonight)">new TV tonight</a>
+        </li>
+        <li class="s-explore__item"  (click)="selectTab(7)" [ngClass]="{active: isTabActive(7)}">
+          <a (click)="setCurrentTab(sidebarEnum.TvTopRated)">Top rated</a>
+        </li>
       </ul>
     </div>
 
@@ -65,13 +63,13 @@
             <div class="container"><div class="row">
               <a routerLink="/movie/{{movie.imdbId}}" class="col-2 l-cards__image fill"><img [src]="movie.poster"></a>
               <div class="col-10">
-                <h5 class="item__title">{{movie.title}}</h5>
+                <h5 class="item__title"><a routerLink="/movie/{{movie.imdbId}}">{{movie.title}}</a></h5>
                 <p class="cards__rating">
-                  <i class="fa fa-star item__rating"></i>
-                  <i class="fa fa-star item__rating"></i>
-                  <i class="fa fa-star item__rating"></i>
-                  <i class="fa fa-star item__rating"></i>
-                  <i class="fa fa-star item__rating" style="margin-right: 5px"></i>
+                  <i class="fa fa-star item__rating" [style.color]="movie?.criticRating < 0.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+                  <i class="fa fa-star item__rating" [style.color]="movie?.criticRating < 1.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+                  <i class="fa fa-star item__rating" [style.color]="movie?.criticRating < 2.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+                  <i class="fa fa-star item__rating" [style.color]="movie?.criticRating < 3.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+                  <i class="fa fa-star item__rating" style="margin-right: 5px" [style.color]="movie?.criticRating < 4.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
                   <span> ({{movie.numOfCriticRatings + movie.numOfRegUserRatings}} Ratings)</span>
                 </p>
                 <p class="cards__content">

@@ -39,6 +39,12 @@ export class CategoriesComponent implements OnInit {
   moviesTopRated: Movie[];
   numofMoviesTopRated: number;
 
+  TvTonight: Movie[];
+  numOfTvTonight: number;
+
+  TvTopRated: Movie[];
+  numOfTvTopRated: number;
+
   constructor(private movieService: MovieService,
               private categoriesService: CategoriesService) { }
 
@@ -75,6 +81,16 @@ export class CategoriesComponent implements OnInit {
       case this.sidebarEnum.moviesTopRated: {
         this.getMoviesTopRated();
         this.currentTab = this.sidebarEnum.moviesTopRated;
+        break;
+      }
+      case this.sidebarEnum.TvTonight: {
+        this.getTvsTonight();
+        this.currentTab = this.sidebarEnum.TvTonight
+        break;
+      }
+      case this.sidebarEnum.TvTopRated: {
+        this.getTvsTopRated();
+        this.currentTab = this.sidebarEnum.TvTopRated;
         break;
       }
       default: {
@@ -135,6 +151,24 @@ export class CategoriesComponent implements OnInit {
           .subscribe(results => {
               this.moviesTopRated = results['movie'] as Movie[];
               this.currentMovies = this.moviesTopRated;
+            }
+          );
+        break;
+      }
+      case this.sidebarEnum.TvTonight: {
+        this.movieService.getTvsTonight(actualPage.toString(), '20')
+          .subscribe(results => {
+              this.TvTonight = results['movie'] as Movie[];
+              this.currentMovies = this.TvTonight;
+            }
+          );
+        break;
+      }
+      case this.sidebarEnum.TvTopRated: {
+        this.movieService.getTvsTopRated(actualPage.toString(), '20')
+          .subscribe(results => {
+              this.TvTopRated = results['movie'] as Movie[];
+              this.currentMovies = this.TvTopRated;
             }
           );
         break;
@@ -228,6 +262,38 @@ export class CategoriesComponent implements OnInit {
           localStorage.setItem('movieTrending', JSON.stringify(this.moviesTrending));
         },
         error => console.log('Failed to fetch movies trending')
+      );
+  }
+
+  getTvsTonight(): any {
+    this.movieService.getTvsTonight('0', '20')
+      .subscribe(
+        data => {
+          this.TvTonight = data['movie'] as Movie[];
+          this.numOfTvTonight = data['movie_page'] * 10;
+
+          this.currentMovies = this.TvTonight;
+          this.numOfCurrentMovies = this.numOfTvTonight;
+
+          localStorage.setItem('tvTonight', JSON.stringify(this.TvTonight));
+        },
+        error => console.log('Failed to fetch tv tonight')
+      );
+  }
+
+  getTvsTopRated(): any {
+    this.movieService.getTvsTopRated('0', '20')
+      .subscribe(
+        data => {
+          this.TvTopRated = data['movie'] as Movie[];
+          this.numOfTvTopRated = data['movie_page'] * 10;
+
+          this.currentMovies = this.TvTopRated;
+          this.numOfCurrentMovies = this.numOfTvTopRated;
+
+          localStorage.setItem('tvTopRated', JSON.stringify(this.TvTopRated));
+        },
+        error => console.log('Failed to fetch tv top rated')
       );
   }
 

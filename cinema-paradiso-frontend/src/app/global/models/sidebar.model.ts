@@ -3,5 +3,7 @@ export enum Sidebar {
   moviesTopBoxOffice = 'top box office',
   moviesComingSoon = 'coming soon',
   moviesTrending = 'trending now',
-  moviesTopRated = 'top rated'
+  moviesTopRated = 'top rated',
+  TvTonight = 'new TV tonight',
+  TvTopRated = 'tv top rated',
 }
