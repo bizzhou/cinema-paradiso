@@ -52,7 +52,7 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  private addMovie(content) {
+  private createMovie(content) {
     this.movie = new Movie();
     this.open(content);
     this.addMovieFlag = true;
@@ -60,59 +60,104 @@ export class AdminComponent implements OnInit {
 
   private insertMovieIntoDB() {
     this.formatStringIntoArray();
-    const celeb = [];
+    // const celeb = [];
+    console.log('asdiofjasidfj');
 
-    this.movieService.getFilmId().subscribe(newId => {
+    this.movieService.getFilmId().toPromise().then(newId => {
 
       if (this.celebrities !== undefined) {
-        const celebArray = this.celebrities.split(',');
 
-        for (let i = 0; i < celebArray.length; i++) {
-          this.celebrityService.getCelebirty(celebArray[i]).subscribe(data => {
-            celeb.push(data as Celebrity);
 
-            if (i === celebArray.length - 1) {
-              this.movie.casts = celeb;
-              this.movie.imdbId = newId;
+      const celeb = [];
+      const celebArray = this.celebrities.split(',');
+      let counter = 0;
 
-              console.log(this.movie);
+      this.movie.casts = celeb;
+      this.movie.imdbId = newId;
 
-              this.movieService.uploadPoster(this.fileList, newId).subscribe(poster => {
-                this.movie.poster = AppConstant.API_ENDPOINT + `admin/${poster['body']}`;
+      // console.log(this.movie);
+      //
+      // this.movieService.uploadPoster(this.fileList, newId).toPromise().then(poster => {
+      //   this.movie.poster = AppConstant.API_ENDPOINT + `admin/${poster['body']}`;
+      //   this.movie.numOfCriticRatings = 0;
+      //   this.movie.numOfRegUserRatings = 0;
+      //   this.movie.criticRating = 0;
+      //   this.movie.regUserRating = 0;
+      //
+      //   this.movieService.addMovie(this.movie).toPromise().then(data => {
+      //     console.log('movie added is ', data);
+      //     // this.modalRef.close();
+      //     this.toastrService.success('SUCCESS');
+      //     return;
+      //   }, error => {
+      //     this.toastrService.error(error['error']['message']);
+      //   });
+      //
+      // });
 
-                this.movie.numOfCriticRatings = 0;
-                this.movie.numOfRegUserRatings = 0;
-                this.movie.criticRating = 0;
-                this.movie.regUserRating = 0;
 
-                this.movieService.addMovie(this.movie).subscribe(data => {
-                  console.log('movie added is ', data);
-                  // this.modalRef.close();
-                  this.toastrService.success('SUCCESS');
-                }, error => {
-                  this.toastrService.error(error['error']['message']);
-                });
+      for (const i = 0; i < celebArray.length; i++) {
+        this.celebrityService.getCelebirty(celebArray[i]).toPromise().then(data => {
+          celeb.push(data as Celebrity);
 
-              });
-            }
+          if (counter === celebArray.length - 1) {
+            console.log('triggering event');
+            this.InsertMovieWithCeleb(celeb, newId);
+          } else {
+            counter += 1;
+          }
 
-          });
-        }
+        });
+      }
+
 
       }
 
     });
   }
 
-  async extracted() {
-    const celeb = [];
-    for (const celebrity of this.celebrities.split(',')) {
-      await this.celebrityService.getCelebirty(celebrity).subscribe(data => {
-        celeb.push(data as Celebrity);
+  private InsertMovieWithCeleb(celeb, newId) {
+    this.movie.casts = celeb;
+    this.movie.imdbId = newId;
+
+    console.log(this.movie);
+
+    this.movieService.uploadPoster(this.fileList, newId).toPromise().then(poster => {
+      this.movie.poster = AppConstant.API_ENDPOINT + `admin/${poster['body']}`;
+
+      this.movie.numOfCriticRatings = 0;
+      this.movie.numOfRegUserRatings = 0;
+      this.movie.criticRating = 0;
+      this.movie.regUserRating = 0;
+
+      this.movieService.addMovie(this.movie).toPromise().then(data => {
+        console.log('movie added is ', data);
+        // this.modalRef.close();
+        this.toastrService.success('SUCCESS');
+        return;
+      }, error => {
+        this.toastrService.error(error['error']['message']);
       });
-    }
-    return celeb;
+
+    });
   }
+
+  // extracted() {
+  //   const celeb = [];
+  //   const celebArray = this.celebrities.split(',');
+  //   const counter = 0;
+  //
+  //   for (const i = 0; i < celebArray.length; i++) {
+  //     this.celebrityService.getCelebirty(celebArray[i]).subscribe(data => {
+  //       celeb.push(data as Celebrity);
+  //       counter += 1;
+  //       if (counter === celebArray.length) {
+  //         this.InsertMovieWithCeleb(celeb, newId);
+  //       }
+  //
+  //     });
+  //   }
+  // }
 
   private formatStringIntoArray() {
     if (this.movie.genres != null) {

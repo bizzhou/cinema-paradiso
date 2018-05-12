@@ -32,3 +32,5 @@ resources/movie_data/new_data/venv/
 cinema-paradiso-frontend/package-lock\.json
 
 \.debris/tmp/
+
+*.jpg
