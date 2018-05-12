@@ -186,5 +186,5 @@ link2 = open('./tv/tv_celeb_id_link.json', encoding='utf8')
 images2 = json.load(open('./tv/tv_images.json', encoding='utf8'))
 
 process_film(celeb, data, link, images, False)
-#process_film(celeb1, data1, link1, images1, False)
-#process_film(celeb2, data2, link2, images2, True)
+process_film(celeb1, data1, link1, images1, False)
+process_film(celeb2, data2, link2, images2, True)

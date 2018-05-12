@@ -5,7 +5,7 @@ import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.entity.TV;
 import com.paridiso.cinema.persistence.CelebrityRepository;
 import com.paridiso.cinema.persistence.MovieRepository;
-import com.paridiso.cinema.persistence.TVRepository;
+import com.paridiso.cinema.persistence.TvRepository;
 import com.paridiso.cinema.service.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -22,7 +22,7 @@ public class SearchServiceImpl implements SearchService {
     CelebrityRepository celebrityRepository;
 
     @Autowired
-    TVRepository tvRepository;
+    TvRepository tvRepository;
 
     @Autowired
     UtilityServiceImpl utilityService;

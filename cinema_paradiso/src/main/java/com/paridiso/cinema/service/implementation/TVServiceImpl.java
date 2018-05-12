@@ -6,7 +6,7 @@ import com.paridiso.cinema.constants.MapKeyConstants;
 import com.paridiso.cinema.entity.*;
 import com.paridiso.cinema.entity.enumerations.ListMovieStatus;
 import com.paridiso.cinema.entity.enumerations.Role;
-import com.paridiso.cinema.persistence.TVRepository;
+import com.paridiso.cinema.persistence.TvRepository;
 import com.paridiso.cinema.persistence.UserRepository;
 import com.paridiso.cinema.persistence.UserTVRatingRepository;
 import com.paridiso.cinema.service.FilmService;
@@ -36,7 +36,7 @@ public class TVServiceImpl implements FilmService {
     UtilityService utilityService;
 
     @Autowired
-    TVRepository tvRepository;
+    TvRepository tvRepository;
 
     @Autowired
     ExceptionConstants exceptionConstants;

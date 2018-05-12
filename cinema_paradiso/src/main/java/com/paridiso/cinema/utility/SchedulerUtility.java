@@ -4,7 +4,7 @@ import com.paridiso.cinema.constants.LimitationConstants;
 import com.paridiso.cinema.entity.Movie;
 import com.paridiso.cinema.entity.TV;
 import com.paridiso.cinema.persistence.MovieRepository;
-import com.paridiso.cinema.persistence.TVRepository;
+import com.paridiso.cinema.persistence.TvRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -20,7 +20,7 @@ public class SchedulerUtility {
     MovieRepository movieRepository;
 
     @Autowired
-    TVRepository tvRepository;
+    TvRepository tvRepository;
 
     @Autowired
     LimitationConstants limitationConstants;
