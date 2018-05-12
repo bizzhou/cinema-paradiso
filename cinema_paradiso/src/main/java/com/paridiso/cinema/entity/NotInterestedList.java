@@ -10,6 +10,7 @@ public class NotInterestedList {
     private Integer notInterestedListId;
     private List<Movie> movies;
     private Integer notInterestedListSize;
+    private List<TV> tvs;
 
     public NotInterestedList() {
     }
@@ -44,5 +45,18 @@ public class NotInterestedList {
 
     public void setNotInterestedListSize(Integer notInterestedListSize) {
         this.notInterestedListSize = notInterestedListSize;
+    }
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "NotInterestedListsTvs",
+            joinColumns = {@JoinColumn(name = "notInterestedListId")},
+            inverseJoinColumns = {@JoinColumn(name = "imdbId")}
+    )
+    public List<TV> getTvs() {
+        return tvs;
+    }
+
+    public void setTvs(List<TV> tvs) {
+        this.tvs = tvs;
     }
 }

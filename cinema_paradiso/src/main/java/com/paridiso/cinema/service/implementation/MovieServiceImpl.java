@@ -60,8 +60,6 @@ public class MovieServiceImpl implements FilmService {
     @Transactional
     @Override
     public Movie addFilm(Film movie) {
-//        if (movieRepository.findMovieByImdbId(movie.getImdbId()).get() != null)
-//            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieExists());
         if (movie.getImdbId() == null) {
             String imdbId = movieRepository.findTop1ByOrderByImdbIdDesc().getImdbId();
             long newId = Long.parseLong(imdbId.replace("tt", "")) + 1;
@@ -172,7 +170,7 @@ public class MovieServiceImpl implements FilmService {
     }
 
     @Transactional
-    @Override
+//    @Override
     public Movie setInitialMovieStatus(Movie movie, User user) {
         List<Movie> wishListMovies = user.getUserProfile().getWishList().getMovies();
         List<Movie> notInterestedMovies = user.getUserProfile().getNotInterestedList().getMovies();

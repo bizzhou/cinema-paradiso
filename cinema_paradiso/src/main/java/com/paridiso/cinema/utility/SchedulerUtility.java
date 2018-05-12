@@ -2,7 +2,9 @@ package com.paridiso.cinema.utility;
 
 import com.paridiso.cinema.constants.LimitationConstants;
 import com.paridiso.cinema.entity.Movie;
+import com.paridiso.cinema.entity.TV;
 import com.paridiso.cinema.persistence.MovieRepository;
+import com.paridiso.cinema.persistence.TVRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -16,6 +18,9 @@ public class SchedulerUtility {
 
     @Autowired
     MovieRepository movieRepository;
+
+    @Autowired
+    TVRepository tvRepository;
 
     @Autowired
     LimitationConstants limitationConstants;
@@ -33,7 +38,7 @@ public class SchedulerUtility {
          C = the mean ratings across the whole report
      */
     @Scheduled(cron = "0 25 16 * * ?") // second, minute, hour, day of month, month, day(s) of week
-    private void setRatedScores() {
+    private void setRatedMovieScores() {
         List<Movie> movies = movieRepository.findAll();
         double v, m, r, weightedRank;
 
@@ -46,6 +51,24 @@ public class SchedulerUtility {
             weightedRank = (v / (v + m)) * r + (m / (v + m)) * c;
             movie.setWeightedRank(weightedRank);
             movieRepository.save(movie);
+        }
+        System.out.println("done");
+    }
+
+    @Scheduled(cron = "0 53 20 * * ?") // second, minute, hour, day of month, month, day(s) of week
+    private void setRatedTVScores() {
+        List<TV> tvs = tvRepository.findAll();
+        double v, m, r, weightedRank;
+
+        double c = tvRepository.findAvgCriticRatings() + tvRepository.findAvgRegUserRatings();
+        for (TV tv: tvs) {
+            v = tv.getNumOfCriticRatings() + tv.getNumOfRegUserRatings();
+            r = tv.getCriticRating() + tv.getRegUserRating();
+            m = limitationConstants.getMinNumOfRatingsForWeightedRank();
+
+            weightedRank = (v / (v + m)) * r + (m / (v + m)) * c;
+            tv.setWeightedRank(weightedRank);
+            tvRepository.save(tv);
         }
         System.out.println("done");
     }

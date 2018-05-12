@@ -2,6 +2,7 @@ package com.paridiso.cinema.persistence;
 
 
 import com.paridiso.cinema.entity.Movie;
+import com.paridiso.cinema.entity.TV;
 import com.paridiso.cinema.entity.UserProfile;
 import com.paridiso.cinema.entity.UserRating;
 import org.springframework.data.jpa.repository.JpaRepository;

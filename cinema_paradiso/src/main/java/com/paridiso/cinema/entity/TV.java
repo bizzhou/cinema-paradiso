@@ -9,7 +9,7 @@ import javax.persistence.UniqueConstraint;
 public class TV extends Film {
 
     private Integer duration;
-    private Double autdienceRating;
+    private Double audienceRating;
 
     public Integer getDuration() {
         return duration;
@@ -19,19 +19,19 @@ public class TV extends Film {
         this.duration = duration;
     }
 
-    public Double getAutdienceRating() {
-        return autdienceRating;
+    public Double getAudienceRating() {
+        return audienceRating;
     }
 
-    public void setAutdienceRating(Double autdienceRating) {
-        this.autdienceRating = autdienceRating;
+    public void setAudienceRating(Double audienceRating) {
+        this.audienceRating = audienceRating;
     }
 
     @Override
     public String toString() {
         return "TV{" +
                 "duration=" + duration +
-                ", autdienceRating=" + autdienceRating +
+                ", audienceRating=" + audienceRating +
                 ", imdbId='" + imdbId + '\'' +
                 ", title='" + title + '\'' +
                 ", year='" + year + '\'' +
