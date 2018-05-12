@@ -59,7 +59,7 @@ public class MovieController {
     @PostMapping(value = "/add")
     public ResponseEntity<Boolean> addMovie(@RequestBody Movie movie) {
         filmService.addFilm(movie);
-        filmService.addFilmography(movie);
+//        filmService.addFilmography(movie);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

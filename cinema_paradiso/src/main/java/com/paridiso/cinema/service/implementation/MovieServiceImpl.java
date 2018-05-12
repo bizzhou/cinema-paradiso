@@ -65,17 +65,19 @@ public class MovieServiceImpl implements FilmService {
     @Transactional
     @Override
     public Movie addFilm(Film movie) {
-        Movie savedMovie = movieRepository.save((Movie) movie);
-        for (Celebrity celebrity : movie.getCasts()) {
-            Celebrity celebrity1 = utilityService.getCelebrity(celebrity.getCelebrityId());
-            System.out.println(celebrity1.getFilmography());
-            if (celebrity1.getFilmography() == null) {
-                celebrity1.setFilmography(new ArrayList<>());
-            }
-            celebrity1.getFilmography().add(savedMovie);
-            celebrityRepository.save(celebrity1);
-        }
-        return savedMovie;
+        return movieRepository.save((Movie) movie);
+//        System.out.println(savedMovie);
+//        for (Celebrity celebrity : savedMovie.getCasts()) {
+//            Celebrity celebrity1 = utilityService.getCelebrity(celebrity.getCelebrityId());
+////            System.out.println(celebrity1.getFilmography()e);
+//            if (celebrity1.getFilmography() == null) {
+//                celebrity1.setFilmography(new ArrayList<>());
+//            }
+//            celebrity1.getFilmography().add(savedMovie);
+//            celebrityRepository.save(celebrity1);
+//        }
+//        movieRepository.save(savedMovie);
+//        return savedMovie;
     }
 
     @Override
