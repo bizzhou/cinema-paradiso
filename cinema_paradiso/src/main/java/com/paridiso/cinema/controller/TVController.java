@@ -2,6 +2,7 @@ package com.paridiso.cinema.controller;
 
 import com.paridiso.cinema.entity.TV;
 import com.paridiso.cinema.service.FilmService;
+import com.paridiso.cinema.service.JwtTokenService;
 import com.paridiso.cinema.service.implementation.TVServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,6 +23,20 @@ public class TVController {
     @Autowired
     @Qualifier("TVServiceImpl")
     FilmService filmService;
+
+    @Autowired
+    JwtTokenService jwtTokenService;
+
+    @GetMapping(value = "/get/{filmId}")
+    public ResponseEntity<?> getTV(@PathVariable String filmId) {
+        return ResponseEntity.ok(filmService.getFilm(filmId));
+    }
+
+    @GetMapping(value = "/getCustomTV/{filmId}")
+    public ResponseEntity<?> getCustomTV(@RequestHeader(value = "Authorization") String jwtToken,
+                                            @PathVariable String filmId) {
+        return ResponseEntity.ok(filmService.getCustomFilm(filmId, jwtTokenService.getUserIdFromToken(jwtToken)));
+    }
 
     @PostMapping(value = "/trending")
     public ResponseEntity<?> getTVsTrending(@RequestParam Integer pageNo,

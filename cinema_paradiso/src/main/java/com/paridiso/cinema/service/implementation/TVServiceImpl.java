@@ -136,9 +136,8 @@ public class TVServiceImpl implements FilmService {
 
     @Override
     public HashMap<String, Object> getMoviesComingSoon(Integer pageNo, Integer pageSize) {
-        Calendar daysAfter = movieUtility.getDaysAfterNow(30);
+        Calendar daysAfter = movieUtility.getDaysAfterNow(80);
         Calendar now = movieUtility.getNow();
-        System.out.println("fetching tv");
         Page<TV> tvsPage = tvRepository.findTVSByReleaseDateBetween(now, daysAfter, new PageRequest(pageNo, pageSize));
         HashMap<String, Object> results = new HashMap<>();
         results.put(mapKeyConstants.getMovieLabel(), tvsPage.getContent());
