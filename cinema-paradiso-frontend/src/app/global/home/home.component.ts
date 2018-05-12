@@ -21,7 +21,7 @@ import {RegUserService} from '../../user/reg-user/reg-user.service';
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
-  providers: [CategoriesService]
+  providers: []
 })
 export class HomeComponent implements OnInit {
 
@@ -33,6 +33,8 @@ export class HomeComponent implements OnInit {
   moviesComingSoon: Movie[];
   moviesTopBoxOffice: Movie[];
   moviesTopRated: Movie[];
+  tvsTonight: Movie[];
+  tvsTopRated: Movie[];
   selectedMovieId: string;
   isMovieExistInWishList: boolean;              // button changes accordingly
   listMovieStatusEnum = ListMovieStatus;
@@ -93,6 +95,18 @@ export class HomeComponent implements OnInit {
       this.moviesTopRated = JSON.parse(localStorage.getItem('topRated')) as Movie[];
     } else {
       this.getMoviesTopRated();
+    }
+
+    if (localStorage.getItem('tvsTonight') != null) {
+      this.tvsTonight = JSON.parse(localStorage.getItem('tvsTonight')) as Movie[];
+    } else {
+      this.getTvsTonight();
+    }
+
+    if (localStorage.getItem('tvsTopRated') != null) {
+      this.tvsTopRated = JSON.parse(localStorage.getItem('tvsTopRated')) as Movie[];
+    } else {
+      this.getTvsTopRated();
     }
 
   }
@@ -180,6 +194,30 @@ export class HomeComponent implements OnInit {
           localStorage.setItem('topRated', JSON.stringify(this.moviesTopRated));
         },
         error => console.log('Failed to fetch movies top rated')
+      );
+  }
+
+  getTvsTonight(): any {
+    this.movieService.getTvsTonight('0', '6')
+      .subscribe(
+        data => {
+          this.tvsTonight = data['movie'] as Movie[];
+          console.log(this.tvsTonight);
+          localStorage.setItem('tvsTonight', JSON.stringify(this.tvsTonight));
+        },
+        error => console.log('Failed to fetch tvs tonight')
+      );
+  }
+
+  getTvsTopRated(): any {
+    this.movieService.getTvsTopRated('0', '6')
+      .subscribe(
+        data => {
+          this.tvsTopRated = data['movie'] as Movie[];
+          console.log(this.tvsTopRated);
+          localStorage.setItem('tvsTopRated', JSON.stringify(this.tvsTopRated));
+        },
+        error => console.log('Failed to fetch tvs top rated')
       );
   }
 

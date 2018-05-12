@@ -1,6 +1,6 @@
 <h5 class="c-header">My Ratings </h5>
 <div class="container">
-  <div *ngFor="let userRating of profile.userRatings" class="row r_ratings" >
+  <div *ngFor="let userRating of profile.userRatings.slice().reverse()" class="row r_ratings" >
     <!--<div *ngFor="let userRating of row" class="col-6">-->
       <div class="row">
         <div class="col-2">

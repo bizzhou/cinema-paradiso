@@ -24,17 +24,14 @@
             <a routerLink="/movies" (click)="setCurrentTab(sidebarEnum.moviesTopRated)">top rated</a>
           </li>
 
-          <!--     dvds -->
-          <li class="s-explore__title"><h3>dvd & streaming movies</h3></li>
-          <li class="s-explore__item"><a href="#">browser all</a></li>
-          <li class="s-explore__item"><a href="#">top DVD & streaming</a></li>
-          <li class="s-explore__item"><a href="#">certified fresh movies</a></li>
-
           <!--     tv -->
           <li class="s-explore__title"><h3>TV</h3></li>
-          <li class="s-explore__item"><a href="#">new TV tonight</a></li>
-          <li class="s-explore__item"><a href="#">most popular tv on RT</a></li>
-          <li class="s-explore__item"><a href="#">certified fresh TV</a></li>
+          <li class="s-explore__item" (click)="selectTab(6)" [ngClass]="{active: isTabActive(6)}">
+            <a routerLink="/movies" (click)="setCurrentTab(sidebarEnum.TvTonight)">new TV tonight</a>
+          </li>
+          <li class="s-explore__item"  (click)="selectTab(7)" [ngClass]="{active: isTabActive(7)}">
+            <a routerLink="/movies" (click)="setCurrentTab(sidebarEnum.TvTopRated)">Top rated</a>
+          </li>
         </ul>
 
         <!--  2nd box  -->
@@ -69,21 +66,30 @@
         <div class="r_poster">
 
           <div class="row">
-            <div class="col-md-5">
+            <div class="col-4">
               <img id="movie_poster" [lazyLoad]="movie?.poster" [defaultImage]="'../../../assets/images/no_image.png'"
                    alt="{{movie?.title}}" style="height: 300px; width: 200px">
             </div>
 
-            <div class="col-md">
-              <h3 class="rating_words">Critic Rating:</h3>
-              <span class="rating-num">{{movie?.criticRating}}
-                 ({{movie?.numOfCriticRatings}})
-            </span>
-              <br>
-              <br>
-              <br>
-              <h3 class="rating_words">User Rating:</h3><span class="rating-num">{{movie?.regUserRating}}
-               ({{movie?.numOfRegUserRatings}})</span>
+            <div class="col-8 heading">
+              <h3 style="color: white">{{movie?.title}}</h3>
+              <h3 class="rating_words">Critic Rating: {{movie?.numOfCriticRatings}}</h3>
+
+              <h3 class="rating_num">{{movie?.criticRating}}/5.0
+                <i class="fa fa-star" style="margin-left: 5px" [style.color]="movie?.criticRating < 0.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+        <i class="fa fa-star" [style.color]="movie?.criticRating < 1.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+        <i class="fa fa-star" [style.color]="movie?.criticRating < 2.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+        <i class="fa fa-star" [style.color]="movie?.criticRating < 3.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+        <i class="fa fa-star" [style.color]="movie?.criticRating < 4.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+              </h3>
+              <h3 class="rating_words">Audience Rating: {{movie?.numOfRegUserRatings}} </h3>
+              <h3 class="rating_num">{{movie?.regUserRating}}/5.0
+              <i class="fa fa-star" style="margin-left: 5px" [style.color]="movie?.regUserRating < 0.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+              <i class="fa fa-star" [style.color]="movie?.regUserRating < 1.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+              <i class="fa fa-star" [style.color]="movie?.regUserRating < 2.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+              <i class="fa fa-star" [style.color]="movie?.regUserRating < 3.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+              <i class="fa fa-star" [style.color]="movie?.regUserRating < 4.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+              </h3>
             </div>
 
 
@@ -120,12 +126,10 @@
 
 
             <div class="col-rate">
-              <!-- style not interested list accordingly -->
-              <button
-                *ngIf="movie.listMovieStatus !== listMovieStatusEnum.NOT_INTERESTED_LIST;else removeFromNotInterested"
-                (click)="addToNotInterestedList(movie)"
-                class="o-button color-gray">
-                <i class="fa fa-plus"></i> Not interested
+              <button *ngIf="movie.listMovieStatus != listMovieStatusEnum.NOT_INTERESTED_LIST;else removeFromNotInterested"
+                      (click)="addToNotInterestedList(movie)"
+                      class="o-button color-gray">
+                <i class="fa fa-plus"></i> Uninterested
               </button>
               <ng-template #removeFromNotInterested>
                 <button (click)="removeFromNotInterestedList(movie)"
@@ -135,7 +139,7 @@
               </ng-template>
 
               <!-- style wish list accordingly  -->
-              <button *ngIf="movie.listMovieStatus !== listMovieStatusEnum.WISHLIST;else removieFromWish"
+              <button *ngIf="movie.listMovieStatus != listMovieStatusEnum.WISHLIST;else removieFromWish"
                       (click)="addToWishList(movie)"
                       class="o-button color-red">
                 <i class="fa fa-plus"></i> Wishlist
@@ -262,7 +266,6 @@
               <a class="col-photos item__detail" href="" *ngFor="let photo of movie?.photos">
                 <img [defaultImage]="'../../../assets/images/no_image.png'"
                      [lazyLoad]="photo">
-                <!--<img src="{{photo}}" alt="">-->
               </a>
             </li>
           </ul>

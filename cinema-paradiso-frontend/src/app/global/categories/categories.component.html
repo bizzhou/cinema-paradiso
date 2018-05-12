@@ -25,18 +25,16 @@
         <li class="s-explore__item"  (click)="selectTab(5)" [ngClass]="{active: isTabActive(5)}">
           <a (click)="setCurrentTab(sidebarEnum.moviesTopRated)">top rated</a>
         </li>
-
-        <!--     dvds -->
-        <li class="s-explore__title"><h3>dvd & streaming movies</h3></li>
-        <li class="s-explore__item"><a href="#">browser all</a></li>
-        <li class="s-explore__item"><a href="#">top DVD & streaming</a></li>
-        <li class="s-explore__item"><a href="#">certified fresh movies</a></li>
+        <!--<li class="s-explore__item"><a href="#">certified fresh movies</a></li>-->
 
         <!--     tv -->
         <li class="s-explore__title"><h3>TV</h3></li>
-        <li class="s-explore__item"><a href="#">new TV tonight</a></li>
-        <li class="s-explore__item"><a href="#">most popular tv on RT</a></li>
-        <li class="s-explore__item"><a href="#">certified fresh TV</a></li>
+        <li class="s-explore__item" (click)="selectTab(6)" [ngClass]="{active: isTabActive(6)}">
+          <a (click)="setCurrentTab(sidebarEnum.TvTonight)">new TV tonight</a>
+        </li>
+        <li class="s-explore__item"  (click)="selectTab(7)" [ngClass]="{active: isTabActive(7)}">
+          <a (click)="setCurrentTab(sidebarEnum.TvTopRated)">Top rated</a>
+        </li>
       </ul>
     </div>
 
@@ -54,31 +52,52 @@
         <!-- grid view-->
         <ul *ngIf="!isListView" class="row l-cards__table">
           <li  *ngFor="let movie of currentMovies"  class="col-3 l-cards__item">
-            <a routerLink="/movie/{{movie.imdbId}}" class="l-cards__image fill"><img [src]="movie.poster"></a>
-            <a href="/movie/{{movie.imdbId}}" class="l-cards__text">{{movie.title}} <i class="item__rating"> {{movie.regUserRating}}</i></a>
-          </li>
+            <!-- if tv -->
+            <div *ngIf="currentTab === sidebarEnum.TvTopRated || currentTab === sidebarEnum.TvTonight; else movieTab">
+              <a routerLink="/tv/{{movie.imdbId}}" class="l-cards__image fill"><img [src]="movie.poster"></a>
+              <a href="/tv/{{movie.imdbId}}" class="l-cards__text">{{movie.title}} <i class="item__rating"> {{movie.regUserRating}}</i></a>
+            </div>
+            <!-- if movie -->
+            <ng-template #movieTab>
+              <a routerLink="/movie/{{movie.imdbId}}" class="l-cards__image fill"><img [src]="movie.poster"></a>
+              <a href="/movie/{{movie.imdbId}}" class="l-cards__text">{{movie.title}} <i class="item__rating"> {{movie.regUserRating}}</i></a>
+            </ng-template>
+            </li>
         </ul>
 
         <!-- list view -->
         <ul *ngIf="isListView" class="row l-cards__list">
           <li  *ngFor="let movie of currentMovies"  class="col-12 l-cards__item">
             <div class="container"><div class="row">
-              <a routerLink="/movie/{{movie.imdbId}}" class="col-2 l-cards__image fill"><img [src]="movie.poster"></a>
+              <div class="col-2" *ngIf="currentTab === sidebarEnum.TvTopRated || currentTab === sidebarEnum.TvTonight; else movie1">
+                <a routerLink="/tv/{{movie.imdbId}}" class="l-cards__image fill"><img [src]="movie.poster"></a>
+              </div>
+              <ng-template #movie1>
+                <a routerLink="/movie/{{movie.imdbId}}" class="col-2 l-cards__image fill"><img [src]="movie.poster"></a>
+              </ng-template>
+
               <div class="col-10">
-                <h5 class="item__title">{{movie.title}}</h5>
+                <h5 class="item__title">
+                  <div *ngIf="currentTab === sidebarEnum.TvTopRated || currentTab === sidebarEnum.TvTonight; else movieTitle">
+                    <a routerLink="/tv/{{movie.imdbId}}">{{movie.title}}</a>
+                  </div>
+                  <ng-template #movieTitle>
+                    <a routerLink="/movie/{{movie.imdbId}}">{{movie.title}}</a>
+                  </ng-template>
+                </h5>
                 <p class="cards__rating">
-                  <i class="fa fa-star item__rating"></i>
-                  <i class="fa fa-star item__rating"></i>
-                  <i class="fa fa-star item__rating"></i>
-                  <i class="fa fa-star item__rating"></i>
-                  <i class="fa fa-star item__rating" style="margin-right: 5px"></i>
+                  <i class="fa fa-star item__rating" [style.color]="movie?.criticRating < 0.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+                  <i class="fa fa-star item__rating" [style.color]="movie?.criticRating < 1.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+                  <i class="fa fa-star item__rating" [style.color]="movie?.criticRating < 2.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+                  <i class="fa fa-star item__rating" [style.color]="movie?.criticRating < 3.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+                  <i class="fa fa-star item__rating" style="margin-right: 5px" [style.color]="movie?.criticRating < 4.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
                   <span> ({{movie.numOfCriticRatings + movie.numOfRegUserRatings}} Ratings)</span>
                 </p>
                 <p class="cards__content">
                   <span>{{movie.plot.substring(0, 150)}}</span>
                 </p>
                 <p class="cards__content">
-                  Director: <span>{{movie.director.name}}</span>
+                  Director: <span>{{movie.casts[movie.casts.length-1].name}}</span>
                 </p>
                 <p class="cards__content">
                   Starring: <span *ngFor="let cast of movie.casts | slice:0:4">{{cast.name}}, </span>

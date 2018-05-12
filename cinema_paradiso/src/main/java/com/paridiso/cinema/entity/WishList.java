@@ -10,7 +10,7 @@ public class WishList {
     private Integer wishlistId;
     private List<Movie> movies;
     private Integer wishListSize;
-
+    private List<TV> tvs;
 
     public WishList() {
     }
@@ -31,6 +31,16 @@ public class WishList {
         return movies;
     }
 
+    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "WishListsTvs",
+            joinColumns = {@JoinColumn(name = "wishListId")},
+            inverseJoinColumns = {@JoinColumn(name = "imdbId")}
+    )
+    public List<TV> getTvs() {
+        return tvs;
+    }
+
     public Integer getWishListSize() {
         return wishListSize;
     }
@@ -47,6 +57,10 @@ public class WishList {
         this.wishListSize = wishListSize;
     }
 
+    public void setTvs(List<TV> tvs) {
+        this.tvs = tvs;
+    }
+
     @Override
     public String toString() {
         return "WishList{" +
@@ -55,4 +69,7 @@ public class WishList {
                 ", wishListSize=" + wishListSize +
                 '}';
     }
+
+    
+
 }

@@ -1,7 +1,7 @@
 <h5 class="c-header">My wish list </h5>
 
 
-<div class="container" *ngFor="let movie of profile.wishList">
+<div class="container" *ngFor="let movie of profile.wishList.slice().reverse()">
   <div class="row w--item">
     <div class="col-2 item--img">
       <img src={{movie?.poster}} alt="{{movie?.title}}">

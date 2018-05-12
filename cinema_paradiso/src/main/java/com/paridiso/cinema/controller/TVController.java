@@ -1,8 +1,12 @@
 package com.paridiso.cinema.controller;
 
 import com.paridiso.cinema.entity.TV;
+import com.paridiso.cinema.service.FilmService;
+import com.paridiso.cinema.service.JwtTokenService;
 import com.paridiso.cinema.service.implementation.TVServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,68 +17,55 @@ import static org.springframework.web.bind.annotation.RequestMethod.*;
 
 @RequestMapping("/tv")
 @RestController
+@CrossOrigin(origins = "*")
 public class TVController {
 
     @Autowired
-    TVServiceImpl tvService;
+    @Qualifier("TVServiceImpl")
+    FilmService filmService;
 
-    @RequestMapping(value = "/all", method = GET)
-    public ResponseEntity<List> getAllTV() {
-        return null;
+    @Autowired
+    JwtTokenService jwtTokenService;
+
+    @GetMapping(value = "/get/{filmId}")
+    public ResponseEntity<?> getTV(@PathVariable String filmId) {
+        return ResponseEntity.ok(filmService.getFilm(filmId));
     }
 
-
-    @RequestMapping(value = "/{id}", method = GET)
-    public ResponseEntity<TV> getTV(@PathVariable Long id) {
-        return null;
+    @GetMapping(value = "/getCustomTV/{filmId}")
+    public ResponseEntity<?> getCustomTV(@RequestHeader(value = "Authorization") String jwtToken,
+                                            @PathVariable String filmId) {
+        return ResponseEntity.ok(filmService.getCustomFilm(filmId, jwtTokenService.getUserIdFromToken(jwtToken)));
     }
 
-    @PostMapping(value = "/add")
-    public ResponseEntity<Boolean> addTV(@RequestBody TV tv) {
-        return tvService.addFilm(tv) != null ? ResponseEntity.ok(true) : ResponseEntity.badRequest().body(false);
+    @PostMapping(value = "/trending")
+    public ResponseEntity<?> getTVsTrending(@RequestParam Integer pageNo,
+                                               @RequestParam Integer pageSize) {
+        return new ResponseEntity<>(filmService.getMoviesTrending(pageNo, pageSize), HttpStatus.OK);
     }
 
-
-    @RequestMapping(value = "/{id}", method = DELETE)
-    public ResponseEntity<Boolean> deleteTV(@PathVariable Long id) {
-        return null;
+    @PostMapping(value = "/comingSoon")
+    public ResponseEntity<?> getTVsComingSoon(@RequestParam Integer pageNo,
+                                                 @RequestParam Integer pageSize) {
+        return new ResponseEntity<>(filmService.getMoviesComingSoon(pageNo, pageSize), HttpStatus.OK);
     }
 
-
-    @RequestMapping(value = "/rate_tv/{id}", method = POST)
-    public ResponseEntity<Boolean> rateTV(@PathVariable Long id,
-                                          @RequestParam(value = "regUserRating", required = true) Double rating) {
-        return null;
+    @PostMapping(value = "/playing")
+    public ResponseEntity<?> getTVsPlaying(@RequestParam Integer pageNo,
+                                              @RequestParam Integer pageSize) {
+        return new ResponseEntity<>(filmService.getMoviesPlaying(pageNo, pageSize), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/update_tv", method = POST)
-    public ResponseEntity<Boolean> updateTV(@RequestBody TV tv) {
-        return null;
+    @PostMapping(value = "/topRated")
+    public ResponseEntity<?> getTopRatedTVs(@RequestParam Integer pageNo,
+                                               @RequestParam Integer pageSize){
+        return new ResponseEntity<>(filmService.getMoviesTopRated(pageNo, pageSize), HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/trending", method = GET)
-    public ResponseEntity<List> getTVsTrending() {
-        return null;
+    @GetMapping(value = "/get/topRating")
+    public ResponseEntity<?> getTopRatingTVs() {
+        return ResponseEntity.ok(filmService.getTopRating());
     }
 
-    @RequestMapping(value = "/playing", method = GET)
-    public ResponseEntity<List> getTVsPlaying() {
-        return null;
-    }
-
-    @RequestMapping(value = "/top_rating", method = GET)
-    public ResponseEntity<List> getTVsTopRatings() {
-        return null;
-    }
-
-    @RequestMapping(value = "/{id}/similar", method = GET)
-    public ResponseEntity<List> getSimilarTVs(@PathVariable Integer id) {
-        return null;
-    }
-
-    @RequestMapping(value = "/range", method = GET)
-    public ResponseEntity<List> getTVsInRange(@RequestParam Date startDate, @RequestParam Date endDate) {
-        return null;
-    }
 
 }

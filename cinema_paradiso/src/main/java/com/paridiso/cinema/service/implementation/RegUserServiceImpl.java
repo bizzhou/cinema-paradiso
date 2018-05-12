@@ -203,7 +203,7 @@ public class RegUserServiceImpl extends UserService {
             userRating.getRatedMovie().setCasts(null);
             userRating.getRatedMovie().setAwards(null);
             userRating.getRatedMovie().setPhotos(null);
-            userRating.getRatedMovie().setRunTime(null);
+//            userRating.getRatedTv().setRunTime(null);
             userRating.getRatedMovie().setDirector(null);
         });
         return userRatings;

@@ -78,7 +78,7 @@ public interface FilmService {
 
     Double updateRating(Integer userId, String filmId, Double rating);
 
-    Movie setInitialMovieStatus(Movie movie, User user);
+//    Movie setInitialMovieStatus(Movie movie, User user);
 
     String getFilmId();
 

@@ -10,16 +10,16 @@ import java.util.Calendar;
  * i.e each user can has a list of UserRatings
  */
 @Entity
-@Table(name = "UserRatings")
-public class UserRating {
+@Table(name = "UserTvRatings")
+public class UserTvRating {
 
     private Integer id;
     private UserProfile userProfile;
-    private Movie ratedMovie;
+    private TV ratedTv;
     private Double userRating;
     private Calendar ratedDate;
 
-    public UserRating() {
+    public UserTvRating() {
     }
 
     @Id
@@ -37,8 +37,8 @@ public class UserRating {
 
     @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "imdbId")
-    public Movie getRatedMovie() {
-        return ratedMovie;
+    public TV getRatedTv() {
+        return ratedTv;
     }
 
     public Double getUserRating() {
@@ -53,8 +53,8 @@ public class UserRating {
         this.id = id;
     }
 
-    public void setRatedMovie(Movie movie) {
-        this.ratedMovie = movie;
+    public void setRatedTv(TV tv) {
+        this.ratedTv = tv;
     }
 
     public void setUserRating(Double userRating) {
@@ -74,7 +74,7 @@ public class UserRating {
         return "UserRating{" +
                 "id=" + id +
                 ", userProfile=" + userProfile +
-                ", ratedMovie=" + ratedMovie +
+                ", ratedTv=" + ratedTv +
                 ", userRating=" + userRating +
                 '}';
     }

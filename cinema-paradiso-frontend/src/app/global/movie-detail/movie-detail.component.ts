@@ -22,9 +22,9 @@ export class MovieDetailComponent implements OnInit {
 
   movie: Movie;
   selectedMovieId: string;
+  selectedFilmType: string;
   review = new Review();
 
-  isMovieExistInWishList: boolean;
   currentRating = 0;
   ngbRatingReadOnly = false;
   loggedInFlag: boolean;
@@ -44,6 +44,7 @@ export class MovieDetailComponent implements OnInit {
               private regUserService: RegUserService,
               private toastrService: ToastrService) {
 
+    this.selectedFilmType = route.snapshot.url[0].toString();
     this.selectedMovieId = route.snapshot.params['id'];
   }
 
@@ -69,13 +70,25 @@ export class MovieDetailComponent implements OnInit {
 
     console.log('id: ' + this.selectedMovieId);
 
-    if (this.loggedInFlag) {
-      this.getCustomMovie(this.selectedMovieId);
-      this.currentUsername = JSON.parse(localStorage.getItem('credential'))['username'];
+    // if the url is /movie/MOVIE_ID
+    if (this.selectedFilmType === 'movie') {
+      if (this.loggedInFlag) {
+        this.getCustomMovie(this.selectedMovieId);
+        this.currentUsername = JSON.parse(localStorage.getItem('credential'))['username'];
 
+      } else {
+        this.getMovie(this.selectedMovieId);
+      }
     } else {
-      this.getMovie(this.selectedMovieId);
+      if (this.loggedInFlag) {
+        this.getCustomTV(this.selectedMovieId);
+        this.currentUsername = JSON.parse(localStorage.getItem('credential'))['username'];
+
+      } else {
+        this.getTV(this.selectedMovieId);
+      }
     }
+
   }
 
 
@@ -181,6 +194,41 @@ export class MovieDetailComponent implements OnInit {
         }, error1 => {
           this.toastrService.error('Failed to fetch reviews');
         });
+      },
+      error => console.log('Failed to fetch movie with id')
+    );
+  }
+
+  getTV(imdbId: string): any {
+    this.movieService.getTVDetails(imdbId).subscribe(data => {
+        this.movie = data as Movie;
+        // const shrinked_photo = this.movie.photos.map(ele => this.shrinkPhoto(ele));
+        // this.movie.photos = shrinked_photo;
+        this.trailer = `../../../assets/trailers/${this.movie.imdbId}.mp4`;
+
+        // this.movieService.getTVReviews(this.selectedMovieId).subscribe(reviews => {
+        //   this.movie.reviews = reviews as Review[];
+        //   console.log(this.movie.reviews);
+        // }, error1 => {
+        //   this.toastrService.error('Failed to fetch reviews');
+        // });
+
+      },
+      error => console.log('Failed to fetch movie with id')
+    );
+  }
+
+  getCustomTV(imdbId: string): any {
+    this.movieService.getCustomTVDetails(imdbId).subscribe(data => {
+        this.movie = data as Movie;
+        this.trailer = `../../../assets/trailers/${this.movie.imdbId}.mp4`;
+
+        // this.movieService.getTVReviews(this.selectedMovieId).subscribe(reviews => {
+        //   this.movie.reviews = reviews as Review[];
+        //   console.log(this.movie.reviews);
+        // }, error1 => {
+        //   this.toastrService.error('Failed to fetch reviews');
+        // });
       },
       error => console.log('Failed to fetch movie with id')
     );

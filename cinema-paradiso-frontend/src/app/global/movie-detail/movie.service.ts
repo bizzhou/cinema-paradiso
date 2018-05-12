@@ -45,12 +45,32 @@ export class MovieService {
     return this.http.post(MOVIE_SERVER + 'topRated', param);
   }
 
+  getTvsTonight(pageNo: string, pageSize: string) {
+    const param = new HttpParams().set('pageNo', pageNo)
+      .set('pageSize', pageSize);
+    return this.http.post(AppConstant.API_ENDPOINT + 'tv/comingSoon', param);
+  }
+
+  getTvsTopRated(pageNo: string, pageSize: string) {
+    const param = new HttpParams().set('pageNo', pageNo)
+      .set('pageSize', pageSize);
+    return this.http.post(AppConstant.API_ENDPOINT + 'tv/topRated', param);
+  }
+
   getMovieDetails(imdbId: string): any {
     return this.http.get(MOVIE_SERVER + `get/${imdbId}`);
   }
 
   getCustomMovieDetails(imdbId: string): any {
     return this.http.get(MOVIE_SERVER + `getCustomMovie/${imdbId}`);
+  }
+
+  getTVDetails(imdbId: string): any {
+    return this.http.get(AppConstant.API_ENDPOINT + `tv/get/${imdbId}`);
+  }
+
+  getCustomTVDetails(imdbId: string): any {
+    return this.http.get(AppConstant.API_ENDPOINT + `tv/getCustomTV/${imdbId}`);
   }
 
   addRatingToMovie(movieId: string, rating: number) {
@@ -67,6 +87,10 @@ export class MovieService {
 
   getMovieReviews(selectedMovieId: string) {
     return this.http.get(AppConstant.API_ENDPOINT + `review/get/${selectedMovieId}`);
+  }
+
+  getTVReviews(selectedMovieId: string) {
+    return this.http.get(AppConstant.API_ENDPOINT + `review/get/tv/${selectedMovieId}`);
   }
 
   editReviewForMovie(clickedReview: Review) {
