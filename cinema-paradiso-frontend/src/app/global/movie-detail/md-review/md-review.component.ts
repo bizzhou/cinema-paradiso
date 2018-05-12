@@ -1,7 +1,6 @@
 import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {Review} from '../../models/review.model';
 import {AppConstant} from '../../../app.constant';
-import {RegUserService} from "../../../user/reg-user/reg-user.service";
 
 @Component({
     selector: 'app-md-review',
@@ -24,7 +23,6 @@ export class MdReviewComponent implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-
         console.log('reviews in component ', this.reviews);
 
         if (this.reviews !== undefined && this.reviews !== null) {
@@ -41,8 +39,8 @@ export class MdReviewComponent implements OnInit, OnChanges {
               this.userReviews.push(review);
             }
 
-            console.log('critic review ', this.criticReviews);
-            console.log('user review ', this.userReviews);
+            // console.log('critic review ', this.criticReviews);
+            // console.log('user review ', this.userReviews);
           });
 
         }

@@ -64,7 +64,6 @@ public class RegUserServiceImpl extends UserService {
         }
         // first create a user_profile for the user;
         user.setUserProfile(userProfileRepository.save(new UserProfile()));
-
         // create a new wish list/ not interested list
         user.getUserProfile().setUsername(user.getUsername());
         // create a new wish list/ watch list
@@ -81,12 +80,23 @@ public class RegUserServiceImpl extends UserService {
     }
 
     @Transactional
-    public UserProfile updateProfile(UserProfile userProfile) {
-        UserProfile profile = getUserProfile(userProfile.getId());
-        profile.setBiography(userProfile.getBiography());
-        profile.setName(userProfile.getName());
-        profile.setPrivate(userProfile.getPrivate());
-        return userProfileRepository.save(profile);
+    public UserProfile updateProfile(HashMap<String, String> userProfile) {
+        System.out.println(userProfile);
+        UserProfile profile = getUserProfile(Integer.parseInt(userProfile.get("id").toString()));
+        User user = userRepository.findUserByUserProfile(profile);
+        if (userRepository.findUserByEmail(userProfile.get("email")) != null) {
+            throw new ResponseStatusException(BAD_REQUEST, exceptionConstants.getUserExists());
+        }
+        if (userRepository.findUserByUsername(userProfile.get("username")) != null) {
+            throw new ResponseStatusException(BAD_REQUEST, exceptionConstants.getUserExists());
+        }
+        user.setEmail(userProfile.get("email"));
+        user.setUsername(userProfile.get("username"));
+        profile.setUsername(userProfile.get("username"));
+        profile.setBiography(userProfile.get("biography"));
+        user.setUserProfile(profile);
+        System.out.println(user.getEmail());
+        return userRepository.save(user).getUserProfile();
     }
 
     @Transactional
@@ -149,20 +159,16 @@ public class RegUserServiceImpl extends UserService {
     public HashMap<Object, Object> getProfileByUsername(String username) {
         UserProfile userProfile = userProfileRepository.findByUsername(username)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserNotFound()));
-
         HashMap<Object, Object> objectObjectHashMap = new HashMap<>();
-
         // general: profile image, account status
         if (userProfile.getProfileImage() == null)
             objectObjectHashMap.put("profileImage", "undefined");
         else
             objectObjectHashMap.put("profileImage", userProfile.getProfileImage());
-
         if (!userProfile.getCritic())
             objectObjectHashMap.put("isCritic", false);
         else
             objectObjectHashMap.put("isCritic", true);
-
         // if not private, put everything
         if (userProfile.getPrivate() == null || !userProfile.getPrivate()) {
             objectObjectHashMap.put("isPrivate", false);
@@ -207,7 +213,6 @@ public class RegUserServiceImpl extends UserService {
     public Boolean setPrivate(Integer userId, Boolean isPrivate) {
         UserProfile userProfile = userProfileRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getProfileNotFound() + userId));
-
         userProfile.setPrivate(isPrivate);
         userProfileRepository.save(userProfile);
         return isPrivate;

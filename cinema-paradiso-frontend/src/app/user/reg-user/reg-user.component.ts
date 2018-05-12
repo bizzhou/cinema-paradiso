@@ -71,7 +71,9 @@ export class RegUserComponent implements OnInit {
         this.profile.isPrivate = profileDetails['isPrivate'];
         this.profile.isCritic = profileDetails['isCritic'];
         if (this.profile.profileImage === undefined) {
-          this.profile_url = AppConstant.API_ENDPOINT + 'user/avatar/default.jpeg';
+          this.profile_url = '../../../assets/images/default_profile.png';
+        } else if (this.profile.profileImage === 'default.jpeg') {
+          this.profile_url = '../../../assets/images/default_profile.png';
         } else {
           this.profile_url = AppConstant.API_ENDPOINT + '/user/avatar/' + profileDetails['profileImage'];
         }

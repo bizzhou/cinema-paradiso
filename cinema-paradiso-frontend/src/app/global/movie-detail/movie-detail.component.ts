@@ -9,6 +9,8 @@ import {ListMovieStatus} from '../models/ListMovieStatus.model';
 import {Sidebar} from '../models/sidebar.model';
 import {CategoriesService} from '../categories/categories.service';
 import {RegUserService} from '../../user/reg-user/reg-user.service';
+import {User} from '../../user/user/user.model';
+import {AppConstant} from '../../app.constant';
 
 @Component({
   selector: 'app-movie-detail',
@@ -29,6 +31,7 @@ export class MovieDetailComponent implements OnInit {
   trailer: string;
   listMovieStatusEnum = ListMovieStatus;
   sidebarEnum = Sidebar;
+  user: Object;
 
   currentUsername: string;
   currentProfileImage: string;
@@ -51,6 +54,18 @@ export class MovieDetailComponent implements OnInit {
     if (this.loginStatusService.getTokenDetails() !== null) {
       this.loginStatusService.changeStatus(true);
       this.loggedInFlag = true;
+
+      this.regUserService.getProfile().subscribe(data => {
+        console.log('data obj ', data);
+        if (data['profileImage'] !== 'default.jpeg') {
+          data['profileImage'] = AppConstant.API_ENDPOINT + '/user/avatar/' + data['profileImage'];
+        } else {
+          data['profileImage'] = '../../../assets/images/default_profile.png';
+        }
+        data['name'] = this.loginStatusService.getTokenDetails()['username'];
+        this.user = data;
+      });
+
     }
 
     console.log('id: ' + this.selectedMovieId);
@@ -81,12 +96,17 @@ export class MovieDetailComponent implements OnInit {
     this.review.imdbId = this.selectedMovieId;
     this.movieService.addReview(this.review).subscribe(data => {
       this.toastrService.success('Review added');
+      data['authorName'] = this.currentUsername;
       this.movie.reviews.push(data as Review);
 
       // update the object reference so Input can reload.
       this.movie.reviews = this.movie.reviews.slice();
     }, error1 => {
-      this.toastrService.error('You\'ve reviewed');
+      if (error1['error']['message'] === 'USER RATING FOR MOVIE DOES NOT EXISTS') {
+        this.toastrService.error('Please rate movie first');
+      } else {
+        this.toastrService.error('You\'ve reviewed');
+      }
     });
   }
 
