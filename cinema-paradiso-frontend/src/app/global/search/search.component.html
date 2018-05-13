@@ -99,19 +99,17 @@
             <div class="row s-item">
               <div class="col-1"></div>
               <div class="col-3 s_img-wrap">
-                <img routerLink="/celebrity/{{celeb?.celebrityId}}" src="{{celeb?.profileImage}}" alt="">
+                <!--<img routerLink="/celebrity/{{celeb?.celebrityId}}" src="{{celeb?.profileImage}}" alt="">-->
+                <img routerLink="/celebrity/{{celeb?.celebrityId}}" [defaultImage]="'../../../assets/images/no_image.png'"
+                     [lazyLoad]="celeb.profileImage" alt="">
               </div>
               <div class="col-7">
                 <p class="s-item__title">{{celeb?.name}}</p>
-                <!--<p class="s-item__bio">{{celeb?.biography}}</p>-->
-                <p class="s-item__birth">
-                  Born in:
-                  <span class="actor_birth_date">April 27, 1976 in Dulwich, London, England, UK</span>
-                </p>
-                <p>
-                  Filmography:
-                </p>
-
+                <p class="s-item__bio">{{celeb?.biography}}</p>
+                <!--<p class="s-item__birth">-->
+                  <!--Born in:-->
+                  <!--<span class="actor_birth_date">April 27, 1976 in Dulwich, London, England, UK</span>-->
+                <!--</p>-->
               </div>
             </div>
           </div>
@@ -132,7 +130,7 @@
       </ng-template>
       <ng-template ngbTabContent>
 
-        <div class="container l-cards tv_results">
+        <div class="container tv_results">
 
           <!-- selectors -->
           <div class="row selector" style="border: 1px solid white; width: 80%; margin-left: 10%;">

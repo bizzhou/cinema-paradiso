@@ -40,7 +40,6 @@ export class AdminComponent implements OnInit {
   photoList: FileList;
   celebrities: string;
   director: string;
-  loginStatus = false;
 
 
   constructor(private userService: RegUserService, private movieService: MovieService,
@@ -53,7 +52,6 @@ export class AdminComponent implements OnInit {
 
     if (this.loginStatusService.getTokenDetails() !== null) {
       this.loginStatusService.changeStatus(true);
-      this.loginStatus = true;
     }
 
     this.getUsers();

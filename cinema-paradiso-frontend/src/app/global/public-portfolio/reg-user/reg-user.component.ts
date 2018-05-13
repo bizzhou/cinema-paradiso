@@ -6,6 +6,7 @@ import {Rating} from '../../models/rating.model';
 import {AppConstant} from '../../../app.constant';
 import {Review} from '../../models/review.model';
 import {Pipe, PipeTransform} from '@angular/core';
+import {LoginStatusService} from "../../login/login.status.service";
 
 
 class PublicProfile {
@@ -35,12 +36,18 @@ export class RegUserPortfolioComponent implements OnInit {
   isUserExist: boolean;
 
   constructor(private route: ActivatedRoute,
-              private regUserService: RegUserService) {
+              private regUserService: RegUserService,
+              private loginStatusService: LoginStatusService) {
     this.selectedUsername = route.snapshot.params['username'];
   }
 
   ngOnInit() {
     window.scroll(0, 0);
+
+    if (this.loginStatusService.getTokenDetails() !== null) {
+      this.loginStatusService.changeStatus(true);
+    }
+
     this.getPublicProfile(this.selectedUsername);
   }
 
