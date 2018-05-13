@@ -4,6 +4,7 @@ import com.paridiso.cinema.entity.Review;
 import com.paridiso.cinema.service.JwtTokenService;
 import com.paridiso.cinema.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -83,16 +84,17 @@ public class ReviewController {
         return ResponseEntity.ok(list);
     }
 
-    @RequestMapping(value = "/{filmId}/review", method = POST, params = "liked")
-    public ResponseEntity<Boolean> likeReview(@PathVariable Long movieId,
-                                              @RequestParam Long reviewId,
-                                              @RequestParam Boolean liked) {
-        return null;
-    }
-
     @RequestMapping(value = "/", method = GET)
     public String welcome() {
         return "Welcome to cinema paradiso";
+    }
+
+    @PostMapping(value = "report/{reviewId}")
+    public ResponseEntity<?> reportReview(@RequestHeader(value = "Authorization") String jwtToken,
+                                          @PathVariable Long reviewId,
+                                          @RequestParam String reportReason) {
+        reviewService.reportReview(jwtTokenService.getUserProfileIdFromToken(jwtToken), reviewId, reportReason);
+        return ResponseEntity.ok(true);
     }
 
 }

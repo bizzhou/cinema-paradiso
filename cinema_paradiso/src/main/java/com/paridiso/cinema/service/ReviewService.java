@@ -25,4 +25,7 @@ public interface ReviewService {
     boolean detectBadReview(Review review);
 
     List<Review> getAllReviews();
+
+    void reportReview(Integer userProfileId, Long reviewId, String reportReason);
+
 }

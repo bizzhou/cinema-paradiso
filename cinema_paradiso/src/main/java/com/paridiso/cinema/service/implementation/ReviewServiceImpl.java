@@ -3,10 +3,7 @@ package com.paridiso.cinema.service.implementation;
 import com.paridiso.cinema.constants.ExceptionConstants;
 import com.paridiso.cinema.entity.*;
 import com.paridiso.cinema.entity.enumerations.Role;
-import com.paridiso.cinema.persistence.MovieRepository;
-import com.paridiso.cinema.persistence.ReviewRepository;
-import com.paridiso.cinema.persistence.UserProfileRepository;
-import com.paridiso.cinema.persistence.UserRatingRepository;
+import com.paridiso.cinema.persistence.*;
 import com.paridiso.cinema.service.FilmService;
 import com.paridiso.cinema.service.ReviewService;
 import com.paridiso.cinema.service.UtilityService;
@@ -49,6 +46,9 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Autowired
     UserRatingRepository userRatingRepository;
+
+    @Autowired
+    ReportReviewRepository reportReviewRepository;
 
     private static final Logger logger = LogManager.getLogger(ReviewServiceImpl.class);
 
@@ -147,4 +147,19 @@ public class ReviewServiceImpl implements ReviewService {
     public List<Review> getAllReviews() {
         return reviewRepository.findAll();
     }
+
+    @Transactional
+    @Override
+    public void reportReview(Integer userProfileId, Long reviewId, String reportReason) {
+        Review review = reviewRepository.findById(reviewId).orElseThrow(()
+                -> new ResponseStatusException(BAD_REQUEST, exceptionConstants.getReviewNotFound()));;
+        UserProfile userProfile = utilityService.getUserProfile(userProfileId);
+        ReportReview reportedReview = new ReportReview();
+        reportedReview.setReview(review);
+        reportedReview.setReportBy(userProfile);
+        reportedReview.setReportReason(reportReason);
+        reportReviewRepository.save(reportedReview);
+    }
+
+
 }
