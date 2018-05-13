@@ -217,3 +217,13 @@ p {
 form {
   margin-bottom: 1.5em;
 }
+// overwrite bootstrap modal
+.modal-title {
+  font-size: 16px;
+}
+.modal-body {
+  font-size: 12px;
+}
+.modal-footer {
+  button {font-size: 12px;}
+}

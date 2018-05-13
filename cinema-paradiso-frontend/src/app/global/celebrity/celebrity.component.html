@@ -1,47 +1,27 @@
 <div>
   <main>
-    <h1 id="people_name">
-      {{celebrity.name}}
-    </h1>
 
-    <div class="p_tab">
-
-
-      <div class="container overview-wrap">
+     <div class="container overview-wrap">
         <div class="row">
-          <div class="col-overview overview">
+          <div class="col-1"></div>
+          <div class="col-3 overview">
             <img class='people_portrait' src="{{celebrity.profileImage}}"
                  onError="this.src='../../../assets/images/no_image.png'" alt="">
 
-            <!--<h3>BIOGRAPHY</h3>-->
+          </div>
+
+          <div class="col-8 detail">
+            <h3 id="people_name">
+              {{celebrity.name}}
+            </h3>
             <p class="o-bio">
               {{celebrity.biography}}
             </p>
 
           </div>
 
-          <div class="col-detail detail">
-
-            <h2>Filmography</h2>
-
-              <ul class="filmography_details">
-                <li *ngFor="let movie of celebrity.filmography">
-                  <img src="{{movie.poster}}" alt="Movie Poster" routerLink="/movie/{{movie.imdbId}}">
-                  <br>
-                  {{movie.title}}
-                </li>
-              </ul>
-
-            <!--<ng-template #no_filmography>-->
-            <!--<h4>No Filmography Data Available...</h4>-->
-            <!--</ng-template>-->
-
-
-          </div>
-
         </div>
       </div>
-    </div>
 
   </main>
 </div>

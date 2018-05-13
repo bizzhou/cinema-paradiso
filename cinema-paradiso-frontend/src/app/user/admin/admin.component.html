@@ -121,9 +121,10 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
+  <form>
   <div class="modal-body">
 
-    <form>
+
 
 
       <div class="form-group">
@@ -198,17 +199,12 @@
         <input id="director" name="celebrity" [(ngModel)]="director" class="form-control">
       </div>
 
-
-
-      <button class="btn btn-primary" *ngIf="addMovieFlag === false" (click)="updateMovie(movie)">Submit</button>
-      <button class="btn btn-primary" *ngIf="addMovieFlag === true" (click)="insertMovieIntoDB()">Submit</button>
-
-    </form>
-
-
   </div>
   <div class="modal-footer">
+    <button class="btn btn-primary" *ngIf="addMovieFlag === false" (click)="updateMovie(movie)">Submit</button>
+    <button class="btn btn-primary" *ngIf="addMovieFlag === true" (click)="insertMovieIntoDB()">Submit</button>
     <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
   </div>
+  </form>
 </ng-template>
 
