@@ -7,17 +7,19 @@ import {User} from '../user/user.model';
 import {ToastrService} from 'ngx-toastr';
 import {ModalDismissReasons, NgbModal, NgbModalRef} from '@ng-bootstrap/ng-bootstrap';
 import {Review} from '../../global/models/review.model';
-import {CriticApplication} from "../../global/models/critic-application.model";
+import {CriticApplication} from '../../global/models/critic-application.model';
+import {AdminService} from './admin.service';
+import {ReportReview} from '../../global/models/report-review.model';
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss'],
-  providers: [RegUserService]
+  providers: [RegUserService, AdminService]
 })
 export class AdminComponent implements OnInit {
 
-  selectedTab = 'manage-users';
+  selectedTab = 'manage-user';
   users: User[];
   filmId: string;
   closeReason: string;
@@ -26,18 +28,22 @@ export class AdminComponent implements OnInit {
   addMovieFlag = false;
   reviews: Review[];
   criticApplications: CriticApplication[];
-
+  movie: Movie;
+  reportReviews: ReportReview[];
+  currReportReview: ReportReview;
+  reportReason: string;
+  deletedReviewReports: ReportReview[];
 
   constructor(private userService: RegUserService, private movieService: MovieService,
-              private toastrService: ToastrService, private modalService: NgbModal) {
+              private toastrService: ToastrService, private modalService: NgbModal,
+              private adminService: AdminService) {
   }
-
-  movie: Movie;
 
   ngOnInit() {
     this.getUsers();
     this.getAllReviews();
     this.getAllCriticApplictions();
+    this.getReportedReviews();
   }
 
   private getMovie(imdbId: string) {
@@ -60,7 +66,7 @@ export class AdminComponent implements OnInit {
       console.log('', data);
       // this.movie = undefined;
       this.modalRef.close();
-      this.toastrService.success('SUCCESS');
+      this.toastrService.success('Success');
     }, error => {
       this.toastrService.error(error['error']['message']);
     });
@@ -86,7 +92,7 @@ export class AdminComponent implements OnInit {
       console.log(data);
       console.log(this.movie);
       this.movie = undefined;
-      this.toastrService.success('SUCCESS');
+      this.toastrService.success('Success');
     }, error => {
       this.modalRef.close();
       this.toastrService.error('Error has occured');
@@ -96,9 +102,9 @@ export class AdminComponent implements OnInit {
   private deleteMovie(filmId) {
     this.movieService.deleteMovie(filmId).subscribe(data => {
       this.movie = undefined;
-      this.toastrService.success('SUCCESS');
+      this.toastrService.success('Success');
     }, error => {
-      this.toastrService.error('FAIL');
+      this.toastrService.error('Failed');
     });
   }
 
@@ -113,7 +119,7 @@ export class AdminComponent implements OnInit {
     this.userService.deleteUser(user.userID).subscribe(data => {
 
       this.users.splice(this.users.indexOf(user), 1);
-      this.toastrService.success('SUCCESS');
+      this.toastrService.success('Success');
 
     });
   }
@@ -144,9 +150,8 @@ export class AdminComponent implements OnInit {
 
   private deleteReview(review) {
     this.movieService.deleteReviewForMovie(review.reviewId).subscribe(data => {
-      // this.reviewId = undefined;
       this.reviews.splice(this.reviews.indexOf(review), 1);
-      this.toastrService.success('SUCCESS');
+      this.toastrService.success('Success');
     });
   }
 
@@ -169,8 +174,35 @@ export class AdminComponent implements OnInit {
     this.userService.verifyCriticApplications(userId).subscribe(data => {
       this.criticApplications.splice(this.criticApplications.indexOf(criticApplication), 1);
       console.log(this.criticApplications);
-      this.toastrService.success('SUCCESS');
+      this.toastrService.success('Success');
     });
+  }
+
+  private deleteReportedReview(report, reviewId) {
+    this.movieService.deleteReviewForMovie(reviewId).subscribe(data => {
+      // for (var i = 0; i < this.reportReviews.length; i++) {
+      //   if (this.reportReviews[i].review.reviewId === reviewId) {
+      //     this.deletedReviewReports.push(this.reportReviews[i]);
+      //   }
+      // }
+
+      this.reportReviews.splice(this.reportReviews.indexOf(report), 1);
+      this.toastrService.success('Success');
+    });
+  }
+
+  private getReportedReviews() {
+    this.adminService.getReportedReviews().subscribe(data => {
+      this.reportReviews = data as ReportReview[];
+      console.log(this.reportReviews);
+    }, error => {
+      console.log(error);
+    });
+  }
+
+  private dismissReportedReview(report) {
+    this.reportReviews.splice(this.reportReviews.indexOf(report), 1);
+    this.toastrService.success('Success');
   }
 
 }

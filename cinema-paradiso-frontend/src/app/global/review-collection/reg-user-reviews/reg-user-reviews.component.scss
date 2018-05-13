@@ -115,3 +115,11 @@ main{
 .c-update-btn:hover {
   background-color: lighten(black, 40%);
 }
+
+// overwrite bootstrap modal
+.modal-body {
+  input, textarea {
+    width: 100%;
+    border-radius: 5px;
+  }
+}

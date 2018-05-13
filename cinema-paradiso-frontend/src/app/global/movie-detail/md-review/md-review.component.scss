@@ -103,3 +103,20 @@ $p-content: darken(white, 15%);
     }
   }
 }
+
+.modal-title {
+  font-size: 16px;
+}
+.modal-body {
+  font-size: 14px;
+  textarea {
+    width: 100%;
+    border: 1px solid gray;
+    margin: 0;
+  }
+}
+.modal-footer {
+  button {
+    font-size: 12px;
+  }
+}

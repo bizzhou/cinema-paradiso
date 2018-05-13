@@ -115,11 +115,9 @@ export class MovieService {
     return this.http.delete(AppConstant.API_ENDPOINT + `movie/delete/${filmId}`);
   }
 
-
   addMovie(movie: Movie) {
     return this.http.post(AppConstant.API_ENDPOINT + `movie/add`, movie);
   }
-
 
   updateMovie(movie: Movie) {
     return this.http.post(AppConstant.API_ENDPOINT + `movie/update`, movie);
@@ -127,6 +125,11 @@ export class MovieService {
 
   getAllReviews() {
     return this.http.get(AppConstant.API_ENDPOINT + `review/get/all`);
-
   }
+
+  reportReview(reviewId: number, reportReason: string) {
+    const param = new HttpParams().set('reportReason', reportReason);
+    return this.http.post(AppConstant.API_ENDPOINT + `review/report/${reviewId}`, param);
+  }
+
 }

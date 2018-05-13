@@ -20,7 +20,7 @@
         </h6>
 
         <div class="t_buttons">
-          <button class="c-update-btn" (click)="open(content, review)">Update</button>
+          <button class="c-update-btn" (click)="open(reportReviewContent, review)">Update</button>
           <button class="c-update-btn button__warning" (click)="deleteReview(review)">Delete</button>
         </div>
 
@@ -38,34 +38,34 @@
 </div>
 <!--<ngb-pagination class="d-flex justify-content-left" [collectionSize]="20"></ngb-pagination>-->
 
-<ng-template #content let-c="close" let-d="dismiss">
+<ng-template #reportReviewContent let-c="close" let-d="dismiss" id="editReviewModal">
   <div class="modal-header">
     <h4 class="modal-title">Edit Review</h4>
     <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
+  <form>
   <div class="modal-body">
 
-    <form>
+
 
       <div>
-        <label>Title</label>
+        <label>Review title</label><br>
         <input type="text" [(ngModel)]="clickedReview.title" name="clicked_review_title">
       </div>
-
+    <br>
       <div>
-        <h2>Content</h2>
+        <label>Review content</label>
         <br>
-        <textarea [(ngModel)]="clickedReview.reviewContent" name="clicked_review_content" id="" cols="30" rows="10">
+        <textarea [(ngModel)]="clickedReview.reviewContent" name="clicked_review_content" rows="5">
           </textarea>
       </div>
 
-      <button class="btn" (click)="editReview()">Submit</button>
-    </form>
-
   </div>
   <div class="modal-footer">
+    <button class="btn"  class="btn btn-outline-dark" (click)="editReview()">Submit</button>
     <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
   </div>
+  </form>
 </ng-template>

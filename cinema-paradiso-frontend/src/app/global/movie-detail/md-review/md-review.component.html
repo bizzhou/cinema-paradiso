@@ -29,9 +29,9 @@
               on {{review.postedDate | date  }}
             </h6>
 
+            <!-- report review -->
             <div class="t_buttons">
-              <button class="c-update-btn"><i class="fa fa-flag"></i> Report</button>
-              <!--<button class="c-update-btn"><i class="fa fa-thumbs-up"></i> 222</button>-->
+              <button class="c-update-btn" (click)="openModal(reportReview, review)"><i class="fa fa-flag"></i> Report</button>
             </div>
 
           </div>
@@ -80,8 +80,7 @@
                         </h6>
 
                         <div class="t_buttons">
-                            <button class="c-update-btn"><i class="fa fa-flag"></i> Report</button>
-                            <!--<button class="c-update-btn"><i class="fa fa-thumbs-up"></i> 222</button>-->
+                            <button class="c-update-btn" (click)="openModal(reportReview, review)"><i class="fa fa-flag"></i> Report</button>
                         </div>
 
                     </div>
@@ -100,4 +99,26 @@
 
 </section>
 
+<ng-template #reportReview let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Report "{{clickedReview.title}}" by {{clickedReview.authorName}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <form>
+    <div class="modal-body">
 
+        <textarea [(ngModel)]="reportReason"
+                  placeholder="Why do you want to report this review?"
+                  rows="5"
+                  name="report_reason">
+        </textarea>
+
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-outline-dark" (click)="report(reportReason)">Submit</button>
+      <button type="button" class="btn btn-outline-dark" (click)="c('Close click')">Close</button>
+    </div>
+  </form>
+</ng-template>

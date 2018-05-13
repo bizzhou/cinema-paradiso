@@ -200,20 +200,18 @@ a:hover {
 
 .mp-users, .mp-movies, .mp-reviews, .mp-carousel, .mp-application, .mp-celebrity {
   padding:30px 30px;
-
-  //min-height: 800px;
+  min-height: 700px;
   background-color:#f0f0f0;
 
   & div {
     background-color: #F7F7F7;
-    border: 1px solid #E2E2E2;
-    padding: 0 20px;
+    //border: 1px solid #E2E2E2;
+    //padding: 0 20px;
     margin:15px 0;
 
     &:hover {
       background-color:#fafafa;
     }
-
 
     & p {
       display:none;

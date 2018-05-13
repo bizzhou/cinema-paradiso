@@ -8,13 +8,15 @@
         <h1>Dashboard</h1>
 
         <ngb-tabset [orientation]="'vertical'" (tabChange)="tabChangeHandler($event)">
-          <ngb-tab title="User" id="manage-user">
+          <ngb-tab title="Manage users" id="manage-user">
           </ngb-tab>
-          <ngb-tab title="Movie" id="manage-movies">
+          <ngb-tab title="Manage movies" id="manage-movies">
           </ngb-tab>
-          <ngb-tab title="Review" id="manage-reviews">
+          <ngb-tab title="Manage reviews" id="manage-reviews">
           </ngb-tab>
-          <ngb-tab title="Critic Application" id="manage-application">
+          <ngb-tab title="Manage review reports" id="manage-reported-reviews">
+          </ngb-tab>
+          <ngb-tab title="Critic applications" id="manage-application">
           </ngb-tab>
         </ngb-tabset>
 
@@ -25,14 +27,22 @@
           <h2>Dashboard</h2>
         </div>
 
+        <!-- manage users -->
         <div class="container mp-users" *ngIf="selectedTab === 'manage-user'">
-
-          <div class="row mp-users__item" *ngFor="let user of users">
-            <h3 class="col-users-title">{{user.userID}} | {{user.username}} | {{user.email}}</h3>
+          <div class="row">
+            <h3 class="col-1">ID</h3>
+            <h3 class="col-3">Username</h3>
+            <h3 class="col-4">Email</h3>
+          </div>
+          <div class="row" *ngFor="let user of users">
+            <h3 class="col-1">{{user.userID}}</h3>
+            <h3 class="col-3">{{user.username}}</h3>
+            <h3 class="col-6">{{user.email}}</h3>
             <button class="col-users-item" (click)="deleteUser(user)">Delete</button>
           </div>
         </div>
 
+        <!-- manage movies -->
         <div class="container mp-movies" *ngIf="selectedTab === 'manage-movies'">
           <button (click)="addMovie(content)">Create New</button>
 
@@ -49,28 +59,42 @@
 
         </div>
 
+        <!-- manage reviews -->
         <div class="container mp-reviews" *ngIf="selectedTab === 'manage-reviews' && reviews !=null">
+          <div class="row">
+            <h3 class="col-2">Film ID</h3>
+            <h3 class="col-3">Review title</h3>
+            <h3 class="col-6">Review content</h3>
+          </div>
+          <div class="row" *ngFor="let review of reviews">
+              <h3 class="col-2">{{review.movie.imdbId}}</h3>
+              <h3 class="col-3" *ngIf="review.criticReview === true">{{review.title}}</h3>
 
-          <!--<label for='search_review'>Enter Review ID</label>-->
-          <!--<input id='search_review' type="text" (input)="reviewId = $event.target.value;">-->
-          <!--<button class="btn btn-primary" (click)="deleteReview(reviewId)">Delete Review</button>-->
+              <h3 class="col-6">{{review.reviewContent}}</h3>
 
-          <div *ngFor="let review of reviews">
+              <button class="col-1" (click)="deleteReview(review)">Delete</button>
 
-            <div class="row">
-              <div class="col-md-8">
-                <h3 *ngIf="review.criticReview === true">{{review.title}} | CRITIC</h3>
-                <h3 *ngIf="review.criticReview === false">{{review.title}}</h3>
-                <h3>{{review.reviewContent}}</h3>
-              </div>
-              <div class="col-md-4">
-                <button class="btn btn-primary" (click)="deleteReview(review)">Delete</button>
-              </div>
-            </div>
 
           </div>
+        </div>
 
+        <!-- manage review reports -->
+        <div class="container mp-reviews" *ngIf="selectedTab === 'manage-reported-reviews' && reportReviews !=null">
+          <div class="row">
+            <h3 class="col-2">Film ID</h3>
+            <h3 class="col-3">Reported by</h3>
+            <h3 class="col-6">Review content</h3>
+          </div>
+          <div class="row" *ngFor="let report of reportReviews">
+            <h3 class="col-2">{{report.review.movie.imdbId}}</h3>
+            <h3 class="col-3">{{report.reportBy.username}}</h3>
 
+            <h3 class="col-5">{{report.reportReason}}</h3>
+
+            <button class="col-1" (click)="deleteReportedReview(report, report.review.reviewId)">Delete</button>
+            <button class="col-1" (click)="dismissReportedReview(report)">Dismiss</button>
+
+          </div>
         </div>
 
         <div class="container mp-application" *ngIf="selectedTab === 'manage-application'">
