@@ -1,73 +1,86 @@
 <main>
 
-  <!-- if reg user profile not private -->
-  <div class="container" *ngIf="!publicProfile.isPrivate;else showPrivatePage">
-    <div class="row">
-      <div class="col-avatar avatar">
-        <img [src]="publicProfile.profileImage" [alt]="publicProfile.username"/>
+  <div *ngIf="!isUserExist; else showUserPortfolioPage">
+    <div class="vertical-center">
+      <div class="container private-wrap">
+        <div class="row">
+          <div class="col-12">
+            <h3>Woops! This user may have changed the username or deleted the account :(</h3>
+          </div>
+        </div>
       </div>
+    </div>
+  </div>
+
+  <ng-template #showUserPortfolioPage>
+    <!-- if reg user profile not private -->
+    <div class="container" *ngIf="!publicProfile.isPrivate;else showPrivatePage">
+      <div class="row">
+        <div class="col-avatar avatar">
+          <img [src]="publicProfile.profileImage" [alt]="publicProfile.username"/>
+        </div>
 
 
-      <div class="col-bio bio">
-        <h5>{{publicProfile.username}}
-          <span *ngIf="publicProfile.isCritic">
+        <div class="col-bio bio">
+          <h5>{{publicProfile.username}}
+            <span *ngIf="publicProfile.isCritic">
             (critic)
           </span>
-          <button class="btn-follow"><i class="fa fa-user-plus"></i></button>
+            <button class="btn-follow"><i class="fa fa-user-plus"></i></button>
 
-        </h5>
-        <p>{{publicProfile.biography}}</p>
-        <p>Joined on: {{publicProfile.accountCreatedDate | date}}</p>
-      </div>
-    </div>
-    <!--./row-->
-
-    <!-- wish list-->
-    <div class="row portfolio">
-      <h5 class="p_header"><span>{{publicProfile.username}}'s wish list</span></h5>
-
-      <div class="container">
-        <div class="row">
-          <div *ngFor="let movie of publicProfile.wishList.slice().reverse()" class="col-2 r_wishlist">
-            <img [src]="movie.poster" [alt]="movie.title">
-            <p class="wishlist--title">{{movie.title}}</p>
-            <i class="wishlist--rating">{{movie.criticRating}}/5.0</i>
-          </div>
-
+          </h5>
+          <p>{{publicProfile.biography}}</p>
+          <p>Joined on: {{publicProfile.accountCreatedDate | date}}</p>
         </div>
       </div>
+      <!--./row-->
 
-    </div>
+      <!-- wish list-->
+      <div class="row portfolio">
+        <h5 class="p_header"><span>{{publicProfile.username}}'s wish list</span></h5>
 
-    <!-- uninterested list-->
-    <div class="row portfolio">
-      <h5 class="p_header"><span>{{publicProfile.username}}'s uninterested list</span></h5>
+        <div class="container">
+          <div class="row">
+            <div *ngFor="let movie of publicProfile.wishList.slice().reverse()" class="col-2 r_wishlist">
+              <img [src]="movie.poster" [alt]="movie.title">
+              <p class="wishlist--title">{{movie.title}}</p>
+              <i class="wishlist--rating">{{movie.criticRating}}/5.0</i>
+            </div>
 
-      <div class="container">
-        <div class="row">
-          <div *ngFor="let movie of publicProfile.notInterestedList.slice().reverse()" class="col-2 r_wishlist">
-            <img [src]="movie.poster" [alt]="movie.title">
-            <p class="wishlist--title">{{movie.title}}</p>
-            <i class="wishlist--rating">{{movie.criticRating}}/5.0</i>
           </div>
-
         </div>
+
       </div>
 
-    </div>
+      <!-- uninterested list-->
+      <div class="row portfolio">
+        <h5 class="p_header"><span>{{publicProfile.username}}'s uninterested list</span></h5>
 
-    <!--Latest reviews-->
-    <div class="row portfolio">
-      <h5 class="p_header"><span>{{publicProfile.username}}'s latest reviews</span></h5>
+        <div class="container">
+          <div class="row">
+            <div *ngFor="let movie of publicProfile.notInterestedList.slice().reverse()" class="col-2 r_wishlist">
+              <img [src]="movie.poster" [alt]="movie.title">
+              <p class="wishlist--title">{{movie.title}}</p>
+              <i class="wishlist--rating">{{movie.criticRating}}/5.0</i>
+            </div>
 
-      <!-- general reviews -->
-      <div class="container reviews">
-        <div *ngFor="let review of publicProfile.userReviews.slice().reverse()" class="row">
-          <div class="col-12 testimonial">
-            <div class="t_title">
-              <h6>
-                <a class="r_movie--title" routerLink="/movie/{{review.movie.imdbId}}">{{review.movie.title}}</a>
-                <span>
+          </div>
+        </div>
+
+      </div>
+
+      <!--Latest reviews-->
+      <div class="row portfolio">
+        <h5 class="p_header"><span>{{publicProfile.username}}'s latest reviews</span></h5>
+
+        <!-- general reviews -->
+        <div class="container reviews">
+          <div *ngFor="let review of publicProfile.userReviews.slice().reverse()" class="row">
+            <div class="col-12 testimonial">
+              <div class="t_title">
+                <h6>
+                  <a class="r_movie--title" routerLink="/movie/{{review.movie.imdbId}}">{{review.movie.title}}</a>
+                  <span>
                   <i class="fa fa-star" [style.color]="review.userRating < 0.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
                   <i class="fa fa-star" [style.color]="review.userRating < 1.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
                   <i class="fa fa-star" [style.color]="review.userRating < 2.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
@@ -76,52 +89,6 @@
 
                   <i style="margin-left: 5px">{{review.userRating}}.0</i>
             </span>
-                on {{review.postedDate | date}}
-              </h6>
-
-              <div class="t_buttons">
-                <button class="c-update-btn"><i class="fa fa-flag"></i> Report</button>
-                <!--TODO: open up a modal, fill out report-->
-              </div>
-
-            </div>
-            <div class="t_content">
-              <h6 class="content_title"><a>{{review.title}} </a></h6>
-              <p class="content_text">
-                {{review.reviewContent}}
-              </p>
-
-            </div>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <!-- if critic, display best and worst reviews -->
-    <div *ngIf="publicProfile.isCritic">
-      <!-- best reviewed movies -->
-      <div class="row portfolio">
-        <h5 class="p_header"><span>{{publicProfile.username}}'s best reviewed movies</span></h5>
-
-        <div class="container reviews">
-          <div *ngFor="let review of bestReviews.slice().reverse()" class="row">
-            <div class="col-1 best-review-img">
-              <img [src]="review.movie.poster" alt="movie poster" style="height: 100px;width: auto;margin-right: 20px">
-            </div>
-            <div class="col-11 testimonial">
-              <div class="t_title">
-                <h6>
-                  <a class="r_movie--title" routerLink="/movie/{{review.movie.imdbId}}">{{review.movie.title}}</a>
-                  <span>
-                    <i class="fa fa-star" [style.color]="review.userRating < 0.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
-                    <i class="fa fa-star" [style.color]="review.userRating < 1.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
-                    <i class="fa fa-star" [style.color]="review.userRating < 2.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
-                    <i class="fa fa-star" [style.color]="review.userRating < 3.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
-                    <i class="fa fa-star" [style.color]="review.userRating < 4.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
-
-                  <i style="margin-left: 5px">{{review.userRating}}.0</i>
-            </span>
                   on {{review.postedDate | date}}
                 </h6>
 
@@ -144,72 +111,118 @@
         </div>
       </div>
 
-      <!-- worst reviewed movies-->
-      <div class="row portfolio">
-        <h5 class="p_header"><span>{{publicProfile.username}}'s worst reviewed movies</span></h5>
+      <!-- if critic, display best and worst reviews -->
+      <div *ngIf="publicProfile.isCritic">
+        <!-- best reviewed movies -->
+        <div class="row portfolio">
+          <h5 class="p_header"><span>{{publicProfile.username}}'s best reviewed movies</span></h5>
 
-        <!-- general reviews -->
-        <div class="container reviews">
-          <div *ngFor="let review of worstReviews.slice().reverse()" class="row">
-            <div class="col-1 best-review-img">
-              <img [src]="review.movie.poster" alt="movie poster" style="height: 100px;width: auto;">
-            </div>
-            <div class="col-11 testimonial">
-              <div class="t_title">
-                <h6>
-                  <a class="r_movie--title" routerLink="/movie/{{review.movie.imdbId}}">{{review.movie.title}}</a>
-                  <span>
-                    <i class="fa fa-star" [style.color]="review.userRating < 0.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
-                    <i class="fa fa-star" [style.color]="review.userRating < 1.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
-                    <i class="fa fa-star" [style.color]="review.userRating < 2.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
-                    <i class="fa fa-star" [style.color]="review.userRating < 3.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
-                    <i class="fa fa-star" [style.color]="review.userRating < 4.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
-
-                  <i style="margin-left: 5px">{{review.userRating}}.0</i>
-            </span>
-                  on {{review.postedDate | date}}
-                </h6>
-
-                <div class="t_buttons">
-                  <button class="c-update-btn"><i class="fa fa-flag"></i> Report</button>
-                  <!--TODO: open up a modal, fill out report-->
-                </div>
-
+          <div class="container reviews">
+            <div *ngFor="let review of bestReviews.slice().reverse()" class="row">
+              <div class="col-1 best-review-img">
+                <img [src]="review.movie.poster" alt="movie poster" style="height: 100px;width: auto;margin-right: 20px">
               </div>
-              <div class="t_content">
-                <h6 class="content_title"><a>{{review.title}} </a></h6>
-                <p class="content_text">
-                  {{review.reviewContent}}
-                </p>
-
-              </div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <!-- latest ratings -->
-    <div class="row portfolio">
-      <h5 class="p_header"><span>{{publicProfile.username}}'s ratings</span></h5>
-
-      <div class="container reviews">
-        <div *ngFor="let row of publicProfile.userRatings.slice().reverse() | row:2" class="row r_ratings" >
-          <div *ngFor="let userRating of row" class="col-6">
-            <div class="row">
-              <div class="col-2">
-                <img [src]="userRating.ratedMovie.poster" alt="poster">
-              </div>
-
-              <div class="col-10 testimonial">
+              <div class="col-11 testimonial">
                 <div class="t_title">
                   <h6>
-                    <a class="r_movie--title" routerLink="/movie/{{userRating.ratedMovie.imdbId}}">{{userRating.ratedMovie.title}}</a>
+                    <a class="r_movie--title" routerLink="/movie/{{review.movie.imdbId}}">{{review.movie.title}}</a>
+                    <span>
+                    <i class="fa fa-star" [style.color]="review.userRating < 0.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+                    <i class="fa fa-star" [style.color]="review.userRating < 1.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+                    <i class="fa fa-star" [style.color]="review.userRating < 2.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+                    <i class="fa fa-star" [style.color]="review.userRating < 3.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+                    <i class="fa fa-star" [style.color]="review.userRating < 4.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+
+                  <i style="margin-left: 5px">{{review.userRating}}.0</i>
+            </span>
+                    on {{review.postedDate | date}}
                   </h6>
+
+                  <div class="t_buttons">
+                    <button class="c-update-btn"><i class="fa fa-flag"></i> Report</button>
+                    <!--TODO: open up a modal, fill out report-->
+                  </div>
+
                 </div>
+                <div class="t_content">
+                  <h6 class="content_title"><a>{{review.title}} </a></h6>
+                  <p class="content_text">
+                    {{review.reviewContent}}
+                  </p>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- worst reviewed movies-->
+        <div class="row portfolio">
+          <h5 class="p_header"><span>{{publicProfile.username}}'s worst reviewed movies</span></h5>
+
+          <!-- general reviews -->
+          <div class="container reviews">
+            <div *ngFor="let review of worstReviews.slice().reverse()" class="row">
+              <div class="col-1 best-review-img">
+                <img [src]="review.movie.poster" alt="movie poster" style="height: 100px;width: auto;">
+              </div>
+              <div class="col-11 testimonial">
                 <div class="t_title">
                   <h6>
+                    <a class="r_movie--title" routerLink="/movie/{{review.movie.imdbId}}">{{review.movie.title}}</a>
+                    <span>
+                    <i class="fa fa-star" [style.color]="review.userRating < 0.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+                    <i class="fa fa-star" [style.color]="review.userRating < 1.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+                    <i class="fa fa-star" [style.color]="review.userRating < 2.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+                    <i class="fa fa-star" [style.color]="review.userRating < 3.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+                    <i class="fa fa-star" [style.color]="review.userRating < 4.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
+
+                  <i style="margin-left: 5px">{{review.userRating}}.0</i>
+            </span>
+                    on {{review.postedDate | date}}
+                  </h6>
+
+                  <div class="t_buttons">
+                    <button class="c-update-btn"><i class="fa fa-flag"></i> Report</button>
+                    <!--TODO: open up a modal, fill out report-->
+                  </div>
+
+                </div>
+                <div class="t_content">
+                  <h6 class="content_title"><a>{{review.title}} </a></h6>
+                  <p class="content_text">
+                    {{review.reviewContent}}
+                  </p>
+
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- latest ratings -->
+      <div class="row portfolio">
+        <h5 class="p_header"><span>{{publicProfile.username}}'s ratings</span></h5>
+
+        <div class="container reviews">
+          <div *ngFor="let row of publicProfile.userRatings.slice().reverse() | row:2" class="row r_ratings" >
+            <div *ngFor="let userRating of row" class="col-6">
+              <div class="row">
+                <div class="col-2">
+                  <img [src]="userRating.ratedMovie.poster" alt="poster">
+                </div>
+
+                <div class="col-10 testimonial">
+                  <div class="t_title">
+                    <h6>
+                      <a class="r_movie--title" routerLink="/movie/{{userRating.ratedMovie.imdbId}}">{{userRating.ratedMovie.title}}</a>
+                    </h6>
+                  </div>
+                  <div class="t_title">
+                    <h6>
                   <span style="margin-left: 0">
                     <i class="fa fa-star" [style.color]="userRating.userRating < 0.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
                     <i class="fa fa-star" [style.color]="userRating.userRating < 1.5 ? 'gray' : 'rgb(229, 9, 20)'"></i>
@@ -219,37 +232,39 @@
 
                     <i style="margin-left: 5px">{{userRating.userRating}}.0</i>
               </span>
-                    on {{userRating.ratedDate | date}}
-                  </h6>
+                      on {{userRating.ratedDate | date}}
+                    </h6>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
         </div>
-
       </div>
+
+
+      <ng-template #showCriticPublicPage>
+
+      </ng-template>
+
     </div>
+    <!--./container-->
 
-
-    <ng-template #showCriticPublicPage>
-
-    </ng-template>
-
-  </div>
-  <!--./container-->
-
-  <!-- if account is private -->
-  <ng-template #showPrivatePage>
-    <div class="vertical-center">
-      <div class="container private-wrap">
-        <div class="row">
-          <div class="col-12">
-            <h3>Woops! This account is private :(</h3>
+    <!-- if account is private -->
+    <ng-template #showPrivatePage>
+      <div class="vertical-center">
+        <div class="container private-wrap">
+          <div class="row">
+            <div class="col-12">
+              <h3>Woops! This account is private :(</h3>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
+    </ng-template>
   </ng-template>
+
 
 </main>

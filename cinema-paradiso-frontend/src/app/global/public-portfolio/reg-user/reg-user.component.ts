@@ -32,6 +32,7 @@ export class RegUserPortfolioComponent implements OnInit {
   publicProfile = new PublicProfile();
   bestReviews: Review[];
   worstReviews: Review[];
+  isUserExist: boolean;
 
   constructor(private route: ActivatedRoute,
               private regUserService: RegUserService) {
@@ -45,6 +46,7 @@ export class RegUserPortfolioComponent implements OnInit {
 
   getPublicProfile(username: string): any {
     this.regUserService.getPublicProfile(username).subscribe(data => {
+      this.isUserExist = true;
       // get general detail
       this.publicProfile.username = username;
       if (data['profileImage'] === 'undefined') {
@@ -73,6 +75,7 @@ export class RegUserPortfolioComponent implements OnInit {
     }, error => {
       // in case the user has deleted the account, or changed username
       console.log(error);
+      this.isUserExist = false;
     });
   }
 
