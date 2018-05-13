@@ -20,7 +20,6 @@ public class Review {
     private String reviewContent;
     private Double userRating;
     private Integer likeCount;
-//    private List<ReportReview> reportReviews;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -22,8 +22,8 @@ public class ReportReview {
         return reportId;
     }
 
-    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
-    @JoinColumn(name = "reviewId", nullable = false)
+    @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @JoinColumn(name = "reviewId")
     public Review getReview() {
         return review;
     }

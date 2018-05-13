@@ -108,6 +108,9 @@ public class ReviewServiceImpl implements ReviewService {
     public void removeReview(Integer profileId, Long reviewId) {
         logger.info(reviewId);
         Review review = getReview(reviewId);
+        List<ReportReview> reportReviews = reportReviewRepository.findAllByReviewReviewId(reviewId);
+
+        reportReviewRepository.deleteAll(reportReviews);
         reviewRepository.delete(review);
     }
 
@@ -149,6 +152,7 @@ public class ReviewServiceImpl implements ReviewService {
     @Transactional
     @Override
     public void reportReview(Integer userProfileId, Long reviewId, String reportReason) {
+        System.out.println("reason: " + reportReason);
         Review review = reviewRepository.findById(reviewId).orElseThrow(()
                 -> new ResponseStatusException(BAD_REQUEST, exceptionConstants.getReviewNotFound()));;
         UserProfile userProfile = utilityService.getUserProfile(userProfileId);
