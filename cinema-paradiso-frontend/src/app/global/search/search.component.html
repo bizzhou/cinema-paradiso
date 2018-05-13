@@ -132,7 +132,7 @@
       </ng-template>
       <ng-template ngbTabContent>
 
-        <div class="container tv_results">
+        <div class="container l-cards tv_results">
 
           <!-- selectors -->
           <div class="row selector" style="border: 1px solid white; width: 80%; margin-left: 10%;">
@@ -153,8 +153,8 @@
               <a class="l-cards__more" (click)="setListView(false)"><i class="fa fa-th-large"></i> </a>
             </div>
           </div>
-
-          <div *ngFor="let movie of tvResults">
+          <div *ngIf="isListView">
+            <div *ngFor="let movie of tvResults">
             <div class="row s-item">
               <div class="col-1"></div>
               <div class="col-2 s_img-wrap">
@@ -201,7 +201,16 @@
               </div>
             </div>
           </div>
+          </div>
+          <!-- grid view-->
+          <ul *ngIf="!isListView" class="row l-cards__table">
 
+            <li  *ngFor="let movie of tvResults"  class="col-3 l-cards__item">
+              <a routerLink="/tv/{{movie?.imdbId}}" class="l-cards__image fill"><img [src]="movie?.poster"></a>
+              <a href="/tv/{{movie?.imdbId}}" class="l-cards__text">{{movie?.title.substring(0, 20)}} <i class="item__rating"> {{movie?.criticRating}}</i></a>
+            </li>
+
+          </ul>
 
         </div>
 

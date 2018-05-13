@@ -1,18 +1,6 @@
 <main>
 
-  <div *ngIf="!isUserExist; else showUserPortfolioPage">
-    <div class="vertical-center">
-      <div class="container private-wrap">
-        <div class="row">
-          <div class="col-12">
-            <h3>Woops! This user may have changed the username or deleted the account :(</h3>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <ng-template #showUserPortfolioPage>
+  <div *ngIf="isUserExist; else showUserNotExistPage">
     <!-- if reg user profile not private -->
     <div class="container" *ngIf="!publicProfile.isPrivate;else showPrivatePage">
       <div class="row">
@@ -26,7 +14,7 @@
             <span *ngIf="publicProfile.isCritic">
             (critic)
           </span>
-            <button class="btn-follow"><i class="fa fa-user-plus"></i></button>
+            <!--<button class="btn-follow"><i class="fa fa-user-plus"></i></button>-->
 
           </h5>
           <p>{{publicProfile.biography}}</p>
@@ -93,8 +81,7 @@
                 </h6>
 
                 <div class="t_buttons">
-                  <button class="c-update-btn"><i class="fa fa-flag"></i> Report</button>
-                  <!--TODO: open up a modal, fill out report-->
+                  <!--<button class="c-update-btn"><i class="fa fa-flag"></i> Report</button>-->
                 </div>
 
               </div>
@@ -139,8 +126,7 @@
                   </h6>
 
                   <div class="t_buttons">
-                    <button class="c-update-btn"><i class="fa fa-flag"></i> Report</button>
-                    <!--TODO: open up a modal, fill out report-->
+                    <!--<button class="c-update-btn"><i class="fa fa-flag"></i> Report</button>-->
                   </div>
 
                 </div>
@@ -184,8 +170,7 @@
                   </h6>
 
                   <div class="t_buttons">
-                    <button class="c-update-btn"><i class="fa fa-flag"></i> Report</button>
-                    <!--TODO: open up a modal, fill out report-->
+                    <!--<button class="c-update-btn"><i class="fa fa-flag"></i> Report</button>-->
                   </div>
 
                 </div>
@@ -264,6 +249,18 @@
       </div>
 
     </ng-template>
+  </div>
+
+  <ng-template #showUserNotExistPage>
+    <div class="vertical-center">
+      <div class="container private-wrap">
+        <div class="row">
+          <div class="col-12">
+            <h3>Woops! This user may have changed the username or deleted the account :(</h3>
+          </div>
+        </div>
+      </div>
+    </div>
   </ng-template>
 
 
