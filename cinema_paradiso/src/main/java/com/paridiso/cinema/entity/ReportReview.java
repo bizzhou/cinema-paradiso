@@ -5,7 +5,7 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "ReportReviews", uniqueConstraints = @UniqueConstraint(columnNames = {"reportId", "reviewId"}))
+@Table(name = "ReportReviews", uniqueConstraints = @UniqueConstraint(columnNames = {"reportId"}))
 public class ReportReview {
     private Integer reportId;
     private Review review;
@@ -16,12 +16,13 @@ public class ReportReview {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    @Column(nullable = false, unique = true)
     public Integer getReportId() {
         return reportId;
     }
 
-    @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @JoinColumn(name = "reviewId", nullable = false)
     public Review getReview() {
         return review;

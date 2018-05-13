@@ -5,6 +5,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Calendar;
+import java.util.List;
 
 @Entity
 @Table(name = "Reviews", uniqueConstraints = @UniqueConstraint(columnNames = {"reviewId", "imdbId"}))
@@ -19,6 +20,7 @@ public class Review {
     private String reviewContent;
     private Double userRating;
     private Integer likeCount;
+//    private List<ReportReview> reportReviews;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,7 +29,7 @@ public class Review {
     }
 
     @JsonIgnore
-    @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = {CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "authorId", nullable = false)
     public UserProfile getAuthor() {
         return author;
@@ -59,6 +61,11 @@ public class Review {
     public Integer getLikeCount() {
         return likeCount;
     }
+
+//    @OneToMany(cascade=CascadeType.ALL,orphanRemoval=true)
+//    public List<ReportReview> getReportReviews() {
+//        return reportReviews;
+//    }
 
     public void setReviewId(Long reviewId) {
         this.reviewId = reviewId;
@@ -92,6 +99,18 @@ public class Review {
         this.reviewContent = reviewContent;
     }
 
+    public Double getUserRating() {
+        return userRating;
+    }
+
+    public void setUserRating(Double userRating) {
+        this.userRating = userRating;
+    }
+
+//    public void setReportReviews(List<ReportReview> reportReviews) {
+//        this.reportReviews = reportReviews;
+//    }
+
     @Override
     public String toString() {
         return "Review{" +
@@ -103,14 +122,6 @@ public class Review {
                 ", isCriticReview=" + isCriticReview +
                 ", reviewContent='" + reviewContent + '\'' +
                 '}';
-    }
-
-    public Double getUserRating() {
-        return userRating;
-    }
-
-    public void setUserRating(Double userRating) {
-        this.userRating = userRating;
     }
 
 }

@@ -97,4 +97,9 @@ public class ReviewController {
         return ResponseEntity.ok(true);
     }
 
+    @GetMapping(value = "/report/get/all")
+    public ResponseEntity<List> getReportedReviews() {
+        return new ResponseEntity<>(reviewService.getReportedReviews(), HttpStatus.OK);
+    }
+
 }

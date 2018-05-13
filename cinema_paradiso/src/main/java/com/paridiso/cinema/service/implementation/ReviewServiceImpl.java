@@ -15,9 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.http.HttpStatus.INTERNAL_SERVER_ERROR;
@@ -159,6 +157,15 @@ public class ReviewServiceImpl implements ReviewService {
         reportedReview.setReportBy(userProfile);
         reportedReview.setReportReason(reportReason);
         reportReviewRepository.save(reportedReview);
+    }
+
+    @Transactional
+    @Override
+    public List<ReportReview> getReportedReviews() {
+        List<ReportReview> reportedReviews = reportReviewRepository.findAll();
+        reportedReviews.removeIf(reportReview -> reportReview.getReview() == null);
+        reportReviewRepository.saveAll(reportedReviews);
+        return reportedReviews;
     }
 
 

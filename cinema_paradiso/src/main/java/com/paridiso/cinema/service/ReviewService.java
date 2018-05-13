@@ -1,5 +1,6 @@
 package com.paridiso.cinema.service;
 
+import com.paridiso.cinema.entity.ReportReview;
 import com.paridiso.cinema.entity.Review;
 
 import java.util.List;
@@ -27,5 +28,7 @@ public interface ReviewService {
     List<Review> getAllReviews();
 
     void reportReview(Integer userProfileId, Long reviewId, String reportReason);
+
+    List<ReportReview> getReportedReviews();
 
 }
