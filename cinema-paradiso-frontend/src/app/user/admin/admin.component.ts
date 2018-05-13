@@ -10,12 +10,14 @@ import {Review} from '../../global/models/review.model';
 import {CriticApplication} from '../../global/models/critic-application.model';
 import {AdminService} from './admin.service';
 import {ReportReview} from '../../global/models/report-review.model';
+import {Celebrity} from '../../global/models/celebrity.model';
+import {CelebrityService} from '../../global/celebrity/celebrity.service';
 
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.scss'],
-  providers: [RegUserService, AdminService]
+  providers: [RegUserService, AdminService, CelebrityService]
 })
 export class AdminComponent implements OnInit {
 
@@ -33,10 +35,15 @@ export class AdminComponent implements OnInit {
   currReportReview: ReportReview;
   reportReason: string;
   deletedReviewReports: ReportReview[];
+  fileList: FileList;
+  photoList: FileList;
+  celebrities: string;
+  director: string;
+
 
   constructor(private userService: RegUserService, private movieService: MovieService,
               private toastrService: ToastrService, private modalService: NgbModal,
-              private adminService: AdminService) {
+              private adminService: AdminService, private celebrityService: CelebrityService) {
   }
 
   ngOnInit() {
@@ -52,23 +59,80 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  private addMovie(content) {
+  private createMovie(content) {
     this.movie = new Movie();
     this.open(content);
     this.addMovieFlag = true;
   }
 
   private insertMovieIntoDB() {
-    console.log('this movie', this.movie);
     this.formatStringIntoArray();
-    console.log('this movie', this.movie);
-    this.movieService.addMovie(this.movie).subscribe(data => {
-      console.log('', data);
-      // this.movie = undefined;
-      this.modalRef.close();
-      this.toastrService.success('Success');
-    }, error => {
-      this.toastrService.error(error['error']['message']);
+    // const celeb = [];
+    this.movieService.getFilmId().toPromise().then(newId => {
+
+      if (this.celebrities !== undefined) {
+
+        const celeb = [];
+        const celebArray = this.celebrities.split(',');
+        let counter = 0;
+
+        this.movie.casts = celeb;
+        this.movie.imdbId = newId;
+
+        this.celebrityService.getCelebirty(this.director).toPromise().then(director => {
+          this.movie.director = director as Celebrity;
+        });
+
+
+        for (let i = 0; i < celebArray.length; i++) {
+          this.celebrityService.getCelebirty(celebArray[i]).toPromise().then(data => {
+            celeb.push(data as Celebrity);
+
+            if (counter === celebArray.length - 1) {
+              console.log('triggering event');
+              this.InsertMovieWithCeleb(celeb, newId);
+            } else {
+              counter += 1;
+            }
+
+          });
+        }
+
+      }
+
+    });
+  }
+
+  private InsertMovieWithCeleb(celeb, newId) {
+    this.movie.casts = celeb;
+    this.movie.imdbId = newId;
+
+    console.log(this.movie);
+
+    this.movieService.uploadPoster(this.fileList, newId).toPromise().then(poster => {
+      this.movie.poster = poster['body'];
+
+      this.movieService.uploadImages(this.photoList, newId).toPromise().then(images => {
+
+        console.log(images);
+
+        this.movie.photos = images['body'] as string[];
+        this.movie.numOfCriticRatings = 0;
+        this.movie.numOfRegUserRatings = 0;
+        this.movie.criticRating = 0;
+        this.movie.regUserRating = 0;
+
+        this.movieService.addMovie(this.movie).toPromise().then(data => {
+          console.log('movie added is ', data);
+          // this.modalRef.close();
+          this.toastrService.success('SUCCESS');
+          return;
+        }, error => {
+          this.toastrService.error(error['error']['message']);
+        });
+
+      });
+
     });
   }
 
@@ -201,8 +265,15 @@ export class AdminComponent implements OnInit {
   }
 
   private dismissReportedReview(report) {
-    this.reportReviews.splice(this.reportReviews.indexOf(report), 1);
-    this.toastrService.success('Success');
+        this.reportReviews.splice(this.reportReviews.indexOf(report), 1);
+        this.toastrService.success('Success');
+  }
+  uploadPhoto(event) {
+    this.photoList = event.target.files;
+  }
+
+  upload(event) {
+    this.fileList = event.target.files;
   }
 
 }

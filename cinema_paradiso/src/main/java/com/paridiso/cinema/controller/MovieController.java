@@ -59,6 +59,7 @@ public class MovieController {
     @PostMapping(value = "/add")
     public ResponseEntity<Boolean> addMovie(@RequestBody Movie movie) {
         filmService.addFilm(movie);
+//        filmService.addFilmography(movie);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
@@ -136,10 +137,6 @@ public class MovieController {
         return new ResponseEntity<>(filmService.getMoviesTopRated(pageNo, pageSize), HttpStatus.OK);
     }
 
-    @GetMapping(value = "get/similar/{id}")
-    public ResponseEntity<Set> getSimilarMovies(@PathVariable Integer id) {
-        return null;
-    }
 
     @GetMapping(value = "/get/range")
     public ResponseEntity<Set> getMoviesInRange(@RequestParam Calendar startDate, @RequestParam Calendar endDate) {
@@ -151,5 +148,10 @@ public class MovieController {
         return ResponseEntity.ok(filmService.getTopRating());
     }
 
+    @GetMapping(value = "get/new_film_id")
+    public ResponseEntity<String> getNewFilmId() {
+        String filmId = filmService.getFilmId();
+        return ResponseEntity.ok(filmId);
+    }
 
 }

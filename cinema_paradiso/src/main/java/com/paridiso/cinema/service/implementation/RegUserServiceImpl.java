@@ -107,7 +107,7 @@ public class RegUserServiceImpl extends UserService {
     }
 
     @Transactional
-    public boolean chagneProfilePicture(Integer profileId, MultipartFile file) throws IOException {
+    public boolean changeProfilePicture(Integer profileId, MultipartFile file) throws IOException {
         UserProfile profile = utilityService.getUserProfile(profileId);
         profile.setProfileImage(profileId + ".jpeg");
         userProfileRepository.save(profile);

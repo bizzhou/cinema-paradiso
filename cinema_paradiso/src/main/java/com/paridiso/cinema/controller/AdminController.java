@@ -7,13 +7,25 @@ import com.paridiso.cinema.security.JwtTokenGenerator;
 import com.paridiso.cinema.security.JwtUser;
 import com.paridiso.cinema.service.implementation.AdminServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
 import static org.springframework.web.bind.annotation.RequestMethod.POST;
@@ -79,6 +91,38 @@ public class AdminController {
             list.add(hashMap);
         }
         return ResponseEntity.ok(list);
+    }
+
+    @PostMapping(value = "upload/images")
+    public ResponseEntity<List<String>> uploadMultipleFiles(@RequestParam("files") MultipartFile[] files,
+                                                            @RequestParam("movie") String movie) {
+        List<String> names = new ArrayList<>();
+        for (MultipartFile file : files) {
+            names.add("http://localhost:8080/admin/" + userService.saveFile(file, movie));
+        }
+        return ResponseEntity.ok(names);
+    }
+
+    @PostMapping(value = "upload/poster")
+    public String uploadPoster(@RequestParam("file") MultipartFile file, String movie) {
+        String name = userService.saveFile(file, movie);
+        return name.equals("") ? "FALSE" : "http://localhost:8080/admin/" + name;
+    }
+
+    @GetMapping(value = "/images/{folder}/{imageName}", produces = MediaType.IMAGE_JPEG_VALUE)
+    public ResponseEntity<byte[]> getAvatar(@PathVariable String folder, @PathVariable String imageName) throws IOException {
+        String fileLocation = Paths.get("images/" + folder + "/" + imageName).toAbsolutePath().toString();
+        System.out.println(fileLocation);
+        try {
+            File file = new File(fileLocation);
+            InputStream inputStream = new FileInputStream(file);
+            byte[] bytes = StreamUtils.copyToByteArray(inputStream);
+            return ResponseEntity.ok()
+                    .contentType(MediaType.IMAGE_JPEG)
+                    .body(bytes);
+        } catch (IOException e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, exceptionConstants.getResourceNotFound());
+        }
     }
 
 }

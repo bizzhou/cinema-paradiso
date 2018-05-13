@@ -6,6 +6,7 @@ import com.paridiso.cinema.constants.MapKeyConstants;
 import com.paridiso.cinema.entity.*;
 import com.paridiso.cinema.entity.enumerations.Role;
 import com.paridiso.cinema.entity.enumerations.ListMovieStatus;
+import com.paridiso.cinema.persistence.CelebrityRepository;
 import com.paridiso.cinema.persistence.MovieRepository;
 import com.paridiso.cinema.persistence.UserRatingRepository;
 import com.paridiso.cinema.persistence.UserRepository;
@@ -22,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.EntityManager;
 import java.util.*;
 
 import static org.springframework.http.HttpStatus.BAD_REQUEST;
@@ -55,6 +57,9 @@ public class MovieServiceImpl implements FilmService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    CelebrityRepository celebrityRepository;
+
     private static Logger logger = LogManager.getLogger(MovieServiceImpl.class);
 
     @Transactional
@@ -67,6 +72,18 @@ public class MovieServiceImpl implements FilmService {
             System.out.println(movie);
         }
         return movieRepository.save((Movie) movie);
+//        System.out.println(savedMovie);
+//        for (Celebrity celebrity : savedMovie.getCasts()) {
+//            Celebrity celebrity1 = utilityService.getCelebrity(celebrity.getCelebrityId());
+////            System.out.println(celebrity1.getFilmography()e);
+//            if (celebrity1.getFilmography() == null) {
+//                celebrity1.setFilmography(new ArrayList<>());
+//            }
+//            celebrity1.getFilmography().add(savedMovie);
+//            celebrityRepository.save(celebrity1);
+//        }
+//        movieRepository.save(savedMovie);
+//        return savedMovie;
     }
 
     @Override
@@ -74,9 +91,7 @@ public class MovieServiceImpl implements FilmService {
         Movie movie = movieRepository
                 .findMovieByImdbId(filmId)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieDoesNotExist()));
-
         movie.setListMovieStatus(ListMovieStatus.NONE);
-
         return movie;
     }
 
@@ -84,11 +99,9 @@ public class MovieServiceImpl implements FilmService {
     public Movie getCustomFilm(String filmId, Integer userId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getUserNotFound()));
-
         Movie movie = movieRepository
                 .findMovieByImdbId(filmId)
                 .orElseThrow(() -> new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getMovieDoesNotExist()));
-
         return setInitialMovieStatus(movie, user);
     }
 
@@ -174,14 +187,12 @@ public class MovieServiceImpl implements FilmService {
     public Movie setInitialMovieStatus(Movie movie, User user) {
         List<Movie> wishListMovies = user.getUserProfile().getWishList().getMovies();
         List<Movie> notInterestedMovies = user.getUserProfile().getNotInterestedList().getMovies();
-
         if (wishListMovies.stream().anyMatch(m -> m.equals(movie)))
             movie.setListMovieStatus(ListMovieStatus.WISHLIST);
         else if (notInterestedMovies.stream().anyMatch(m -> m.equals(movie)))
             movie.setListMovieStatus(ListMovieStatus.NOT_INTERESTED_LIST);
         else
             movie.setListMovieStatus(ListMovieStatus.NONE);
-
         return movie;
     }
 
@@ -291,7 +302,6 @@ public class MovieServiceImpl implements FilmService {
     public HashMap<String, Object> getMoviesTopRated(Integer pageNo, Integer pageSize) {
         Page<Movie> moviePage = movieRepository
                 .findTop20ByOrderByWeightedRankDesc(new PageRequest(pageNo, pageSize));
-
         HashMap<String, Object> results = new HashMap<>();
         results.put(mapKeyConstants.getMovieLabel(), moviePage.getContent());
         results.put(mapKeyConstants.getMoviePageLabel(), moviePage.getTotalPages());
@@ -314,6 +324,27 @@ public class MovieServiceImpl implements FilmService {
         Set<Movie> top50ByRatingOrderByRating = movieRepository.findTop50ByOrderByNumOfRegUserRatingsDescRegUserRatingDesc();
         logger.info(top50ByRatingOrderByRating);
         return top50ByRatingOrderByRating;
+    }
+
+    @Override
+    public String getFilmId() {
+        String imdbId = movieRepository.findTop1ByOrderByImdbIdDesc().getImdbId();
+        long newId = Long.parseLong(imdbId.replace("tt", "")) + 1;
+        return ("tt" + String.valueOf(newId));
+    }
+
+
+    @Transactional
+    @Override
+    public void addFilmography(Movie movie) {
+//        for (Celebrity celebrity : movie.getCasts()) {
+//            Celebrity celebrity1 = utilityService.getCelebrity(celebrity.getCelebrityId());
+//            if (celebrity1.getFilmography() == null) {
+//                celebrity1.setFilmography(new ArrayList<>());
+//            }
+//            celebrity1.getFilmography().add(movie);
+//            celebrityRepository.save(celebrity1);
+//        }
     }
 
 }

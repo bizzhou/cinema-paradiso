@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Calendar;
 import java.util.Optional;
 
-public interface TVRepository extends JpaRepository<TV, String> {
+public interface TvRepository extends JpaRepository<TV, String> {
 
     Page<TV> findMoviesByTitleContains(String keyword, Pageable pageable);
 

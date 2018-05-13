@@ -47,8 +47,6 @@ export class MdReviewComponent implements OnInit, OnChanges {
               this.userReviews.push(review);
             }
 
-            // console.log('critic review ', this.criticReviews);
-            // console.log('user review ', this.userReviews);
           });
 
         }

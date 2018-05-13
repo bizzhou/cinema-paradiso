@@ -76,7 +76,7 @@ import { ContactComponent } from './global/contact/contact.component';
     RowPipe,
     RegUserPortfolioComponent,
     TosComponent,
-    ContactComponent
+    ContactComponent,
   ],
   imports: [
     BrowserModule,

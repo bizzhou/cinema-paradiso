@@ -1,8 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpParams, HttpRequest} from '@angular/common/http';
 import {Review} from '../models/review.model';
 import {AppConstant} from '../../app.constant';
 import {Movie} from '../models/movie.model';
+import {Token} from '../models/token.model';
 
 const MOVIE_SERVER = AppConstant.API_ENDPOINT + 'movie/';
 const WISH_LIST_SERVER = AppConstant.API_ENDPOINT + 'wishlist/';
@@ -130,6 +131,39 @@ export class MovieService {
   reportReview(reviewId: number, reportReason: string) {
     const param = new HttpParams().set('reportReason', reportReason);
     return this.http.post(AppConstant.API_ENDPOINT + `review/report/${reviewId}`, param);
+  }
+
+  uploadImages(fileList: FileList, id: string) {
+    const formData: FormData = new FormData();
+
+    for (let i = 0; i < fileList.length; i++) {
+      formData.append('files', fileList[i], fileList[i].name);
+    }
+
+    formData.append('movie', id);
+
+    const req = new HttpRequest('POST', AppConstant.API_ENDPOINT + 'admin/upload/images', formData, {
+      reportProgress: true,
+      responseType: 'json'
+    });
+    return this.http.request(req);
+
+  }
+
+  uploadPoster(file: FileList, id: string) {
+    const formData: FormData = new FormData();
+    formData.append('file', file[0], file[0].name);
+    formData.append('movie', id);
+
+    const req = new HttpRequest('POST', AppConstant.API_ENDPOINT + 'admin/upload/poster', formData, {
+      reportProgress: true,
+      responseType: 'text'
+    });
+    return this.http.request(req);
+  }
+
+  getFilmId() {
+    return this.http.get(AppConstant.API_ENDPOINT + 'movie/get/new_film_id', {responseType: 'text'});
   }
 
 }
