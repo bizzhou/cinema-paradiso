@@ -273,13 +273,28 @@
           <!--<a class="l-cards__more" href="#">more <i class="fa fa-angle-double-right"></i></a>-->
 
           <ul class="container md-list__photos">
-            <!--<li class="row md-list__item" *ngFor="let photo of movie?.photos">-->
+
             <li class="row md-list__item">
-              <a class="col-photos item__detail" *ngFor="let photo of movie?.photos">
-                <img [defaultImage]="'../../../assets/images/no_image.png'"
-                     [lazyLoad]="photo">
-                <!--<img [src]="photo" onerror="this.style.display='none'">-->
-              </a>
+              <div *ngIf="!isPhotosExpanded; else showFullPhotos">
+                <a class="col-photos item__detail" *ngFor="let photo of movie?.photos | slice: 0: 4">
+                  <img [src]="photo" (error)="this.deletePhoto(photo)">
+                </a>
+              </div>
+              <ng-template #showFullPhotos>
+                <a class="col-photos item__detail" *ngFor="let photo of movie?.photos">
+                  <img [src]="photo" (error)="this.deletePhoto(photo)">
+                </a>
+              </ng-template>
+
+            </li>
+            <li class="row">
+              <div class="col-11"></div>
+              <div class="col-1" *ngIf="!isPhotosExpanded; else showLessPhotosButton">
+                <button (click)="photosExpand(true)" class="more-btn">More</button>
+              </div>
+              <ng-template #showLessPhotosButton>
+                <button (click)="photosExpand(false)" class="more-btn">Less</button>
+              </ng-template>
             </li>
           </ul>
 
@@ -294,14 +309,31 @@
           <!--<a class="l-cards__more" href="#">more <i class="fa fa-angle-double-right"></i></a>-->
           <ul class="container md-list__casts">
             <li class="row md-list__item">
-              <a class="col-casts item__detail" *ngFor="let actor of movie?.casts"
-                 routerLink="/celebrity/{{actor.celebrityId}}">
-                <!--<img [src]="actor.profileImage" onerror="this.style.display='none'">-->
-                <img src="{{actor.profileImage}}" onError="this.src='../../../assets/images/no_image.png'">
-                <span>{{actor.name}}</span>
-              </a>
+              <div *ngIf="!isCastsExpanded; else showFullCasts">
+                <a class="col-casts item__detail" *ngFor="let actor of movie?.casts | slice: 0:4"
+                   routerLink="/celebrity/{{actor.celebrityId}}">
+                  <img src="{{actor.profileImage}}" onError="this.src='../../../assets/images/no_image.png'">
+                  <span>{{actor.name}}</span>
+                </a>
+              </div>
+              <ng-template #showFullCasts>
+                <a class="col-casts item__detail" *ngFor="let actor of movie?.casts"
+                   routerLink="/celebrity/{{actor.celebrityId}}">
+                  <!--<img [src]="actor.profileImage" onerror="this.style.display='none'">-->
+                  <img src="{{actor.profileImage}}" onError="this.src='../../../assets/images/no_image.png'">
+                  <span>{{actor.name}}</span>
+                </a>
+              </ng-template>
             </li>
-
+            <li class="row">
+              <div class="col-11"></div>
+              <div class="col-1" *ngIf="!isCastsExpanded; else showLessCastsButton">
+                <button (click)="castsExpand(true)" class="more-btn">More</button>
+              </div>
+              <ng-template #showLessCastsButton>
+                <button (click)="castsExpand(false)" class="more-btn">Less</button>
+              </ng-template>
+            </li>
           </ul>
         </section>
         <!-- end 3rd section -->

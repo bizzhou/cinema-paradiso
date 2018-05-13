@@ -41,6 +41,9 @@ export class MdReviewComponent implements OnInit, OnChanges {
             // review.authorImage = img_link;
             review['authorImage'] = img_link;
 
+            console.log(img_link);
+            console.log('review is ', review);
+
             if (review.criticReview === true) {
               this.criticReviews.push(review);
             } else {

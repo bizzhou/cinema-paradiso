@@ -9,7 +9,6 @@ import {ListMovieStatus} from '../models/ListMovieStatus.model';
 import {Sidebar} from '../models/sidebar.model';
 import {CategoriesService} from '../categories/categories.service';
 import {RegUserService} from '../../user/reg-user/reg-user.service';
-import {User} from '../../user/user/user.model';
 import {AppConstant} from '../../app.constant';
 
 @Component({
@@ -35,6 +34,8 @@ export class MovieDetailComponent implements OnInit {
 
   currentUsername: string;
   currentProfileImage: string;
+  isPhotosExpanded: boolean;
+  isCastsExpanded: boolean;
 
   constructor(private movieService: MovieService,
               private loginStatusService: LoginStatusService,
@@ -47,6 +48,8 @@ export class MovieDetailComponent implements OnInit {
 
     this.selectedFilmType = route.snapshot.url[0].toString();
     this.selectedMovieId = route.snapshot.params['id'];
+    this.isPhotosExpanded = false;
+    this.isCastsExpanded = false;
   }
 
   ngOnInit() {
@@ -96,7 +99,11 @@ export class MovieDetailComponent implements OnInit {
     this.review.imdbId = this.selectedMovieId;
     this.movieService.addReview(this.review).subscribe(data => {
       this.toastrService.success('Review added');
+      const authorId = JSON.parse(localStorage.getItem('credential'))['id'];
+      console.log(data);
       data['authorName'] = this.currentUsername;
+      // data['authorImage'] = AppConstant.API_ENDPOINT + `user/avatar/${authorId}.jpeg`;
+      // console.log('author images is ', data['authorImage']);
       this.movie.reviews.push(data as Review);
 
       // update the object reference so Input can reload.
@@ -331,5 +338,18 @@ export class MovieDetailComponent implements OnInit {
   setCurrentTab(tab) {
     this.categoriesService.setCurrentTab(tab);
   }
+
+  deletePhoto(photo: string) {
+    this.movie.photos.splice(this.movie.photos.indexOf(photo), 1);
+  }
+
+  photosExpand(expand: boolean) {
+    this.isPhotosExpanded = expand;
+  }
+
+  castsExpand(expand: boolean) {
+    this.isCastsExpanded = expand;
+  }
+
 
 }
