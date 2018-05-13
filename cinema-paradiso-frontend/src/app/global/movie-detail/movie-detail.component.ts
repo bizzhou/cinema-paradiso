@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Movie} from '../models/movie.model';
 import {MovieService} from './movie.service';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {LoginStatusService} from '../login/login.status.service';
 import {ToastrService} from 'ngx-toastr';
 import {Review} from '../models/review.model';
@@ -40,6 +40,7 @@ export class MovieDetailComponent implements OnInit {
               private loginStatusService: LoginStatusService,
               private route: ActivatedRoute,
               private toastr: ToastrService,
+              private router: Router,
               private categoriesService: CategoriesService,
               private regUserService: RegUserService,
               private toastrService: ToastrService) {
@@ -50,7 +51,7 @@ export class MovieDetailComponent implements OnInit {
 
   ngOnInit() {
     window.scroll(0, 0);
-
+    console.log("ng init here?");
     if (this.loginStatusService.getTokenDetails() !== null) {
       this.loginStatusService.changeStatus(true);
       this.loggedInFlag = true;
@@ -166,8 +167,9 @@ export class MovieDetailComponent implements OnInit {
     this.movieService.getMovieDetails(imdbId).subscribe(data => {
         this.movie = data as Movie;
 
-        // const shrinked_photo = this.movie.photos.map(ele => this.shrinkPhoto(ele));
-        // this.movie.photos = shrinked_photo;
+        const shrinked_photo = this.movie.photos.map(ele => this.shrinkPhoto(ele));
+        this.movie.photos = shrinked_photo;
+        console.log('photos', this.movie.photos);
         this.trailer = `../../../assets/trailers/${this.movie.imdbId}.mp4`;
 
         this.movieService.getMovieReviews(this.selectedMovieId).subscribe(reviews => {
@@ -178,7 +180,10 @@ export class MovieDetailComponent implements OnInit {
         });
 
       },
-      error => console.log('Failed to fetch movie with id')
+      error => {
+        console.log('Failed to fetch movie with id');
+        this.router.navigateByUrl('/home');
+      }
     );
   }
 
@@ -186,6 +191,8 @@ export class MovieDetailComponent implements OnInit {
     this.movieService.getCustomMovieDetails(imdbId).subscribe(data => {
         this.movie = data as Movie;
 
+        const shrinked_photo = this.movie.photos.map(ele => this.shrinkPhoto(ele));
+        this.movie.photos = shrinked_photo;
         this.trailer = `../../../assets/trailers/${this.movie.imdbId}.mp4`;
 
         this.movieService.getMovieReviews(this.selectedMovieId).subscribe(reviews => {
@@ -195,7 +202,10 @@ export class MovieDetailComponent implements OnInit {
           this.toastrService.error('Failed to fetch reviews');
         });
       },
-      error => console.log('Failed to fetch movie with id')
+      error => {
+        console.log('Failed to fetch movie with id');
+        this.router.navigateByUrl('/home');
+      }
     );
   }
 
@@ -214,7 +224,10 @@ export class MovieDetailComponent implements OnInit {
         // });
 
       },
-      error => console.log('Failed to fetch movie with id')
+      error => {
+        console.log('Failed to fetch tv with id');
+        this.router.navigateByUrl('/home');
+      }
     );
   }
 
@@ -230,7 +243,10 @@ export class MovieDetailComponent implements OnInit {
         //   this.toastrService.error('Failed to fetch reviews');
         // });
       },
-      error => console.log('Failed to fetch movie with id')
+      error => {
+        console.log('Failed to fetch tv with id');
+        this.router.navigateByUrl('/home');
+      }
     );
   }
 

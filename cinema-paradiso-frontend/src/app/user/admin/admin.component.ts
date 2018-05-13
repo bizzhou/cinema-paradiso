@@ -265,8 +265,8 @@ export class AdminComponent implements OnInit {
   }
 
   private dismissReportedReview(report) {
-        this.reportReviews.splice(this.reportReviews.indexOf(report), 1);
-        this.toastrService.success('Success');
+      this.reportReviews.splice(this.reportReviews.indexOf(report), 1);
+      this.toastrService.success('Success');
   }
   uploadPhoto(event) {
     this.photoList = event.target.files;

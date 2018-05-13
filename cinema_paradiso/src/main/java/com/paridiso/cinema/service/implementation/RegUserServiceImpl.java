@@ -84,10 +84,8 @@ public class RegUserServiceImpl extends UserService {
         System.out.println(userProfile);
         UserProfile profile = getUserProfile(Integer.parseInt(userProfile.get("id").toString()));
         User user = userRepository.findUserByUserProfile(profile);
-        if (userRepository.findUserByEmail(userProfile.get("email")) != null) {
-            throw new ResponseStatusException(BAD_REQUEST, exceptionConstants.getUserExists());
-        }
-        if (userRepository.findUserByUsername(userProfile.get("username")) != null) {
+        if (userRepository.findUserByEmail(userProfile.get("email")) != null &&
+                userRepository.findUserByUsername(userProfile.get("username")) != null) {
             throw new ResponseStatusException(BAD_REQUEST, exceptionConstants.getUserExists());
         }
         user.setEmail(userProfile.get("email"));

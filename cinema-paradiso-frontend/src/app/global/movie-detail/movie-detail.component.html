@@ -264,8 +264,9 @@
             <!--<li class="row md-list__item" *ngFor="let photo of movie?.photos">-->
             <li class="row md-list__item">
               <a class="col-photos item__detail" href="" *ngFor="let photo of movie?.photos">
-                <img [defaultImage]="'../../../assets/images/no_image.png'"
-                     [lazyLoad]="photo">
+                <!--<img [defaultImage]="'../../../assets/images/no_image.png'"-->
+                     <!--[lazyLoad]="photo">-->
+                <img [src]="photo" onerror="this.style.display='none'">
               </a>
             </li>
           </ul>
@@ -283,8 +284,9 @@
             <li class="row md-list__item">
               <a class="col-casts item__detail" *ngFor="let actor of movie?.casts"
                  routerLink="/celebrity/{{actor.celebrityId}}">
-                <img src="{{actor.profileImage}}" onError="this.src='../../../assets/images/no_image.png'">
-                <span>{{actor.name}}</span>
+                <img [src]="actor.profileImage" onerror="this.style.display='none'">
+                <!--<img src="{{actor.profileImage}}" onError="this.src='../../../assets/images/no_image.png'">-->
+                <!--<span>{{actor.name}}</span>-->
               </a>
             </li>
 
