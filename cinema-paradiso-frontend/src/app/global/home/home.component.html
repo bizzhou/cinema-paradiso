@@ -198,7 +198,7 @@
     <section class="l-cards">
       <div class="l-cards__title-wrap">
         <h2 class="l-cards__title" (click)="selectTab(5)"  [ngClass]="{active: isTabActive(5)}">
-          <a routerLink="/movies" (click)="setCurrentTab(sidebarEnum.moviesTopRated)">Top Rated</a>
+          <a routerLink="/movies" (click)="setCurrentTab(sidebarEnum.moviesTopRated)">Top Rated Movies</a>
         </h2>
         <a class="l-cards__nav-left" href="#"><i class="fa fa-angle-right"></i></a><a class="l-cards__nav-right" href="#"><i class="fa fa-angle-left"></i></a>
       </div>
@@ -261,25 +261,25 @@
       </ul>
     </section>
 
-    <section class="l-cards">
-      <div class="l-cards__title-wrap">
-        <h2 class="l-cards__title">Recommended For You</h2>
-        <a class="l-cards__nav-left" href="#"><i class="fa fa-angle-right"></i></a><a class="l-cards__nav-right" href="#"><i class="fa fa-angle-left"></i></a>
-      </div>
-      <ul class="l-cards__list">
+    <!--<section class="l-cards">-->
+      <!--<div class="l-cards__title-wrap">-->
+        <!--<h2 class="l-cards__title">Recommended For You</h2>-->
+        <!--<a class="l-cards__nav-left" href="#"><i class="fa fa-angle-right"></i></a><a class="l-cards__nav-right" href="#"><i class="fa fa-angle-left"></i></a>-->
+      <!--</div>-->
+      <!--<ul class="l-cards__list">-->
 
-        <li class="l-cards__item" *ngFor="let movie of moviesPlaying | slice:0:6">
-          <a routerLink="/movie/{{movie.imdbId}}" routerLinkActive="active" class="l-cards__image fill">
-            <img [src]="movie.poster" [alt]="movie.title">
-          </a>
-          <a routerLink="/movie/{{movie.imdbId}}" routerLinkActive="active"  class="l-cards__text">
-            {{movie.title.substring(0, 20)}}
-            <p>{{movie.criticRating}}/5.0</p>
-          </a>
-        </li>
+        <!--<li class="l-cards__item" *ngFor="let movie of moviesPlaying | slice:0:6">-->
+          <!--<a routerLink="/movie/{{movie.imdbId}}" routerLinkActive="active" class="l-cards__image fill">-->
+            <!--<img [src]="movie.poster" [alt]="movie.title">-->
+          <!--</a>-->
+          <!--<a routerLink="/movie/{{movie.imdbId}}" routerLinkActive="active"  class="l-cards__text">-->
+            <!--{{movie.title.substring(0, 20)}}-->
+            <!--<p>{{movie.criticRating}}/5.0</p>-->
+          <!--</a>-->
+        <!--</li>-->
 
-      </ul>
-    </section>
+      <!--</ul>-->
+    <!--</section>-->
 
 
   </article>

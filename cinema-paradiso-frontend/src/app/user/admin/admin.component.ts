@@ -12,6 +12,7 @@ import {AdminService} from './admin.service';
 import {ReportReview} from '../../global/models/report-review.model';
 import {Celebrity} from '../../global/models/celebrity.model';
 import {CelebrityService} from '../../global/celebrity/celebrity.service';
+import {LoginStatusService} from "../../global/login/login.status.service";
 
 @Component({
   selector: 'app-admin',
@@ -39,14 +40,22 @@ export class AdminComponent implements OnInit {
   photoList: FileList;
   celebrities: string;
   director: string;
+  loginStatus = false;
 
 
   constructor(private userService: RegUserService, private movieService: MovieService,
               private toastrService: ToastrService, private modalService: NgbModal,
-              private adminService: AdminService, private celebrityService: CelebrityService) {
+              private adminService: AdminService, private celebrityService: CelebrityService,
+              private loginStatusService: LoginStatusService) {
   }
 
   ngOnInit() {
+
+    if (this.loginStatusService.getTokenDetails() !== null) {
+      this.loginStatusService.changeStatus(true);
+      this.loginStatus = true;
+    }
+
     this.getUsers();
     this.getAllReviews();
     this.getAllCriticApplictions();
@@ -242,17 +251,18 @@ export class AdminComponent implements OnInit {
     });
   }
 
-  private deleteReportedReview(report, reviewId) {
-    this.movieService.deleteReviewForMovie(reviewId).subscribe(data => {
-      // for (var i = 0; i < this.reportReviews.length; i++) {
-      //   if (this.reportReviews[i].review.reviewId === reviewId) {
-      //     this.deletedReviewReports.push(this.reportReviews[i]);
-      //   }
-      // }
+  private rejectApplication(criticApplication) {
+    this.criticApplications.splice(this.criticApplications.indexOf(criticApplication), 1);
+    this.toastrService.success('Success');
+  }
 
-      this.reportReviews.splice(this.reportReviews.indexOf(report), 1);
-      this.toastrService.success('Success');
-    });
+  private deleteReportedReview(report, reviewId) {
+    if (confirm('Do you want to delete this review?')) {
+      this.movieService.deleteReviewForMovie(reviewId).subscribe(data => {
+        this.reportReviews.splice(this.reportReviews.indexOf(report), 1);
+        this.toastrService.success('Success');
+      });
+    }
   }
 
   private getReportedReviews() {
@@ -265,9 +275,10 @@ export class AdminComponent implements OnInit {
   }
 
   private dismissReportedReview(report) {
-      this.reportReviews.splice(this.reportReviews.indexOf(report), 1);
-      this.toastrService.success('Success');
+    this.reportReviews.splice(this.reportReviews.indexOf(report), 1);
+    this.toastrService.success('Success');
   }
+
   uploadPhoto(event) {
     this.photoList = event.target.files;
   }

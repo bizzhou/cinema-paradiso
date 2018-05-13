@@ -51,7 +51,6 @@ export class MovieDetailComponent implements OnInit {
 
   ngOnInit() {
     window.scroll(0, 0);
-    console.log("ng init here?");
     if (this.loginStatusService.getTokenDetails() !== null) {
       this.loginStatusService.changeStatus(true);
       this.loggedInFlag = true;
@@ -191,6 +190,8 @@ export class MovieDetailComponent implements OnInit {
     this.movieService.getCustomMovieDetails(imdbId).subscribe(data => {
         this.movie = data as Movie;
 
+        console.log('photos', this.movie.photos);
+
         const shrinked_photo = this.movie.photos.map(ele => this.shrinkPhoto(ele));
         this.movie.photos = shrinked_photo;
         this.trailer = `../../../assets/trailers/${this.movie.imdbId}.mp4`;
@@ -212,8 +213,8 @@ export class MovieDetailComponent implements OnInit {
   getTV(imdbId: string): any {
     this.movieService.getTVDetails(imdbId).subscribe(data => {
         this.movie = data as Movie;
-        // const shrinked_photo = this.movie.photos.map(ele => this.shrinkPhoto(ele));
-        // this.movie.photos = shrinked_photo;
+        const shrinked_photo = this.movie.photos.map(ele => this.shrinkPhoto(ele));
+        this.movie.photos = shrinked_photo;
         this.trailer = `../../../assets/trailers/${this.movie.imdbId}.mp4`;
 
         // this.movieService.getTVReviews(this.selectedMovieId).subscribe(reviews => {
@@ -235,7 +236,8 @@ export class MovieDetailComponent implements OnInit {
     this.movieService.getCustomTVDetails(imdbId).subscribe(data => {
         this.movie = data as Movie;
         this.trailer = `../../../assets/trailers/${this.movie.imdbId}.mp4`;
-
+        const shrinked_photo = this.movie.photos.map(ele => this.shrinkPhoto(ele));
+        this.movie.photos = shrinked_photo;
         // this.movieService.getTVReviews(this.selectedMovieId).subscribe(reviews => {
         //   this.movie.reviews = reviews as Review[];
         //   console.log(this.movie.reviews);
@@ -251,6 +253,10 @@ export class MovieDetailComponent implements OnInit {
   }
 
   shrinkPhoto(photo: string) {
+    if (photo.includes('localhost')) {
+      return photo;
+    }
+
     return photo.substr(0, photo.indexOf('@') + 1) + '._V1_SY1000_CR0,0,1257,1000_AL_.jpg';
   }
 

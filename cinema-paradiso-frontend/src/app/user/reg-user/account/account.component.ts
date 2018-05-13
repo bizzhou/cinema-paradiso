@@ -40,13 +40,16 @@ export class AccountComponent implements OnInit {
   }
 
   deleteUser() {
-    const user = JSON.parse(localStorage.getItem('credential'));
-    this.userService.deleteUser(parseInt(user['id'])).subscribe(result => {
-      if (result === true) {
-        this.toastr.success('Successfully Deleted Your Account');
-        this.loginService.logout();
-      }
-    });
+    if (confirm('Do you want to delete your account?')) {
+      const user = JSON.parse(localStorage.getItem('credential'));
+      this.userService.deleteUser(parseInt(user['id'])).subscribe(result => {
+        if (result === true) {
+          this.toastr.success('Successfully deleted your account');
+          this.loginService.logout();
+        }
+      });
+    }
+
   }
 
   setPrivate(isPrivate: boolean) {
