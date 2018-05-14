@@ -1,12 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {RegUserService} from '../../../user/reg-user/reg-user.service';
 import {Movie} from '../../models/movie.model';
 import {Rating} from '../../models/rating.model';
 import {AppConstant} from '../../../app.constant';
 import {Review} from '../../models/review.model';
-import {Pipe, PipeTransform} from '@angular/core';
-import {LoginStatusService} from "../../login/login.status.service";
+
+import {LoginStatusService} from '../../login/login.status.service';
 
 
 class PublicProfile {
@@ -56,8 +56,17 @@ export class RegUserPortfolioComponent implements OnInit {
       this.isUserExist = true;
       // get general detail
       this.publicProfile.username = username;
+      // if (data['profileImage'] === 'undefined') {
+      //   this.publicProfile.profileImage = AppConstant.API_ENDPOINT + 'user/avatar/default.jpeg';
+      // } else {
+      //   this.publicProfile.profileImage = AppConstant.API_ENDPOINT + '/user/avatar/' + data['profileImage'];
+      // }
+
+
       if (data['profileImage'] === 'undefined') {
-        this.publicProfile.profileImage = AppConstant.API_ENDPOINT + 'user/avatar/default.jpeg';
+        this.publicProfile.profileImage = '../../../../assets/images/default_profile.png';
+      } else if (this.publicProfile.profileImage === 'default.jpeg') {
+        this.publicProfile.profileImage = '../../../../assets/images/default_profile.png';
       } else {
         this.publicProfile.profileImage = AppConstant.API_ENDPOINT + '/user/avatar/' + data['profileImage'];
       }

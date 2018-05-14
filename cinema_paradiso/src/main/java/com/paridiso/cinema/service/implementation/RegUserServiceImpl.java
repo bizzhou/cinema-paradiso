@@ -216,5 +216,45 @@ public class RegUserServiceImpl extends UserService {
         return isPrivate;
     }
 
+    @Transactional
+    public void changeEmail(Integer userId, String email, String password) {
+        if (userRepository.findUserByEmail(email) != null) {
+            throw new ResponseStatusException(BAD_REQUEST, exceptionConstants.getUserExists());
+        }
+        User user = utilityService.getUser(userId);
+        String hashedPassword = utilityService.getHashedPassword(password, salt);
+
+        if (!hashedPassword.equals(user.getPassword())) {
+            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getPasswordHashingFailure());
+        }
+
+        user.setEmail(email);
+        userRepository.save(user);
+    }
+
+    public void changeUsername(Integer userId, String username, String password) {
+
+        if (userRepository.findUserByUsername(username) != null) {
+            throw new ResponseStatusException(BAD_REQUEST, exceptionConstants.getUserExists());
+        }
+
+        User user = utilityService.getUser(userId);
+        String hashedPassword = utilityService.getHashedPassword(password, salt);
+
+        if (!hashedPassword.equals(user.getPassword())) {
+            throw new ResponseStatusException(INTERNAL_SERVER_ERROR, exceptionConstants.getPasswordHashingFailure());
+        }
+
+        user.setUsername(username);
+        user.getUserProfile().setUsername(username);
+        userRepository.save(user);
+
+    }
+
+    public void changeBiography(Integer userProfileId, String biography) {
+        UserProfile userProfile = utilityService.getUserProfile(userProfileId);
+        userProfile.setBiography(biography);
+        userProfileRepository.save(userProfile);
+    }
 }
 

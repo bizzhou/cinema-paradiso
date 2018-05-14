@@ -48,6 +48,7 @@ import {RegUserService} from './user/reg-user/reg-user.service';
 import {RowPipe} from './global/models/Pipes.model';
 import { TosComponent } from './global/tos/tos.component';
 import { ContactComponent } from './global/contact/contact.component';
+import {AdminCanActive} from "./admin.can-active";
 
 @NgModule({
   declarations: [
@@ -100,6 +101,7 @@ import { ContactComponent } from './global/contact/contact.component';
     MovieService,
     RegUserService,
     CategoriesService,
+    AdminCanActive,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptor,

@@ -171,12 +171,14 @@ export class AdminComponent implements OnInit {
   }
 
   private deleteMovie(filmId) {
-    this.movieService.deleteMovie(filmId).subscribe(data => {
-      this.movie = undefined;
-      this.toastrService.success('Success');
-    }, error => {
-      this.toastrService.error('Failed');
-    });
+    if (confirm('Do you want to delete this movie?')) {
+      this.movieService.deleteMovie(filmId).subscribe(data => {
+        this.movie = undefined;
+        this.toastrService.success('Success');
+      }, error => {
+        this.toastrService.error('Failed');
+      });
+    }
   }
 
   private getUsers() {
@@ -187,12 +189,14 @@ export class AdminComponent implements OnInit {
   }
 
   private deleteUser(user: User) {
-    this.userService.deleteUser(user.userID).subscribe(data => {
+    if (confirm('Do you want to delete this user?')) {
+      this.userService.deleteUser(user.userID).subscribe(data => {
 
-      this.users.splice(this.users.indexOf(user), 1);
-      this.toastrService.success('Success');
+        this.users.splice(this.users.indexOf(user), 1);
+        this.toastrService.success('Success');
 
-    });
+      });
+    }
   }
 
   tabChangeHandler(event) {
@@ -220,10 +224,12 @@ export class AdminComponent implements OnInit {
   }
 
   private deleteReview(review) {
-    this.movieService.deleteReviewForMovie(review.reviewId).subscribe(data => {
-      this.reviews.splice(this.reviews.indexOf(review), 1);
-      this.toastrService.success('Success');
-    });
+    if (confirm('Do you want to delete this review?')) {
+      this.movieService.deleteReviewForMovie(review.reviewId).subscribe(data => {
+        this.reviews.splice(this.reviews.indexOf(review), 1);
+        this.toastrService.success('Success');
+      });
+    }
   }
 
   private getAllReviews() {
@@ -241,12 +247,14 @@ export class AdminComponent implements OnInit {
   }
 
   private verifyApplication(criticApplication: CriticApplication) {
-    const userId = criticApplication.id;
-    this.userService.verifyCriticApplications(userId).subscribe(data => {
-      this.criticApplications.splice(this.criticApplications.indexOf(criticApplication), 1);
-      console.log(this.criticApplications);
-      this.toastrService.success('Success');
-    });
+    if (confirm('Do you want to approve this application?')) {
+      const userId = criticApplication.id;
+      this.userService.verifyCriticApplications(userId).subscribe(data => {
+        this.criticApplications.splice(this.criticApplications.indexOf(criticApplication), 1);
+        console.log(this.criticApplications);
+        this.toastrService.success('Success');
+      });
+    }
   }
 
   private rejectApplication(criticApplication) {

@@ -200,6 +200,31 @@ public class RegUserController {
         return ResponseEntity.ok(true);
     }
 
+    @PostMapping(value = "change/email")
+    public ResponseEntity<?> changeEmail(@RequestHeader(value = "Authorization") String jwtToken,
+                                         @RequestParam String email, @RequestParam String password) {
+        Integer userId = jwtTokenService.getUserIdFromToken(jwtToken);
+        this.userService.changeEmail(userId, email, password);
+        return ResponseEntity.ok(true);
+    }
+
+    @PostMapping(value = "change/username")
+    public ResponseEntity<?> changeUsername(@RequestHeader(value = "Authorization") String jwtToken,
+                                            @RequestParam String username, @RequestParam String password) {
+        Integer userId = jwtTokenService.getUserIdFromToken(jwtToken);
+        this.userService.changeUsername(userId, username, password);
+        return ResponseEntity.ok(true);
+    }
+
+    @PostMapping(value = "change/biography")
+    public ResponseEntity<?> changeEmail(@RequestHeader(value = "Authorization") String jwtToken,
+                                         @RequestParam String biography) {
+        Integer userId = jwtTokenService.getUserProfileIdFromToken(jwtToken);
+        this.userService.changeBiography(userId, biography);
+        return ResponseEntity.ok(true);
+    }
+
+
 }
 
 

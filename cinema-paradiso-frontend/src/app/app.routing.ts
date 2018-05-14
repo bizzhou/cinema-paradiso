@@ -13,6 +13,7 @@ import {RegUserReviewsComponent} from './global/review-collection/reg-user-revie
 import {RegUserPortfolioComponent} from './global/public-portfolio/reg-user/reg-user.component';
 import {ContactComponent} from './global/contact/contact.component';
 import {TosComponent} from './global/tos/tos.component';
+import {AdminCanActive} from "./admin.can-active";
 
 const appRoutes: Routes = [
   {path: '', pathMatch: 'full', redirectTo: 'home'},
@@ -23,7 +24,7 @@ const appRoutes: Routes = [
   {path: 'celebrity/:id', component: CelebrityComponent},
   {path: 'user', component: RegUserComponent},
   {path: 'search', component: SearchComponent},
-  {path: 'admin', component: AdminComponent},
+  {path: 'admin', component: AdminComponent, canActivate: [AdminCanActive]},
   {path: 'about', component: AboutComponent},
   {path: 'portfolio/:username', component: RegUserPortfolioComponent},
   {path: 'contact', component: ContactComponent},

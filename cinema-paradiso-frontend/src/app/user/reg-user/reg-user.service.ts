@@ -91,4 +91,20 @@ export class RegUserService {
     const params = new HttpParams().set('reason', reason);
     return this.http.post(AppConstant.API_ENDPOINT + `user/submit/critic_application`, params);
   }
+
+  changeUsername(username: string, password: any) {
+    const params = new HttpParams().set('username', username).set('password', password);
+    return this.http.post(AppConstant.API_ENDPOINT + `user/change/username`, params);
   }
+
+  changeEmail(email: string, password: any) {
+    const params = new HttpParams().set('email', email).set('password', password);
+    return this.http.post(AppConstant.API_ENDPOINT + `user/change/email`, params);
+  }
+
+  changeBiography(biography: string) {
+    const params = new HttpParams().set('biography', biography);
+    return this.http.post(AppConstant.API_ENDPOINT + `user/change/biography`, params);
+  }
+
+}

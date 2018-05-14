@@ -41,6 +41,7 @@ export class RegUserComponent implements OnInit {
   profile_url: string;
   myReviews: Review[];
   reason: string;
+  password: string;
 
   modalRef: NgbModalRef;
 
@@ -163,6 +164,36 @@ export class RegUserComponent implements OnInit {
       console.log(error2);
       this.toastr.error('FAILED: YOU HAVE ALREADY APPLIED');
     });
+  }
+
+  updateUsername(password) {
+
+    this.regUserService.changeUsername(this.profile.username, password).toPromise().then(success => {
+      this.password = undefined;
+      this.toastr.success('Success');
+    }, error => {
+      this.toastr.error('Failed');
+    });
+
+  }
+
+  updateEmail(password) {
+    this.regUserService.changeEmail(this.profile.email, password).toPromise().then(success => {
+      this.password = undefined;
+      this.toastr.success('Success');
+    }, error => {
+      this.toastr.error('Failed');
+
+    });
+  }
+
+  updateBiography() {
+    this.regUserService.changeBiography(this.profile.biography).toPromise().then(success => {
+      this.toastr.success('Biography updated');
+    }, error => {
+      this.toastr.error('Failed');
+    });
+
   }
 
 

@@ -100,17 +100,16 @@ export class MovieDetailComponent implements OnInit {
     this.movieService.addReview(this.review).subscribe(data => {
       this.toastrService.success('Review added');
       const authorId = JSON.parse(localStorage.getItem('credential'))['id'];
-      console.log(data);
       data['authorName'] = this.currentUsername;
-      // data['authorImage'] = AppConstant.API_ENDPOINT + `user/avatar/${authorId}.jpeg`;
-      // console.log('author images is ', data['authorImage']);
+
       this.movie.reviews.push(data as Review);
 
       // update the object reference so Input can reload.
-      this.movie.reviews = this.movie.reviews.slice();
+      this.movie.reviews = this.movie.reviews.slice(0);
+
     }, error1 => {
       if (error1['error']['message'] === 'USER RATING FOR MOVIE DOES NOT EXISTS') {
-        this.toastrService.error('Please rate movie first');
+        this.toastrService.error('Please rate movie');
       } else {
         this.toastrService.error('You\'ve reviewed');
       }

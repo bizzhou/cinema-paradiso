@@ -38,18 +38,36 @@
           </div>
 
           <div class="c-inputs">
-            <label>Name</label>
-            <input [(ngModel)]="profile.username" [placeholder]="profile.username">
+            <label>User name</label>
+            <input [(ngModel)]="profile.username">
           </div>
+
+
           <div class="c-inputs">
-            <label>email</label>
-            <input [placeholder]="profile.email" [(ngModel)]="profile.email">
+            <label>Password</label>
+            <input type="password" (input)="password = $event.target.value;">
           </div>
+
+          <button class="c-update-btn" (click)="updateUsername(password)">Update Username</button>
+
+
+          <div class="c-inputs">
+            <label>Email</label>
+            <input  [(ngModel)]="profile.email">
+          </div>
+
+          <div class="c-inputs">
+            <label>Password</label>
+            <input type="password" (input)="password = $event.target.value;">
+          </div>
+
+          <button class="c-update-btn" (click)="updateEmail(password)">Update email</button>
+
           <div class="c-inputs">
             <label>Bio</label>
             <textarea [(ngModel)]="profile.biography" name="biography">{{profile.biography}}</textarea>
           </div>
-          <button class="c-update-btn" (click)="updateProfile()">Update profile</button>
+          <button class="c-update-btn" (click)="updateBiography()">Update profile</button>
 
           <div *ngIf="profile.isCritic == false">
             <br>
