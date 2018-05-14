@@ -167,14 +167,14 @@ export class RegUserComponent implements OnInit {
   }
 
   updateUsername(password) {
-
-    this.regUserService.changeUsername(this.profile.username, password).toPromise().then(success => {
-      this.password = undefined;
-      this.toastr.success('Success');
-    }, error => {
-      this.toastr.error('Failed');
-    });
-
+    if (confirm('Changing your username can have unintended side effects.')) {
+      this.regUserService.changeUsername(this.profile.username, password).toPromise().then(success => {
+        this.password = undefined;
+        this.toastr.success('Success');
+      }, error => {
+        this.toastr.error('Failed');
+      });
+    }
   }
 
   updateEmail(password) {

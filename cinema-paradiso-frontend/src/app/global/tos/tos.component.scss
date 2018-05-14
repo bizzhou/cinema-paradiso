@@ -1,23 +1,29 @@
+main {
+  background-color: lighten(black, 7%);
+}
 p {
-  // font-size: 0.8rem;
   font-size: 16px;
   margin-top: 10px;
+  color: darken(white, 20%);
   span {
     color: white;
   }
 }
 
-p, h3, h4 {
+h3, h4, h5 {
+  margin-top: 25px;
   color: darken(white, 20%);
 }
 
-h3, h4 {
+h3 {
   text-align: center;
   margin-top: 5px;
 }
 
-
 #about {
-  margin-top: 10px;
-  margin-left: 20px;
+  padding-top: 10px;
+  padding-left: 20px;
+  min-height: 600px;
+  width: 80%;
+  margin-left: 10%;
 }
