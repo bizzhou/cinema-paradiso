@@ -59,21 +59,5 @@ public class WishlistController {
         return ResponseEntity.ok(true);
     }
 
-    /**
-     * if movie exists in the user's wish list
-     * @param jwtToken
-     * @param filmId
-     * @return
-     */
-    @RequestMapping(value = "/exist", method = DELETE)
-    public ResponseEntity<Boolean> isMovieInList(@RequestHeader(value = "Authorization") String jwtToken,
-                                                     @RequestParam("filmId") String filmId) {
-        Boolean result = listService.isMovieInList(jwtTokenService.getUserIdFromToken(jwtToken), filmId);
-        if (result) {
-            return new ResponseEntity<Boolean>(true, HttpStatus.OK);
-        }
-        return new ResponseEntity<Boolean>(false, HttpStatus.BAD_REQUEST);
-
-    }
 
 }

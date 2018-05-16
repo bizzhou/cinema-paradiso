@@ -137,12 +137,6 @@ public class MovieController {
         return new ResponseEntity<>(filmService.getMoviesTopRated(pageNo, pageSize), HttpStatus.OK);
     }
 
-
-    @GetMapping(value = "/get/range")
-    public ResponseEntity<Set> getMoviesInRange(@RequestParam Calendar startDate, @RequestParam Calendar endDate) {
-        return null;
-    }
-
     @GetMapping(value = "/get/topRating")
     public ResponseEntity<?> getTopRatingMovies() {
         return ResponseEntity.ok(filmService.getTopRating());
