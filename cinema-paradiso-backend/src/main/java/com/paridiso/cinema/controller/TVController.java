@@ -27,6 +27,12 @@ public class TVController {
     @Autowired
     JwtTokenService jwtTokenService;
 
+    @PostMapping(value = "/add")
+    public void addTV(@RequestBody TV tv) {
+        filmService.addFilm(tv);
+    }
+
+
     @GetMapping(value = "/get/{filmId}")
     public ResponseEntity<?> getTV(@PathVariable String filmId) {
         return ResponseEntity.ok(filmService.getFilm(filmId));
